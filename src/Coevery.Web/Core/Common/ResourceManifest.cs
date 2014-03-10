@@ -92,9 +92,9 @@ namespace Coevery.Core.Common {
             // Menu
             manifest.DefineScript("jQueryUI_Menu").SetUrl("jQuery/jquery.ui.menu.min.js", "jQuery/jquery.ui.menu.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core", "jQueryUI_Widget", "jQueryUI_Position");
 
-            manifest.DefineStyle("jQueryUI_Coevery").SetUrl("jquery-ui-1.9.2.custom.css").SetVersion("1.9.2");
-            manifest.DefineStyle("jQueryUI_DatePicker").SetUrl("ui.datepicker.css").SetDependencies("jQueryUI_Coevery").SetVersion("1.7.2");
-            manifest.DefineStyle("jQueryUI_TimePicker").SetUrl("jquery-ui-timepicker-addon.css").SetDependencies("jQueryUI_Coevery").SetVersion("1.0.5");
+            manifest.DefineStyle("jQueryUI_Coevery").SetUrl("jQuery/jquery-ui-1.9.2.custom.css").SetVersion("1.9.2");
+            manifest.DefineStyle("jQueryUI_DatePicker").SetUrl("jQuery/ui.datepicker.css").SetDependencies("jQueryUI_Coevery").SetVersion("1.7.2");
+            manifest.DefineStyle("jQueryUI_TimePicker").SetUrl("jQuery/jquery-ui-timepicker-addon.css").SetDependencies("jQueryUI_Coevery").SetVersion("1.0.5");
 
             // jqGrid
             manifest.DefineScript("jqGrid").SetUrl("jQuery/jqGrid/jquery.jqGrid.min.js", "jQuery/jqGrid/jquery.jqGrid.src.js").SetVersion("4.5.4").SetDependencies("jQuery");
@@ -106,8 +106,8 @@ namespace Coevery.Core.Common {
 
             manifest.DefineScript("simplePagination").SetUrl("jQuery/jquery.simplePagination.js").SetVersion("1.6").SetDependencies("jQuery");
 
-            manifest.DefineStyle("jqGrid").SetUrl("ui.jqgrid.css");
-            manifest.DefineStyle("jqGridCustom").SetUrl("grid.css");
+            manifest.DefineStyle("jqGrid").SetUrl("jQuery/ui.jqgrid.css");
+            manifest.DefineStyle("jqGridCustom").SetUrl("jQuery/grid.css");
 
             manifest.DefineScript("pnotify").SetUrl("jQuery/jquery.pnotify.min.js", "jQuery/jquery.pnotify.js").SetVersion("1.2.2");
             manifest.DefineStyle("pnotify_Icons").SetUrl("jQuery/jquery.pnotify.icons.css");
