@@ -92,7 +92,9 @@
     <Compile Include="Entities\Controllers\FieldController.cs" />
     <Compile Include="Entities\Controllers\AdminController.cs" />
     <Compile Include="Entities\Drivers\EntityMetadataPartDriver.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\ContentTypeSettings.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsDriver.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsHandler.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicFieldDefinition.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicTypeDefinition.cs" />
