@@ -2,7 +2,6 @@
 using Coevery.DisplayManagement;
 using Coevery.DisplayManagement.Descriptors;
 using Coevery.Mvc.ClientRoute;
-using Coevery.UI.Navigation;
 
 namespace Coevery.Core.Common {
     public class ClientRouteShape : IShapeTableProvider {
@@ -19,9 +18,6 @@ namespace Coevery.Core.Common {
             var result = Display.ClientBootstrapScript(IsFrontEnd: isFrontEnd, Routes: routes);
             Output.Write(result);
         }
-
-        [Shape]
-        public void NavigationMenuItem(dynamic Display, MenuItem Shape, TextWriter Output) {}
 
         public void Discover(ShapeTableBuilder builder) {}
     }

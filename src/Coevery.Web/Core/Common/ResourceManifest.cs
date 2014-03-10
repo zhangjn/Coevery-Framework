@@ -7,13 +7,7 @@ namespace Coevery.Core.Common {
         public void BuildManifests(ResourceManifestBuilder builder) {
             var manifest = builder.Add();
             manifest.DefineScript("ShapesBase").SetUrl("base.js").SetDependencies("jQuery");
-            manifest.DefineStyle("Shapes").SetUrl("site.css"); // todo: missing
             manifest.DefineStyle("ShapesSpecial").SetUrl("special.css");
-
-            manifest.DefineScript("Switchable").SetUrl("jquery.switchable.js")
-                .SetDependencies("jQuery")
-                .SetDependencies("ShapesBase");
-            manifest.DefineStyle("Switchable").SetUrl("jquery.switchable.css");
 
             manifest.DefineStyle("Module").SetUrl("module.css");
 
@@ -109,9 +103,12 @@ namespace Coevery.Core.Common {
             manifest.DefineStyle("jqGrid").SetUrl("jQuery/ui.jqgrid.css");
             manifest.DefineStyle("jqGridCustom").SetUrl("jQuery/grid.css");
 
-            manifest.DefineScript("pnotify").SetUrl("jQuery/jquery.pnotify.min.js", "jQuery/jquery.pnotify.js").SetVersion("1.2.2");
+            manifest.DefineScript("pnotify").SetUrl("jQuery/pnotify/jquery.pnotify.min.js", "jQuery/pnotify/jquery.pnotify.js").SetVersion("1.2.2");
             manifest.DefineStyle("pnotify_Icons").SetUrl("jQuery/jquery.pnotify.icons.css");
             manifest.DefineStyle("pnotify").SetUrl("jQuery/jquery.pnotify.css").SetDependencies("pnotify_Icons");
+
+            manifest.DefineStyle("Switchable").SetUrl("jQuery/jquery.switchable.css");
+            manifest.DefineScript("Switchable").SetUrl("jQuery/jquery.switchable.js").SetDependencies("jQuery").SetDependencies("ShapesBase");
         }
     }
 }

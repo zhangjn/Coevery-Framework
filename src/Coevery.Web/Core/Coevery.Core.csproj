@@ -364,7 +364,7 @@
     <Content Include="Common\Scripts\app\adminapp.js" />
     <Content Include="Common\Scripts\app\couchPotatoService.js" />
     <Content Include="Common\Scripts\app\detourService.js" />
-    <Content Include="Common\Scripts\app\formdesignerservice.js" />
+    <Content Include="Common\Scripts\directives\formdesigner-directive.js" />
     <Content Include="Common\Scripts\app\logger.js" />
     <Content Include="Common\Scripts\app\main.js" />
     <Content Include="Common\Scripts\directives\cobusy-directive.js" />
@@ -425,8 +425,8 @@
     <Content Include="Common\Scripts\jQuery\jquery-ui.js" />
     <Content Include="Common\Scripts\jQuery\jquery-ui.min.js" />
     <Content Include="Common\Scripts\jQuery\jquery.mousewheel.js" />
-    <Content Include="Common\Scripts\jQuery\jquery.pnotify.js" />
-    <Content Include="Common\Scripts\jQuery\jquery.pnotify.min.js" />
+    <Content Include="Common\Scripts\jQuery\pnotify\jquery.pnotify.js" />
+    <Content Include="Common\Scripts\jQuery\pnotify\jquery.pnotify.min.js" />
     <Content Include="Common\Scripts\angular\i18next\ng-i18next.js" />
     <Content Include="Common\Scripts\angular\i18next\ng-i18next.min.js" />
     <Content Include="Common\Scripts\angular\promise-tracker\promise-tracker.js" />
@@ -513,7 +513,7 @@
     <Content Include="Common\Module.txt" />
     <Content Include="Common\Scripts\base.js" />
     <Content Include="Common\Scripts\html5.js" />
-    <Content Include="Common\Scripts\jquery.switchable.js" />
+    <Content Include="Common\Scripts\jQuery\jquery.switchable.js" />
     <Content Include="Common\Styles\Images\detail-view-on.gif" />
     <Content Include="Common\Styles\Images\detail-view.gif" />
     <Content Include="Common\Styles\Images\summary-view-on.gif" />
@@ -521,7 +521,7 @@
     <Content Include="Common\Styles\Images\toolBarActiveButtonBackground.gif" />
     <Content Include="Common\Styles\Images\toolBarBackground.gif" />
     <Content Include="Common\Styles\Images\toolBarHoverButtonBackground.gif" />
-    <Content Include="Common\Styles\jquery.switchable.css" />
+    <Content Include="Common\Styles\jQuery\jquery.switchable.css" />
     <Content Include="Common\Styles\special.css" />
     <Content Include="web.config" />
   </ItemGroup>
