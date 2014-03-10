@@ -3,6 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
+using Coevery.Core.Entities.Extensions;
+using Coevery.Utility.Extensions;
 
 namespace Coevery.Core.Entities.ViewModels {
     public class EditPartViewModel {

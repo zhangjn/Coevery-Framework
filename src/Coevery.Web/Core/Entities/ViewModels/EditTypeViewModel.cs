@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
+using Coevery.Core.Entities.Extensions;
 
 namespace Coevery.Core.Entities.ViewModels {
     public class EditTypeViewModel  {
