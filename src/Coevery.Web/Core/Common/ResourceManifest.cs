@@ -17,19 +17,14 @@ namespace Coevery.Core.Common {
 
             manifest.DefineStyle("Module").SetUrl("module.css");
 
+            manifest.DefineScript("require").SetUrl("require.min.js", "require.js").SetVersion("2.1.6");
+            manifest.DefineScript("spin").SetUrl("spin.js", "spin.js").SetVersion("1.3.2");
+
             RegisterAngular(manifest);
             RegisterJQuery(manifest);
-
-            manifest.DefineScript("pnotify").SetUrl("jQuery/jquery.pnotify.min.js", "jQuery/jquery.pnotify.js").SetVersion("1.2.2");
-            manifest.DefineStyle("pnotify_Icons").SetUrl("jQuery/jquery.pnotify.icons.css");
-            manifest.DefineStyle("pnotify").SetUrl("jQuery/jquery.pnotify.css").SetDependencies("pnotify_Icons");
-
-            manifest.DefineScript("require").SetUrl("require.min.js", "require.js").SetVersion("2.1.6");
-
-            manifest.DefineScript("spin").SetUrl("spin.js", "spin.js").SetVersion("1.3.2");
         }
 
-        private void RegisterAngular(Coevery.UI.Resources.ResourceManifest manifest) {
+        private void RegisterAngular(UI.Resources.ResourceManifest manifest) {
             manifest.DefineScript("angular").SetUrl("angular/angular.min.js", "angular/angular.js").SetVersion("1.2.0-rc.2")
                 .SetCdn("//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js", "//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js", true);
 
@@ -61,7 +56,7 @@ namespace Coevery.Core.Common {
             manifest.DefineScript("promisetracker").SetUrl("angular/promise-tracker/promise-tracker.js", "angular/promise-tracker/promise-tracker.js").SetVersion("1.4.2").SetDependencies("angular");
         }
 
-        private void RegisterJQuery(Coevery.UI.Resources.ResourceManifest manifest) {
+        private void RegisterJQuery(UI.Resources.ResourceManifest manifest) {
             manifest.DefineScript("jQuery").SetUrl("jquery-1.9.1.min.js", "jquery-1.9.1.js").SetVersion("1.9.1")
                 .SetCdn("//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js", "//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.js", true);
 
@@ -113,6 +108,10 @@ namespace Coevery.Core.Common {
 
             manifest.DefineStyle("jqGrid").SetUrl("ui.jqgrid.css");
             manifest.DefineStyle("jqGridCustom").SetUrl("grid.css");
+
+            manifest.DefineScript("pnotify").SetUrl("jQuery/jquery.pnotify.min.js", "jQuery/jquery.pnotify.js").SetVersion("1.2.2");
+            manifest.DefineStyle("pnotify_Icons").SetUrl("jQuery/jquery.pnotify.icons.css");
+            manifest.DefineStyle("pnotify").SetUrl("jQuery/jquery.pnotify.css").SetDependencies("pnotify_Icons");
         }
     }
 }
