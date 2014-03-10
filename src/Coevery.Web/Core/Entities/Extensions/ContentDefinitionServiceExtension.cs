@@ -1,12 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Coevery.Caching;
+using Coevery.Core.Entities.Extensions;
+using Coevery.Data;
+using Coevery.Entities.Models;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
-using Coevery.Core.Entities.Models;
-using Coevery.Data;
 
-namespace Coevery.Core.Entities.Extensions {
+namespace Coevery.Entities.Extensions {
     public class ContentDefinitionExtension : IContentDefinitionExtension {
         private const string ContentDefinitionSignal = "ContentDefinitionManager";
         private readonly IContentDefinitionManager _contentDefinitionManager;

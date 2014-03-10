@@ -3,29 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using Coevery.Core.Entities;
-using Coevery.Core.Entities.Services;
-using Coevery.Core.Entities.Settings;
-using Coevery.Core.Entities.ViewModels;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
+using Coevery.Entities;
+using Coevery.Entities.Services;
+using Coevery.Entities.Settings;
+using Coevery.Entities.ViewModels;
 using Coevery.Localization;
 using Coevery.Logging;
-using Coevery.Utility.Extensions;
 using Coevery.UI.Notify;
-using EditTypeViewModel = Coevery.Core.Entities.ViewModels.EditTypeViewModel;
-using IContentDefinitionEditorEvents = Coevery.Core.Entities.Settings.IContentDefinitionEditorEvents;
-using IContentDefinitionService = Coevery.Core.Entities.Services.IContentDefinitionService;
+using Coevery.Utility.Extensions;
 
-namespace Coevery.Entities.Controllers {
-    public class SystemAdminController : Controller, IUpdateModel {
+namespace Coevery.Core.Entities.Controllers {
+    public class AdminController : Controller, IUpdateModel {
         private readonly IContentDefinitionService _contentDefinitionService;
         private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;
         private readonly IContentMetadataService _contentMetadataService;
         private readonly ISettingService _settingService;
         private readonly IEntityRecordEditorEvents _entityRecordEditorEvents;
 
-        public SystemAdminController(
+        public AdminController(
             ICoeveryServices coeveryServices,
             ISettingService settingService,
             IContentDefinitionService contentDefinitionService,
@@ -110,8 +107,7 @@ namespace Coevery.Entities.Controllers {
                 ModelState.AddModelError("Name", T("The Field Name can't be empty.").ToString());
             }
 
-            if (String.IsNullOrWhiteSpace(viewModel.FieldType))
-            {
+            if (String.IsNullOrWhiteSpace(viewModel.FieldType)) {
                 ModelState.AddModelError("Name", T("The FieldType can't be empty.").ToString());
             }
 
