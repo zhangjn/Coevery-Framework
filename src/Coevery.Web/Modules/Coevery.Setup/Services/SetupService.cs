@@ -70,7 +70,7 @@ namespace Coevery.Setup.Services {
                     // Framework
                     "Coevery.Framework",
                     // Core
-                    "Settings", "Common",
+                    "Settings", "Common", "Entities",
                     // Modules
                     "Coevery.Users", "Coevery.Roles"
                 };
