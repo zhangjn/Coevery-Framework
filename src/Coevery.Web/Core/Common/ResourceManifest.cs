@@ -57,54 +57,54 @@ namespace Coevery.Core.Common {
         }
 
         private void RegisterJQuery(UI.Resources.ResourceManifest manifest) {
-            manifest.DefineScript("jQuery").SetUrl("jquery-1.9.1.min.js", "jquery-1.9.1.js").SetVersion("1.9.1")
+            manifest.DefineScript("jQuery").SetUrl("jQuery/jquery-1.9.1.min.js", "jQuery/jquery-1.9.1.js").SetVersion("1.9.1")
                 .SetCdn("//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js", "//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.js", true);
 
-            manifest.DefineScript("jQueryMousewheel").SetUrl("jquery.mousewheel.js", "jquery.mousewheel.js").SetVersion("3.1.3");
-            manifest.DefineScript("jQueryValidate").SetUrl("jquery.validate.min.js", "jquery.validate.js");
+            manifest.DefineScript("jQueryMousewheel").SetUrl("jQuery/jquery.mousewheel.js", "jQuery/jquery.mousewheel.js").SetVersion("3.1.3");
+            manifest.DefineScript("jQueryValidate").SetUrl("jQuery/jquery.validate.min.js", "jQuery/jquery.validate.js");
 
             // Full jQuery UI bundle
-            manifest.DefineScript("jQueryUI").SetUrl("jquery-ui.min.js", "jquery-ui.js").SetVersion("1.9.2").SetDependencies("jQuery")
+            manifest.DefineScript("jQueryUI").SetUrl("jQuery/jquery-ui.min.js", "jQuery/jquery-ui.js").SetVersion("1.9.2").SetDependencies("jQuery")
                 .SetCdn("//ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.min.js", "//ajax.aspnetcdn.com/ajax/jquery.ui/1.9.2/jquery-ui.js", true);
 
             // UI Core
-            manifest.DefineScript("jQueryUI_Core").SetUrl("jquery.ui.core.min.js", "jquery.ui.core.js").SetVersion("1.9.2").SetDependencies("jQuery");
-            manifest.DefineScript("jQueryUI_Widget").SetUrl("jquery.ui.widget.min.js", "jquery.ui.widget.js").SetVersion("1.9.2").SetDependencies("jQuery");
-            manifest.DefineScript("jQueryUI_Mouse").SetUrl("jquery.ui.mouse.min.js", "jquery.ui.mouse.js").SetVersion("1.9.2").SetDependencies("jQuery", "jQueryUI_Widget");
-            manifest.DefineScript("jQueryUI_Position").SetUrl("jquery.ui.position.min.js", "jquery.ui.position.js").SetVersion("1.9.2").SetDependencies("jQuery");
+            manifest.DefineScript("jQueryUI_Core").SetUrl("jQuery/jquery.ui.core.min.js", "jQuery/jquery.ui.core.js").SetVersion("1.9.2").SetDependencies("jQuery");
+            manifest.DefineScript("jQueryUI_Widget").SetUrl("jQuery/jquery.ui.widget.min.js", "jQuery/jquery.ui.widget.js").SetVersion("1.9.2").SetDependencies("jQuery");
+            manifest.DefineScript("jQueryUI_Mouse").SetUrl("jQuery/jquery.ui.mouse.min.js", "jQuery/jquery.ui.mouse.js").SetVersion("1.9.2").SetDependencies("jQuery", "jQueryUI_Widget");
+            manifest.DefineScript("jQueryUI_Position").SetUrl("jQuery/jquery.ui.position.min.js", "jQuery/jquery.ui.position.js").SetVersion("1.9.2").SetDependencies("jQuery");
 
             // Interactions
-            manifest.DefineScript("jQueryUI_Sortable").SetUrl("jquery.ui.sortable.min.js", "jquery.ui.sortable.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core", "jQueryUI_Widget", "jQueryUI_Mouse");
+            manifest.DefineScript("jQueryUI_Sortable").SetUrl("jQuery/jquery.ui.sortable.min.js", "jQuery/jquery.ui.sortable.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core", "jQueryUI_Widget", "jQueryUI_Mouse");
 
             // Widgets
-            manifest.DefineScript("jQueryUI_Autocomplete").SetUrl("jquery.ui.autocomplete.min.js", "jquery.ui.autocomplete.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core", "jQueryUI_Widget", "jQueryUI_Position", "jQueryUI_Menu");
-            manifest.DefineScript("jQueryUI_Slider").SetUrl("jquery.ui.slider.min.js", "jquery.ui.slider.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core", "jQueryUI_Widget", "jQueryUI_Mouse");
-            manifest.DefineScript("jQueryUI_Tabs").SetUrl("jquery.ui.tabs.min.js", "jquery.ui.tabs.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core", "jQueryUI_Widget");
-            manifest.DefineScript("jQueryUI_DatePicker").SetUrl("jquery.ui.datepicker.min.js", "jquery.ui.datepicker.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core");
-            manifest.DefineScript("jQueryUI_SliderAccess").SetUrl("jquery-ui-sliderAccess.js").SetVersion("0.2").SetDependencies("jQueryUI_Core");
-            manifest.DefineScript("jQueryUI_TimePicker").SetUrl("jquery-ui-timepicker-addon.js").SetVersion("1.0.5").SetDependencies("jQueryUI_Core", "jQueryUI_Slider", "jQueryUI_SliderAccess");
+            manifest.DefineScript("jQueryUI_Autocomplete").SetUrl("jQuery/jquery.ui.autocomplete.min.js", "jQuery/jquery.ui.autocomplete.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core", "jQueryUI_Widget", "jQueryUI_Position", "jQueryUI_Menu");
+            manifest.DefineScript("jQueryUI_Slider").SetUrl("jQuery/jquery.ui.slider.min.js", "jQuery/jquery.ui.slider.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core", "jQueryUI_Widget", "jQueryUI_Mouse");
+            manifest.DefineScript("jQueryUI_Tabs").SetUrl("jQuery/jquery.ui.tabs.min.js", "jQuery/jquery.ui.tabs.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core", "jQueryUI_Widget");
+            manifest.DefineScript("jQueryUI_DatePicker").SetUrl("jQuery/jquery.ui.datepicker.min.js", "jQuery/jquery.ui.datepicker.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core");
+            manifest.DefineScript("jQueryUI_SliderAccess").SetUrl("jQuery/jquery-ui-sliderAccess.js").SetVersion("0.2").SetDependencies("jQueryUI_Core");
+            manifest.DefineScript("jQueryUI_TimePicker").SetUrl("jQuery/jquery-ui-timepicker-addon.js").SetVersion("1.0.5").SetDependencies("jQueryUI_Core", "jQueryUI_Slider", "jQueryUI_SliderAccess");
 
             // Effects
-            manifest.DefineScript("jQueryEffects_Core").SetUrl("jquery.ui.effect.min.js", "jquery.ui.effect.js").SetVersion("1.9.2").SetDependencies("jQuery");
-            manifest.DefineScript("jQueryEffects_Clip").SetUrl("jquery.ui.effect-clip.min.js", "jquery.ui.effect-clip.js").SetVersion("1.9.2").SetDependencies("jQueryEffects_Core");
-            manifest.DefineScript("jQueryEffects_Drop").SetUrl("jquery.ui.effect-drop.min.js", "jquery.ui.effect-drop.js").SetVersion("1.9.2").SetDependencies("jQueryEffects_Core");
+            manifest.DefineScript("jQueryEffects_Core").SetUrl("jQuery/jquery.ui.effect.min.js", "jQuery/jquery.ui.effect.js").SetVersion("1.9.2").SetDependencies("jQuery");
+            manifest.DefineScript("jQueryEffects_Clip").SetUrl("jQuery/jquery.ui.effect-clip.min.js", "jQuery/jquery.ui.effect-clip.js").SetVersion("1.9.2").SetDependencies("jQueryEffects_Core");
+            manifest.DefineScript("jQueryEffects_Drop").SetUrl("jQuery/jquery.ui.effect-drop.min.js", "jQuery/jquery.ui.effect-drop.js").SetVersion("1.9.2").SetDependencies("jQueryEffects_Core");
 
             // Menu
-            manifest.DefineScript("jQueryUI_Menu").SetUrl("jquery.ui.menu.min.js", "jquery.ui.menu.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core", "jQueryUI_Widget", "jQueryUI_Position");
+            manifest.DefineScript("jQueryUI_Menu").SetUrl("jQuery/jquery.ui.menu.min.js", "jQuery/jquery.ui.menu.js").SetVersion("1.9.2").SetDependencies("jQueryUI_Core", "jQueryUI_Widget", "jQueryUI_Position");
 
             manifest.DefineStyle("jQueryUI_Coevery").SetUrl("jquery-ui-1.9.2.custom.css").SetVersion("1.9.2");
             manifest.DefineStyle("jQueryUI_DatePicker").SetUrl("ui.datepicker.css").SetDependencies("jQueryUI_Coevery").SetVersion("1.7.2");
             manifest.DefineStyle("jQueryUI_TimePicker").SetUrl("jquery-ui-timepicker-addon.css").SetDependencies("jQueryUI_Coevery").SetVersion("1.0.5");
 
             // jqGrid
-            manifest.DefineScript("jqGrid").SetUrl("jqGrid/jquery.jqGrid.min.js", "jqGrid/jquery.jqGrid.src.js").SetVersion("4.5.4").SetDependencies("jQuery");
+            manifest.DefineScript("jqGrid").SetUrl("jQuery/jqGrid/jquery.jqGrid.min.js", "jQuery/jqGrid/jquery.jqGrid.src.js").SetVersion("4.5.4").SetDependencies("jQuery");
             var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(c => c.TwoLetterISOLanguageName).ToList();
             cultures.Add("zh-CN");
             cultures.Add("zh-TW");
 
-            manifest.DefineScript("jqGrid_i18n").SetUrl("jqGrid/i18n/grid.locale.js").SetVersion("4.5.4").SetDependencies("jqGrid").SetCultures(cultures.ToArray());
+            manifest.DefineScript("jqGrid_i18n").SetUrl("jQuery/jqGrid/i18n/grid.locale.js").SetVersion("4.5.4").SetDependencies("jqGrid").SetCultures(cultures.ToArray());
 
-            manifest.DefineScript("simplePagination").SetUrl("jquery.simplePagination.js").SetVersion("1.6").SetDependencies("jQuery");
+            manifest.DefineScript("simplePagination").SetUrl("jQuery/jquery.simplePagination.js").SetVersion("1.6").SetDependencies("jQuery");
 
             manifest.DefineStyle("jqGrid").SetUrl("ui.jqgrid.css");
             manifest.DefineStyle("jqGridCustom").SetUrl("grid.css");
