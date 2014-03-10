@@ -18,6 +18,7 @@ namespace Coevery.Core.Common {
             manifest.DefineStyle("Module").SetUrl("module.css");
 
             RegisterAngular(manifest);
+            RegisterJQuery(manifest);
 
             manifest.DefineScript("pnotify").SetUrl("jquery.pnotify.min.js", "jquery.pnotify.js").SetVersion("1.2.2");
             manifest.DefineStyle("pnotify_Icons").SetUrl("jquery.pnotify.icons.css");
@@ -60,10 +61,9 @@ namespace Coevery.Core.Common {
             manifest.DefineScript("promisetracker").SetUrl("promise-tracker.js", "promise-tracker.js").SetVersion("1.4.2").SetDependencies("angular");
         }
 
-        private void RegisterJQuery(Coevery.UI.Resources.ResourceManifest manifest)
-        {
+        private void RegisterJQuery(Coevery.UI.Resources.ResourceManifest manifest) {
             manifest.DefineScript("jQuery").SetUrl("jquery-1.9.1.min.js", "jquery-1.9.1.js").SetVersion("1.9.1")
-    .SetCdn("//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js", "//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.js", true);
+                .SetCdn("//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js", "//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.js", true);
 
             manifest.DefineScript("jQueryMousewheel").SetUrl("jquery.mousewheel.js", "jquery.mousewheel.js").SetVersion("3.1.3");
             manifest.DefineScript("jQueryValidate").SetUrl("jquery.validate.min.js", "jquery.validate.js");
