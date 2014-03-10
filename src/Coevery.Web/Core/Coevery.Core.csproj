@@ -377,6 +377,8 @@
     <Content Include="Common\Scripts\angular\ui-utils\ui-utils.min.js" />
     <Content Include="Common\Scripts\angular\underscore\underscore.js" />
     <Content Include="Common\Scripts\angular\underscore\underscore.min.js" />
+    <Content Include="Common\Styles\jQuery\jquery.pnotify.css" />
+    <Content Include="Common\Styles\jQuery\jquery.pnotify.icons.css" />
     <Content Include="Common\Styles\module.css" />
     <Content Include="Settings\Module.txt" />
     <Content Include="Settings\Placement.info" />
