@@ -1,6 +1,6 @@
 ﻿using Coevery.ContentManagement;
 
-namespace Coevery.Entities.Services {
+namespace Coevery.Core.Entities.Services {
     public abstract class ContentFieldValueProvider<TContentField> : IContentFieldValueProvider where TContentField : ContentField, new() {
 
         object IContentFieldValueProvider.GetValue(ContentItem contentItem, ContentField field) {

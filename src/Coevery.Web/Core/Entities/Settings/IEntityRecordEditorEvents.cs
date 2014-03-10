@@ -2,10 +2,10 @@
 using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
-using Coevery.Entities.ViewModels;
+using Coevery.Core.Entities.ViewModels;
 using Coevery.Events;
 
-namespace Coevery.Entities.Settings {
+namespace Coevery.Core.Entities.Settings {
     public interface IEntityRecordEditorEvents : IEventHandler {
         IEnumerable<EntityRecordViewModel> FieldSettingsEditor();
         void FieldSettingsEditorUpdate(string fieldType, string fieldName, SettingsDictionary settings, IUpdateModel updateModel);

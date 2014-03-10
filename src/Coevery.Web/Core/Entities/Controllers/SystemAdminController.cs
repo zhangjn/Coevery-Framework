@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
-using Coevery.Entities.Services;
-using Coevery.Entities.Settings;
-using Coevery.Entities.ViewModels;
+using Coevery.Core.Entities;
+using Coevery.Core.Entities.Services;
+using Coevery.Core.Entities.Settings;
+using Coevery.Core.Entities.ViewModels;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.Localization;
 using Coevery.Logging;
 using Coevery.Utility.Extensions;
 using Coevery.UI.Notify;
-using EditTypeViewModel = Coevery.Entities.ViewModels.EditTypeViewModel;
-using IContentDefinitionEditorEvents = Coevery.Entities.Settings.IContentDefinitionEditorEvents;
-using IContentDefinitionService = Coevery.Entities.Services.IContentDefinitionService;
+using EditTypeViewModel = Coevery.Core.Entities.ViewModels.EditTypeViewModel;
+using IContentDefinitionEditorEvents = Coevery.Core.Entities.Settings.IContentDefinitionEditorEvents;
+using IContentDefinitionService = Coevery.Core.Entities.Services.IContentDefinitionService;
 
 namespace Coevery.Entities.Controllers {
     public class SystemAdminController : Controller, IUpdateModel {

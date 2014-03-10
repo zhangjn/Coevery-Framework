@@ -1,10 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using Coevery.Entities.ViewModels;
-using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.ViewModels;
 
-namespace Coevery.Entities.ViewModels {
+namespace Coevery.Core.Entities.ViewModels {
     public class AddFieldViewModel {
         public AddFieldViewModel() {
             Fields = new List<TemplateViewModel>();

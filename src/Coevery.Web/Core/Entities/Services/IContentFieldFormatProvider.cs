@@ -1,6 +1,6 @@
 ﻿using Coevery.ContentManagement;
 
-namespace Coevery.Entities.Services {
+namespace Coevery.Core.Entities.Services {
     public interface IContentFieldFormatProvider : IDependency {
         void SetFormat(ContentField field, dynamic formState);
     }

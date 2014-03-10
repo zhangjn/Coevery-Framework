@@ -1,6 +1,6 @@
 ﻿using Coevery.Events;
 
-namespace Coevery.Entities.Events {
+namespace Coevery.Core.Entities.Events {
     public interface IEntityEvents : IEventHandler {
         void OnCreated(string entityName);
         void OnUpdating(string entityName);

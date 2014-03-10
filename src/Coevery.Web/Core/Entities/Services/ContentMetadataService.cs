@@ -1,19 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Coevery.Common.Services;
-using Coevery.Entities.Events;
-using Coevery.Entities.Models;
-using Coevery.Entities.Settings;
-using Coevery.Entities.ViewModels;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
+using Coevery.Core.Entities.Events;
+using Coevery.Core.Entities.Models;
+using Coevery.Core.Entities.Settings;
+using Coevery.Core.Entities.ViewModels;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data;
 using Coevery.Utility.Extensions;
-using IContentDefinitionEditorEvents = Coevery.Entities.Settings.IContentDefinitionEditorEvents;
 
-namespace Coevery.Entities.Services {
+namespace Coevery.Core.Entities.Services {
     public interface IContentMetadataService : IDependency {
         void CreateEntity(EditTypeViewModel sourceModel, IUpdateModel updateModel);
         IEnumerable<EntityMetadataPart> GetRawEntities();

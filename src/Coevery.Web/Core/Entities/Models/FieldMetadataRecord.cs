@@ -1,7 +1,7 @@
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data.Conventions;
 
-namespace Coevery.Entities.Models {
+namespace Coevery.Core.Entities.Models {
     public class FieldMetadataRecord {
         public virtual int Id { get; set; }
         public virtual int OriginalId { get; set; }

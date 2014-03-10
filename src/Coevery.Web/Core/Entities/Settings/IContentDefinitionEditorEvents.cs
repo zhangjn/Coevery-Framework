@@ -6,7 +6,7 @@ using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 using Coevery.Events;
 
-namespace Coevery.Entities.Settings {
+namespace Coevery.Core.Entities.Settings {
     public interface IContentDefinitionEditorEvents : IEventHandler {
         IEnumerable<TemplateViewModel> FieldTypeDescriptor();
         void UpdateFieldSettings(string fieldType, string fieldName, SettingsDictionary settingsDictionary, IUpdateModel updateModel);

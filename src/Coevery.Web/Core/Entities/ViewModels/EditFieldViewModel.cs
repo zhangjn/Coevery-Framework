@@ -1,6 +1,6 @@
 ﻿using Coevery.ContentManagement.MetaData.Models;
 
-namespace Coevery.Entities.ViewModels {
+namespace Coevery.Core.Entities.ViewModels {
 
     public class EditFieldViewModel {
         public EditFieldViewModel() { }

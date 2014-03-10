@@ -3,8 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Coevery.Entities.Services;
-using Coevery.Entities.Settings;
+using Coevery.Core.Entities.Services;
+using Coevery.Core.Entities.Settings;
 using Coevery.Localization;
 using Coevery.Utility.Extensions;
 

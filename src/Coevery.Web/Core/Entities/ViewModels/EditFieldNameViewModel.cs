@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Coevery.Entities.ViewModels {
+namespace Coevery.Core.Entities.ViewModels {
     public class EditFieldNameViewModel {
         /// <summary>
         /// The technical name of the field

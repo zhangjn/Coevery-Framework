@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using Coevery.Common.Extensions;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
-using Coevery.Utility.Extensions;
 
-namespace Coevery.Entities.ViewModels {
+namespace Coevery.Core.Entities.ViewModels {
     public class EditPartViewModel {
         public EditPartViewModel() {
             Fields = new List<EditPartFieldViewModel>();

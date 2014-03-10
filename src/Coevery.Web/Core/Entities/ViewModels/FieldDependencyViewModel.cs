@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Coevery.Entities.ViewModels {
+namespace Coevery.Core.Entities.ViewModels {
     public class FieldDependencyViewModel {
         public FieldDependencyViewModel() {
             ControlFields = new List<EditPartFieldViewModel>();

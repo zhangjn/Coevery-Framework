@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Coevery.Common.Extensions;
-using Coevery.Entities.Extensions;
-using Coevery.Entities.ViewModels;
-using Coevery;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
-using Coevery.Core.Contents.Extensions;
+using Coevery.Core.Entities.ViewModels;
 using Coevery.Localization;
-using Coevery.Utility.Extensions;
-using IContentDefinitionEditorEvents = Coevery.Entities.Settings.IContentDefinitionEditorEvents;
+using IContentDefinitionEditorEvents = Coevery.Core.Entities.Settings.IContentDefinitionEditorEvents;
 
-namespace Coevery.Entities.Services {
+namespace Coevery.Core.Entities.Services {
     public class ContentDefinitionService : IContentDefinitionService {
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IContentDefinitionExtension _contentDefinitionExtension;
