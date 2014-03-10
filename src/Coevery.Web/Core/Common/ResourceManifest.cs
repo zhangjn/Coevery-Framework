@@ -17,8 +17,18 @@ namespace Coevery.Core.Common {
 
             manifest.DefineStyle("Module").SetUrl("module.css");
 
-            #region Angular
+            RegisterAngular(manifest);
 
+            manifest.DefineScript("pnotify").SetUrl("jquery.pnotify.min.js", "jquery.pnotify.js").SetVersion("1.2.2");
+            manifest.DefineStyle("pnotify_Icons").SetUrl("jquery.pnotify.icons.css");
+            manifest.DefineStyle("pnotify").SetUrl("jquery.pnotify.css").SetDependencies("pnotify_Icons");
+
+            manifest.DefineScript("require").SetUrl("require.min.js", "require.js").SetVersion("2.1.6");
+
+            manifest.DefineScript("spin").SetUrl("spin.js", "spin.js").SetVersion("1.3.2");
+        }
+
+        private void RegisterAngular(Coevery.UI.Resources.ResourceManifest manifest) {
             manifest.DefineScript("angular").SetUrl("angular.min.js", "angular.js").SetVersion("1.2.0-rc.2")
                 .SetCdn("//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js", "//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js", true);
 
@@ -42,22 +52,12 @@ namespace Coevery.Core.Common {
             manifest.DefineScript("ui_utils").SetUrl("ui-utils.min.js", "ui-utils.js").SetVersion("0.0.3").SetDependencies("angular");
 
             manifest.DefineScript("ui_bootstrap").SetUrl("ui-bootstrap-tpls-0.4.0.js", "ui-bootstrap-tpls-0.4.0.js").SetVersion("0.4.0").SetDependencies("angular");
+
             manifest.DefineScript("underscore").SetUrl("underscore.min.js", "underscore.js").SetVersion("1.5.1");
+
             manifest.DefineScript("angularunderscore").SetUrl("angular-underscore.js", "angular-underscore.js").SetVersion("1.0.0").SetDependencies("angular");
+
             manifest.DefineScript("promisetracker").SetUrl("promise-tracker.js", "promise-tracker.js").SetVersion("1.4.2").SetDependencies("angular");
-
-            #endregion
-
-            //todo£º¸Ä±äÎ»ÖÃ
-            manifest.DefineScript("pnotify").SetUrl("jquery.pnotify.min.js", "jquery.pnotify.js").SetVersion("1.2.2");
-            manifest.DefineStyle("pnotify_Icons").SetUrl("jquery.pnotify.icons.css");
-            manifest.DefineStyle("pnotify").SetUrl("jquery.pnotify.css").SetDependencies("pnotify_Icons");
-
-
-            manifest.DefineScript("require").SetUrl("require.min.js", "require.js").SetVersion("2.1.6");
-
-
-            manifest.DefineScript("spin").SetUrl("spin.js", "spin.js").SetVersion("1.3.2");
         }
     }
 }
