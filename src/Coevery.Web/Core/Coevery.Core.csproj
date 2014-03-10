@@ -140,8 +140,6 @@
     <Compile Include="Entities\Settings\IContentDefinitionEditorEvents.cs" />
     <Compile Include="Entities\Settings\IEntityRecordEditorEvents.cs" />
     <Compile Include="Entities\ViewModels\AddFieldViewModel.cs" />
-    <Compile Include="Entities\ViewModels\CreatePartViewModel.cs" />
-    <Compile Include="Entities\ViewModels\EditFieldNameViewModel.cs" />
     <Compile Include="Entities\ViewModels\EditFieldViewModel.cs" />
     <Compile Include="Entities\ViewModels\EditPartFieldViewModel.cs" />
     <Compile Include="Entities\ViewModels\EditPartViewModel.cs" />

@@ -70,9 +70,9 @@ namespace Coevery.Setup.Services {
                     // Framework
                     "Coevery.Framework",
                     // Core
-                    "Settings", "Common", "Entities",
+                    "Settings", "Common",
                     // Modules
-                    "Coevery.Users", "Coevery.Roles"
+                    "Coevery.Users", "Coevery.Roles", "Coevery.DeveloperTools"
                 };
 
             context.EnabledFeatures = hardcoded.Union(context.EnabledFeatures ?? Enumerable.Empty<string>()).Distinct().ToList();

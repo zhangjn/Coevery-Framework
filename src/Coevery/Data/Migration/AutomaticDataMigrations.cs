@@ -28,7 +28,7 @@ namespace Coevery.Data.Migration {
 
             // Let's make sure that the basic set of features is enabled.  If there are any that are not enabled, then let's enable them first.
             var theseFeaturesShouldAlwaysBeActive = new[] {
-                "Settings", "Common", "Entities"
+                "Settings", "Common"
             };
 
             theseFeaturesShouldAlwaysBeActive = theseFeaturesShouldAlwaysBeActive.Concat(
