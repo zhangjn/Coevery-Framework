@@ -103,27 +103,14 @@
     <Compile Include="Common\ResourceManifest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Common\Scripts\angular\angular-animate.js" />
-    <Content Include="Common\Scripts\angular\angular-animate.min.js" />
-    <Content Include="Common\Scripts\angular\angular-cookies.js" />
-    <Content Include="Common\Scripts\angular\angular-cookies.min.js" />
     <Content Include="Common\Scripts\angular\angular-couchPotato.js" />
     <Content Include="Common\Scripts\angular\angular-couchPotato.min.js" />
-    <Content Include="Common\Scripts\angular\angular-csp.css" />
-    <Content Include="Common\Scripts\angular\angular-loader.js" />
-    <Content Include="Common\Scripts\angular\angular-loader.min.js" />
-    <Content Include="Common\Scripts\angular\angular-mocks.js" />
     <Content Include="Common\Scripts\angular\angular-resource.js" />
     <Content Include="Common\Scripts\angular\angular-resource.min.js" />
     <Content Include="Common\Scripts\angular\angular-route.js" />
     <Content Include="Common\Scripts\angular\angular-route.min.js" />
-    <Content Include="Common\Scripts\angular\angular-sanitize.js" />
-    <Content Include="Common\Scripts\angular\angular-sanitize.min.js" />
-    <Content Include="Common\Scripts\angular\angular-scenario.js" />
-    <Content Include="Common\Scripts\angular\angular-touch.js" />
-    <Content Include="Common\Scripts\angular\angular-touch.min.js" />
-    <Content Include="Common\Scripts\angular\angular-ui-router.js" />
-    <Content Include="Common\Scripts\angular\angular-ui-router.min.js" />
+    <Content Include="Common\Scripts\angular\ui-router\angular-ui-router.js" />
+    <Content Include="Common\Scripts\angular\ui-router\angular-ui-router.min.js" />
     <Content Include="Common\Scripts\angular\angular-underscore.js" />
     <Content Include="Common\Scripts\angular\angular.js" />
     <Content Include="Common\Scripts\angular\angular.min.js" />
@@ -374,22 +361,16 @@
     <Content Include="Common\Scripts\angular\i18n\angular-locale.zh.js" />
     <Content Include="Common\Scripts\angular\i18n\angular-locale.zu-za.js" />
     <Content Include="Common\Scripts\angular\i18n\angular-locale.zu.js" />
-    <Content Include="Common\Scripts\angular\jquery.pnotify.js" />
-    <Content Include="Common\Scripts\angular\jquery.pnotify.min.js" />
-    <Content Include="Common\Scripts\angular\jstd-scenario-adapter-config.js" />
-    <Content Include="Common\Scripts\angular\jstd-scenario-adapter.js" />
-    <Content Include="Common\Scripts\angular\ng-grid-2.0.6.debug.js" />
-    <Content Include="Common\Scripts\angular\ng-grid-2.0.6.min.js" />
-    <Content Include="Common\Scripts\angular\ng-grid-flexible-height.js" />
-    <Content Include="Common\Scripts\angular\ng-grid-row-selection.js" />
+    <Content Include="Common\Scripts\jQuery\jquery.pnotify.js" />
+    <Content Include="Common\Scripts\jQuery\jquery.pnotify.min.js" />
     <Content Include="Common\Scripts\angular\ng-i18next.js" />
     <Content Include="Common\Scripts\angular\ng-i18next.min.js" />
     <Content Include="Common\Scripts\angular\promise-tracker.js" />
-    <Content Include="Common\Scripts\angular\require.js" />
-    <Content Include="Common\Scripts\angular\require.min.js" />
+    <Content Include="Common\Scripts\require.js" />
+    <Content Include="Common\Scripts\require.min.js" />
     <Content Include="Common\Scripts\angular\spin.js" />
-    <Content Include="Common\Scripts\angular\ui-bootstrap-tpls-0.4.0.js" />
-    <Content Include="Common\Scripts\angular\ui-bootstrap-tpls-0.4.0.min.js" />
+    <Content Include="Common\Scripts\angular\ui-bootstrap\ui-bootstrap-tpls-0.4.0.js" />
+    <Content Include="Common\Scripts\angular\ui-bootstrap\ui-bootstrap-tpls-0.4.0.min.js" />
     <Content Include="Common\Scripts\angular\ui-utils-ieshiv.js" />
     <Content Include="Common\Scripts\angular\ui-utils-ieshiv.min.js" />
     <Content Include="Common\Scripts\angular\ui-utils.js" />
@@ -453,14 +434,9 @@
     <Content Include="Common\Views\Admin\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Common\Scripts\angular\angular-animate.min.js.map" />
-    <Content Include="Common\Scripts\angular\angular-cookies.min.js.map" />
-    <Content Include="Common\Scripts\angular\angular-loader.min.js.map" />
     <Content Include="Common\Scripts\angular\angular-resource.min.js.map" />
     <Content Include="Common\Scripts\angular\angular-route.min.js.map" />
-    <Content Include="Common\Scripts\angular\angular-sanitize.min.js.map" />
-    <Content Include="Common\Scripts\angular\angular-touch.min.js.map" />
-    <Content Include="Common\Scripts\angular\angular-ui-router.min.js.map" />
+    <Content Include="Common\Scripts\angular\ui-router\angular-ui-router.min.js.map" />
     <Content Include="Common\Scripts\angular\angular.min.js.map" />
     <Content Include="Common\Scripts\angular\underscore.min.js.map" />
   </ItemGroup>
