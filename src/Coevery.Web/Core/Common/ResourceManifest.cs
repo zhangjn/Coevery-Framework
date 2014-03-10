@@ -15,6 +15,8 @@ namespace Coevery.Core.Common {
                 .SetDependencies("ShapesBase");
             manifest.DefineStyle("Switchable").SetUrl("jquery.switchable.css");
 
+            manifest.DefineStyle("Module").SetUrl("module.css");
+
             manifest.DefineScript("angular").SetUrl("angular.min.js", "angular.js").SetVersion("1.2.0-rc.2")
                 .SetCdn("//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js", "//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js", true);
 

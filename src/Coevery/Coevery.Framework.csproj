@@ -284,6 +284,15 @@
     <Compile Include="Messaging\Services\IMessageChannelSelector.cs" />
     <Compile Include="Messaging\Services\IMessageService.cs" />
     <Compile Include="Messaging\Services\NullMessageChannelSelector.cs" />
+    <Compile Include="Mvc\ClientRoute\ClientRouteAlteration.cs" />
+    <Compile Include="Mvc\ClientRoute\ClientRouteAlterationBuilder.cs" />
+    <Compile Include="Mvc\ClientRoute\ClientRouteDefinitionBuilder.cs" />
+    <Compile Include="Mvc\ClientRoute\ClientRouteDescriptor.cs" />
+    <Compile Include="Mvc\ClientRoute\ClientRouteTableBuilder.cs" />
+    <Compile Include="Mvc\ClientRoute\ClientViewDescriptor.cs" />
+    <Compile Include="Mvc\ClientRoute\DefaultClientRouteTableManager.cs" />
+    <Compile Include="Mvc\ClientRoute\IClientRouteProvider.cs" />
+    <Compile Include="Mvc\ClientRoute\IClientRouteTableManager.cs" />
     <Compile Include="Mvc\DataAnnotations\LocalizedRegularExpressionAttribute.cs" />
     <Compile Include="Mvc\DataAnnotations\LocalizedStringMaxLengthAttribute.cs" />
     <Compile Include="Mvc\DataAnnotations\LocalizedRangeAttribute.cs" />

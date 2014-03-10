@@ -73,6 +73,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ClientRouteShape.cs" />
     <Compile Include="Common\Controllers\HomeController.cs" />
     <Compile Include="Common\Controllers\AdminController.cs" />
     <Compile Include="Common\Routes.cs" />
@@ -395,6 +396,7 @@
     <Content Include="Common\Scripts\angular\ui-utils.min.js" />
     <Content Include="Common\Scripts\angular\underscore.js" />
     <Content Include="Common\Scripts\angular\underscore.min.js" />
+    <Content Include="Common\Styles\module.css" />
     <Content Include="Settings\Module.txt" />
     <Content Include="Settings\Placement.info" />
   </ItemGroup>
@@ -461,6 +463,9 @@
     <Content Include="Common\Scripts\angular\angular-ui-router.min.js.map" />
     <Content Include="Common\Scripts\angular\angular.min.js.map" />
     <Content Include="Common\Scripts\angular\underscore.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Common\Views\ClientBootstrapScript.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,0 +1,133 @@
+﻿@using Coevery.Mvc.ClientRoute
+ @{
+     var appName = ((bool) Model.IsFrontEnd) ? "" : "admin";
+     var layoutDirectiveName = ((bool) Model.IsFrontEnd) ? "coevery.layout" : "coevery.formdesigner";
+ }
+<script type="text/javascript">
+    //<![CDATA[
+    function appPrefix() { return '@appName'; }
+    (function () {
+        var load = requirejs.load;
+        requirejs.load = function (context, moduleId, url) {
+            //modify url here, then call original load
+            return load(context, moduleId, url);
+        };
+
+        require.config({
+            baseUrl: '@Url.Content("~/")'
+            });
+
+            //Now load code.
+            require(['@Url.Content("~/Modules/Coevery.Common/scripts/app/main.js")']);
+        }());
+    //]]>
+
+    angular.module('jm.i18next').config(['$i18nextProvider', function ($i18nextProvider) {
+        var resources = {
+            dev: { translation: { } }
+        };
+        $i18nextProvider.options = { resStore: resources };
+    }]);
+    var coevery = angular.module('coevery', ['ng', 'ngResource', 'agt.couchPotato', 'ui.router', 'ui.utils',
+        '@layoutDirectiveName', 'coevery.grid', 'coevery.picklist', 'angular-underscore', 'ui.bootstrap', 'jm.i18next',
+        'coevery.common', 'coevery.wizard', 'coevery.Busy', 'coevery.dependency'@if(Model.IsFrontEnd){<text>, 'coevery.filter'</text>}]);
+        coevery.config(['$stateProvider', '$urlRouterProvider',
+            function ($stateProvider, $urlRouterProvider) {
+                $urlRouterProvider.otherwise('/');
+                $stateProvider
+                @WriteStates();
+            }]);
+        coevery.config(['$httpProvider', function ($httpProvider) {
+            var $http;
+            $httpProvider.interceptors.push(['$q', function ($q) {
+                return {
+                    request: function(config) {
+                        if (config.method === 'GET') {
+                            var sep = config.url.indexOf('?') === -1 ? '?' : '&';
+                            config.url = config.url + sep + '_=' + new Date().getTime();
+                        }
+
+                        return config || $q.when(config);
+                    }
+                };
+            }]);
+            $httpProvider.responseInterceptors.push(['$q', '$injector',function($q, $injector) {
+                var rootScope;
+
+                function success(response) {
+                    // get $http via $injector because of circular dependency problem
+                    $http = $http || $injector.get('$http');
+                    // don't send notification until all requests are complete
+                    if ($http.pendingRequests.length < 1) {
+                        // get $rootScope via $injector because of circular dependency problem
+                        rootScope = rootScope || $injector.get('$rootScope');
+                        // send a notification requests are complete
+                        rootScope.$broadcast('_END_REQUEST_');
+                    }
+                    return response;
+                }
+
+                function error(response) {
+                    // get $http via $injector because of circular dependency problem
+                    $http = $http || $injector.get('$http');
+                    // don't send notification until all requests are complete
+                    if ($http.pendingRequests.length < 1) {
+                        // get $rootScope via $injector because of circular dependency problem
+                        rootScope = rootScope || $injector.get('$rootScope');
+                        // send a notification requests are complete
+                        rootScope.$broadcast('_END_REQUEST_');
+                    }
+                    return $q.reject(response);
+                }
+
+                return function (promise) {
+                    // get $rootScope via $injector because of circular dependency problem
+                    rootScope = rootScope || $injector.get('$rootScope');
+                    // send notification a request has started
+                    rootScope.$broadcast('_START_REQUEST_');
+                    return promise.then(success, error);
+                };
+            }]);
+        }]);
+</script>
+
+
+@helper WriteStates() {
+    var routes = (IEnumerable<ClientRouteDescriptor>)Model.Routes;
+
+    foreach (var route in routes) {
+        <text>.state('@route.RouteName',{</text>
+        if (route.Abstract == true) {
+            <text>abstract: true,</text>
+        }
+        <text>url: '@route.Url',</text>
+        <text>views:{</text>
+        foreach (var view in route.Views) {
+            <text>'@view.Name':{</text>
+            if (!string.IsNullOrWhiteSpace(view.TemplateUrl)) {
+                <text>templateUrl:@Html.Raw(view.TemplateUrl),</text>
+            }
+            if (!string.IsNullOrWhiteSpace(view.TemplateProvider)) {
+                <text>templateProvider:@Html.Raw(view.TemplateProvider),</text>
+            }
+            <text>controller:'@view.Controller',</text>
+            <text>},</text>
+        }
+        <text>},</text>
+        <text>resolve:{</text>
+        var count = 0;
+        foreach (var dependency in route.Dependencies) {
+            count++;
+            <text>resolveVal_@count:function($q, $rootScope){</text>
+            <text>var defer = $q.defer();</text>
+            <text>require(['@dependency'], function(){</text>
+            <text>defer.resolve();</text>
+            <text>$rootScope.$apply();</text>
+            <text>});</text>
+            <text>return defer.promise;</text>
+            <text>},</text>
+        }
+        <text>},</text>
+        <text>})</text>
+    }
+}
