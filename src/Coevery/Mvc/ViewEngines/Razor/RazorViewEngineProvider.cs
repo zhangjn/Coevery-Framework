@@ -60,6 +60,7 @@ namespace Coevery.Mvc.ViewEngines.Razor {
 
         public IViewEngine CreateModulesViewEngine(CreateModulesViewEngineParams parameters) {
             var areaFormats = new[] {
+                                        "~/DeveloperTools/{2}/Views/{1}/{0}.cshtml",
                                         "~/Core/{2}/Views/{1}/{0}.cshtml",
                                         "~/Modules/{2}/Views/{1}/{0}.cshtml",
                                         "~/Themes/{2}/Views/{1}/{0}.cshtml",

@@ -139,7 +139,7 @@ namespace Coevery.Mvc.ViewEngines.Razor {
 
         private DependencyDescriptor GetModuleDependencyDescriptor(string virtualPath) {
             var appRelativePath = VirtualPathUtility.ToAppRelative(virtualPath);
-            var prefix = PrefixMatch(appRelativePath, new[] { "~/Modules/", "~/Core/" });
+            var prefix = PrefixMatch(appRelativePath, new[] { "~/Modules/", "~/Core/", "~/DeveloperTools/" });
             if (prefix == null)
                 return null;
 

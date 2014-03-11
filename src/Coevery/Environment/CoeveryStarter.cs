@@ -102,11 +102,14 @@ namespace Coevery.Environment {
                             builder.RegisterType<ExtensionHarvester>().As<IExtensionHarvester>().SingleInstance();
                             builder.RegisterType<ModuleFolders>().As<IExtensionFolders>().SingleInstance()
                                 .WithParameter(new NamedParameter("paths", new[] { "~/Modules" }));
+                            builder.RegisterType<DeveloperToolsModuleFolders>().As<IExtensionFolders>().SingleInstance()
+                              .WithParameter(new NamedParameter("paths", new[] { "~/DeveloperTools" }));
                             builder.RegisterType<CoreModuleFolders>().As<IExtensionFolders>().SingleInstance()
                                 .WithParameter(new NamedParameter("paths", new[] { "~/Core" }));
                             builder.RegisterType<ThemeFolders>().As<IExtensionFolders>().SingleInstance()
                                 .WithParameter(new NamedParameter("paths", new[] { "~/Themes" }));
 
+                            builder.RegisterType<DeveloperToolsExtensionLoader>().As<IExtensionLoader>().SingleInstance();
                             builder.RegisterType<CoreExtensionLoader>().As<IExtensionLoader>().SingleInstance();
                             builder.RegisterType<ReferencedExtensionLoader>().As<IExtensionLoader>().SingleInstance();
                             builder.RegisterType<PrecompiledExtensionLoader>().As<IExtensionLoader>().SingleInstance();

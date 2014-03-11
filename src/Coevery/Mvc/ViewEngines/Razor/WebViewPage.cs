@@ -202,7 +202,8 @@ namespace Coevery.Mvc.ViewEngines.Razor {
                     && !path.StartsWith("~/Modules", StringComparison.OrdinalIgnoreCase)
                     && !path.StartsWith("~/Themes", StringComparison.OrdinalIgnoreCase)
                     && !path.StartsWith("~/Media", StringComparison.OrdinalIgnoreCase)
-                    && !path.StartsWith("~/Core", StringComparison.OrdinalIgnoreCase)) {
+                    && !path.StartsWith("~/Core", StringComparison.OrdinalIgnoreCase)
+                    && !path.StartsWith("~/DeveloperTools", StringComparison.OrdinalIgnoreCase)) {
                     
                     return base.Href("~/" + _tenantPrefix + path.Substring(2), pathParts);
                 }

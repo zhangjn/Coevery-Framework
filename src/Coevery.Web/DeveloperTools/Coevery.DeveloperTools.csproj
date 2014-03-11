@@ -64,147 +64,121 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\aspnetwebapi\System.Net.Http.Formatting.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\aspnetwebapi\System.Web.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\..\..\lib\aspnetwebapi\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\aspnetwebapi\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\controllers\choosefieldtypecontroller.js" />
-    <Content Include="Scripts\controllers\confirmfieldinfocontroller.js" />
-    <Content Include="Scripts\controllers\detailcontroller.js" />
-    <Content Include="Scripts\controllers\editcontroller.js" />
-    <Content Include="Scripts\controllers\editfieldscontroller.js" />
-    <Content Include="Scripts\controllers\fieldscontroller.js" />
-    <Content Include="Scripts\controllers\fillfieldinfocontroller.js" />
-    <Content Include="Scripts\controllers\listcontroller.js" />
-    <Content Include="Scripts\services\entitydataservice.js" />
-    <Content Include="Scripts\services\fielddataservice.js" />
+    <Content Include="Entities\Module.txt" />
+    <Content Include="Entities\Scripts\controllers\choosefieldtypecontroller.js" />
+    <Content Include="Entities\Scripts\controllers\confirmfieldinfocontroller.js" />
+    <Content Include="Entities\Scripts\controllers\detailcontroller.js" />
+    <Content Include="Entities\Scripts\controllers\editcontroller.js" />
+    <Content Include="Entities\Scripts\controllers\editfieldscontroller.js" />
+    <Content Include="Entities\Scripts\controllers\fieldscontroller.js" />
+    <Content Include="Entities\Scripts\controllers\fillfieldinfocontroller.js" />
+    <Content Include="Entities\Scripts\controllers\listcontroller.js" />
+    <Content Include="Entities\Scripts\services\entitydataservice.js" />
+    <Content Include="Entities\Scripts\services\fielddataservice.js" />
     <Content Include="Web.config" />
-    <Content Include="Scripts\Web.config" />
-    <Content Include="Styles\Web.config" />
     <Content Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Module.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Coevery\Coevery.Framework.csproj">
-      <Project>{2D1D92BB-4555-4CBE-8D0E-63563D6CE4C6}</Project>
+    <ProjectReference Include="..\..\Coevery\Coevery.Framework.csproj">
+      <Project>{2d1d92bb-4555-4cbe-8d0e-63563d6ce4c6}</Project>
       <Name>Coevery.Framework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Core\Coevery.Core.csproj">
+    <ProjectReference Include="..\Core\Coevery.Core.csproj">
       <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
       <Name>Coevery.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\EntityAdminController.cs" />
-    <Compile Include="Controllers\FieldAdminController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\EntityController.cs" />
-    <Compile Include="Controllers\FieldController.cs" />
-    <Compile Include="Drivers\EntityMetadataPartDriver.cs" />
-    <Compile Include="Drivers\Fields\TextFieldDriver.cs" />
-    <Compile Include="Fields\TextField.cs" />
-    <Compile Include="Settings\ContentTypeSettings.cs" />
-    <Compile Include="DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
-    <Compile Include="DynamicTypeGeneration\DynamicContentsDriver.cs" />
-    <Compile Include="DynamicTypeGeneration\DynamicContentsHandler.cs" />
-    <Compile Include="DynamicTypeGeneration\DynamicFieldDefinition.cs" />
-    <Compile Include="DynamicTypeGeneration\DynamicTypeDefinition.cs" />
-    <Compile Include="DynamicTypeGeneration\IDynamicAssemblyBuilder.cs" />
-    <Compile Include="Events\IDynamicTypeGenerationEvents.cs" />
-    <Compile Include="Events\IEntityDataEvents.cs" />
-    <Compile Include="Events\IEntityEvents.cs" />
-    <Compile Include="Events\IFieldEvents.cs" />
-    <Compile Include="Extensions\CoeveryContentExtension.cs" />
-    <Compile Include="Extensions\CoeveryStringExtension.cs" />
-    <Compile Include="Extensions\ContentDefinitionServiceExtension.cs" />
-    <Compile Include="Handlers\EntityMetadataPartHandler.cs" />
-    <Compile Include="Migrations.cs" />
-    <Compile Include="Models\EntityMetadataPart.cs" />
-    <Compile Include="Models\EntityMetadataRecord.cs" />
-    <Compile Include="Models\FieldMetadataRecord.cs" />
-    <Compile Include="Permissions.cs" />
-    <Compile Include="Routes.cs" />
-    <Compile Include="Services\ClientRouteProvider.cs" />
-    <Compile Include="Services\ContentDefinitionService.cs" />
-    <Compile Include="Providers\ContentFieldValueProvider.cs" />
-    <Compile Include="Services\ContentMetadataService.cs" />
-    <Compile Include="Services\DefaultDataMigrationInterpreter.cs" />
-    <Compile Include="Services\IContentDefinitionService.cs" />
-    <Compile Include="Providers\IContentFieldFormatProvider.cs" />
-    <Compile Include="Providers\IContentFieldValueProvider.cs" />
-    <Compile Include="Services\SchemaUpdateService.cs" />
-    <Compile Include="Services\SettingService.cs" />
-    <Compile Include="Services\AdminMenu.cs" />
-    <Compile Include="Settings\FieldEditorEvents.cs" />
-    <Compile Include="Settings\FieldSettings.cs" />
-    <Compile Include="Settings\IEntityRecordEditorEvents.cs" />
-    <Compile Include="Settings\TextFieldEditorEvents.cs" />
-    <Compile Include="Settings\TextFieldEntityRecordEditorEvents.cs" />
-    <Compile Include="Settings\TextFieldSettings.cs" />
-    <Compile Include="ViewModels\AddFieldViewModel.cs" />
-    <Compile Include="ViewModels\EditFieldViewModel.cs" />
-    <Compile Include="ViewModels\EditPartFieldViewModel.cs" />
-    <Compile Include="ViewModels\EditPartViewModel.cs" />
-    <Compile Include="ViewModels\EditTypePartViewModel.cs" />
-    <Compile Include="ViewModels\EditTypeViewModel.cs" />
-    <Compile Include="ViewModels\EntityDetailViewModel.cs" />
-    <Compile Include="ViewModels\EntityRecordTemplateViewModel.cs" />
+    <Compile Include="Entities\Controllers\EntityAdminController.cs" />
+    <Compile Include="Entities\Controllers\EntityController.cs" />
+    <Compile Include="Entities\Controllers\FieldAdminController.cs" />
+    <Compile Include="Entities\Controllers\FieldController.cs" />
+    <Compile Include="Entities\Controllers\HomeController.cs" />
+    <Compile Include="Entities\Drivers\EntityMetadataPartDriver.cs" />
+    <Compile Include="Entities\Drivers\Fields\TextFieldDriver.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsDriver.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsHandler.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\DynamicFieldDefinition.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\DynamicTypeDefinition.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\IDynamicAssemblyBuilder.cs" />
+    <Compile Include="Entities\Events\IDynamicTypeGenerationEvents.cs" />
+    <Compile Include="Entities\Events\IEntityDataEvents.cs" />
+    <Compile Include="Entities\Events\IEntityEvents.cs" />
+    <Compile Include="Entities\Events\IFieldEvents.cs" />
+    <Compile Include="Entities\Extensions\CoeveryContentExtension.cs" />
+    <Compile Include="Entities\Extensions\CoeveryStringExtension.cs" />
+    <Compile Include="Entities\Extensions\ContentDefinitionServiceExtension.cs" />
+    <Compile Include="Entities\Fields\TextField.cs" />
+    <Compile Include="Entities\Handlers\EntityMetadataPartHandler.cs" />
+    <Compile Include="Entities\Migrations.cs" />
+    <Compile Include="Entities\Models\EntityMetadataPart.cs" />
+    <Compile Include="Entities\Models\EntityMetadataRecord.cs" />
+    <Compile Include="Entities\Models\FieldMetadataRecord.cs" />
+    <Compile Include="Entities\Permissions.cs" />
+    <Compile Include="Entities\Providers\ContentFieldValueProvider.cs" />
+    <Compile Include="Entities\Providers\IContentFieldFormatProvider.cs" />
+    <Compile Include="Entities\Providers\IContentFieldValueProvider.cs" />
+    <Compile Include="Entities\Routes.cs" />
+    <Compile Include="Entities\Services\AdminMenu.cs" />
+    <Compile Include="Entities\Services\ClientRouteProvider.cs" />
+    <Compile Include="Entities\Services\ContentDefinitionService.cs" />
+    <Compile Include="Entities\Services\ContentMetadataService.cs" />
+    <Compile Include="Entities\Services\DefaultDataMigrationInterpreter.cs" />
+    <Compile Include="Entities\Services\IContentDefinitionService.cs" />
+    <Compile Include="Entities\Services\SchemaUpdateService.cs" />
+    <Compile Include="Entities\Services\SettingService.cs" />
+    <Compile Include="Entities\Settings\ContentTypeSettings.cs" />
+    <Compile Include="Entities\Settings\FieldEditorEvents.cs" />
+    <Compile Include="Entities\Settings\FieldSettings.cs" />
+    <Compile Include="Entities\Settings\IEntityRecordEditorEvents.cs" />
+    <Compile Include="Entities\Settings\TextFieldEditorEvents.cs" />
+    <Compile Include="Entities\Settings\TextFieldEntityRecordEditorEvents.cs" />
+    <Compile Include="Entities\Settings\TextFieldSettings.cs" />
+    <Compile Include="Entities\ViewModels\AddFieldViewModel.cs" />
+    <Compile Include="Entities\ViewModels\EditFieldViewModel.cs" />
+    <Compile Include="Entities\ViewModels\EditPartFieldViewModel.cs" />
+    <Compile Include="Entities\ViewModels\EditPartViewModel.cs" />
+    <Compile Include="Entities\ViewModels\EditTypePartViewModel.cs" />
+    <Compile Include="Entities\ViewModels\EditTypeViewModel.cs" />
+    <Compile Include="Entities\ViewModels\EntityDetailViewModel.cs" />
+    <Compile Include="Entities\ViewModels\EntityRecordTemplateViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\FieldAdmin\ChooseFieldType.cshtml" />
+    <Content Include="Entities\Placement.info" />
+    <Content Include="Entities\Scripts\Web.config" />
+    <Content Include="Entities\Styles\Web.config" />
+    <Content Include="Entities\Views\EntityAdmin\Create.cshtml" />
+    <Content Include="Entities\Views\EntityAdmin\Detail.cshtml" />
+    <Content Include="Entities\Views\EntityAdmin\Edit.cshtml" />
+    <Content Include="Entities\Views\EntityAdmin\List.cshtml" />
+    <Content Include="Entities\Views\FieldAdmin\ChooseFieldType.cshtml" />
+    <Content Include="Entities\Views\FieldAdmin\ConfirmFieldInfo.cshtml" />
+    <Content Include="Entities\Views\FieldAdmin\CreateEditInfo.cshtml" />
+    <Content Include="Entities\Views\FieldAdmin\EditFields.cshtml" />
+    <Content Include="Entities\Views\FieldAdmin\Fields.cshtml" />
+    <Content Include="Entities\Views\FieldAdmin\FillFieldInfo.cshtml" />
+    <Content Include="Entities\Views\Home\Index.cshtml" />
+    <Content Include="Entities\Views\Web.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\FieldAdmin\ConfirmFieldInfo.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\EntityAdmin\Create.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\FieldAdmin\CreateEditInfo.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\EntityAdmin\Detail.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\EntityAdmin\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\FieldAdmin\EditFields.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\FieldAdmin\Fields.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\FieldAdmin\FillFieldInfo.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\EntityAdmin\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Placement.info" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

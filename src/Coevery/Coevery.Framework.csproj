@@ -229,10 +229,12 @@
     <Compile Include="Environment\Extensions\DefaultCriticalErrorProvider.cs" />
     <Compile Include="Environment\Extensions\ExtensionMonitoringCoordinator.cs" />
     <Compile Include="Caching\IAsyncTokenProvider.cs" />
+    <Compile Include="Environment\Extensions\Folders\DeveloperToolsModuleFolders.cs" />
     <Compile Include="Environment\Extensions\Folders\CoreModuleFolders.cs" />
     <Compile Include="Environment\Extensions\Folders\IExtensionHarvester.cs" />
     <Compile Include="Environment\Extensions\IExtensionMonitoringCoordinator.cs" />
     <Compile Include="Environment\Extensions\CoeverySuppressDependencyAttribute.cs" />
+    <Compile Include="Environment\Extensions\Loaders\DeveloperToolsExtensionLoader.cs" />
     <Compile Include="Environment\Features\IFeatureManager.cs" />
     <Compile Include="Environment\IAssemblyNameResolver.cs" />
     <Compile Include="Environment\Extensions\Models\DefaultExtensionTypes.cs" />

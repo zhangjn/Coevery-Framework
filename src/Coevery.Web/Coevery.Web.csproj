@@ -152,6 +152,10 @@
       <Project>{9916839C-39FC-4CEB-A5AF-89CA7E87119F}</Project>
       <Name>Coevery.Core</Name>
     </ProjectReference>
+    <ProjectReference Include="DeveloperTools\Coevery.DeveloperTools.csproj">
+      <Project>{ff9b6471-b758-4911-ab6b-67b974a859bf}</Project>
+      <Name>Coevery.DeveloperTools</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Config\Host.config" />
