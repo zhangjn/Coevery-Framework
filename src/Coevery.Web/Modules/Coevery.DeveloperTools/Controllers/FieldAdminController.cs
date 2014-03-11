@@ -37,8 +37,6 @@ namespace Coevery.DeveloperTools.Controllers {
         public Localizer T { get; set; }
         public ILogger Logger { get; set; }
 
-        #region Field Methods
-
         public ActionResult ChooseFieldType(string id) {
             if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to edit a content part."))) {
                 return new HttpUnauthorizedResult();
@@ -214,8 +212,6 @@ namespace Coevery.DeveloperTools.Controllers {
         public ActionResult Fields() {
             return View();
         }
-
-        #endregion
 
         bool IUpdateModel.TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties) {
             return base.TryUpdateModel(model, prefix, includeProperties, excludeProperties);

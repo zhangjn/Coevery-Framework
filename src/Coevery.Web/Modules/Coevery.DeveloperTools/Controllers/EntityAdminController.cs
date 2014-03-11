@@ -32,8 +32,6 @@ namespace Coevery.DeveloperTools.Controllers {
         public Localizer T { get; set; }
         public ILogger Logger { get; set; }
 
-        #region Entity Methods
-
         public ActionResult List(string returnUrl) {
             ViewBag.ReturnUrl = returnUrl;
             return View();
@@ -176,8 +174,6 @@ namespace Coevery.DeveloperTools.Controllers {
 
             return View(viewModel);
         }
-
-        #endregion
 
         bool IUpdateModel.TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties) {
             return base.TryUpdateModel(model, prefix, includeProperties, excludeProperties);

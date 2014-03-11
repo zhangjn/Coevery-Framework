@@ -115,6 +115,8 @@
     <Compile Include="Controllers\EntityController.cs" />
     <Compile Include="Controllers\FieldController.cs" />
     <Compile Include="Drivers\EntityMetadataPartDriver.cs" />
+    <Compile Include="Drivers\Fields\TextFieldDriver.cs" />
+    <Compile Include="Fields\TextField.cs" />
     <Compile Include="Settings\ContentTypeSettings.cs" />
     <Compile Include="DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
     <Compile Include="DynamicTypeGeneration\DynamicContentsDriver.cs" />
@@ -147,10 +149,12 @@
     <Compile Include="Services\SchemaUpdateService.cs" />
     <Compile Include="Services\SettingService.cs" />
     <Compile Include="Services\AdminMenu.cs" />
-    <Compile Include="Settings\EntitySetting.cs" />
     <Compile Include="Settings\FieldEditorEvents.cs" />
     <Compile Include="Settings\FieldSettings.cs" />
     <Compile Include="Settings\IEntityRecordEditorEvents.cs" />
+    <Compile Include="Settings\TextFieldEditorEvents.cs" />
+    <Compile Include="Settings\TextFieldEntityRecordEditorEvents.cs" />
+    <Compile Include="Settings\TextFieldSettings.cs" />
     <Compile Include="ViewModels\AddFieldViewModel.cs" />
     <Compile Include="ViewModels\EditFieldViewModel.cs" />
     <Compile Include="ViewModels\EditPartFieldViewModel.cs" />
@@ -199,10 +203,7 @@
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\EntityAdmin\" />
-    <Folder Include="Views\FieldAdmin\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

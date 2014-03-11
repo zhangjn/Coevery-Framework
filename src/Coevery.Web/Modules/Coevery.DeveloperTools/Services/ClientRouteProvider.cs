@@ -3,6 +3,11 @@
 namespace Coevery.DeveloperTools.Services {
     public class ClientRouteProvider : ClientRouteProviderBase {
         public override void Discover(ClientRouteTableBuilder builder) {
+            RegisterEntityRoutes(builder);
+            RegisterFieldRoutes(builder);
+        }
+
+        private void RegisterEntityRoutes(ClientRouteTableBuilder builder) {
             builder.Describe("EntityList")
                 .Configure(descriptor => { descriptor.Url = "/Entities"; })
                 .View(view => {
@@ -43,15 +48,15 @@ namespace Coevery.DeveloperTools.Services {
                     view.Controller = "EntityDetailCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, new[] {"controllers/detailcontroller"});
                 });
+        }
 
+        private void RegisterFieldRoutes(ClientRouteTableBuilder builder) {
             builder.Describe("EntityDetail.Fields")
                 .View(view => {
-                    view.TemplateUrl = "'DeveloperTools/EntityAdmin/Fields/'";
+                    view.TemplateUrl = "'DeveloperTools/FieldAdmin/Fields/'";
                     view.Controller = "FieldsCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, new[] {"controllers/fieldscontroller"});
                 });
-
-            #region Operate fields
 
             builder.Describe("EntityDetail.Fields.Create")
                 .Configure(descriptor => { descriptor.Url = "/Create"; })
@@ -87,8 +92,6 @@ namespace Coevery.DeveloperTools.Services {
                     view.Controller = "FieldEditCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, new[] {"controllers/editfieldscontroller"});
                 });
-
-            #endregion
         }
     }
 }
