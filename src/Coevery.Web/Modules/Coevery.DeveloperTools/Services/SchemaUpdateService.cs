@@ -8,7 +8,6 @@ using Coevery.DeveloperTools.DynamicTypeGeneration;
 using Coevery.Environment.Configuration;
 using Coevery.Reports.Services;
 using NHibernate.Dialect;
-using DefaultDataMigrationInterpreter = Coevery.DeveloperTools.Services.DefaultDataMigrationInterpreter;
 
 namespace Coevery.DeveloperTools.Services {
     public class CreateTableContext {

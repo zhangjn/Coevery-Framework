@@ -1,18 +1,22 @@
 ﻿using Coevery.Localization;
 using Coevery.UI.Navigation;
 
-namespace Coevery.DeveloperTools.Services
-{
-    public class SystemAdminMenu : INavigationProvider {
+namespace Coevery.DeveloperTools.Services {
+    public class AdminMenu : INavigationProvider {
         private readonly IContentMetadataService _contentDefinitionManager;
         public Localizer T { get; set; }
-        public string MenuName { get { return "SystemAdmin"; } }
 
-        public SystemAdminMenu(IContentMetadataService contentDefinitionManager) {
+        public string MenuName {
+            get { return "Admin"; }
+        }
+
+        public AdminMenu(IContentMetadataService contentDefinitionManager) {
             _contentDefinitionManager = contentDefinitionManager;
         }
 
         public void GetNavigation(NavigationBuilder builder) {
+            builder.Add(T("Home"), "1", menu => menu.Url("~/"), new[] { "icon-home" });
+
             builder.AddImageSet("Entities")
                 .Add(T("Entities"), "2",
                     menu => {

@@ -116,7 +116,6 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\EntityController.cs" />
-    <Compile Include="Controllers\fieldController.cs" />
     <Compile Include="Drivers\EntityMetadataPartDriver.cs" />
     <Compile Include="DynamicTypeGeneration\ContentTypeSettings.cs" />
     <Compile Include="DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
@@ -132,7 +131,6 @@
     <Compile Include="Extensions\CoeveryContentExtension.cs" />
     <Compile Include="Extensions\CoeveryStringExtension.cs" />
     <Compile Include="Extensions\ContentDefinitionServiceExtension.cs" />
-    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Handlers\EntityMetadataPartHandler.cs" />
     <Compile Include="Migrations.cs" />
     <Compile Include="Models\EntityMetadataPart.cs" />
@@ -150,7 +148,7 @@
     <Compile Include="Services\IContentFieldValueProvider.cs" />
     <Compile Include="Services\SchemaUpdateService.cs" />
     <Compile Include="Services\SettingService.cs" />
-    <Compile Include="Services\SystemAdminMenu.cs" />
+    <Compile Include="Services\AdminMenu.cs" />
     <Compile Include="Services\UpdateModelWithInitializer.cs" />
     <Compile Include="Settings\EntitySetting.cs" />
     <Compile Include="Settings\FieldEditorEvents.cs" />
