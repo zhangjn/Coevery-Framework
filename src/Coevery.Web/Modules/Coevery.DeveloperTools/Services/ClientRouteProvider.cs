@@ -8,7 +8,7 @@ namespace Coevery.DeveloperTools.Services {
                     descriptor.Url = "/Entities";
                 })
                 .View(view => {
-                    view.TemplateUrl = "'" + ModuleBasePath + @"List'";
+                    view.TemplateUrl = "'DeveloperTools/Admin/List'";
                     view.Controller = "EntityListCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, "controllers/listcontroller");
                 });
