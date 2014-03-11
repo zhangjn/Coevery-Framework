@@ -10,6 +10,7 @@ using Coevery.DeveloperTools.Settings;
 using Coevery.DeveloperTools.ViewModels;
 using Coevery.Localization;
 using Coevery.Logging;
+using Coevery.Themes;
 using Coevery.UI.Notify;
 using Coevery.Utility.Extensions;
 
@@ -40,6 +41,12 @@ namespace Coevery.DeveloperTools.Controllers {
         public ICoeveryServices Services { get; private set; }
         public Localizer T { get; set; }
         public ILogger Logger { get; set; }
+
+        [Themed]
+        public ActionResult Index(string returnUrl) {
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
 
         #region Entity Methods
 
