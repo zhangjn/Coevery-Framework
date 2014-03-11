@@ -5,12 +5,12 @@ using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
-using Coevery.Core.Entities.Extensions;
-using Coevery.Core.Entities.ViewModels;
+using Coevery.DeveloperTools.Extensions;
+using Coevery.DeveloperTools.ViewModels;
 using Coevery.Localization;
-using IContentDefinitionEditorEvents = Coevery.Core.Entities.Settings.IContentDefinitionEditorEvents;
+using IContentDefinitionEditorEvents = Coevery.DeveloperTools.Settings.IContentDefinitionEditorEvents;
 
-namespace Coevery.Core.Entities.Services {
+namespace Coevery.DeveloperTools.Services {
     public class ContentDefinitionService : IContentDefinitionService {
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IContentDefinitionExtension _contentDefinitionExtension;

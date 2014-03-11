@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Coevery.ContentManagement.Records;
 using Coevery.Data.Conventions;
 
-namespace Coevery.Core.Entities.Models {
+namespace Coevery.DeveloperTools.Models {
     public class EntityMetadataRecord : ContentPartVersionRecord {
         public EntityMetadataRecord() {
             FieldMetadataRecords = new List<FieldMetadataRecord>();

@@ -1,6 +1,6 @@
 ﻿using Coevery.ContentManagement;
 
-namespace Coevery.Core.Entities.Services {
+namespace Coevery.DeveloperTools.Services {
     public interface IContentFieldValueProvider : IDependency {
         object GetValue(ContentItem contentItem, ContentField field);
     }

@@ -1,4 +1,4 @@
-﻿namespace Coevery.Core.Entities.DynamicTypeGeneration {
+﻿namespace Coevery.DeveloperTools.DynamicTypeGeneration {
     public class ContentTypeSettings {
         /// <summary>
         /// Used to determine if an instance of this content type can be created through the UI

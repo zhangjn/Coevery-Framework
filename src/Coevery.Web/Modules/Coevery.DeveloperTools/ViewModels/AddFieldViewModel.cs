@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using Coevery.ContentManagement.ViewModels;
 
-namespace Coevery.Core.Entities.ViewModels {
+namespace Coevery.DeveloperTools.ViewModels {
     public class AddFieldViewModel {
         public AddFieldViewModel() {
             Fields = new List<TemplateViewModel>();

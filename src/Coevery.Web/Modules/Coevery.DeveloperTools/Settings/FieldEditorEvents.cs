@@ -1,7 +1,7 @@
 ﻿using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 
-namespace Coevery.Core.Entities.Settings {
+namespace Coevery.DeveloperTools.Settings {
     public class FieldEditorEvents : ContentDefinitionEditorEventsBase {
         protected void UpdateSettings(FieldSettings model, ContentPartFieldDefinitionBuilder builder, string prefix) {
             model.HelpText = model.HelpText ?? string.Empty;

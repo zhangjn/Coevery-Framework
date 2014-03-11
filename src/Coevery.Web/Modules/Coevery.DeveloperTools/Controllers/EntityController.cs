@@ -5,14 +5,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Coevery.ContentManagement;
-using Coevery.Core.Entities.Extensions;
-using Coevery.Core.Entities.Services;
-using Coevery.Core.Entities.ViewModels;
+using Coevery.DeveloperTools.Extensions;
+using Coevery.DeveloperTools.Services;
+using Coevery.DeveloperTools.ViewModels;
 using Coevery.Localization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Coevery.Core.Entities.Controllers {
+namespace Coevery.DeveloperTools.Controllers {
     public class EntityController : ApiController {
         private readonly IContentMetadataService _contentMetadataService;
         private readonly IContentDefinitionExtension _contentDefinitionExtension;

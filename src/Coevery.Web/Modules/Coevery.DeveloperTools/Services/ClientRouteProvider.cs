@@ -1,6 +1,6 @@
 ﻿using Coevery.Mvc.ClientRoute;
 
-namespace Coevery.Core.Entities.Services {
+namespace Coevery.DeveloperTools.Services {
     public class ClientRouteProvider : ClientRouteProviderBase {
         public override void Discover(ClientRouteTableBuilder builder) {
             builder.Describe("EntityList")

@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
-using Coevery.Core.Entities.Events;
-using Coevery.Core.Entities.Models;
-using Coevery.Core.Entities.Settings;
-using Coevery.Core.Entities.ViewModels;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data;
+using Coevery.DeveloperTools.Events;
+using Coevery.DeveloperTools.Models;
+using Coevery.DeveloperTools.Settings;
+using Coevery.DeveloperTools.ViewModels;
 using Coevery.Utility.Extensions;
 
-namespace Coevery.Core.Entities.Services {
+namespace Coevery.DeveloperTools.Services {
     public interface IContentMetadataService : IDependency {
         void CreateEntity(EditTypeViewModel sourceModel, IUpdateModel updateModel);
         IEnumerable<EntityMetadataPart> GetRawEntities();

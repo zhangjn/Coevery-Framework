@@ -4,15 +4,15 @@ using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData;
-using Coevery.Core.Entities.Events;
-using Coevery.Core.Entities.Extensions;
-using Coevery.Core.Entities.Models;
-using Coevery.Core.Entities.Services;
 using Coevery.Data;
 using Coevery.Data.Migration.Schema;
-using IContentDefinitionEditorEvents = Coevery.Core.Entities.Settings.IContentDefinitionEditorEvents;
+using Coevery.DeveloperTools.Events;
+using Coevery.DeveloperTools.Extensions;
+using Coevery.DeveloperTools.Models;
+using Coevery.DeveloperTools.Services;
+using IContentDefinitionEditorEvents = Coevery.DeveloperTools.Settings.IContentDefinitionEditorEvents;
 
-namespace Coevery.Core.Entities.Handlers {
+namespace Coevery.DeveloperTools.Handlers {
     public class EntityMetadataPartHandler : ContentHandler {
         private readonly IRepository<FieldMetadataRecord> _fieldMetadataRepository;
         private readonly IContentManager _contentManager;

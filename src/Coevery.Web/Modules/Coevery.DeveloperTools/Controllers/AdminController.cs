@@ -5,15 +5,15 @@ using System.Net;
 using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
-using Coevery.Core.Entities.Services;
-using Coevery.Core.Entities.Settings;
-using Coevery.Core.Entities.ViewModels;
+using Coevery.DeveloperTools.Services;
+using Coevery.DeveloperTools.Settings;
+using Coevery.DeveloperTools.ViewModels;
 using Coevery.Localization;
 using Coevery.Logging;
 using Coevery.UI.Notify;
 using Coevery.Utility.Extensions;
 
-namespace Coevery.Core.Entities.Controllers {
+namespace Coevery.DeveloperTools.Controllers {
     public class AdminController : Controller, IUpdateModel {
         private readonly IContentDefinitionService _contentDefinitionService;
         private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;

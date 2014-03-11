@@ -1,4 +1,4 @@
-﻿namespace Coevery.Core.Entities.Extensions {
+﻿namespace Coevery.DeveloperTools.Extensions {
     public static class StrinExtensions {
         public static string TrimEnd(this string rough, string trim = "") {
             if (rough == null)

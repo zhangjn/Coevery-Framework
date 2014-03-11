@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Coevery.Core.Entities.DynamicTypeGeneration {
+namespace Coevery.DeveloperTools.DynamicTypeGeneration {
     public interface IDynamicAssemblyBuilder : IDependency {
         bool Build();
         Type GetFieldType(string fieldNameType);

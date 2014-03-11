@@ -1,7 +1,7 @@
 ﻿using Coevery.ContentManagement.MetaData;
 using Coevery.Data.Migration;
 
-namespace Coevery.Core.Entities {
+namespace Coevery.DeveloperTools {
     public class Migrations : DataMigrationImpl {
         public int Create() {
             SchemaBuilder.CreateTable("EntityMetadataRecord",

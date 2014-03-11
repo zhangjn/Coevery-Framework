@@ -3,10 +3,10 @@ using System.Linq;
 using Coevery.Caching;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
-using Coevery.Core.Entities.Models;
 using Coevery.Data;
+using Coevery.DeveloperTools.Models;
 
-namespace Coevery.Core.Entities.Extensions {
+namespace Coevery.DeveloperTools.Extensions {
     public class ContentDefinitionExtension : IContentDefinitionExtension {
         private const string ContentDefinitionSignal = "ContentDefinitionManager";
         private readonly IContentDefinitionManager _contentDefinitionManager;

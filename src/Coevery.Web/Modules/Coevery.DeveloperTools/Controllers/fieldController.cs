@@ -3,12 +3,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Coevery.Core.Entities.Services;
-using Coevery.Core.Entities.Settings;
+using Coevery.DeveloperTools.Services;
+using Coevery.DeveloperTools.Settings;
 using Coevery.Localization;
 using Coevery.Utility.Extensions;
 
-namespace Coevery.Core.Entities.Controllers {
+namespace Coevery.DeveloperTools.Controllers {
     public class FieldController : ApiController {
         private readonly IContentMetadataService _contentMetadataService;
         private readonly ISettingService _settingService;

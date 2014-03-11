@@ -1,4 +1,4 @@
-﻿namespace Coevery.Core.Entities.Settings {
+﻿namespace Coevery.DeveloperTools.Settings {
     public class FieldSettings {
         public string HelpText { get; set; }
         public bool Required { get; set; }

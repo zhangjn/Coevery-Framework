@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Coevery.Core.Entities.Extensions {
+namespace Coevery.DeveloperTools.Extensions {
     public static class CoeveryStringExtension {
         private const string PartSuffix = "Part";
 

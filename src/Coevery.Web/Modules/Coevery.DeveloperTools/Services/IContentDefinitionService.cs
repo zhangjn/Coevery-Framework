@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement.ViewModels;
-using Coevery.Core.Entities.ViewModels;
+using Coevery.DeveloperTools.ViewModels;
 
-namespace Coevery.Core.Entities.Services {
+namespace Coevery.DeveloperTools.Services {
     public interface IContentDefinitionService : IDependency {
         IEnumerable<EditTypeViewModel> GetUserDefinedTypes();
         EditTypeViewModel GetType(string name);

@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Common;
-using Coevery.Core.Entities.DynamicTypeGeneration;
 using Coevery.Data;
 using Coevery.Data.Migration.Interpreters;
 using Coevery.Data.Migration.Schema;
+using Coevery.DeveloperTools.DynamicTypeGeneration;
 using Coevery.Environment.Configuration;
 using Coevery.Reports.Services;
 using NHibernate.Dialect;
+using DefaultDataMigrationInterpreter = Coevery.DeveloperTools.Services.DefaultDataMigrationInterpreter;
 
-namespace Coevery.Core.Entities.Services {
+namespace Coevery.DeveloperTools.Services {
     public class CreateTableContext {
         private readonly IDynamicAssemblyBuilder _dynamicAssemblyBuilder;
         private readonly CreateTableCommand _tableCommand;

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Coevery.Core.Entities.DynamicTypeGeneration{
+namespace Coevery.DeveloperTools.DynamicTypeGeneration{
     public class DynamicFieldDefinition {
         public string Name { get; set; }
         public Type Type { get; set; }

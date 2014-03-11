@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement.MetaData.Models;
 
-namespace Coevery.Core.Entities.Extensions {
+namespace Coevery.DeveloperTools.Extensions {
     public class EntityNames {
         public string DisplayName { get; set; }
         public string Name { get; set; }

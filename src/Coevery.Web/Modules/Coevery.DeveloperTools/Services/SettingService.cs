@@ -2,7 +2,7 @@
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.MetaData.Services;
 
-namespace Coevery.Core.Entities.Services {
+namespace Coevery.DeveloperTools.Services {
     public interface ISettingService : IDependency {
         SettingsDictionary ParseSetting(string setting);
         string CompileSetting(SettingsDictionary settings);

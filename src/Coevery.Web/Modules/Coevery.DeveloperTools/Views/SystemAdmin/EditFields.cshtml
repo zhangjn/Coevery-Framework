@@ -1,7 +1,8 @@
 ﻿@using Coevery.Core.Entities.Settings
+@using Coevery.DeveloperTools.Settings
 @using Coevery.Entities.Settings
 @using Coevery.Utility.Extensions
-@model Coevery.Core.Entities.ViewModels.EditPartFieldViewModel
+@model Coevery.DeveloperTools.ViewModels.EditPartFieldViewModel
 @{
     var fieldSettingsPrefix = Model.FieldDefinition.Name + "Settings";
     var settings = Model.Settings.GetModel<FieldSettings>(fieldSettingsPrefix);
