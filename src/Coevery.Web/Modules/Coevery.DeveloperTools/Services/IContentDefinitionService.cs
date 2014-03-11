@@ -8,6 +8,5 @@ namespace Coevery.DeveloperTools.Services {
         EditTypeViewModel GetType(string name);
         void RemoveType(string name, bool deleteContent);
         IEnumerable<TemplateViewModel> GetFields();
-        
     }
 }

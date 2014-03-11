@@ -9,10 +9,10 @@ namespace Coevery.DeveloperTools.Extensions {
         public string CollectionDisplayName { get; set; }
     }
 
-    public interface IContentDefinitionExtension:IDependency {
+    public interface IContentDefinitionExtension : IDependency {
         IEnumerable<ContentTypeDefinition> ListUserDefinedTypeDefinitions();
         IEnumerable<ContentPartDefinition> ListUserDefinedPartDefinitions();
         EntityNames GetEntityNames(string entityName);
-        string GetEntityNameFromCollectionName(string collectionname, bool isDisplayName=false);
+        string GetEntityNameFromCollectionName(string collectionname, bool isDisplayName = false);
     }
 }

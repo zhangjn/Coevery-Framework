@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
+using Coevery.DeveloperTools.Settings;
 
 namespace Coevery.DeveloperTools.DynamicTypeGeneration {
     public abstract class DynamicContentsDriver<TContent> : ContentPartDriver<TContent> where TContent : ContentPart, new() {

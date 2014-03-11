@@ -72,7 +72,7 @@ namespace Coevery.DeveloperTools.Extensions {
         }
 
         public string GetEntityNameFromCollectionName(string collectionname, bool isDisplayName) {
-            var entity = _contentDefinitionManager.ListTypeDefinitions().Where(type => {
+            var entity = _contentDefinitionManager.ListTypeDefinitions().FirstOrDefault(type => {
                 var setting = type.Settings;
                 if (isDisplayName && setting.ContainsKey("CollectionDisplayName")) {
                     return setting["CollectionDisplayName"] == collectionname;
@@ -82,7 +82,7 @@ namespace Coevery.DeveloperTools.Extensions {
                 }
                 return false;
             });
-            return entity.Count() == 1 ? entity.First().Name : null;
+            return entity != null ? entity.Name : null;
         }
 
         private void MonitorContentDefinitionSignal(AcquireContext<string> ctx) {

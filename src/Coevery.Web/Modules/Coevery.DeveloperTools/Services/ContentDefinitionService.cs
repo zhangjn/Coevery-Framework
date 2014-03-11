@@ -8,7 +8,6 @@ using Coevery.ContentManagement.ViewModels;
 using Coevery.DeveloperTools.Extensions;
 using Coevery.DeveloperTools.ViewModels;
 using Coevery.Localization;
-using IContentDefinitionEditorEvents = Coevery.DeveloperTools.Settings.IContentDefinitionEditorEvents;
 
 namespace Coevery.DeveloperTools.Services {
     public class ContentDefinitionService : IContentDefinitionService {

@@ -10,7 +10,6 @@ using Coevery.DeveloperTools.Events;
 using Coevery.DeveloperTools.Extensions;
 using Coevery.DeveloperTools.Models;
 using Coevery.DeveloperTools.Services;
-using IContentDefinitionEditorEvents = Coevery.DeveloperTools.Settings.IContentDefinitionEditorEvents;
 
 namespace Coevery.DeveloperTools.Handlers {
     public class EntityMetadataPartHandler : ContentHandler {

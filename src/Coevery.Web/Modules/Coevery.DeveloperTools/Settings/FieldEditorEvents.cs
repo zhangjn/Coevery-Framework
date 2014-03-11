@@ -1,4 +1,5 @@
-﻿using Coevery.ContentManagement.MetaData.Builders;
+﻿using Coevery.ContentManagement.MetaData;
+using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 
 namespace Coevery.DeveloperTools.Settings {
