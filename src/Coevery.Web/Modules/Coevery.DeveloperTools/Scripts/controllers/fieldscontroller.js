@@ -14,7 +14,6 @@ define(['core/app/detourService', 'Modules/Coevery.Entities/Scripts/services/ent
                     { name: 'DisplayName', label: 'Field Label' },
                     { name: 'FieldType', label: 'Field Type' },
                     { name: 'Type', label: 'Type' },
-                    //{ name: 'ControlField', label: 'Control Field' }
                 ];
 
                 $scope.gridOptions = {

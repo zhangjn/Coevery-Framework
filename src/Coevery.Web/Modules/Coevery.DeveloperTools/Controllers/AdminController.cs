@@ -382,36 +382,5 @@ namespace Coevery.DeveloperTools.Controllers {
         void IUpdateModel.AddModelError(string key, LocalizedString errorMessage) {
             ModelState.AddModelError(key, errorMessage.ToString());
         }
-
-        public ActionResult DependencyList(string id) {
-            return View();
-        }
-
-        public ActionResult CreateDependency(string id) {
-            var typeViewModel = _contentDefinitionService.GetType(id);
-            var controlFields = new List<EditPartFieldViewModel>();
-            var dependentFields = new List<EditPartFieldViewModel>();
-            foreach (var field in typeViewModel.Fields) {
-                switch (field.FieldDefinition.Name) {
-                    case "OptionSetField":
-                        controlFields.Add(field);
-                        dependentFields.Add(field);
-                        break;
-                    case "BooleanField":
-                        controlFields.Add(field);
-                        break;
-                }
-            }
-            var viewModel = new FieldDependencyViewModel {
-                ControlFields = controlFields,
-                DependentFields = dependentFields
-            };
-            return View(viewModel);
-        }
-
-        public ActionResult EditDependency(string entityName, int itemId) {
-            var typeViewModel = _contentDefinitionService.GetType(entityName);
-            return View();
-        }
     }
 }

@@ -84,9 +84,6 @@
   <ItemGroup>
     <Content Include="Scripts\controllers\choosefieldtypecontroller.js" />
     <Content Include="Scripts\controllers\confirmfieldinfocontroller.js" />
-    <Content Include="Scripts\controllers\dependencycreatecontroller.js" />
-    <Content Include="Scripts\controllers\dependencyeditcontroller.js" />
-    <Content Include="Scripts\controllers\dependencylistcontroller.js" />
     <Content Include="Scripts\controllers\detailcontroller.js" />
     <Content Include="Scripts\controllers\editcontroller.js" />
     <Content Include="Scripts\controllers\editfieldscontroller.js" />
@@ -95,7 +92,6 @@
     <Content Include="Scripts\controllers\listcontroller.js" />
     <Content Include="Scripts\services\entitydataservice.js" />
     <Content Include="Scripts\services\fielddataservice.js" />
-    <Content Include="Scripts\services\fielddependencydataservice.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\Web.config" />
     <Content Include="Styles\Web.config" />
@@ -163,7 +159,6 @@
     <Compile Include="ViewModels\EditTypeViewModel.cs" />
     <Compile Include="ViewModels\EntityDetailViewModel.cs" />
     <Compile Include="ViewModels\EntityRecordTemplateViewModel.cs" />
-    <Compile Include="ViewModels\FieldDependencyViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\ChooseFieldType.cshtml" />
@@ -175,22 +170,13 @@
     <Content Include="Views\Admin\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\CreateDependency.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Views\Admin\CreateEditInfo.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Admin\DependencyList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Admin\EditDependency.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Admin\EditFields.cshtml" />
