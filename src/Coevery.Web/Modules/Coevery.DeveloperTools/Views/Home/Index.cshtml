@@ -17,14 +17,16 @@
     
     Script.Require("i18next");
     Script.Require("ng_i18next");
-    Script.Include("directives/jqGrid-directive.js");
-    Script.Include("directives/wizard-directive.js");
-    Script.Include("directives/dependency-directive.js");
-    Script.Include("directives/picklist-directive.js");
+    
+    Script.Require("jqGrid-directive");
+    Script.Require("wizard-directive");
+    Script.Require("dependency-directive");
+    Script.Require("picklist-directive");
+    Script.Require("cobusy-directive");
+    
     Script.Require("ui_bootstrap");
     Script.Require("spin");
     Script.Require("promisetracker");
-    Script.Include("directives/cobusy-directive.js");
 }
 
 <div data-loading-indicator id="loading">@T("Loading...")</div>

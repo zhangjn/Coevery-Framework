@@ -16,6 +16,7 @@ namespace Coevery.Core.Common {
 
             RegisterAngular(manifest);
             RegisterJQuery(manifest);
+            RegisterDirective(manifest);
         }
 
         private void RegisterAngular(UI.Resources.ResourceManifest manifest) {
@@ -109,6 +110,14 @@ namespace Coevery.Core.Common {
 
             manifest.DefineStyle("Switchable").SetUrl("jQuery/jquery.switchable.css");
             manifest.DefineScript("Switchable").SetUrl("jQuery/jquery.switchable.js").SetDependencies("jQuery").SetDependencies("ShapesBase");
+        }
+
+        private void RegisterDirective(UI.Resources.ResourceManifest manifest) {
+            manifest.DefineScript("jqGrid-directive").SetUrl("directives/jqGrid-directive.js");
+            manifest.DefineScript("wizard-directive").SetUrl("directives/wizard-directive.js");
+            manifest.DefineScript("dependency-directive").SetUrl("directives/dependency-directive.js");
+            manifest.DefineScript("picklist-directive").SetUrl("directives/picklist-directive.js");
+            manifest.DefineScript("cobusy-directive").SetUrl("directives/cobusy-directive.js");
         }
     }
 }
