@@ -12,7 +12,7 @@ namespace Coevery.DeveloperTools {
                         "DeveloperTools",
                         new RouteValueDictionary {
                             {"area", "Coevery.DeveloperTools"},
-                            {"controller", "Admin"},
+                            {"controller", "Home"},
                             {"action", "Index"}
                         },
                         new RouteValueDictionary(),
