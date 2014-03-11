@@ -3,19 +3,20 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Coevery.Mvc.Routes;
 
-namespace Coevery.Core.Common {
+namespace Coevery.DeveloperTools {
     public class Routes : IRouteProvider {
         public IEnumerable<RouteDescriptor> GetRoutes() {
             return new[] {
                 new RouteDescriptor {
-                    Priority = -20,
-                    Route = new Route("",
+                    Route = new Route(
+                        "DeveloperTools",
                         new RouteValueDictionary {
-                            {"area", "Common"},
+                            {"area", "Coevery.DeveloperTools"},
                             {"controller", "Home"},
                             {"action", "Index"}
-                        }, new RouteValueDictionary(),
-                        new RouteValueDictionary {{"area", "Common"}},
+                        },
+                        new RouteValueDictionary(),
+                        new RouteValueDictionary {{"area", "Coevery.DeveloperTools"}},
                         new MvcRouteHandler())
                 }
             };
