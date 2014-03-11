@@ -1,48 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Coevery.ContentManagement;
-using Coevery.DeveloperTools.Extensions;
 using Coevery.DeveloperTools.Services;
-using Coevery.DeveloperTools.ViewModels;
 using Coevery.Localization;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Coevery.DeveloperTools.Controllers {
     public class EntityController : ApiController {
         private readonly IContentMetadataService _contentMetadataService;
-        private readonly IContentDefinitionExtension _contentDefinitionExtension;
 
-        public EntityController(
-            IContentMetadataService contentMetadataService,
-            IContentDefinitionExtension contentDefinitionService) {
+        public EntityController(IContentMetadataService contentMetadataService) {
             _contentMetadataService = contentMetadataService;
-            _contentDefinitionExtension = contentDefinitionService;
             T = NullLocalizer.Instance;
         }
 
         public Localizer T { get; set; }
-
-        //QUERY api/Entities/Entity
-        public HttpResponseMessage Get() {
-            var entities = new List<JObject>();
-            var usertypelist = _contentDefinitionExtension.ListUserDefinedTypeDefinitions();
-            if (usertypelist != null) {
-                var metadataTypes = usertypelist.Select(ctd => new EditTypeViewModel(ctd)).OrderBy(m => m.DisplayName);
-                var entityList = metadataTypes.Select(item => item.Name).ToList();
-                foreach (var entity in entityList) {
-                    var entityitem = new JObject();
-                    entityitem["name"] = entity;
-                    entities.Add(entityitem);
-                }
-            }
-            var json = JsonConvert.SerializeObject(entities);
-            return new HttpResponseMessage {Content = new StringContent(json, System.Text.Encoding.UTF8, "application/json")};
-        }
 
         //GET api/Entities/Entity
         public object Get(int rows, int page) {

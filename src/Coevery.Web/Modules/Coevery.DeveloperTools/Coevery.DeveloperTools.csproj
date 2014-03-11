@@ -160,34 +160,34 @@
     <Compile Include="ViewModels\EntityRecordTemplateViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\ChooseFieldType.cshtml" />
+    <Content Include="Views\FieldAdmin\ChooseFieldType.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\ConfirmFieldInfo.cshtml" />
+    <Content Include="Views\FieldAdmin\ConfirmFieldInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\Create.cshtml" />
+    <Content Include="Views\EntityAdmin\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\CreateEditInfo.cshtml" />
+    <Content Include="Views\FieldAdmin\CreateEditInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\Detail.cshtml" />
+    <Content Include="Views\EntityAdmin\Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\Edit.cshtml" />
+    <Content Include="Views\EntityAdmin\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\EditFields.cshtml" />
+    <Content Include="Views\FieldAdmin\EditFields.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\Fields.cshtml" />
+    <Content Include="Views\FieldAdmin\Fields.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\FillFieldInfo.cshtml" />
+    <Content Include="Views\FieldAdmin\FillFieldInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Admin\List.cshtml" />
+    <Content Include="Views\EntityAdmin\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Web.config" />
@@ -198,6 +198,7 @@
   <ItemGroup>
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
