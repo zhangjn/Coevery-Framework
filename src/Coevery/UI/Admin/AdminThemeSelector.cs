@@ -10,6 +10,5 @@ namespace Coevery.UI.Admin {
 
             return null;
         }
-
     }
 }
