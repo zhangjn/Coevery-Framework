@@ -116,6 +116,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\EntityController.cs" />
+    <Compile Include="Controllers\FieldController.cs" />
     <Compile Include="Drivers\EntityMetadataPartDriver.cs" />
     <Compile Include="DynamicTypeGeneration\ContentTypeSettings.cs" />
     <Compile Include="DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
