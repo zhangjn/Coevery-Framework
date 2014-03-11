@@ -7,7 +7,7 @@ namespace Coevery.DeveloperTools.Services {
         public Localizer T { get; set; }
 
         public string MenuName {
-            get { return "Admin"; }
+            get { return "admin"; }
         }
 
         public AdminMenu(IContentMetadataService contentDefinitionManager) {
