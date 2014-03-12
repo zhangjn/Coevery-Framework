@@ -9,14 +9,14 @@ namespace Coevery.DeveloperTools.Entities {
             return new[] {
                 new RouteDescriptor {
                     Route = new Route(
-                        "DeveloperTools",
+                        "DevTools",
                         new RouteValueDictionary {
-                            {"area", "Coevery.DeveloperTools"},
+                            {"area", "Entities"},
                             {"controller", "Home"},
                             {"action", "Index"}
                         },
                         new RouteValueDictionary(),
-                        new RouteValueDictionary {{"area", "Coevery.DeveloperTools"}},
+                        new RouteValueDictionary {{"area", "Entities"}},
                         new MvcRouteHandler())
                 }
             };
