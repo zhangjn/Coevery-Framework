@@ -1,11 +1,9 @@
-﻿@model Coevery.Fields.Fields.UrlField
-@using Coevery.Utility.Extensions;
-@using Coevery.Fields.Settings;
+﻿@model Coevery.DeveloperTools.Fields.Fields.UrlField
+@using Coevery.DeveloperTools.Fields.Settings
 @{
     var settings = Model.PartFieldDefinition.Settings.GetModel<UrlFieldSettings>();
     var required = settings.Required ? "required" : null;
 }
-
 
 <label class="control-label @required" for="@Html.FieldIdFor(m => m.Value)">@Model.DisplayName</label>
 <div class="control controls errortips">

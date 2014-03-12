@@ -190,7 +190,6 @@
     <Compile Include="Fields\Settings\DateFieldSettings.cs" />
     <Compile Include="Fields\Settings\DatetimeFieldEditorEvents.cs" />
     <Compile Include="Fields\Settings\DatetimeFieldSettings.cs" />
-    <Compile Include="Fields\Settings\DependentType.cs" />
     <Compile Include="Fields\Settings\EmailFieldEditorEvents.cs" />
     <Compile Include="Fields\Settings\EmailFieldSettings.cs" />
     <Compile Include="Fields\Settings\MultilineTextFieldEditorEvents.cs" />

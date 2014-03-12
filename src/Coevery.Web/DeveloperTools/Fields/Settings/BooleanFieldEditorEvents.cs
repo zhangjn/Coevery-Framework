@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Coevery.Entities.Settings;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
+using Coevery.DeveloperTools.Entities.Settings;
 
-namespace Coevery.Fields.Settings {
+namespace Coevery.DeveloperTools.Fields.Settings {
     public class BooleanFieldEditorEvents : FieldEditorEvents {
         public override IEnumerable<TemplateViewModel> FieldTypeDescriptor() {
             var model = string.Empty;
@@ -20,7 +20,6 @@ namespace Coevery.Fields.Settings {
             if (updateModel.TryUpdateModel(model, "BooleanFieldSettings", null, null)) {
                 UpdateSettings(model, settingsDictionary, "BooleanFieldSettings");
                 settingsDictionary["BooleanFieldSettings.SelectionMode"] = model.SelectionMode.ToString();
-                settingsDictionary["BooleanFieldSettings.DependencyMode"] = model.DependencyMode.ToString();
                 settingsDictionary["BooleanFieldSettings.DefaultValue"] = model.DefaultValue.ToString();
             }
         }
@@ -34,7 +33,6 @@ namespace Coevery.Fields.Settings {
             if (model != null) {
                 UpdateSettings(model, builder, "BooleanFieldSettings");
                 builder.WithSetting("BooleanFieldSettings.SelectionMode", model.SelectionMode.ToString());
-                builder.WithSetting("BooleanFieldSettings.DependencyMode", model.DependencyMode.ToString());
                 builder.WithSetting("BooleanFieldSettings.DefaultValue", model.DefaultValue.ToString());
             }
         }

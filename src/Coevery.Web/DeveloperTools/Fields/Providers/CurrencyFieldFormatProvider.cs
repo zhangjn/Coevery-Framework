@@ -1,11 +1,10 @@
 ﻿using Coevery.ContentManagement;
-using Coevery.Entities.Services;
-using Coevery.Fields.Fields;
-using Coevery.Fields.Settings;
+using Coevery.DeveloperTools.Entities.Providers;
+using Coevery.DeveloperTools.Fields.Fields;
+using Coevery.DeveloperTools.Fields.Settings;
 
-namespace Coevery.Fields.Projections {
+namespace Coevery.DeveloperTools.Fields.Providers {
     public class CurrencyFieldFormatProvider : IContentFieldFormatProvider {
-
         public void SetFormat(ContentField field, dynamic formState) {
             var currencyField = field as CurrencyField;
             if (currencyField != null) {

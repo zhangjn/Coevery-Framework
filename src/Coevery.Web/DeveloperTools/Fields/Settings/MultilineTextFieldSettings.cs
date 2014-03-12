@@ -1,6 +1,6 @@
-﻿using Coevery.Entities.Settings;
+﻿using Coevery.DeveloperTools.Entities.Settings;
 
-namespace Coevery.Fields.Settings {
+namespace Coevery.DeveloperTools.Fields.Settings {
     public class MultilineTextFieldSettings : FieldSettings {
         public int MaxLength { get; set; }
         public string PlaceHolderText { get; set; }

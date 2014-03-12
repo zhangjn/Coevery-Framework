@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Coevery.Entities.Services;
-using Coevery.Fields.Fields;
-using Coevery.ContentManagement;
-using Coevery.Fields.Settings;
+﻿using Coevery.ContentManagement;
+using Coevery.DeveloperTools.Entities.Providers;
+using Coevery.DeveloperTools.Fields.Fields;
+using Coevery.DeveloperTools.Fields.Settings;
 
-namespace Coevery.Fields.Projections {
+namespace Coevery.DeveloperTools.Fields.Providers {
     public class NumericFieldFormatProvider : IContentFieldFormatProvider {
 
         public void SetFormat(ContentField field, dynamic formState) {

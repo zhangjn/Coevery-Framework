@@ -1,4 +1,4 @@
-﻿@using Coevery.Fields.Settings;
+﻿@using Coevery.DeveloperTools.Fields.Settings
 @model BooleanFieldSettings
 
 <section class="control-group data-row">
@@ -14,7 +14,6 @@
             @Html.RadioButtonFor(m => m.DefaultValue, false, new { id = "defaultValueFalse" })
             @T("False")
         </label>
-        @Html.HiddenFor(m=>m.DependencyMode)
     </div>
 </section>
 <section class="control-group data-row">

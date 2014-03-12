@@ -2,7 +2,7 @@
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.FieldStorage;
 
-namespace Coevery.Fields.Fields {
+namespace Coevery.DeveloperTools.Fields.Fields {
     public class PhoneField : ContentField {
         public string Value {
             get { return Storage.Get<string>(Name); }

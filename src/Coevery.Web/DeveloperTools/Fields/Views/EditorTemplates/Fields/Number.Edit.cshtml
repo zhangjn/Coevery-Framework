@@ -1,6 +1,5 @@
-﻿@model Coevery.Fields.Fields.NumberField
-@using Coevery.Utility.Extensions;
-@using Coevery.Fields.Settings;
+﻿@model Coevery.DeveloperTools.Fields.Fields.NumberField
+@using Coevery.DeveloperTools.Fields.Settings
 @{
     var settings = Model.PartFieldDefinition.Settings.GetModel<NumberFieldSettings>();
     var required = settings.Required ? "required" : null;

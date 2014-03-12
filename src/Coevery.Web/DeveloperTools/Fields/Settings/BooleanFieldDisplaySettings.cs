@@ -1,4 +1,4 @@
-﻿namespace Coevery.Fields.Settings {
+﻿namespace Coevery.DeveloperTools.Fields.Settings {
     public class BooleanFieldDisplaySettings {
         public string OnLabel { get; set; }
         public string OffLabel { get; set; }

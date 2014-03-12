@@ -2,11 +2,11 @@
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
-using Coevery.Fields.Fields;
-using Coevery.Fields.Settings;
+using Coevery.DeveloperTools.Fields.Fields;
+using Coevery.DeveloperTools.Fields.Settings;
 using Coevery.Localization;
 
-namespace Coevery.Fields.Drivers {
+namespace Coevery.DeveloperTools.Fields.Drivers {
     public class NumberFieldDriver : ContentFieldDriver<NumberField> {
         public ICoeveryServices Services { get; set; }
         private const string TemplateName = "Fields/Number.Edit";

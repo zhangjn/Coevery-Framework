@@ -1,6 +1,6 @@
-﻿using Coevery.Entities.Settings;
+﻿using Coevery.DeveloperTools.Entities.Settings;
 
-namespace Coevery.Fields.Settings {
+namespace Coevery.DeveloperTools.Fields.Settings {
     public class UrlFieldSettings : FieldSettings {
         public string DefaultValue { get; set; }
         public bool IsUnique { get; set; }

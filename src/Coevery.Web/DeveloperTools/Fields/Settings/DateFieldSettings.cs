@@ -1,13 +1,12 @@
 ﻿using System;
-using Coevery.Entities.Settings;
+using Coevery.DeveloperTools.Entities.Settings;
 
-namespace Coevery.Fields.Settings {
+namespace Coevery.DeveloperTools.Fields.Settings {
     public class DateFieldSettings : FieldSettings {
-        public DateTime? DefaultValue { get ; set; }
+        public DateTime? DefaultValue { get; set; }
 
         public DateFieldSettings() {
             DefaultValue = null;
         }
-
     }
 }

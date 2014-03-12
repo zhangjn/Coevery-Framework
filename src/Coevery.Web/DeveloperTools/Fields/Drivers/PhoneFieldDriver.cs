@@ -3,11 +3,11 @@ using System.Text.RegularExpressions;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
-using Coevery.Fields.Fields;
-using Coevery.Fields.Settings;
+using Coevery.DeveloperTools.Fields.Fields;
+using Coevery.DeveloperTools.Fields.Settings;
 using Coevery.Localization;
 
-namespace Coevery.Fields.Drivers {
+namespace Coevery.DeveloperTools.Fields.Drivers {
     public class PhoneFieldDriver : ContentFieldDriver<PhoneField> {
         public ICoeveryServices Services { get; set; }
         private const string Pattern = @"^\d{8,12}|(((\(\d{3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7})$";

@@ -2,7 +2,7 @@
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.FieldStorage;
 
-namespace Coevery.Fields.Fields {
+namespace Coevery.DeveloperTools.Fields.Fields {
     public class DateField : ContentField {
         public DateTime? Value {
             get {

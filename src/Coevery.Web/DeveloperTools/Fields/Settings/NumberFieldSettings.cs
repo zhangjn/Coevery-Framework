@@ -1,6 +1,6 @@
-﻿using Coevery.Entities.Settings;
+﻿using Coevery.DeveloperTools.Entities.Settings;
 
-namespace Coevery.Fields.Settings {
+namespace Coevery.DeveloperTools.Fields.Settings {
     public class NumberFieldSettings : FieldSettings {
         public int Length { get; set; }
         public int DecimalPlaces { get; set; }

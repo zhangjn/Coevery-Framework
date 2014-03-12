@@ -1,14 +1,12 @@
-﻿using Coevery.Entities.Settings;
+﻿using Coevery.DeveloperTools.Entities.Settings;
 
-namespace Coevery.Fields.Settings {
+namespace Coevery.DeveloperTools.Fields.Settings {
     public class BooleanFieldSettings : FieldSettings {
         public BooleanDisplayMode SelectionMode { get; set; }
-        public DependentType DependencyMode { get; set; }
         public bool DefaultValue { get; set; }
 
         public BooleanFieldSettings() {
             SelectionMode = BooleanDisplayMode.Checkbox;
-            DependencyMode = DependentType.None;
         }
     }
 
