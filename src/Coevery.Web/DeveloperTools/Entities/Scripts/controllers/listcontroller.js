@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-define(['core/app/detourService', 'Modules/Coevery.DeveloperTools/Scripts/services/entitydataservice'], function(detour) {
+define(['core/app/detourService', 'DeveloperTools/Entities/Scripts/services/entitydataservice'], function(detour) {
     detour.registerController([
         'EntityListCtrl',
         ['$rootScope', '$scope', 'logger', '$state', 'entityDataService', '$http', '$i18next',
@@ -21,7 +21,7 @@ define(['core/app/detourService', 'Modules/Coevery.DeveloperTools/Scripts/servic
                 ];
 
                 $scope.gridOptions = {
-                    url: "api/developertools/entity",
+                    url: "api/entities/entity",
                     colModel: metadataColumnDefs,
                     rowIdName: "Name"
                 };

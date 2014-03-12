@@ -21,7 +21,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
                 .Add(T("Entities"), "2",
                     menu => {
                         int menuIdex = 0;
-                        menu.Add(T("All Entities"), (++menuIdex).ToString(), item => item.Url("DeveloperTools#/Entities"));
+                        menu.Add(T("All Entities"), (++menuIdex).ToString(), item => item.Url("DevTools#/Entities"));
                         var userDefinedTypes = _contentDefinitionManager.GetRawEntities();
                         foreach (var type in userDefinedTypes) {
                             var typeModel = type;

@@ -27,7 +27,7 @@ namespace Coevery.Mvc.ClientRoute {
             get {
                 var basePath = "~/";
                 if (!IsFrontEnd) {
-                    basePath = "~/SystemAdmin/";
+                    basePath = "~/DevTools/";
                 }
                 var absolutePath = VirtualPathUtility.ToAbsolute(basePath);
                 return absolutePath;

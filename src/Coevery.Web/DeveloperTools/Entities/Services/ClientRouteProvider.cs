@@ -11,7 +11,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
             builder.Describe("EntityList")
                 .Configure(descriptor => { descriptor.Url = "/Entities"; })
                 .View(view => {
-                    view.TemplateUrl = "'DevTools/Admin/List'";
+                    view.TemplateUrl = "'" + ModuleBasePath + @"List'";
                     view.Controller = "EntityListCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, "controllers/listcontroller");
                 });

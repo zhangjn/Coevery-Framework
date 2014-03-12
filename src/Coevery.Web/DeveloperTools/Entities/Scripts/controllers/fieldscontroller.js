@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-define(['core/app/detourService', 'Modules/Coevery.DeveloperTools/Scripts/services/entitydataservice', 'Modules/Coevery.Entities/Scripts/services/fielddataservice'], function (detour) {
+define(['core/app/detourService', 'DeveloperTools/Entities/Scripts/services/entitydataservice', 'Modules/Coevery.Entities/Scripts/services/fielddataservice'], function (detour) {
     detour.registerController([
         'FieldsCtrl',
         ['$rootScope', '$scope', 'logger', '$state', '$stateParams', '$dialog', 'fieldDataService',

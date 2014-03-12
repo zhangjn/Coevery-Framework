@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-define(['core/app/detourService', 'Modules/Coevery.DeveloperTools/Scripts/services/entitydataservice'], function (detour) {
+define(['core/app/detourService', 'DeveloperTools/Entities/Scripts/services/entitydataservice'], function (detour) {
     detour.registerController([
         'EntityDetailCtrl',
         ['$scope', 'logger', '$state', '$stateParams', 'entityDataService', '$http',
