@@ -72,7 +72,7 @@ namespace Coevery.Setup.Services {
                     // Core
                     "Settings", "Common",
                     // DeveloperTools
-                    "Entities", "Fields",
+                    "Entities", "Fields", "FormDesigner",
                     // Modules
                     "Coevery.Users", "Coevery.Roles"
                 };

@@ -56,6 +56,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\nhibernate\NHibernate.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\..\..\lib\nunit\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.ComponentModel.DataAnnotations">
@@ -80,6 +83,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="TechTalk.SpecFlow">
+      <HintPath>..\..\..\lib\specflow\TechTalk.SpecFlow.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entities\Module.txt" />
@@ -101,6 +107,17 @@
     <Content Include="Fields\Styles\datetime.css" />
     <Content Include="Fields\Styles\Images\move.gif" />
     <Content Include="Fields\Styles\media-gallery-admin.css" />
+    <Content Include="Formdesigner\Module.txt" />
+    <Content Include="Formdesigner\Scripts\controllers\formdesignercontroller.js" />
+    <Content Include="Formdesigner\Specs\Orchard.Fields.Specs.csproj" />
+    <Content Include="Formdesigner\Styles\formdesigner.css" />
+    <Content Include="Formdesigner\Styles\images\alwaysdisplay12.gif" />
+    <Content Include="Formdesigner\Styles\images\arrow.png" />
+    <Content Include="Formdesigner\Styles\images\line.png" />
+    <Content Include="Formdesigner\Styles\images\merge.png" />
+    <Content Include="Formdesigner\Styles\images\required12.gif" />
+    <Content Include="Formdesigner\Styles\images\split.png" />
+    <Content Include="Formdesigner\Styles\images\wrenchRemove.png" />
     <Content Include="Web.config" />
     <Content Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -211,6 +228,26 @@
     <Compile Include="Entities\ViewModels\EntityRecordTemplateViewModel.cs" />
     <Compile Include="Fields\Settings\UrlFieldEditorEvents.cs" />
     <Compile Include="Fields\Settings\UrlFieldSettings.cs" />
+    <Compile Include="Formdesigner\Controllers\LayoutController.cs" />
+    <Compile Include="Formdesigner\Controllers\AdminController.cs" />
+    <Compile Include="Formdesigner\Handlers\FormDesignerEntityEventsHandler.cs" />
+    <Compile Include="Formdesigner\Handlers\FormDesignerFieldEventsHandler.cs" />
+    <Compile Include="Formdesigner\Models\Column.cs" />
+    <Compile Include="Formdesigner\Models\Field.cs" />
+    <Compile Include="Formdesigner\Models\Row.cs" />
+    <Compile Include="Formdesigner\Models\Section.cs" />
+    <Compile Include="Formdesigner\Services\ClientRouteProvider.cs" />
+    <Compile Include="Formdesigner\Services\ILayoutManager.cs" />
+    <Compile Include="Formdesigner\Services\TemplateViewService.cs" />
+    <Compile Include="Formdesigner\Specs\Boolean.feature.cs" />
+    <Compile Include="Formdesigner\Specs\DateTime.feature.cs" />
+    <Compile Include="Formdesigner\Specs\Enumeration.feature.cs" />
+    <Compile Include="Formdesigner\Specs\Input.feature.cs" />
+    <Compile Include="Formdesigner\Specs\Link.feature.cs" />
+    <Compile Include="Formdesigner\Specs\Media.feature.cs" />
+    <Compile Include="Formdesigner\Specs\Numeric.feature.cs" />
+    <Compile Include="Formdesigner\Specs\Properties\AssemblyInfo.cs" />
+    <Compile Include="Formdesigner\ViewModels\FieldViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entities\Placement.info" />
@@ -288,7 +325,24 @@
   <ItemGroup>
     <Content Include="Fields\Placement.info" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Formdesigner\Placement.info" />
+    <Content Include="Formdesigner\Scripts\Web.config" />
+    <Content Include="Formdesigner\Specs\App.config" />
+    <Content Include="Formdesigner\Specs\Boolean.feature" />
+    <Content Include="Formdesigner\Specs\Content\orchard.core.po" />
+    <Content Include="Formdesigner\Specs\DateTime.feature" />
+    <Content Include="Formdesigner\Specs\Enumeration.feature" />
+    <Content Include="Formdesigner\Specs\Input.feature" />
+    <Content Include="Formdesigner\Specs\Link.feature" />
+    <Content Include="Formdesigner\Specs\Media.feature" />
+    <Content Include="Formdesigner\Specs\Numeric.feature" />
+    <Content Include="Formdesigner\Styles\Web.config" />
+    <Content Include="Formdesigner\Views\FormTemplate\FormDesignerLayout.cshtml" />
+    <Content Include="Formdesigner\Views\Admin\CreateNavigationItem.cshtml" />
+    <Content Include="Formdesigner\Views\Admin\Index.cshtml" />
+    <Content Include="Formdesigner\Views\Web.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
