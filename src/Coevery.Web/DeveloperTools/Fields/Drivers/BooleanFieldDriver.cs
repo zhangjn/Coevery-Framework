@@ -41,7 +41,7 @@ namespace Coevery.DeveloperTools.Fields.Drivers {
             }
 
             return ContentShape("Fields_Boolean_Edit", GetDifferentiator(field, part),
-                                () => shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: field, Prefix: GetPrefix(field, part)));
+                () => shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: field, Prefix: GetPrefix(field, part)));
         }
 
         protected override DriverResult Editor(ContentPart part, BooleanField field, IUpdateModel updater, dynamic shapeHelper) {
@@ -63,8 +63,7 @@ namespace Coevery.DeveloperTools.Fields.Drivers {
         }
 
         protected override void Describe(DescribeMembersContext context) {
-            context
-                .Member(null, typeof(bool), null, T("The boolean value of the field."));
+            context.Member(null, typeof(bool), null, T("The boolean value of the field."));
         }
     }
 }

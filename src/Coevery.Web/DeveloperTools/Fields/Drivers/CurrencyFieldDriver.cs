@@ -36,7 +36,7 @@ namespace Coevery.DeveloperTools.Fields.Drivers {
         protected override DriverResult Editor(ContentPart part, CurrencyField field, dynamic shapeHelper) {
             //if the content item is new, assign the default value
             var settings = field.PartFieldDefinition.Settings.GetModel<CurrencyFieldSettings>();
-            if (!field.Value.HasValue) {                
+            if (!field.Value.HasValue) {
                 field.Value = settings.DefaultValue;
             }
             else {

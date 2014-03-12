@@ -73,7 +73,7 @@ namespace Coevery.DeveloperTools.Fields.Drivers {
         }
 
         protected override void Describe(DescribeMembersContext context) {
-            context.Member(null, typeof (string), null, T("The value of the field."));
+            context.Member(null, typeof(string), null, T("The value of the field."));
         }
 
         private void HandleUniqueValue(ContentPart part, TextField field, IUpdateModel updater) {

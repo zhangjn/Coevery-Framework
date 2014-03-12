@@ -34,8 +34,7 @@ namespace Coevery.DeveloperTools.Fields.Drivers {
         }
 
         protected override DriverResult Editor(ContentPart part, DatetimeField field, dynamic shapeHelper) {
-            if (!field.Value.HasValue)
-            {
+            if (!field.Value.HasValue) {
                 var settings = field.PartFieldDefinition.Settings.GetModel<DatetimeFieldSettings>();
                 field.Value = settings.DefaultValue;
             }
@@ -43,7 +42,7 @@ namespace Coevery.DeveloperTools.Fields.Drivers {
                 () => shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: field, Prefix: GetPrefix(field, part)));
         }
 
-        protected override DriverResult Editor(ContentPart part, DatetimeField field, IUpdateModel updater, dynamic shapeHelper) {       
+        protected override DriverResult Editor(ContentPart part, DatetimeField field, IUpdateModel updater, dynamic shapeHelper) {
             if (updater.TryUpdateModel(field, GetPrefix(field, part), null, null)) {
                 var settings = field.PartFieldDefinition.Settings.GetModel<DatetimeFieldSettings>();
                 if (settings.Required && !field.Value.HasValue) {

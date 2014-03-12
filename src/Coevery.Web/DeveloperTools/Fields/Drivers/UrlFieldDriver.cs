@@ -74,7 +74,6 @@ namespace Coevery.DeveloperTools.Fields.Drivers {
             context.Member(null, typeof(string), null, T("The value of the field."));
         }
 
-
         private void HandleUniqueValue(ContentPart part, UrlField field, IUpdateModel updater) {
             var recordType = part.GetType().GetProperty("Record").PropertyType;
             Action<IAliasFactory> alias = x => x.ContentPartRecord(recordType);
