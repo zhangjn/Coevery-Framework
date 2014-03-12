@@ -108,9 +108,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Controllers\EntityAdminController.cs" />
+    <Compile Include="Entities\Controllers\AdminController.cs" />
     <Compile Include="Entities\Controllers\EntityController.cs" />
-    <Compile Include="Entities\Controllers\FieldAdminController.cs" />
     <Compile Include="Entities\Controllers\FieldController.cs" />
     <Compile Include="Entities\Controllers\HomeController.cs" />
     <Compile Include="Entities\Drivers\EntityMetadataPartDriver.cs" />
@@ -167,16 +166,16 @@
     <Content Include="Entities\Placement.info" />
     <Content Include="Entities\Scripts\Web.config" />
     <Content Include="Entities\Styles\Web.config" />
-    <Content Include="Entities\Views\EntityAdmin\Create.cshtml" />
-    <Content Include="Entities\Views\EntityAdmin\Detail.cshtml" />
-    <Content Include="Entities\Views\EntityAdmin\Edit.cshtml" />
-    <Content Include="Entities\Views\EntityAdmin\List.cshtml" />
-    <Content Include="Entities\Views\FieldAdmin\ChooseFieldType.cshtml" />
-    <Content Include="Entities\Views\FieldAdmin\ConfirmFieldInfo.cshtml" />
-    <Content Include="Entities\Views\FieldAdmin\CreateEditInfo.cshtml" />
-    <Content Include="Entities\Views\FieldAdmin\EditFields.cshtml" />
-    <Content Include="Entities\Views\FieldAdmin\Fields.cshtml" />
-    <Content Include="Entities\Views\FieldAdmin\FillFieldInfo.cshtml" />
+    <Content Include="Entities\Views\Admin\Create.cshtml" />
+    <Content Include="Entities\Views\Admin\Detail.cshtml" />
+    <Content Include="Entities\Views\Admin\Edit.cshtml" />
+    <Content Include="Entities\Views\Admin\List.cshtml" />
+    <Content Include="Entities\Views\Admin\ChooseFieldType.cshtml" />
+    <Content Include="Entities\Views\Admin\ConfirmFieldInfo.cshtml" />
+    <Content Include="Entities\Views\Admin\CreateEditInfo.cshtml" />
+    <Content Include="Entities\Views\Admin\EditFields.cshtml" />
+    <Content Include="Entities\Views\Admin\Fields.cshtml" />
+    <Content Include="Entities\Views\Admin\FillFieldInfo.cshtml" />
     <Content Include="Entities\Views\Home\Index.cshtml" />
     <Content Include="Entities\Views\Web.config" />
   </ItemGroup>

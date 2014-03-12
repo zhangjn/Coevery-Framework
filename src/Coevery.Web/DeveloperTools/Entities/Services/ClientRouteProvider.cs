@@ -11,7 +11,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
             builder.Describe("EntityList")
                 .Configure(descriptor => { descriptor.Url = "/Entities"; })
                 .View(view => {
-                    view.TemplateUrl = "'DeveloperTools/EntityAdmin/List'";
+                    view.TemplateUrl = "'DevTools/Admin/List'";
                     view.Controller = "EntityListCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, "controllers/listcontroller");
                 });
@@ -19,7 +19,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
             builder.Describe("EntityCreate")
                 .Configure(descriptor => { descriptor.Url = "/Entities/Create"; })
                 .View(view => {
-                    view.TemplateUrl = "'DeveloperTools/EntityAdmin/Create'";
+                    view.TemplateUrl = "'" + ModuleBasePath + @"Create'";
                     view.Controller = "EntityEditCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, "controllers/editcontroller");
                 });
@@ -28,7 +28,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
                 .Configure(descriptor => { descriptor.Url = "/Entities/{Id:[0-9a-zA-Z]+}/Edit"; })
                 .View(view => {
                     view.TemplateProvider = @"['$http', '$stateParams', function ($http, $stateParams) {
-                                                var url = 'DeveloperTools/EntityAdmin/Edit/' + $stateParams.Id; 
+                                                var url = '" + ModuleBasePath + @"Edit/' + $stateParams.Id; 
                                                 return $http.get(url).then(function(response) { return response.data; });
                                           }]";
                     view.Controller = "EntityEditCtrl";
@@ -42,7 +42,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
                 })
                 .View(view => {
                     view.TemplateProvider = @"['$http', '$stateParams', function ($http, $stateParams) {
-                                                var url = 'DeveloperTools/EntityAdmin/Detail/' + $stateParams.Id; 
+                                                var url = '" + ModuleBasePath + @"Detail/' + $stateParams.Id; 
                                                 return $http.get(url).then(function(response) { return response.data; });
                                           }]";
                     view.Controller = "EntityDetailCtrl";
@@ -53,7 +53,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
         private void RegisterFieldRoutes(ClientRouteTableBuilder builder) {
             builder.Describe("EntityDetail.Fields")
                 .View(view => {
-                    view.TemplateUrl = "'DeveloperTools/FieldAdmin/Fields/'";
+                    view.TemplateUrl = "'" + ModuleBasePath + @"Fields'";
                     view.Controller = "FieldsCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, new[] {"controllers/fieldscontroller"});
                 });
@@ -61,7 +61,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
             builder.Describe("EntityDetail.Fields.Create")
                 .Configure(descriptor => { descriptor.Url = "/Create"; })
                 .View(view => {
-                    view.TemplateUrl = "function(params) { return 'DeveloperTools/FieldAdmin/ChooseFieldType/' + params.Id; }";
+                    view.TemplateUrl = "function(params) { return '" + ModuleBasePath + @"ChooseFieldType/' + params.Id; }";
                     view.Controller = "ChooseFieldTypeCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, new[] {"controllers/choosefieldtypecontroller"});
                 });
@@ -69,7 +69,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
             builder.Describe("EntityDetail.Fields.CreateFillInfo")
                 .Configure(descriptor => { descriptor.Url = "/Create/{FieldTypeName:[0-9a-zA-Z]+}"; })
                 .View(view => {
-                    view.TemplateUrl = "function(params) { return 'DeveloperTools/FieldAdmin/FillFieldInfo/' + params.Id + '?FieldTypeName=' + params.FieldTypeName; }";
+                    view.TemplateUrl = "function(params) { return '" + ModuleBasePath + @"FillFieldInfo/' + params.Id + '?FieldTypeName=' + params.FieldTypeName; }";
                     view.Controller = "FillFieldInfoCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, new[] {"controllers/fillfieldinfocontroller"});
                 });
@@ -77,7 +77,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
             builder.Describe("EntityDetail.Fields.CreateConfirmInfo")
                 .Configure(descriptor => { descriptor.Url = "/Create/{FieldTypeName:[0-9a-zA-Z]+}/Confirm"; })
                 .View(view => {
-                    view.TemplateUrl = "function(params) { return 'DeveloperTools/FieldAdmin/ConfirmFieldInfo/' + params.Id; }";
+                    view.TemplateUrl = "function(params) { return '" + ModuleBasePath + @"ConfirmFieldInfo/' + params.Id; }";
                     view.Controller = "ConfirmFieldInfoCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, new[] {"controllers/confirmfieldinfocontroller"});
                 });
@@ -86,7 +86,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
                 .Configure(descriptor => { descriptor.Url = "/Fields/{EntityName:[0-9a-zA-Z]+}/Edit/{FieldName:[0-9a-zA-Z]+}"; })
                 .View(view => {
                     view.TemplateProvider = @"['$http', '$stateParams', function ($http, $stateParams) {
-                                                var url = 'DeveloperTools/FieldAdmin/EditFields/' + $stateParams.EntityName + '?FieldName=' + $stateParams.FieldName;
+                                                var url = '" + ModuleBasePath + @"EditFields/' + $stateParams.EntityName + '?FieldName=' + $stateParams.FieldName;
                                                 return $http.get(url).then(function(response) { return response.data; });
                                           }]";
                     view.Controller = "FieldEditCtrl";
