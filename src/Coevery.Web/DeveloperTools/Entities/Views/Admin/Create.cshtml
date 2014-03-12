@@ -117,7 +117,7 @@
         //Auto get name
         var $name = $("#EntityName");
         var $displayName = $(".labelForName");
-        var jsonUrl = "@Url.Action("EntityName", "EntityAdmin", new RouteValueDictionary {{"Area", "Coevery.DeveloperTools"}})";
+        var jsonUrl = "@Url.Action("EntityName", "Admin", new RouteValueDictionary {{"Area", "Entities"}})";
         var version = 0;
 
         var nameAltered;
@@ -156,7 +156,7 @@
 
         var $fieldName = $("#FieldName");
         var $displayFieldName = $(".labelForFieldName");
-        var jsonUrlFieldName = '@Url.Action("FieldName", "FieldAdmin", new RouteValueDictionary {{"Area", "Coevery.DeveloperTools"}})';
+        var jsonUrlFieldName = '@Url.Action("FieldName", "Admin", new RouteValueDictionary {{"Area", "Entities"}})';
         var versionFieldName = 0;
 
         var nameAlteredFieldName;
