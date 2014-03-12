@@ -61,7 +61,7 @@ define(['core/app/detourService', 'DeveloperTools/Entities/Scripts/services/enti
                 };
 
                 $scope.publish = function() {
-                    $http.get('Entities/SystemAdmin/Publish/' + $scope.selectedItems[0]).then(function() {
+                    $http.get('Entities/Admin/Publish/' + $scope.selectedItems[0]).then(function() {
                         $scope.getAllMetadata();
                         $scope.selectedItems = [];
                     });
