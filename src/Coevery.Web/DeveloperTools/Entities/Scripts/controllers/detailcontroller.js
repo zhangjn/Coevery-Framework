@@ -33,7 +33,7 @@ define(['core/app/detourService', 'DeveloperTools/Entities/Scripts/services/enti
                 };
                 
                 $scope.publish = function () {
-                    $http.get('Entities/SystemAdmin/Publish/' + $stateParams.Id).then(function () {
+                    $http.get('Entities/Admin/Publish/' + $stateParams.Id).then(function () {
                         logger.success("Publish the entity successful.");
                     });
                 };
