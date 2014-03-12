@@ -25,7 +25,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
                         var userDefinedTypes = _contentDefinitionManager.GetRawEntities();
                         foreach (var type in userDefinedTypes) {
                             var typeModel = type;
-                            menu.Add(T(typeModel.DisplayName), (++menuIdex).ToString(), item => item.Url("DeveloperTools#/Entities/" + typeModel.Name));
+                            menu.Add(T(typeModel.DisplayName), (++menuIdex).ToString(), item => item.Url("DevTools#/Entities/" + typeModel.Name));
                         }
                     }, new[] {"icon-list"});
         }
