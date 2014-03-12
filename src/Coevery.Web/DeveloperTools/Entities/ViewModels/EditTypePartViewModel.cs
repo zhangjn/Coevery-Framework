@@ -2,7 +2,7 @@
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 
-namespace Coevery.DeveloperTools.ViewModels {
+namespace Coevery.DeveloperTools.Entities.ViewModels {
     public class EditTypePartViewModel {
         public EditTypePartViewModel() {
             Settings = new SettingsDictionary();

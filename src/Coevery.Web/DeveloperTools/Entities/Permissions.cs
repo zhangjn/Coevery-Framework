@@ -2,7 +2,7 @@
 using Coevery.Environment.Extensions.Models;
 using Coevery.Security.Permissions;
 
-namespace Coevery.DeveloperTools {
+namespace Coevery.DeveloperTools.Entities {
     public class Permissions : IPermissionProvider {
         public static readonly Permission ViewContentTypes = new Permission {Name = "ViewContentTypes", Description = "View content types."};
         public static readonly Permission EditContentTypes = new Permission {Name = "EditContentTypes", Description = "Edit content types."};

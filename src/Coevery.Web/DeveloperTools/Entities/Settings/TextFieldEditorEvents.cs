@@ -4,7 +4,7 @@ using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 
-namespace Coevery.DeveloperTools.Settings {
+namespace Coevery.DeveloperTools.Entities.Settings {
     public class TextFieldEditorEvents : FieldEditorEvents {
         public override IEnumerable<TemplateViewModel> FieldTypeDescriptor() {
             var model = string.Empty;

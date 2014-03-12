@@ -3,7 +3,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Coevery.Mvc.Routes;
 
-namespace Coevery.DeveloperTools {
+namespace Coevery.DeveloperTools.Entities {
     public class Routes : IRouteProvider {
         public IEnumerable<RouteDescriptor> GetRoutes() {
             return new[] {

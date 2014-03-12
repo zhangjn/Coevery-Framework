@@ -1,7 +1,7 @@
 ﻿using Coevery.ContentManagement;
 using Coevery.Events;
 
-namespace Coevery.DeveloperTools.Events {
+namespace Coevery.DeveloperTools.Entities.Events {
     public interface IEntityDataEvents : IEventHandler {
         void OnDeleting(DeletingEntityDataContext context);
     }

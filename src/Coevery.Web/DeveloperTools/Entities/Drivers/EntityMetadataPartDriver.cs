@@ -1,7 +1,7 @@
 ﻿using Coevery.ContentManagement.Drivers;
-using Coevery.DeveloperTools.Models;
+using Coevery.DeveloperTools.Entities.Models;
 
-namespace Coevery.DeveloperTools.Drivers {
+namespace Coevery.DeveloperTools.Entities.Drivers {
     public class EntityMetadataPartDriver : ContentPartDriver<EntityMetadataPart> {
     }
 }

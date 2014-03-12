@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web.Mvc;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
-using Coevery.DeveloperTools.Extensions;
+using Coevery.DeveloperTools.Entities.Extensions;
 
-namespace Coevery.DeveloperTools.ViewModels {
+namespace Coevery.DeveloperTools.Entities.ViewModels {
     public class EditTypeViewModel  {
         public EditTypeViewModel() {
             Settings = new SettingsDictionary();

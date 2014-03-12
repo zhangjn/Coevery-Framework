@@ -1,4 +1,4 @@
-﻿namespace Coevery.DeveloperTools.Settings {
+﻿namespace Coevery.DeveloperTools.Entities.Settings {
     public class TextFieldSettings : FieldSettings {
         public int MaxLength { get; set; }
         public string PlaceHolderText { get; set; }

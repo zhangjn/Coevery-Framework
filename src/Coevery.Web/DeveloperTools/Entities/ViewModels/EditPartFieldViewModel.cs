@@ -2,7 +2,7 @@
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 
-namespace Coevery.DeveloperTools.ViewModels {
+namespace Coevery.DeveloperTools.Entities.ViewModels {
     public class EditPartFieldViewModel {
 
         public EditPartFieldViewModel() {

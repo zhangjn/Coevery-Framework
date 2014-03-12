@@ -2,11 +2,11 @@
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
-using Coevery.DeveloperTools.Fields;
-using Coevery.DeveloperTools.Settings;
+using Coevery.DeveloperTools.Entities.Fields;
+using Coevery.DeveloperTools.Entities.Settings;
 using Coevery.Localization;
 
-namespace Coevery.DeveloperTools.Drivers.Fields {
+namespace Coevery.DeveloperTools.Entities.Drivers.Fields {
     public class TextFieldDriver : ContentFieldDriver<TextField> {
         public ICoeveryServices Services { get; set; }
         private const string TemplateName = "Fields/Text.Edit";

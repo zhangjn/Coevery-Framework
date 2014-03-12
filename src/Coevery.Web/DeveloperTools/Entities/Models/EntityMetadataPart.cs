@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.MetaData.Services;
-using Coevery.DeveloperTools.Services;
+using Coevery.DeveloperTools.Entities.Services;
 
-namespace Coevery.DeveloperTools.Models {
+namespace Coevery.DeveloperTools.Entities.Models {
     public class EntityMetadataPart : ContentPart<EntityMetadataRecord> {
         private readonly ISettingService _settingService = new SettingService(new SettingsFormatter());
 

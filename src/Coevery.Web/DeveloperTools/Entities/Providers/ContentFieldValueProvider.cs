@@ -1,6 +1,6 @@
 ﻿using Coevery.ContentManagement;
 
-namespace Coevery.DeveloperTools.Providers {
+namespace Coevery.DeveloperTools.Entities.Providers {
     public abstract class ContentFieldValueProvider<TContentField> : IContentFieldValueProvider where TContentField : ContentField, new() {
         object IContentFieldValueProvider.GetValue(ContentItem contentItem, ContentField field) {
             var concreteFiled = field as TContentField;

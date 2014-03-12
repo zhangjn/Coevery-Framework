@@ -5,11 +5,11 @@ using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
-using Coevery.DeveloperTools.Extensions;
-using Coevery.DeveloperTools.ViewModels;
+using Coevery.DeveloperTools.Entities.Extensions;
+using Coevery.DeveloperTools.Entities.ViewModels;
 using Coevery.Localization;
 
-namespace Coevery.DeveloperTools.Services {
+namespace Coevery.DeveloperTools.Entities.Services {
     public class ContentDefinitionService : IContentDefinitionService {
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IContentDefinitionExtension _contentDefinitionExtension;

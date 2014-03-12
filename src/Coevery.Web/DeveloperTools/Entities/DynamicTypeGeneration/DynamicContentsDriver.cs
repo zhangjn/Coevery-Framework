@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
-using Coevery.DeveloperTools.Settings;
+using Coevery.DeveloperTools.Entities.Settings;
 
-namespace Coevery.DeveloperTools.DynamicTypeGeneration {
+namespace Coevery.DeveloperTools.Entities.DynamicTypeGeneration {
     public abstract class DynamicContentsDriver<TContent> : ContentPartDriver<TContent> where TContent : ContentPart, new() {
         protected override DriverResult Display(TContent part, string displayType, dynamic shapeHelper) {
             return Combined(

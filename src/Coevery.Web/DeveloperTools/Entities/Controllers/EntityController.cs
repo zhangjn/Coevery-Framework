@@ -4,10 +4,10 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Coevery.ContentManagement;
-using Coevery.DeveloperTools.Services;
+using Coevery.DeveloperTools.Entities.Services;
 using Coevery.Localization;
 
-namespace Coevery.DeveloperTools.Controllers {
+namespace Coevery.DeveloperTools.Entities.Controllers {
     public class EntityController : ApiController {
         private readonly IContentMetadataService _contentMetadataService;
 

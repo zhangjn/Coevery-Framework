@@ -14,7 +14,7 @@ using Coevery.Reports.Services;
 using NHibernate.Dialect;
 using NHibernate.SqlTypes;
 
-namespace Coevery.DeveloperTools.Services {
+namespace Coevery.DeveloperTools.Entities.Services {
     public class DefaultDataMigrationInterpreter : AbstractDataMigrationInterpreter, IDataMigrationInterpreter {
         private readonly ShellSettings _shellSettings;
         private readonly IEnumerable<ICommandInterpreter> _commandInterpreters;

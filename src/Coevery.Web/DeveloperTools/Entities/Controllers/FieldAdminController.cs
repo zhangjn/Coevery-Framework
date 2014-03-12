@@ -5,14 +5,14 @@ using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
-using Coevery.DeveloperTools.Services;
-using Coevery.DeveloperTools.ViewModels;
+using Coevery.DeveloperTools.Entities.Services;
+using Coevery.DeveloperTools.Entities.ViewModels;
 using Coevery.Localization;
 using Coevery.Logging;
 using Coevery.UI.Notify;
 using Coevery.Utility.Extensions;
 
-namespace Coevery.DeveloperTools.Controllers {
+namespace Coevery.DeveloperTools.Entities.Controllers {
     public class FieldAdminController : Controller, IUpdateModel {
         private readonly IContentDefinitionService _contentDefinitionService;
         private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;

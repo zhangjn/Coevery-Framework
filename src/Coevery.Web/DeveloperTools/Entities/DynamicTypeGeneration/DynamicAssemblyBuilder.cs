@@ -8,11 +8,11 @@ using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.Records;
 using Coevery.Data;
-using Coevery.DeveloperTools.Events;
-using Coevery.DeveloperTools.Extensions;
+using Coevery.DeveloperTools.Entities.Events;
+using Coevery.DeveloperTools.Entities.Extensions;
 using Coevery.FileSystems.VirtualPath;
 
-namespace Coevery.DeveloperTools.DynamicTypeGeneration {
+namespace Coevery.DeveloperTools.Entities.DynamicTypeGeneration {
     public class DynamicAssemblyBuilder : IDynamicAssemblyBuilder {
         internal const string AssemblyName = "Coevery.DynamicTypes";
         private readonly IVirtualPathProvider _virtualPathProvider;

@@ -1,7 +1,7 @@
 ﻿using Coevery.Localization;
 using Coevery.UI.Navigation;
 
-namespace Coevery.DeveloperTools.Services {
+namespace Coevery.DeveloperTools.Entities.Services {
     public class AdminMenu : INavigationProvider {
         private readonly IContentMetadataService _contentDefinitionManager;
         public Localizer T { get; set; }

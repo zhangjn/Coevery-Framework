@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
-using Coevery.DeveloperTools.Extensions;
+using Coevery.DeveloperTools.Entities.Extensions;
 using Coevery.Utility.Extensions;
 
-namespace Coevery.DeveloperTools.ViewModels {
+namespace Coevery.DeveloperTools.Entities.ViewModels {
     public class EditPartViewModel {
         public EditPartViewModel() {
             Fields = new List<EditPartFieldViewModel>();

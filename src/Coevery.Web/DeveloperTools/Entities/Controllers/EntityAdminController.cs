@@ -3,14 +3,14 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using Coevery.ContentManagement;
-using Coevery.DeveloperTools.Services;
-using Coevery.DeveloperTools.Settings;
-using Coevery.DeveloperTools.ViewModels;
+using Coevery.DeveloperTools.Entities.Services;
+using Coevery.DeveloperTools.Entities.Settings;
+using Coevery.DeveloperTools.Entities.ViewModels;
 using Coevery.Localization;
 using Coevery.Logging;
 using Coevery.Utility.Extensions;
 
-namespace Coevery.DeveloperTools.Controllers {
+namespace Coevery.DeveloperTools.Entities.Controllers {
     public class EntityAdminController : Controller, IUpdateModel {
         private readonly IContentDefinitionService _contentDefinitionService;
         private readonly IContentMetadataService _contentMetadataService;

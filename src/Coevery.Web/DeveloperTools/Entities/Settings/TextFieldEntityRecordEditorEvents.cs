@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
-using Coevery.DeveloperTools.ViewModels;
+using Coevery.DeveloperTools.Entities.ViewModels;
 
-namespace Coevery.DeveloperTools.Settings {
+namespace Coevery.DeveloperTools.Entities.Settings {
     public class TextFieldEntityRecordEditorEvents : EntityRecordEditorEventsBase {
         public override IEnumerable<EntityRecordViewModel> FieldSettingsEditor() {
             yield return new EntityRecordViewModel {

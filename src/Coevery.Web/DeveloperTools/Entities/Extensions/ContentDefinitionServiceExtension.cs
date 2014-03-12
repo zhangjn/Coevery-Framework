@@ -4,9 +4,9 @@ using Coevery.Caching;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.Data;
-using Coevery.DeveloperTools.Models;
+using Coevery.DeveloperTools.Entities.Models;
 
-namespace Coevery.DeveloperTools.Extensions {
+namespace Coevery.DeveloperTools.Entities.Extensions {
     public class ContentDefinitionExtension : IContentDefinitionExtension {
         private const string ContentDefinitionSignal = "ContentDefinitionManager";
         private readonly IContentDefinitionManager _contentDefinitionManager;

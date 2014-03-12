@@ -2,7 +2,7 @@
 using Coevery.Themes;
 using Coevery.UI.Admin;
 
-namespace Coevery.DeveloperTools.Controllers {
+namespace Coevery.DeveloperTools.Entities.Controllers {
     [Admin, Themed]
     public class HomeController : Controller {
         public ActionResult Index(string returnUrl) {

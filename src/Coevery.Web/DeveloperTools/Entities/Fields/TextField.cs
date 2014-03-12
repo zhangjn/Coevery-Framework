@@ -2,7 +2,7 @@
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.FieldStorage;
 
-namespace Coevery.DeveloperTools.Fields {
+namespace Coevery.DeveloperTools.Entities.Fields {
     public class TextField : ContentField {
         public string Value {
             get { return Storage.Get<string>(Name); }
