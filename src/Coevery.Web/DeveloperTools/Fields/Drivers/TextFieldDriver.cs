@@ -2,11 +2,11 @@
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
-using Coevery.DeveloperTools.Entities.Fields;
-using Coevery.DeveloperTools.Entities.Settings;
+using Coevery.DeveloperTools.Fields.Fields;
+using Coevery.DeveloperTools.Fields.Settings;
 using Coevery.Localization;
 
-namespace Coevery.DeveloperTools.Entities.Drivers.Fields {
+namespace Coevery.DeveloperTools.Fields.Drivers {
     public class TextFieldDriver : ContentFieldDriver<TextField> {
         public ICoeveryServices Services { get; set; }
         private const string TemplateName = "Fields/Text.Edit";
@@ -73,8 +73,7 @@ namespace Coevery.DeveloperTools.Entities.Drivers.Fields {
         }
 
         protected override void Describe(DescribeMembersContext context) {
-            context
-                .Member(null, typeof(string), null, T("The value of the field."));
+            context.Member(null, typeof (string), null, T("The value of the field."));
         }
 
         private void HandleUniqueValue(ContentPart part, TextField field, IUpdateModel updater) {

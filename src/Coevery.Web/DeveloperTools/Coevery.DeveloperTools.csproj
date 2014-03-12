@@ -93,6 +93,7 @@
     <Content Include="Entities\Scripts\controllers\listcontroller.js" />
     <Content Include="Entities\Scripts\services\entitydataservice.js" />
     <Content Include="Entities\Scripts\services\fielddataservice.js" />
+    <Content Include="Fields\Module.txt" />
     <Content Include="Web.config" />
     <Content Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -113,7 +114,7 @@
     <Compile Include="Entities\Controllers\FieldController.cs" />
     <Compile Include="Entities\Controllers\HomeController.cs" />
     <Compile Include="Entities\Drivers\EntityMetadataPartDriver.cs" />
-    <Compile Include="Entities\Drivers\Fields\TextFieldDriver.cs" />
+    <Compile Include="Fields\Drivers\TextFieldDriver.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsDriver.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsHandler.cs" />
@@ -127,7 +128,7 @@
     <Compile Include="Entities\Extensions\CoeveryContentExtension.cs" />
     <Compile Include="Entities\Extensions\CoeveryStringExtension.cs" />
     <Compile Include="Entities\Extensions\ContentDefinitionServiceExtension.cs" />
-    <Compile Include="Entities\Fields\TextField.cs" />
+    <Compile Include="Fields\Fields\TextField.cs" />
     <Compile Include="Entities\Handlers\EntityMetadataPartHandler.cs" />
     <Compile Include="Entities\Migrations.cs" />
     <Compile Include="Entities\Models\EntityMetadataPart.cs" />
@@ -150,9 +151,9 @@
     <Compile Include="Entities\Settings\FieldEditorEvents.cs" />
     <Compile Include="Entities\Settings\FieldSettings.cs" />
     <Compile Include="Entities\Settings\IEntityRecordEditorEvents.cs" />
-    <Compile Include="Entities\Settings\TextFieldEditorEvents.cs" />
-    <Compile Include="Entities\Settings\TextFieldEntityRecordEditorEvents.cs" />
-    <Compile Include="Entities\Settings\TextFieldSettings.cs" />
+    <Compile Include="Fields\Settings\TextFieldEditorEvents.cs" />
+    <Compile Include="Fields\EntityRecords\TextFieldEntityRecordEditorEvents.cs" />
+    <Compile Include="Fields\Settings\TextFieldSettings.cs" />
     <Compile Include="Entities\ViewModels\AddFieldViewModel.cs" />
     <Compile Include="Entities\ViewModels\EditFieldViewModel.cs" />
     <Compile Include="Entities\ViewModels\EditPartFieldViewModel.cs" />
@@ -179,6 +180,7 @@
     <Content Include="Entities\Views\Home\Index.cshtml" />
     <Content Include="Entities\Views\Web.config" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
