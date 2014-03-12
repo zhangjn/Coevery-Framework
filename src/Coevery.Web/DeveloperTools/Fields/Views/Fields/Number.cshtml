@@ -1,0 +1,11 @@
+﻿@{
+    double? value = Model.ContentField.Value;
+    var valueToDisplay = value.HasValue
+        ? value.Value.ToString("N" + Model.DecimalPlaces)
+        : string.Empty;
+    string name = Model.ContentField.DisplayName;
+}
+<span class="control-label">@T(name)</span>
+<div class="controls">
+    <span class="control-text">@T(valueToDisplay)</span>
+</div>

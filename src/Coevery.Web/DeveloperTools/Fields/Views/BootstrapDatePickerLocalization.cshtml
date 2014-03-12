@@ -1,0 +1,39 @@
+﻿@using Coevery.Core.Shapes.Localization
+@{
+    
+    // prevent the shape from being rendered twice in a page
+    if (WorkContext.GetState<object>("BootstrapDatePickerLocalization") != null) {
+        return;
+    }
+
+    WorkContext.SetState("BootstrapDatePickerLocalization", new object());
+
+    var dateTimeLocalization = WorkContext.Resolve<IDateTimeLocalization>();
+    var monthNames = FormatJsList(dateTimeLocalization.MonthNames.Text);
+    var monthNamesShort = FormatJsList(dateTimeLocalization.MonthNamesShort.Text);
+    var dayNames = FormatJsList(dateTimeLocalization.DayNames.Text);
+    var dayNamesShort = FormatJsList(dateTimeLocalization.DayNamesShort.Text);
+    var dayNamesMin = FormatJsList(dateTimeLocalization.DayNamesMin.Text);
+}
+
+@functions {
+
+    private string FormatJsList(string csv) {
+        return "'" + String.Join("', '", csv.Split(',').Select(x => HttpUtility.JavaScriptStringEncode(x.Trim()))) + "'";
+    }
+
+}
+<script type="text/javascript">
+    //<![CDATA[
+    $(function() {
+        $.fn.datetimepicker.dates[''] = {
+            days: [@Html.Raw(dayNames)],
+            daysShort: [@Html.Raw(dayNamesShort)],
+            daysMin: [@Html.Raw(dayNamesMin)],
+            months: [@Html.Raw(monthNames)],
+            monthsShort: [@Html.Raw(monthNamesShort)],
+        };
+        $.fn.datetimepicker.defaults.language = '';
+    });
+    //]]>
+</script>
