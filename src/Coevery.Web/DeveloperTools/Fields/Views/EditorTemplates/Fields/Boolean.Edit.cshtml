@@ -7,7 +7,7 @@
 }
 
 <label class="title control-label @required" for="@Html.FieldIdFor(m => m.Value)">@Model.DisplayName</label>
-<div class="errortips" data-name ="@settingname">
+<div class="control controls errortips" data-name ="@settingname">
     @switch (settings.SelectionMode) {
         case BooleanDisplayMode.Checkbox:
             <label class="checkbox" for="@(Html.FieldIdFor(m => m.Value))" >
