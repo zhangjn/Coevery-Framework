@@ -80,6 +80,61 @@
     <Compile Include="Common\Services\NavigationManager.cs" />
     <Compile Include="Common\Services\SafeModeThemeSelector.cs" />
     <Compile Include="Common\Shapes\Localization\DateTimeLocalization.cs" />
+    <Compile Include="Fields\Drivers\BooleanFieldDriver.cs" />
+    <Compile Include="Fields\Drivers\CurrencyFieldDriver.cs" />
+    <Compile Include="Fields\Drivers\DateFieldDriver.cs" />
+    <Compile Include="Fields\Drivers\DatetimeFieldDriver.cs" />
+    <Compile Include="Fields\Drivers\EmailFieldDriver.cs" />
+    <Compile Include="Fields\Drivers\MultilineTextFieldDriver.cs" />
+    <Compile Include="Fields\Drivers\NumberFieldDriver.cs" />
+    <Compile Include="Fields\Drivers\PhoneFieldDriver.cs" />
+    <Compile Include="Fields\Drivers\TextFieldDriver.cs" />
+    <Compile Include="Fields\Drivers\UrlFieldDriver.cs" />
+    <Compile Include="Fields\EntityRecords\TextFieldEntityRecordEditorEvents.cs" />
+    <Compile Include="Fields\Fields\BooleanField.cs" />
+    <Compile Include="Fields\Fields\CurrencyField.cs" />
+    <Compile Include="Fields\Fields\DateField.cs" />
+    <Compile Include="Fields\Fields\DatetimeField.cs" />
+    <Compile Include="Fields\Fields\EmailField.cs" />
+    <Compile Include="Fields\Fields\MultilineTextField.cs" />
+    <Compile Include="Fields\Fields\NumberField.cs" />
+    <Compile Include="Fields\Fields\PhoneField.cs" />
+    <Compile Include="Fields\Fields\TextField.cs" />
+    <Compile Include="Fields\Fields\UrlField.cs" />
+    <Compile Include="Fields\Providers\ContentFieldValueProvider.cs" />
+    <Compile Include="Fields\Providers\CurrencyFieldFormatProvider.cs" />
+    <Compile Include="Fields\Providers\DateFieldFormatProvider.cs" />
+    <Compile Include="Fields\Providers\DatetimeFieldFormatProvider.cs" />
+    <Compile Include="Fields\Providers\DatetimeTypeValueProvider.cs" />
+    <Compile Include="Fields\Providers\IContentFieldFormatProvider.cs" />
+    <Compile Include="Fields\Providers\IContentFieldValueProvider.cs" />
+    <Compile Include="Fields\Providers\NumericFieldFormatProvider.cs" />
+    <Compile Include="Fields\ResourceManifest.cs" />
+    <Compile Include="Fields\Settings\BooleanFieldDisplaySettings.cs" />
+    <Compile Include="Fields\Settings\BooleanFieldEditorEvents.cs" />
+    <Compile Include="Fields\Settings\BooleanFieldSettings.cs" />
+    <Compile Include="Fields\Settings\CurrencyFieldEditorEvents.cs" />
+    <Compile Include="Fields\Settings\CurrencyFieldSettings.cs" />
+    <Compile Include="Fields\Settings\DateFieldEditorEvents.cs" />
+    <Compile Include="Fields\Settings\DateFieldSettings.cs" />
+    <Compile Include="Fields\Settings\DatetimeFieldEditorEvents.cs" />
+    <Compile Include="Fields\Settings\DatetimeFieldSettings.cs" />
+    <Compile Include="Fields\Settings\EmailFieldEditorEvents.cs" />
+    <Compile Include="Fields\Settings\EmailFieldSettings.cs" />
+    <Compile Include="Fields\Settings\EntityRecordTemplateViewModel.cs" />
+    <Compile Include="Fields\Settings\FieldEditorEvents.cs" />
+    <Compile Include="Fields\Settings\FieldSettings.cs" />
+    <Compile Include="Fields\Settings\IEntityRecordEditorEvents.cs" />
+    <Compile Include="Fields\Settings\MultilineTextFieldEditorEvents.cs" />
+    <Compile Include="Fields\Settings\MultilineTextFieldSettings.cs" />
+    <Compile Include="Fields\Settings\NumberFieldEditorEvents.cs" />
+    <Compile Include="Fields\Settings\NumberFieldSettings.cs" />
+    <Compile Include="Fields\Settings\PhoneFieldEditorEvents.cs" />
+    <Compile Include="Fields\Settings\PhoneFieldSettings.cs" />
+    <Compile Include="Fields\Settings\TextFieldEditorEvents.cs" />
+    <Compile Include="Fields\Settings\TextFieldSettings.cs" />
+    <Compile Include="Fields\Settings\UrlFieldEditorEvents.cs" />
+    <Compile Include="Fields\Settings\UrlFieldSettings.cs" />
     <Compile Include="Forms\Services\DefaultFormManager.cs" />
     <Compile Include="Forms\Services\FormParametersHelper.cs" />
     <Compile Include="Forms\Services\FormProcessor.cs" />
@@ -522,6 +577,14 @@
     <Content Include="Common\Styles\jQuery\ui.datepicker.css" />
     <Content Include="Common\Styles\jQuery\ui.jqgrid.css" />
     <Content Include="Common\Styles\module.css" />
+    <Content Include="Fields\Module.txt" />
+    <Content Include="Fields\Scripts\bootstrap-datetimepicker.js" />
+    <Content Include="Fields\Scripts\bootstrap-datetimepicker.min.js" />
+    <Content Include="Fields\Styles\bootstrap-datetimepicker.css" />
+    <Content Include="Fields\Styles\bootstrap-datetimepicker.min.css" />
+    <Content Include="Fields\Styles\datetime.css" />
+    <Content Include="Fields\Styles\Images\move.gif" />
+    <Content Include="Fields\Styles\media-gallery-admin.css" />
     <Content Include="Forms\Module.txt" />
     <Content Include="Settings\Module.txt" />
     <Content Include="Settings\Placement.info" />
@@ -605,6 +668,159 @@
     <Content Include="Tokens\Styles\Web.config" />
     <Content Include="Tokens\Views\TokenHint.cshtml" />
     <Content Include="Tokens\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Placement.info" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Scripts\bootstrap-datetimepicker.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Scripts\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Styles\bootstrap-datetimepicker.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Styles\mixins.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Styles\variables.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Styles\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\BootstrapDatePickerLocalization.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DefinitionTemplates\BooleanFieldDisplaySettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DefinitionTemplates\BooleanFieldSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DefinitionTemplates\CurrencyFieldSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DefinitionTemplates\DateFieldSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DefinitionTemplates\DatetimeFieldSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DefinitionTemplates\EmailFieldSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DefinitionTemplates\MultilineTextFieldSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DefinitionTemplates\NumberFieldSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DefinitionTemplates\PhoneFieldSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DefinitionTemplates\TextFieldSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DefinitionTemplates\UrlFieldSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DisplayTemplates\Boolean.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DisplayTemplates\Currency.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DisplayTemplates\Date.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DisplayTemplates\Datetime.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DisplayTemplates\Email.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DisplayTemplates\MultilineText.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DisplayTemplates\Number.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DisplayTemplates\Phone.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DisplayTemplates\Text.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\DisplayTemplates\Url.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\EditorTemplates\Fields\Boolean.Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\EditorTemplates\Fields\Currency.Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\EditorTemplates\Fields\Date.Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\EditorTemplates\Fields\Datetime.Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\EditorTemplates\Fields\Email.Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\EditorTemplates\Fields\MultilineText.Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\EditorTemplates\Fields\Number.Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\EditorTemplates\Fields\Phone.Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\EditorTemplates\Fields\Text.Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\EditorTemplates\Fields\Url.Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\Fields\Boolean.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\Fields\Currency.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\Fields\Date.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\Fields\Datetime.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\Fields\Email.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\Fields\MultilineText.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\Fields\Number.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\Fields\Phone.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\Fields\Text.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\Fields\Url.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Fields\Views\Wrapper.Script.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

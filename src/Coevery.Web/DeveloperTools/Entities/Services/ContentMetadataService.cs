@@ -4,6 +4,7 @@ using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
+using Coevery.Core.Fields.Settings;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data;
 using Coevery.DeveloperTools.Entities.Events;

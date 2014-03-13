@@ -1,4 +1,5 @@
-﻿using Coevery.DeveloperTools.Entities.Settings;
+﻿using Coevery.Core.Fields.Settings;
+using Coevery.DeveloperTools.Entities.Settings;
 
 namespace Coevery.DeveloperTools.OptionSet.Settings {
 

@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Coevery.ContentManagement;
-using Coevery.DeveloperTools.Entities.Providers;
+using Coevery.Core.Fields.Providers;
 using Coevery.DeveloperTools.OptionSet.Fields;
 using Coevery.DeveloperTools.OptionSet.Services;
 

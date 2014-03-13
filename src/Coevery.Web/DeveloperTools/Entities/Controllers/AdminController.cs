@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
+using Coevery.Core.Fields.Settings;
 using Coevery.DeveloperTools.Entities.Services;
 using Coevery.DeveloperTools.Entities.Settings;
 using Coevery.DeveloperTools.Entities.ViewModels;

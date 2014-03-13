@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
+using Coevery.Core.Fields.Settings;
 using Coevery.DeveloperTools.Entities.Extensions;
 
 namespace Coevery.DeveloperTools.Entities.ViewModels {
