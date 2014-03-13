@@ -92,6 +92,7 @@ namespace Coevery.DeveloperTools.Entities.Services {
                     view.Controller = "FieldEditCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, new[] {"controllers/editfieldscontroller"});
                 });
+
         }
     }
 }

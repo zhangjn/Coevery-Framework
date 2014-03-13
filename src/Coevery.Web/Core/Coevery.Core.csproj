@@ -73,6 +73,7 @@
     <Compile Include="Common\Routes.cs" />
     <Compile Include="Common\Services\NavigationManager.cs" />
     <Compile Include="Common\Services\SafeModeThemeSelector.cs" />
+    <Compile Include="Common\Shapes\Localization\DateTimeLocalization.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Commands\FeatureCommands.cs" />
     <Compile Include="Settings\Descriptor\Records\ShellDescriptorRecord.cs" />

@@ -1,8 +1,7 @@
 ﻿@model Coevery.DeveloperTools.Fields.Fields.DatetimeField
 @using System.Globalization
-@using Coevery.Core.Shapes.Localization
+@using Coevery.Core.Common.Shapes.Localization
 @using Coevery.DeveloperTools.Fields.Settings
-@using Coevery.Fields.Settings;
 @{
     var settings = Model.PartFieldDefinition.Settings.GetModel<DatetimeFieldSettings>();
     var required = settings.Required ? "required" : null;

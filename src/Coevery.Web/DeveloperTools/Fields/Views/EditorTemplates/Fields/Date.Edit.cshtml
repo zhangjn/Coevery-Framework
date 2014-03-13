@@ -1,10 +1,9 @@
 ﻿@model Coevery.DeveloperTools.Fields.Fields.DateField
 @using System.Data.Linq.Mapping
 @using System.Globalization
-@using Coevery.Core.Shapes.Localization
+@using Coevery.Core.Common.Shapes.Localization
 @using Coevery.DeveloperTools.Fields.Settings
 @using Coevery.Utility.Extensions;
-@using Coevery.Fields.Settings;
 @{
     var settings = Model.PartFieldDefinition.Settings.GetModel<DateFieldSettings>();
     var required = settings.Required ? "required" : null;
