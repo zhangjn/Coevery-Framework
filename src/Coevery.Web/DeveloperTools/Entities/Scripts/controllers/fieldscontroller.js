@@ -1,10 +1,10 @@
 ﻿'use strict';
 
-define(['core/app/detourService', 'DeveloperTools/Entities/Scripts/services/entitydataservice', 'DeveloperTools/Entities/Scripts/services/fielddataservice'], function (detour) {
+define(['core/app/detourService', 'DeveloperTools/Entities/Scripts/services/entitydataservice', 'DeveloperTools/Entities/Scripts/services/fielddataservice'], function(detour) {
     detour.registerController([
         'FieldsCtrl',
-        ['$rootScope', '$scope', 'logger', '$state', '$stateParams', '$dialog', 'fieldDataService',
-            function($rootScope, $scope, logger, $state, $stateParams, $dialog, fieldDataService) {
+        ['$rootScope', '$scope', 'logger', '$state', '$stateParams', 'fieldDataService',
+            function($rootScope, $scope, logger, $state, $stateParams, fieldDataService) {
                 $scope.$parent.showField = true;
                 $scope.selectedItems = [];
                 var entityName = $stateParams.Id;
@@ -22,10 +22,11 @@ define(['core/app/detourService', 'DeveloperTools/Entities/Scripts/services/enti
                     colModel: fieldColumnDefs
                 };
                 angular.extend($scope.gridOptions, $rootScope.defaultGridOptions);
-                $scope['delete'] = function () {
+                
+                $scope['delete'] = function() {
                     var deleteField = $scope.selectedItems.length > 0 ? $scope.selectedItems : null;
                     if (!deleteField) return;
-                    fieldDataService['delete']({ name: deleteField, entityName: entityName }, function () {
+                    fieldDataService['delete']({ name: deleteField, entityName: entityName }, function() {
                         $scope.selectedItems = [];
                         logger.success("Delete the field successful.");
                         $scope.getAllField();
@@ -35,10 +36,7 @@ define(['core/app/detourService', 'DeveloperTools/Entities/Scripts/services/enti
                 };
 
                 $scope.edit = function(fieldName) {
-                    $state.transitionTo('FieldEdit.Items', { EntityName: entityName, FieldName: fieldName });
-                };
-                $scope.gotoDependency = function() {
-                    $state.transitionTo('FieldDependencyList', { EntityName: entityName });
+                    $state.transitionTo('FieldEdit', { EntityName: entityName, FieldName: fieldName });
                 };
 
                 $scope.getAllField = function() {

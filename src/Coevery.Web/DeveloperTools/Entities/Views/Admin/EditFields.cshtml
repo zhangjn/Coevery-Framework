@@ -1,8 +1,4 @@
-﻿@using Coevery.Core.Entities.Settings
-@using Coevery.DeveloperTools.Entities.Settings
-@using Coevery.DeveloperTools.Settings
-@using Coevery.Entities.Settings
-@using Coevery.Utility.Extensions
+﻿@using Coevery.DeveloperTools.Entities.Settings
 @model Coevery.DeveloperTools.Entities.ViewModels.EditPartFieldViewModel
 @{
     var fieldSettingsPrefix = Model.FieldDefinition.Name + "Settings";
@@ -25,7 +21,7 @@
         <div class="span12">
             <div class="form-horizontal no-border">
                 @using (Html.BeginFormAntiForgeryPost(Html.ViewContext.HttpContext.Request.Url.PathAndQuery, FormMethod.Post,
-                                              new { @class = "form-horizontal no-border edit-mode", @name = "myForm", @ng_submit = "save()", @id = "field-info-form" }))
+                                              new { @class = "form-horizontal no-border edit-mode", @name = "myForm", @id = "field-info-form" }))
                 {
                     @Html.ValidationSummary()
                     <fieldset>
