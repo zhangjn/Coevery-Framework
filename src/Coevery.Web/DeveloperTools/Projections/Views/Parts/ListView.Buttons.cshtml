@@ -1,0 +1,14 @@
+﻿<button class="btn btn-small btn-success" data-ng-show="dataCanModify" data-ng-click="add()">
+    <i class="icon-plus"></i>&nbsp;@T("Add")
+</button>
+<button class="btn btn-small" data-ng-click="refresh()">
+    <i class="icon-refresh"></i>&nbsp;@T("Refresh")
+</button>
+<div class="btn-group" data-ng-show="selectedItems.length > 0 && dataCanModify">
+    <button class="btn btn-small" data-ng-click="edit(selectedItems[0])" data-ng-disabled="selectedItems.length > 1">
+        <i class="icon-edit"></i>&nbsp;@T("Edit")
+    </button>
+    <button class="btn btn-small" co-delete-button confirm-message="@T("You really want to delete this entity?")" delete-action="delete()">
+        <i class="icon-remove"></i>&nbsp;@T("Delete")
+    </button>
+</div>

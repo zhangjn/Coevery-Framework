@@ -1,0 +1,10 @@
+﻿@Display(Model.Grid)
+
+@foreach (var editor in Model.FilterEditors) {
+    if(editor == null) {
+         continue;
+     }
+    <script type="text/ng-template" id="@editor.Id">
+    @Display(editor)
+    </script>
+}
