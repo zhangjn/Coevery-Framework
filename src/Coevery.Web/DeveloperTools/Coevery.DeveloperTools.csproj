@@ -136,6 +136,13 @@
     <Content Include="Projections\Styles\images\menu.projection.png" />
     <Content Include="Projections\Styles\images\menu.queries.png" />
     <Content Include="Projections\Styles\menu.projector-admin.css" />
+    <Content Include="Relationship\Module.txt" />
+    <Content Include="Relationship\Scripts\controllers\editmanytomanycontroller.js" />
+    <Content Include="Relationship\Scripts\controllers\editonetomanycontroller.js" />
+    <Content Include="Relationship\Scripts\controllers\manytomanydetailcontroller.js" />
+    <Content Include="Relationship\Scripts\controllers\onetomanydetailcontroller.js" />
+    <Content Include="Relationship\Scripts\controllers\relatedentitylistcontroller.js" />
+    <Content Include="Relationship\Scripts\controllers\relationshipscontroller.js" />
     <Content Include="Web.config" />
     <Content Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -155,12 +162,18 @@
     <Compile Include="Entities\Controllers\FieldController.cs" />
     <Compile Include="Entities\Controllers\HomeController.cs" />
     <Compile Include="Entities\Drivers\EntityMetadataPartDriver.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\ContentLinkRecord.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsDriver.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsHandler.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicFieldDefinition.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\DynamicRelationshipPartDriver.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\DynamicRelationshipService.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicTypeDefinition.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\EditRelationshipViewModel.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\IDynamicAssemblyBuilder.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
+    <Compile Include="Entities\DynamicTypeGeneration\RelationshipInfoAttribute.cs" />
     <Compile Include="Entities\Events\IDynamicTypeGenerationEvents.cs" />
     <Compile Include="Entities\Events\IEntityDataEvents.cs" />
     <Compile Include="Entities\Events\IEntityEvents.cs" />
@@ -439,6 +452,33 @@
     <Compile Include="Projections\ViewModels\PropertyEditViewModel.cs" />
     <Compile Include="Projections\ViewModels\SortCriteriaAddViewModel.cs" />
     <Compile Include="Projections\ViewModels\SortCriteriaEditViewModel.cs" />
+    <Compile Include="Relationship\Controllers\RelationshipController.cs" />
+    <Compile Include="Relationship\Controllers\SystemAdminController.cs" />
+    <Compile Include="Relationship\Drivers\ReferenceFieldDriver.cs" />
+    <Compile Include="Relationship\Drivers\RelatedEntityListDriver.cs" />
+    <Compile Include="Relationship\EntityRecords\ReferenceFieldEntityRecordEditorEvents.cs" />
+    <Compile Include="Relationship\Fields\ReferenceField.cs" />
+    <Compile Include="Relationship\Handlers\EntityMetadataPartHandler.cs" />
+    <Compile Include="Relationship\Handlers\ReferenceHandler.cs" />
+    <Compile Include="Relationship\Handlers\RelationshipDynamicTypeGenerationEventsHandler.cs" />
+    <Compile Include="Relationship\Handlers\RelationshipEntityEventsHandler.cs" />
+    <Compile Include="Relationship\Migrations.cs" />
+    <Compile Include="Relationship\Models\ManyToManyRelationshipModel.cs" />
+    <Compile Include="Relationship\Models\OneToManyRelationshipModel.cs" />
+    <Compile Include="Relationship\Models\ReferenceFieldViewModel.cs" />
+    <Compile Include="Relationship\Models\ReferenceUpdateModel.cs" />
+    <Compile Include="Relationship\Models\RelationshipModel.cs" />
+    <Compile Include="Relationship\Projections\ReferenceFieldProperties.cs" />
+    <Compile Include="Relationship\Projections\ReferenceFieldValueProvider.cs" />
+    <Compile Include="Relationship\Records\ManyToManyRelationshipRecord.cs" />
+    <Compile Include="Relationship\Records\OneToManyRelationshipRecord.cs" />
+    <Compile Include="Relationship\Records\RelationshipRecord.cs" />
+    <Compile Include="Relationship\Services\ClientRouteProvider.cs" />
+    <Compile Include="Relationship\Services\IRelationshipService.cs" />
+    <Compile Include="Relationship\Services\RelationshipService.cs" />
+    <Compile Include="Relationship\Settings\ReferenceFieldEditorEvents.cs" />
+    <Compile Include="Relationship\Settings\ReferenceFieldSettings.cs" />
+    <Compile Include="Relationship\ViewModels\RelatedEntityViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entities\Placement.info" />
@@ -504,6 +544,23 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Entities\Providers\" />
+    <Folder Include="Relationship\Scripts\services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relationship\Placement.info" />
+    <Content Include="Relationship\Scripts\Web.config" />
+    <Content Include="Relationship\Styles\Web.config" />
+    <Content Include="Relationship\Views\DefinitionTemplates\ReferenceFieldEntityRecord.cshtml" />
+    <Content Include="Relationship\Views\DefinitionTemplates\ReferenceFieldSettings.cshtml" />
+    <Content Include="Relationship\Views\DisplayTemplates\Reference.cshtml" />
+    <Content Include="Relationship\Views\EditorTemplates\Fields\Reference.Edit.cshtml" />
+    <Content Include="Relationship\Views\EditorTemplates\Parts\Relationship.Edit.cshtml" />
+    <Content Include="Relationship\Views\Fields\Reference.cshtml" />
+    <Content Include="Relationship\Views\RelatedEntityList.cshtml" />
+    <Content Include="Relationship\Views\SystemAdmin\CreateManyToMany.cshtml" />
+    <Content Include="Relationship\Views\SystemAdmin\CreateOneToMany.cshtml" />
+    <Content Include="Relationship\Views\SystemAdmin\Relationships.cshtml" />
+    <Content Include="Relationship\Views\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -74,12 +74,15 @@
   <ItemGroup>
     <Compile Include="Common\ClientRouteShape.cs" />
     <Compile Include="Common\Controllers\HomeController.cs" />
+    <Compile Include="Common\Extensions\MetaDataExtensions.cs" />
+    <Compile Include="Common\Permissions.cs" />
     <Compile Include="Common\Routes.cs" />
     <Compile Include="Common\Services\AutoLoadResourceFilter.cs" />
     <Compile Include="Common\Services\IAutoLoadResourceRegister.cs" />
     <Compile Include="Common\Services\NavigationManager.cs" />
     <Compile Include="Common\Services\SafeModeThemeSelector.cs" />
     <Compile Include="Common\Shapes\Localization\DateTimeLocalization.cs" />
+    <Compile Include="Common\Utilities\LazyField.cs" />
     <Compile Include="Fields\Drivers\BooleanFieldDriver.cs" />
     <Compile Include="Fields\Drivers\CurrencyFieldDriver.cs" />
     <Compile Include="Fields\Drivers\DateFieldDriver.cs" />
