@@ -1,7 +1,7 @@
 ﻿using Coevery.DeveloperTools.Entities.Events;
-using Coevery.DeveloperTools.Formdesigner.Services;
+using Coevery.DeveloperTools.FormDesigner.Services;
 
-namespace Coevery.DeveloperTools.Formdesigner.Handlers {
+namespace Coevery.DeveloperTools.FormDesigner.Handlers {
     public class FormDesignerEntityEventsHandler : IEntityEvents {
         private readonly ILayoutManager _layoutManager;
 

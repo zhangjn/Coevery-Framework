@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Coevery.Mvc.ViewEngines.ThemeAwareness;
 
-namespace Coevery.DeveloperTools.Formdesigner.Services {
+namespace Coevery.DeveloperTools.FormDesigner.Services {
     public interface ITemplateViewService : IDependency {
         string RenderView(string area, string controllerName, string viewName);
         string RenderView(string area, string controllerName, string viewName, ViewDataDictionary data);

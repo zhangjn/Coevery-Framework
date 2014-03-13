@@ -4,7 +4,7 @@ using Coevery.ContentManagement.MetaData;
 using Coevery.DeveloperTools.Entities.Extensions;
 using Coevery.Localization;
 
-namespace Coevery.DeveloperTools.Formdesigner.Services {
+namespace Coevery.DeveloperTools.FormDesigner.Services {
     public interface ILayoutManager : IDependency {
         void DeleteField(string typeName, string fieldName);
         void AddField(string typeName, string fieldName);

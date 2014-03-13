@@ -7,10 +7,10 @@ using System.Web.Mvc;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.DeveloperTools.Entities.Extensions;
-using Coevery.DeveloperTools.Formdesigner.Models;
-using Coevery.DeveloperTools.Formdesigner.Services;
+using Coevery.DeveloperTools.FormDesigner.Models;
+using Coevery.DeveloperTools.FormDesigner.Services;
 
-namespace Coevery.DeveloperTools.Formdesigner.Controllers {
+namespace Coevery.DeveloperTools.FormDesigner.Controllers {
     public class LayoutController : ApiController {
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly ITemplateViewService _templateViewService;

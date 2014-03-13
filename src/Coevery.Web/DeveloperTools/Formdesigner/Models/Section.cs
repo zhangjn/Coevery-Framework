@@ -1,4 +1,4 @@
-﻿namespace Coevery.DeveloperTools.Formdesigner.Models {
+﻿namespace Coevery.DeveloperTools.FormDesigner.Models {
     public class Section {
         public int SectionColumns { get; set; }
         public string SectionColumnsWidth { get; set; }

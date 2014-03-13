@@ -108,25 +108,25 @@
     <Content Include="Fields\Styles\Images\move.gif" />
     <Content Include="Fields\Styles\media-gallery-admin.css" />
     <Content Include="OptionSet\Module.txt" />
-    <Content Include="Formdesigner\Module.txt" />
-    <Content Include="Formdesigner\Scripts\controllers\formdesignercontroller.js" />
-    <Content Include="Formdesigner\Styles\formdesigner.css" />
-    <Content Include="Formdesigner\Styles\images\alwaysdisplay12.gif" />
-    <Content Include="Formdesigner\Styles\images\arrow.png" />
-    <Content Include="Formdesigner\Styles\images\line.png" />
-    <Content Include="Formdesigner\Styles\images\merge.png" />
-    <Content Include="Formdesigner\Styles\images\required12.gif" />
-    <Content Include="Formdesigner\Styles\images\split.png" />
-    <Content Include="Formdesigner\Styles\images\wrenchRemove.png" />
-    <Content Include="Formdesigner\Scripts\controllers\formdesignercontroller.js" />
-    <Content Include="Formdesigner\Styles\formdesigner.css" />
-    <Content Include="Formdesigner\Styles\images\alwaysdisplay12.gif" />
-    <Content Include="Formdesigner\Styles\images\arrow.png" />
-    <Content Include="Formdesigner\Styles\images\line.png" />
-    <Content Include="Formdesigner\Styles\images\merge.png" />
-    <Content Include="Formdesigner\Styles\images\required12.gif" />
-    <Content Include="Formdesigner\Styles\images\split.png" />
-    <Content Include="Formdesigner\Styles\images\wrenchRemove.png" />
+    <Content Include="FormDesigner\Module.txt" />
+    <Content Include="FormDesigner\Scripts\controllers\formdesignercontroller.js" />
+    <Content Include="FormDesigner\Styles\formdesigner.css" />
+    <Content Include="FormDesigner\Styles\images\alwaysdisplay12.gif" />
+    <Content Include="FormDesigner\Styles\images\arrow.png" />
+    <Content Include="FormDesigner\Styles\images\line.png" />
+    <Content Include="FormDesigner\Styles\images\merge.png" />
+    <Content Include="FormDesigner\Styles\images\required12.gif" />
+    <Content Include="FormDesigner\Styles\images\split.png" />
+    <Content Include="FormDesigner\Styles\images\wrenchRemove.png" />
+    <Content Include="FormDesigner\Scripts\controllers\formdesignercontroller.js" />
+    <Content Include="FormDesigner\Styles\formdesigner.css" />
+    <Content Include="FormDesigner\Styles\images\alwaysdisplay12.gif" />
+    <Content Include="FormDesigner\Styles\images\arrow.png" />
+    <Content Include="FormDesigner\Styles\images\line.png" />
+    <Content Include="FormDesigner\Styles\images\merge.png" />
+    <Content Include="FormDesigner\Styles\images\required12.gif" />
+    <Content Include="FormDesigner\Styles\images\split.png" />
+    <Content Include="FormDesigner\Styles\images\wrenchRemove.png" />
     <Content Include="Web.config" />
     <Content Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -237,18 +237,18 @@
     <Compile Include="Entities\ViewModels\EntityRecordTemplateViewModel.cs" />
     <Compile Include="Fields\Settings\UrlFieldEditorEvents.cs" />
     <Compile Include="Fields\Settings\UrlFieldSettings.cs" />
-    <Compile Include="Formdesigner\Controllers\LayoutController.cs" />
-    <Compile Include="Formdesigner\Controllers\AdminController.cs" />
-    <Compile Include="Formdesigner\Handlers\FormDesignerEntityEventsHandler.cs" />
-    <Compile Include="Formdesigner\Handlers\FormDesignerFieldEventsHandler.cs" />
-    <Compile Include="Formdesigner\Models\Column.cs" />
-    <Compile Include="Formdesigner\Models\Field.cs" />
-    <Compile Include="Formdesigner\Models\Row.cs" />
-    <Compile Include="Formdesigner\Models\Section.cs" />
-    <Compile Include="Formdesigner\Services\ClientRouteProvider.cs" />
-    <Compile Include="Formdesigner\Services\ILayoutManager.cs" />
-    <Compile Include="Formdesigner\Services\TemplateViewService.cs" />
-    <Compile Include="Formdesigner\ViewModels\FieldViewModel.cs" />
+    <Compile Include="FormDesigner\Controllers\LayoutController.cs" />
+    <Compile Include="FormDesigner\Controllers\AdminController.cs" />
+    <Compile Include="FormDesigner\Handlers\FormDesignerEntityEventsHandler.cs" />
+    <Compile Include="FormDesigner\Handlers\FormDesignerFieldEventsHandler.cs" />
+    <Compile Include="FormDesigner\Models\Column.cs" />
+    <Compile Include="FormDesigner\Models\Field.cs" />
+    <Compile Include="FormDesigner\Models\Row.cs" />
+    <Compile Include="FormDesigner\Models\Section.cs" />
+    <Compile Include="FormDesigner\Services\ClientRouteProvider.cs" />
+    <Compile Include="FormDesigner\Services\ILayoutManager.cs" />
+    <Compile Include="FormDesigner\Services\TemplateViewService.cs" />
+    <Compile Include="FormDesigner\ViewModels\FieldViewModel.cs" />
     <Compile Include="OptionSet\Controllers\OptionItemController.cs" />
     <Compile Include="OptionSet\Drivers\OptionItemContainerPart.cs" />
     <Compile Include="OptionSet\Drivers\OptionItemPartDriver.cs" />
@@ -370,12 +370,12 @@
     <Content Include="OptionSet\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Formdesigner\Placement.info" />
-    <Content Include="Formdesigner\Scripts\Web.config" />
-    <Content Include="Formdesigner\Styles\Web.config" />
-    <Content Include="Formdesigner\Views\FormTemplate\FormDesignerLayout.cshtml" />
-    <Content Include="Formdesigner\Views\Admin\Index.cshtml" />
-    <Content Include="Formdesigner\Views\Web.config" />
+    <Content Include="FormDesigner\Placement.info" />
+    <Content Include="FormDesigner\Scripts\Web.config" />
+    <Content Include="FormDesigner\Styles\Web.config" />
+    <Content Include="FormDesigner\Views\FormTemplate\FormDesignerLayout.cshtml" />
+    <Content Include="FormDesigner\Views\Admin\Index.cshtml" />
+    <Content Include="FormDesigner\Views\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

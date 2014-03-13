@@ -1,6 +1,6 @@
 ﻿using Coevery.Mvc.ClientRoute;
 
-namespace Coevery.DeveloperTools.Formdesigner.Services {
+namespace Coevery.DeveloperTools.FormDesigner.Services {
     public class ClientRouteProvider : ClientRouteProviderBase {
         public override void Discover(ClientRouteTableBuilder builder) {
             builder.Describe("FormDesigner")

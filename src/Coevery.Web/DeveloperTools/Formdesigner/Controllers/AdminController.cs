@@ -7,11 +7,11 @@ using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.DeveloperTools.Entities.Extensions;
 using Coevery.DeveloperTools.Entities.Services;
-using Coevery.DeveloperTools.Formdesigner.ViewModels;
+using Coevery.DeveloperTools.FormDesigner.ViewModels;
 using Coevery.Localization;
 using Coevery.Logging;
 
-namespace Coevery.DeveloperTools.Formdesigner.Controllers {
+namespace Coevery.DeveloperTools.FormDesigner.Controllers {
     public class AdminController : Controller {
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
