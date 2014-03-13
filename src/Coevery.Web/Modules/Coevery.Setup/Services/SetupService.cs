@@ -18,7 +18,6 @@ using Coevery.Environment.State;
 using Coevery.Localization;
 using Coevery.Localization.Services;
 using Coevery.Recipes.Models;
-using Coevery.Recipes.Services;
 using Coevery.Reports.Services;
 using Coevery.Security;
 using Coevery.Settings;
@@ -71,8 +70,6 @@ namespace Coevery.Setup.Services {
                     "Coevery.Framework",
                     // Core
                     "Settings", "Common",
-                    // DeveloperTools
-                    "Entities", "Fields", "FormDesigner",
                     // Modules
                     "Coevery.Users", "Coevery.Roles"
                 };
