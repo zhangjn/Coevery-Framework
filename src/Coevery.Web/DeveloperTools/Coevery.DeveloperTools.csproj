@@ -107,7 +107,18 @@
     <Content Include="Fields\Styles\datetime.css" />
     <Content Include="Fields\Styles\Images\move.gif" />
     <Content Include="Fields\Styles\media-gallery-admin.css" />
+    <Content Include="OptionSet\Module.txt" />
     <Content Include="Formdesigner\Module.txt" />
+    <Content Include="Formdesigner\Scripts\controllers\formdesignercontroller.js" />
+    <Content Include="Formdesigner\Specs\Orchard.Fields.Specs.csproj" />
+    <Content Include="Formdesigner\Styles\formdesigner.css" />
+    <Content Include="Formdesigner\Styles\images\alwaysdisplay12.gif" />
+    <Content Include="Formdesigner\Styles\images\arrow.png" />
+    <Content Include="Formdesigner\Styles\images\line.png" />
+    <Content Include="Formdesigner\Styles\images\merge.png" />
+    <Content Include="Formdesigner\Styles\images\required12.gif" />
+    <Content Include="Formdesigner\Styles\images\split.png" />
+    <Content Include="Formdesigner\Styles\images\wrenchRemove.png" />
     <Content Include="Formdesigner\Scripts\controllers\formdesignercontroller.js" />
     <Content Include="Formdesigner\Specs\Orchard.Fields.Specs.csproj" />
     <Content Include="Formdesigner\Styles\formdesigner.css" />
@@ -248,6 +259,34 @@
     <Compile Include="Formdesigner\Specs\Numeric.feature.cs" />
     <Compile Include="Formdesigner\Specs\Properties\AssemblyInfo.cs" />
     <Compile Include="Formdesigner\ViewModels\FieldViewModel.cs" />
+    <Compile Include="OptionSet\Controllers\OptionItemController.cs" />
+    <Compile Include="OptionSet\Drivers\OptionItemContainerPart.cs" />
+    <Compile Include="OptionSet\Drivers\OptionItemPartDriver.cs" />
+    <Compile Include="OptionSet\Drivers\OptionSetFieldDriver.cs" />
+    <Compile Include="OptionSet\Drivers\OptionSetPartDriver.cs" />
+    <Compile Include="OptionSet\Fields\OptionSetField.cs" />
+    <Compile Include="OptionSet\Handlers\OptionItemContainerPartHandler.cs" />
+    <Compile Include="OptionSet\Handlers\OptionItemPartHandler.cs" />
+    <Compile Include="OptionSet\Handlers\OptionSetPartHandler.cs" />
+    <Compile Include="OptionSet\Helpers\OptionItemExtensions.cs" />
+    <Compile Include="OptionSet\Helpers\PredicateBuilder.cs" />
+    <Compile Include="OptionSet\Migrations.cs" />
+    <Compile Include="OptionSet\Models\OptionItemContainerPartRecord.cs" />
+    <Compile Include="OptionSet\Models\OptionItemContentItem.cs" />
+    <Compile Include="OptionSet\Models\OptionItemContentItemPart.cs" />
+    <Compile Include="OptionSet\Models\OptionItemPart.cs" />
+    <Compile Include="OptionSet\Models\OptionItemPartRecord.cs" />
+    <Compile Include="OptionSet\Models\OptionItemsPart.cs" />
+    <Compile Include="OptionSet\Models\OptionSetPart.cs" />
+    <Compile Include="OptionSet\Models\OptionSetPartRecord.cs" />
+    <Compile Include="OptionSet\Permissions.cs" />
+    <Compile Include="OptionSet\Projections\OptionSetFieldValueProvider.cs" />
+    <Compile Include="OptionSet\Services\IOptionSetService.cs" />
+    <Compile Include="OptionSet\Services\OptionSetService.cs" />
+    <Compile Include="OptionSet\Settings\OptionSetFieldEditorEvents.cs" />
+    <Compile Include="OptionSet\Settings\OptionSetFieldSettings.cs" />
+    <Compile Include="OptionSet\Shapes.cs" />
+    <Compile Include="OptionSet\ViewModels\OptionSetFieldViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entities\Placement.info" />
@@ -324,6 +363,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Fields\Placement.info" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="OptionSet\Placement.info" />
+    <Content Include="OptionSet\Views\DefinitionTemplates\OptionSetFieldSettings.cshtml" />
+    <Content Include="OptionSet\Views\DefinitionTemplates\OptionSetFieldSettings.Edit.cshtml" />
+    <Content Include="OptionSet\Views\DisplayTemplates\OptionSet.cshtml" />
+    <Content Include="OptionSet\Views\EditorTemplates\Fields\OptionSetField.cshtml" />
+    <Content Include="OptionSet\Views\EditorTemplates\Parts\Taxonomies.Term.Fields.cshtml" />
+    <Content Include="OptionSet\Views\Fields\OptionSetField.cshtml" />
+    <Content Include="OptionSet\Views\Items\Content-Term.Edit.cshtml" />
+    <Content Include="OptionSet\Views\Parts.TermPart.cshtml" />
+    <Content Include="OptionSet\Views\Taxonomy.cshtml" />
+    <Content Include="OptionSet\Views\TaxonomyItem.cshtml" />
+    <Content Include="OptionSet\Views\TaxonomyItemLink.cshtml" />
+    <Content Include="OptionSet\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Formdesigner\Placement.info" />
