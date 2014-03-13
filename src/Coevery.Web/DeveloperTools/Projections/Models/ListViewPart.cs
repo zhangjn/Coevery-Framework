@@ -2,6 +2,11 @@
 
 namespace Coevery.DeveloperTools.Projections.Models {
     public class ListViewPart : ContentPart<ListViewPartRecord> {
+        public string Name {
+            get { return Record.Name; }
+            set { Record.Name = value; }
+        }
+
         public string VisableTo {
             get { return Record.VisableTo; }
             set { Record.VisableTo = value; }

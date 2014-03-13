@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Coevery.ContentManagement;
+using Coevery.DeveloperTools.Projections.Descriptors.Layout;
+using Coevery.DeveloperTools.Projections.Models;
 using Coevery.DeveloperTools.Projections.Services;
 using Coevery.DisplayManagement;
 using Coevery.Localization;

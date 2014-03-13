@@ -47,6 +47,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\autofac\Autofac.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -80,6 +84,10 @@
       <HintPath>..\..\..\lib\aspnetmvc\System.Web.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\aspnetmvc\System.Web.WebPages.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Xml.Linq" />
@@ -124,6 +132,18 @@
     <Content Include="FormDesigner\Views\FormTemplate\FormDesignerLayout.cshtml" />
     <Content Include="FormDesigner\Views\Web.config" />
     <Content Include="OptionSet\Module.txt" />
+    <Content Include="Projections\Module.txt" />
+    <Content Include="Projections\Scripts\admin-projections.js" />
+    <Content Include="Projections\Scripts\controllers\detailcontroller.js" />
+    <Content Include="Projections\Scripts\controllers\listcontroller.js" />
+    <Content Include="Projections\Scripts\datetime-editor-filter.js" />
+    <Content Include="Projections\Scripts\numeric-editor-filter.js" />
+    <Content Include="Projections\Scripts\services\projectiondataservice.js" />
+    <Content Include="Projections\Styles\admin-projections.css" />
+    <Content Include="Projections\Styles\datetime-editor-filter.css" />
+    <Content Include="Projections\Styles\images\menu.projection.png" />
+    <Content Include="Projections\Styles\images\menu.queries.png" />
+    <Content Include="Projections\Styles\menu.projector-admin.css" />
     <Content Include="Web.config" />
     <Content Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -298,6 +318,190 @@
     <Compile Include="OptionSet\Settings\OptionSetFieldSettings.cs" />
     <Compile Include="OptionSet\Shapes.cs" />
     <Compile Include="OptionSet\ViewModels\OptionSetFieldViewModel.cs" />
+    <Compile Include="Projections\Controllers\EntityController.cs" />
+    <Compile Include="Projections\Controllers\FilterController.cs" />
+    <Compile Include="Projections\Controllers\GridColumnController.cs" />
+    <Compile Include="Projections\Controllers\OptionSetController.cs" />
+    <Compile Include="Projections\Controllers\ProjectionController.cs" />
+    <Compile Include="Projections\Controllers\ReferenceController.cs" />
+    <Compile Include="Projections\Controllers\AdminController.cs" />
+    <Compile Include="Projections\Descriptors\Filter\DescribeFilterContext.cs" />
+    <Compile Include="Projections\Descriptors\Filter\DescribeFilterFor.cs" />
+    <Compile Include="Projections\Descriptors\Filter\FilterContext.cs" />
+    <Compile Include="Projections\Descriptors\Filter\FilterDescriptor.cs" />
+    <Compile Include="Projections\Descriptors\Layout\DescribeLayoutContext.cs" />
+    <Compile Include="Projections\Descriptors\Layout\DescribeLayoutFor.cs" />
+    <Compile Include="Projections\Descriptors\Layout\LayoutComponentResult.cs" />
+    <Compile Include="Projections\Descriptors\Layout\LayoutContext.cs" />
+    <Compile Include="Projections\Descriptors\Layout\LayoutDescriptor.cs" />
+    <Compile Include="Projections\Descriptors\Property\DescribePropertyContext.cs" />
+    <Compile Include="Projections\Descriptors\Property\DescribePropertyFor.cs" />
+    <Compile Include="Projections\Descriptors\Property\PropertyContext.cs" />
+    <Compile Include="Projections\Descriptors\Property\PropertyDescriptor.cs" />
+    <Compile Include="Projections\Descriptors\SortCriterion\DescribeSortCriteriaContext.cs" />
+    <Compile Include="Projections\Descriptors\SortCriterion\DescribeSortCriteriaFor.cs" />
+    <Compile Include="Projections\Descriptors\SortCriterion\SortCriteriaContext.cs" />
+    <Compile Include="Projections\Descriptors\SortCriterion\SortCriteriaDescriptor.cs" />
+    <Compile Include="Projections\Descriptors\TypeDescriptor.cs" />
+    <Compile Include="Projections\Drivers\ListViewPartDriver.cs" />
+    <Compile Include="Projections\Drivers\NavigationQueryPartDriver.cs" />
+    <Compile Include="Projections\Drivers\ProjectionPartDriver.cs" />
+    <Compile Include="Projections\Drivers\QueryPartDriver.cs" />
+    <Compile Include="Projections\Extensions\StringExtensions.cs" />
+    <Compile Include="Projections\FieldTypeEditors\BooleanFieldTypeEditor.cs" />
+    <Compile Include="Projections\FieldTypeEditors\DateFieldTypeEditor.cs" />
+    <Compile Include="Projections\FieldTypeEditors\DateTimeFieldTypeEditor.cs" />
+    <Compile Include="Projections\FieldTypeEditors\DecimalFieldTypeEditor.cs" />
+    <Compile Include="Projections\FieldTypeEditors\FieldTypeEditorAdapterr.cs" />
+    <Compile Include="Projections\FieldTypeEditors\FieldTypeEditorModule.cs" />
+    <Compile Include="Projections\FieldTypeEditors\FloatFieldTypeEditor.cs" />
+    <Compile Include="Projections\FieldTypeEditors\IConcreteFieldTypeEditor.cs" />
+    <Compile Include="Projections\FieldTypeEditors\IFieldTypeEditor.cs" />
+    <Compile Include="Projections\FieldTypeEditors\IntegerFieldTypeEditor.cs" />
+    <Compile Include="Projections\FieldTypeEditors\OptionSetFieldTypeEditor.cs" />
+    <Compile Include="Projections\FieldTypeEditors\ReferenceFieldTypeEditor.cs" />
+    <Compile Include="Projections\FieldTypeEditors\StringFieldTypeEditor.cs" />
+    <Compile Include="Projections\FilterEditors\BooleanFilterEditor.cs" />
+    <Compile Include="Projections\FilterEditors\DateTimeFilterEditor.cs" />
+    <Compile Include="Projections\FilterEditors\DefaultFilterFormater.cs" />
+    <Compile Include="Projections\FilterEditors\Forms\BooleanFilterForm.cs" />
+    <Compile Include="Projections\FilterEditors\Forms\DateFilterForm.cs" />
+    <Compile Include="Projections\FilterEditors\Forms\DateTimeFilterForm.cs" />
+    <Compile Include="Projections\FilterEditors\Forms\DateTimeFormValidation.cs" />
+    <Compile Include="Projections\FilterEditors\Forms\NumericFilterForm.cs" />
+    <Compile Include="Projections\FilterEditors\Forms\NumericFilterFormValidation.cs" />
+    <Compile Include="Projections\FilterEditors\Forms\OptionSetFilterForm.cs" />
+    <Compile Include="Projections\FilterEditors\Forms\ReferenceFilterForm.cs" />
+    <Compile Include="Projections\FilterEditors\Forms\StringFilterForm.cs" />
+    <Compile Include="Projections\FilterEditors\IFilterCoordinator.cs" />
+    <Compile Include="Projections\FilterEditors\IFilterEditor.cs" />
+    <Compile Include="Projections\FilterEditors\NumericFilterEditor.cs" />
+    <Compile Include="Projections\FilterEditors\StringFilterEditor.cs" />
+    <Compile Include="Projections\Handlers\FieldIndexPartHandler.cs" />
+    <Compile Include="Projections\Handlers\FilterFieldEventsHandler.cs" />
+    <Compile Include="Projections\Handlers\ListViewFieldHandler.cs" />
+    <Compile Include="Projections\Handlers\ListViewPartHandler.cs" />
+    <Compile Include="Projections\Handlers\NavigationQueryPartHandler.cs" />
+    <Compile Include="Projections\Handlers\ProjectionEntityEventsHandler.cs" />
+    <Compile Include="Projections\Handlers\ProjectionPartHandler.cs" />
+    <Compile Include="Projections\Handlers\QueryPartHandler.cs" />
+    <Compile Include="Projections\ListViewShape.cs" />
+    <Compile Include="Projections\Migrations.cs" />
+    <Compile Include="Projections\Models\EntityFilterRecord.cs" />
+    <Compile Include="Projections\Models\FieldIndexPart.cs" />
+    <Compile Include="Projections\Models\FieldIndexPartRecord.cs" />
+    <Compile Include="Projections\Models\FieldIndexRecord.cs" />
+    <Compile Include="Projections\Models\FilterGroupRecord.cs" />
+    <Compile Include="Projections\Models\FilterRecord.cs" />
+    <Compile Include="Projections\Models\LayoutGroupRecord.cs" />
+    <Compile Include="Projections\Models\LayoutRecord.cs" />
+    <Compile Include="Projections\Models\ListViewPart.cs" />
+    <Compile Include="Projections\Models\ListViewPartRecord.cs" />
+    <Compile Include="Projections\Models\MemberBindingRecord.cs" />
+    <Compile Include="Projections\Models\NavigationQueryPart.cs" />
+    <Compile Include="Projections\Models\NavigationQueryPartRecord.cs" />
+    <Compile Include="Projections\Models\ProjectionPart.cs" />
+    <Compile Include="Projections\Models\ProjectionPartRecord.cs" />
+    <Compile Include="Projections\Models\PropertyRecord.cs" />
+    <Compile Include="Projections\Models\QueryPart.cs" />
+    <Compile Include="Projections\Models\QueryPartRecord.cs" />
+    <Compile Include="Projections\Models\SortCriteriaRecord.cs" />
+    <Compile Include="Projections\Navigation\NavigationQueryProvider.cs" />
+    <Compile Include="Projections\Permissions.cs" />
+    <Compile Include="Projections\PropertyEditors\DateTimePropertyEditor.cs" />
+    <Compile Include="Projections\PropertyEditors\DefaultPropertyFormater.cs" />
+    <Compile Include="Projections\PropertyEditors\Forms\DateTimePropertyForm.cs" />
+    <Compile Include="Projections\PropertyEditors\Forms\NumericPropertyForm.cs" />
+    <Compile Include="Projections\PropertyEditors\IPropertyEditor.cs" />
+    <Compile Include="Projections\PropertyEditors\IPropertyFormater.cs" />
+    <Compile Include="Projections\PropertyEditors\NumericPropertyEditor.cs" />
+    <Compile Include="Projections\Providers\Filters\ContentFieldsFilter.cs" />
+    <Compile Include="Projections\Providers\Filters\ContentPartRecordsForm.cs" />
+    <Compile Include="Projections\Providers\Filters\ContentTypesFilter.cs" />
+    <Compile Include="Projections\Providers\Filters\EagerFetchFilter.cs" />
+    <Compile Include="Projections\Providers\Filters\MemberBindingFilter.cs" />
+    <Compile Include="Projections\Providers\Layouts\GridLayout.cs" />
+    <Compile Include="Projections\Providers\Layouts\GridLayoutForms.cs" />
+    <Compile Include="Projections\Providers\Layouts\Grid\DefaultGridLayout.cs" />
+    <Compile Include="Projections\Providers\Layouts\Grid\DefaultGridLayoutForms.cs" />
+    <Compile Include="Projections\Providers\Layouts\Grid\TreeGridLayout.cs" />
+    <Compile Include="Projections\Providers\Layouts\Grid\TreeGridLayoutForms.cs" />
+    <Compile Include="Projections\Providers\Layouts\LayoutShapes.cs" />
+    <Compile Include="Projections\Providers\Layouts\ListLayout.cs" />
+    <Compile Include="Projections\Providers\Layouts\ListLayoutForms.cs" />
+    <Compile Include="Projections\Providers\Layouts\NgGridLayout.cs" />
+    <Compile Include="Projections\Providers\Layouts\RawLayout.cs" />
+    <Compile Include="Projections\Providers\Layouts\RawLayoutForms.cs" />
+    <Compile Include="Projections\Providers\Layouts\RawShapes.cs" />
+    <Compile Include="Projections\Providers\Layouts\ShapeLayout.cs" />
+    <Compile Include="Projections\Providers\Layouts\ShapeLayoutForms.cs" />
+    <Compile Include="Projections\Providers\Properties\ContentFieldProperties.cs" />
+    <Compile Include="Projections\Providers\Properties\ContentProperties.cs" />
+    <Compile Include="Projections\Providers\Properties\CustomValueProperties.cs" />
+    <Compile Include="Projections\Providers\Properties\MemberBindingProperties.cs" />
+    <Compile Include="Projections\Providers\PropertyEditors\CoeveryNumericPropertyEditor.cs" />
+    <Compile Include="Projections\Providers\QueryCriteria\FormQueryCriteria.cs" />
+    <Compile Include="Projections\Providers\QueryCriteria\PersistenceQueryCriteria.cs" />
+    <Compile Include="Projections\Providers\SortCriteria\ContentFieldsSortCriteria.cs" />
+    <Compile Include="Projections\Providers\SortCriteria\MemberBindingSortCriteria.cs" />
+    <Compile Include="Projections\Providers\SortCriteria\RandomSortCriterion.cs" />
+    <Compile Include="Projections\Providers\SortCriteria\SortOrderFormProvider.cs" />
+    <Compile Include="Projections\Services\AutoLoadResourceProvider.cs" />
+    <Compile Include="Projections\Services\ClientRouteProvider.cs" />
+    <Compile Include="Projections\Services\CompareContentService.cs" />
+    <Compile Include="Projections\Services\CustomMemberBindingProvider.cs" />
+    <Compile Include="Projections\Services\FieldIndexService.cs" />
+    <Compile Include="Projections\Services\GridService.cs" />
+    <Compile Include="Projections\Services\GroupService.cs" />
+    <Compile Include="Projections\Services\IFieldIndexService.cs" />
+    <Compile Include="Projections\Services\IFilterProvider.cs" />
+    <Compile Include="Projections\Services\IGridService.cs" />
+    <Compile Include="Projections\Services\IMemberBindingProvider.cs" />
+    <Compile Include="Projections\Services\IProjectionManager.cs" />
+    <Compile Include="Projections\Services\IProjectionService.cs" />
+    <Compile Include="Projections\Services\IPropertyProvider.cs" />
+    <Compile Include="Projections\Services\IPropertyService.cs" />
+    <Compile Include="Projections\Services\IQueryCriteriaProvider.cs" />
+    <Compile Include="Projections\Services\IQueryService.cs" />
+    <Compile Include="Projections\Services\ISortCriteriaProvider.cs" />
+    <Compile Include="Projections\Services\ISortService.cs" />
+    <Compile Include="Projections\Services\JavascriptLocalizationResourceProvider.cs" />
+    <Compile Include="Projections\Services\LayoutProvider.cs" />
+    <Compile Include="Projections\Services\ProjectionManager.cs" />
+    <Compile Include="Projections\Services\ProjectionService.cs" />
+    <Compile Include="Projections\Services\PropertyRecordExtension.cs" />
+    <Compile Include="Projections\Services\PropertyService.cs" />
+    <Compile Include="Projections\Services\PropertyShapes.cs" />
+    <Compile Include="Projections\Services\QueryService.cs" />
+    <Compile Include="Projections\Services\SortService.cs" />
+    <Compile Include="Projections\Shapes.cs" />
+    <Compile Include="Projections\ViewModels\AdminCreateViewModel.cs" />
+    <Compile Include="Projections\ViewModels\AdminEditViewModel.cs" />
+    <Compile Include="Projections\ViewModels\AdminIndexViewModel.cs" />
+    <Compile Include="Projections\ViewModels\BindingEditViewModel.cs" />
+    <Compile Include="Projections\ViewModels\BindingIndexViewModel.cs" />
+    <Compile Include="Projections\ViewModels\BindingSelectViewModel.cs" />
+    <Compile Include="Projections\ViewModels\Data.cs" />
+    <Compile Include="Projections\ViewModels\EntityViewListModel.cs" />
+    <Compile Include="Projections\ViewModels\FieldFilterViewModel.cs" />
+    <Compile Include="Projections\ViewModels\FilterAddViewModel.cs" />
+    <Compile Include="Projections\ViewModels\FilterData.cs" />
+    <Compile Include="Projections\ViewModels\FilterEditViewModel.cs" />
+    <Compile Include="Projections\ViewModels\FilterViewModel.cs" />
+    <Compile Include="Projections\ViewModels\GroupAddViewModel.cs" />
+    <Compile Include="Projections\ViewModels\GroupEditViewModel.cs" />
+    <Compile Include="Projections\ViewModels\LayoutAddViewModel.cs" />
+    <Compile Include="Projections\ViewModels\LayoutEditViewModel.cs" />
+    <Compile Include="Projections\ViewModels\ListQueryModel.cs" />
+    <Compile Include="Projections\ViewModels\NavigationQueryPartEditViewModel.cs" />
+    <Compile Include="Projections\ViewModels\PicklistItemViewModel.cs" />
+    <Compile Include="Projections\ViewModels\ProjectionEditViewModel.cs" />
+    <Compile Include="Projections\ViewModels\ProjectionPartEditViewModel.cs" />
+    <Compile Include="Projections\ViewModels\PropertyAddViewModel.cs" />
+    <Compile Include="Projections\ViewModels\PropertyDescriptorViewModel.cs" />
+    <Compile Include="Projections\ViewModels\PropertyEditViewModel.cs" />
+    <Compile Include="Projections\ViewModels\SortCriteriaAddViewModel.cs" />
+    <Compile Include="Projections\ViewModels\SortCriteriaEditViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Entities\Placement.info" />
@@ -390,7 +594,36 @@
     <Content Include="OptionSet\Views\TaxonomyItemLink.cshtml" />
     <Content Include="OptionSet\Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Projections\Placement.info" />
+    <Content Include="Projections\Scripts\Web.config" />
+    <Content Include="Projections\Styles\Web.config" />
+    <Content Include="Projections\Views\DefaultGrid.cshtml" />
+    <Content Include="Projections\Views\DefaultGrid.Edit.cshtml" />
+    <Content Include="Projections\Views\EditorTemplates\Parts\NavigationQueryPart.cshtml" />
+    <Content Include="Projections\Views\EditorTemplates\Parts\ProjectionPart.cshtml" />
+    <Content Include="Projections\Views\FilterEditors.BooleanFilter.cshtml" />
+    <Content Include="Projections\Views\FilterEditors.DateFilter.cshtml" />
+    <Content Include="Projections\Views\FilterEditors.DateTimeFilter.cshtml" />
+    <Content Include="Projections\Views\FilterEditors.NumericFilter.cshtml" />
+    <Content Include="Projections\Views\FilterEditors.OptionSetFilter.cshtml" />
+    <Content Include="Projections\Views\FilterEditors.ReferenceFilter.cshtml" />
+    <Content Include="Projections\Views\FilterEditors.StringFilter.cshtml" />
+    <Content Include="Projections\Views\jqGrid.Script.cshtml" />
+    <Content Include="Projections\Views\Parts\ListView.Buttons.cshtml" />
+    <Content Include="Projections\Views\Parts\ListView.cshtml" />
+    <Content Include="Projections\Views\Parts\ListView.FilterContent.cshtml" />
+    <Content Include="Projections\Views\Parts\ListView.Filters.cshtml" />
+    <Content Include="Projections\Views\Parts\ListView.Header.cshtml" />
+    <Content Include="Projections\Views\Parts\ListView.Search.cshtml" />
+    <Content Include="Projections\Views\Parts\ListView.Views.cshtml" />
+    <Content Include="Projections\Views\Projection.JavascriptLocalizationResource.cshtml" />
+    <Content Include="Projections\Views\Admin\Edit.cshtml" />
+    <Content Include="Projections\Views\Admin\List.cshtml" />
+    <Content Include="Projections\Views\TreeGrid.cshtml" />
+    <Content Include="Projections\Views\TreeGrid.Edit.cshtml" />
+    <Content Include="Projections\Views\Web.config" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

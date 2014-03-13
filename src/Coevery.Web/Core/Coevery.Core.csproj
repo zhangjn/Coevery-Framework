@@ -49,6 +49,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\newtonsoft.json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -71,9 +75,19 @@
     <Compile Include="Common\ClientRouteShape.cs" />
     <Compile Include="Common\Controllers\HomeController.cs" />
     <Compile Include="Common\Routes.cs" />
+    <Compile Include="Common\Services\AutoLoadResourceFilter.cs" />
+    <Compile Include="Common\Services\IAutoLoadResourceRegister.cs" />
     <Compile Include="Common\Services\NavigationManager.cs" />
     <Compile Include="Common\Services\SafeModeThemeSelector.cs" />
     <Compile Include="Common\Shapes\Localization\DateTimeLocalization.cs" />
+    <Compile Include="Forms\Services\DefaultFormManager.cs" />
+    <Compile Include="Forms\Services\FormParametersHelper.cs" />
+    <Compile Include="Forms\Services\FormProcessor.cs" />
+    <Compile Include="Forms\Services\IFormEvents.cs" />
+    <Compile Include="Forms\Services\IFormManager.cs" />
+    <Compile Include="Forms\Services\IFormProvider.cs" />
+    <Compile Include="Forms\Shapes\EditorShapes.cs" />
+    <Compile Include="Forms\Shapes\PropertyItemsBehavior.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Commands\FeatureCommands.cs" />
     <Compile Include="Settings\Descriptor\Records\ShellDescriptorRecord.cs" />
@@ -96,6 +110,23 @@
     <Compile Include="Settings\Services\SiteService.cs" />
     <Compile Include="Common\CoreShapes.cs" />
     <Compile Include="Common\ResourceManifest.cs" />
+    <Compile Include="Tokens\Controllers\AdminController.cs" />
+    <Compile Include="Tokens\DescribeContext.cs" />
+    <Compile Include="Tokens\DescribeFor.cs" />
+    <Compile Include="Tokens\EvaluateContext.cs" />
+    <Compile Include="Tokens\EvaluateFor.cs" />
+    <Compile Include="Tokens\Implementation\Tokenizer.cs" />
+    <Compile Include="Tokens\Implementation\TokenManager.cs" />
+    <Compile Include="Tokens\ITokenizer.cs" />
+    <Compile Include="Tokens\ITokenManager.cs" />
+    <Compile Include="Tokens\ITokenProvider.cs" />
+    <Compile Include="Tokens\Providers\ContentTokens.cs" />
+    <Compile Include="Tokens\Providers\DateTokens.cs" />
+    <Compile Include="Tokens\Providers\RequestTokens.cs" />
+    <Compile Include="Tokens\Providers\TextTokens.cs" />
+    <Compile Include="Tokens\Providers\UserTokens.cs" />
+    <Compile Include="Tokens\ReplaceOptions.cs" />
+    <Compile Include="Tokens\TokenDescriptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\Scripts\angular\couchPotato\angular-couchPotato.js" />
@@ -491,6 +522,7 @@
     <Content Include="Common\Styles\jQuery\ui.datepicker.css" />
     <Content Include="Common\Styles\jQuery\ui.jqgrid.css" />
     <Content Include="Common\Styles\module.css" />
+    <Content Include="Forms\Module.txt" />
     <Content Include="Settings\Module.txt" />
     <Content Include="Settings\Placement.info" />
   </ItemGroup>
@@ -503,6 +535,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Tokens\Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\Module.txt" />
@@ -518,6 +551,11 @@
     <Content Include="Common\Styles\Images\toolBarHoverButtonBackground.gif" />
     <Content Include="Common\Styles\jQuery\jquery.switchable.css" />
     <Content Include="Common\Styles\special.css" />
+    <Content Include="Tokens\Module.txt" />
+    <Content Include="Tokens\Scripts\coevery-tokens-admin.js" />
+    <Content Include="Tokens\Styles\coevery-tokens-admin.css" />
+    <Content Include="Tokens\Styles\Images\closeButtons.png" />
+    <Content Include="Tokens\Styles\Images\tokensPopup.gif" />
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -556,6 +594,17 @@
   <ItemGroup>
     <Content Include="Common\Scripts\jQuery\jquery.min.map" />
     <Content Include="Common\Scripts\jQuery\jquery.validate.min.js.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Forms\Scripts\Web.config" />
+    <Content Include="Forms\Styles\Web.config" />
+    <Content Include="Forms\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Tokens\Scripts\Web.config" />
+    <Content Include="Tokens\Styles\Web.config" />
+    <Content Include="Tokens\Views\TokenHint.cshtml" />
+    <Content Include="Tokens\Views\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

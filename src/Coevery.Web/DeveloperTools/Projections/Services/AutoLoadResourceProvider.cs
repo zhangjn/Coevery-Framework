@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Coevery.Core.Common.Services;
 
 namespace Coevery.DeveloperTools.Projections.Services {
     public class AutoLoadResourceProvider : IAutoLoadResourceProvider {

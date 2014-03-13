@@ -1,5 +1,7 @@
 ﻿using System.Linq;
 using Coevery.Data;
+using Coevery.DeveloperTools.Entities.Events;
+using Coevery.DeveloperTools.Entities.Extensions;
 using Coevery.DeveloperTools.Projections.Models;
 
 namespace Coevery.DeveloperTools.Projections.Handlers {

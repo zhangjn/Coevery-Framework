@@ -5,8 +5,8 @@ namespace Coevery.DeveloperTools.Projections.Models {
     public class QueryPart : ContentPart<QueryPartRecord> {
 
         public string Name {
-            get { return this.As<TitlePart>().Title;  }
-            set { this.As<TitlePart>().Title = value; }
+            get { return Record.Name; }
+            set { Record.Name = value; }
         }
 
         public IList<SortCriterionRecord> SortCriteria {

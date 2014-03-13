@@ -6,6 +6,8 @@ using System.Web.Routing;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
+using Coevery.Core.Forms.Services;
+using Coevery.Core.Tokens;
 using Coevery.Data;
 using Coevery.DeveloperTools.Projections.Descriptors.Layout;
 using Coevery.DeveloperTools.Projections.Descriptors.Property;
@@ -21,7 +23,6 @@ namespace Coevery.DeveloperTools.Projections.Drivers {
     public class ProjectionPartDriver : ContentPartDriver<ProjectionPart> {
         private readonly IRepository<QueryPartRecord> _queryRepository;
         private readonly IProjectionManager _projectionManager;
-        private readonly IFeedManager _feedManager;
         private readonly ITokenizer _tokenizer;
         private readonly IDisplayHelperFactory _displayHelperFactory;
         private readonly IWorkContextAccessor _workContextAccessor;
@@ -31,13 +32,11 @@ namespace Coevery.DeveloperTools.Projections.Drivers {
             ICoeveryServices services,
             IRepository<QueryPartRecord> queryRepository,
             IProjectionManager projectionManager,
-            IFeedManager feedManager,
             ITokenizer tokenizer,
             IDisplayHelperFactory displayHelperFactory,
             IWorkContextAccessor workContextAccessor) {
             _queryRepository = queryRepository;
             _projectionManager = projectionManager;
-            _feedManager = feedManager;
             _tokenizer = tokenizer;
             _displayHelperFactory = displayHelperFactory;
             _workContextAccessor = workContextAccessor;
@@ -103,7 +102,6 @@ namespace Coevery.DeveloperTools.Projections.Drivers {
 
                     // generates a link to the RSS feed for this term
                     var metaData = Services.ContentManager.GetItemMetadata(part.ContentItem);
-                    _feedManager.Register(metaData.DisplayText, "rss", new RouteValueDictionary { { "projection", part.Id } });
 
                     // execute the query
                     var contentItems = _projectionManager.GetContentItems(query.Id, pager.GetStartIndex() + part.Record.Skip, pager.PageSize).ToList();
@@ -248,7 +246,7 @@ namespace Coevery.DeveloperTools.Projections.Drivers {
 
                                     // populating the list of queries and layouts
                                     var layouts = _projectionManager.DescribeLayouts().SelectMany(x => x.Descriptors).ToList();
-                                    model.QueryRecordEntries = Services.ContentManager.Query<QueryPart>().Join<TitlePartRecord>().OrderBy(x => x.Title).List()
+                                    model.QueryRecordEntries = Services.ContentManager.Query<QueryPart>().OrderBy<QueryPartRecord>(x => x.Name).List()
                                         .Select(x => new QueryRecordEntry {
                                             Id = x.Id,
                                             Name = x.Name,

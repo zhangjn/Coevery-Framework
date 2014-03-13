@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 define(['core/app/detourService',
-        'Modules/Coevery.Projections/Scripts/services/projectiondataservice'], function(detour) {
+        'DeveloperTools/Projections/Scripts/services/projectiondataservice'], function (detour) {
             detour.registerController([
                 'ProjectionListCtrl',
                 ['$rootScope', '$scope', 'logger', '$state', '$resource', '$stateParams', 'projectionDataService', '$i18next',

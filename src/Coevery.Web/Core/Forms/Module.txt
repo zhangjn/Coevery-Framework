@@ -1,0 +1,8 @@
+Name: Forms
+AntiForgery: enabled
+Author: The Coevery Team
+Website: http://Coeveryproject.net
+Version: 1.7.2
+CoeveryVersion: 1.7.2
+Description: Provides a system to publish and alter html forms.
+Category: Core

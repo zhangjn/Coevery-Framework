@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Coevery.ContentManagement;
+using Coevery.DeveloperTools.Entities.Extensions;
 using Coevery.DeveloperTools.Projections.Models;
 
 namespace Coevery.DeveloperTools.Projections.Controllers {
@@ -28,7 +29,7 @@ namespace Coevery.DeveloperTools.Projections.Controllers {
                  .Where(v => v.ItemContentType == id).List().Select(record => new {
                      ContentId = record.Id,
                      EntityType = record.ItemContentType,
-                     DisplayName = record.As<TitlePart>().Title,
+                     DisplayName = record.Name,
                      Default = record.IsDefault
                  }).ToList();
             return query;
@@ -38,7 +39,7 @@ namespace Coevery.DeveloperTools.Projections.Controllers {
             var query = Services.ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")
                 .Where(v => v.ItemContentType == id).List().Select(record => new {
                     ContentId = record.Id,
-                    DisplayName = record.As<TitlePart>().Title,
+                    DisplayName = record.Name,
                     Default = record.IsDefault
                 }).ToList();
 

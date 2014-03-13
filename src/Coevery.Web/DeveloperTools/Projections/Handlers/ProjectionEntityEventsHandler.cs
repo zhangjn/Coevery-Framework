@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Coevery.ContentManagement;
+using Coevery.DeveloperTools.Entities.Events;
+using Coevery.DeveloperTools.Entities.Extensions;
 using Coevery.DeveloperTools.Projections.Models;
 using Coevery.DeveloperTools.Projections.Services;
 using Coevery.DeveloperTools.Projections.ViewModels;

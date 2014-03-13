@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Coevery;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData.Models;
+using Coevery.DeveloperTools.Entities.Extensions;
+using Coevery.DeveloperTools.Entities.Providers;
 using Coevery.DeveloperTools.Projections.Descriptors.Property;
 using Coevery.DeveloperTools.Projections.FieldTypeEditors;
 using Coevery.DeveloperTools.Projections.PropertyEditors;
 using Coevery.DeveloperTools.Projections.Services;
 using Coevery.Localization;
 using Coevery.Logging;
+using Coevery.Utility.Extensions;
 
 namespace Coevery.DeveloperTools.Projections.Providers.Properties {
     public class ContentFieldProperties : IPropertyProvider {
@@ -64,7 +66,7 @@ namespace Coevery.DeveloperTools.Projections.Providers.Properties {
                                 property: (context, contentItem) => Render(context, contentItem, fieldTypeEditor, storageName, storageType, localPart, localField),
                                 display: context => DisplayFilter(context, localPart, localField, storageName),
                                 form: _propertyFormater.GetForm(storageType)
-                            );
+                                );
                         });
 
                     foreach (var driver in drivers) {

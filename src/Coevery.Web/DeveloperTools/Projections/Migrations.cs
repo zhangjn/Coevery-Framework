@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using Coevery.ContentManagement.MetaData;
+using Coevery.Core.Forms.Services;
 using Coevery.Data;
 using Coevery.Data.Migration;
 using Coevery.DeveloperTools.Projections.Models;
@@ -17,7 +18,7 @@ namespace Coevery.DeveloperTools.Projections {
 
         public Migrations(ISessionFactoryHolder sessionFactoryHolder,
             ShellSettings shellSettings,
-            IRepository<MemberBindingRecord> memberBindingRepository, 
+            IRepository<MemberBindingRecord> memberBindingRepository,
             IRepository<LayoutRecord> layoutRepository) {
             _shellSettings = shellSettings;
             var configuration = sessionFactoryHolder.GetConfiguration();
@@ -38,7 +39,7 @@ namespace Coevery.DeveloperTools.Projections {
                     .Column<string>("PropertyName")
                     .Column<string>("Value", c => c.WithLength(4000))
                     .Column<int>("FieldIndexPartRecord_Id")
-            );
+                );
 
             SchemaBuilder.CreateTable("IntegerFieldIndexRecord",
                 table => table
@@ -46,7 +47,7 @@ namespace Coevery.DeveloperTools.Projections {
                     .Column<string>("PropertyName")
                     .Column<long>("Value")
                     .Column<int>("FieldIndexPartRecord_Id")
-            );
+                );
 
             SchemaBuilder.CreateTable("DoubleFieldIndexRecord",
                 table => table
@@ -54,7 +55,7 @@ namespace Coevery.DeveloperTools.Projections {
                     .Column<string>("PropertyName")
                     .Column<double>("Value")
                     .Column<int>("FieldIndexPartRecord_Id")
-            );
+                );
 
             SchemaBuilder.CreateTable("DecimalFieldIndexRecord",
                 table => table
@@ -62,7 +63,7 @@ namespace Coevery.DeveloperTools.Projections {
                     .Column<string>("PropertyName")
                     .Column<decimal>("Value")
                     .Column<int>("FieldIndexPartRecord_Id")
-            );
+                );
 
             SchemaBuilder.CreateTable("FieldIndexPartRecord", table => table.ContentPartRecord());
 
@@ -78,13 +79,14 @@ namespace Coevery.DeveloperTools.Projections {
             SchemaBuilder.CreateTable("QueryPartRecord",
                 table => table
                     .ContentPartRecord()
-            );
+                    .Column<string>("Name", column => column.WithLength(1024))
+                );
 
             SchemaBuilder.CreateTable("FilterGroupRecord",
                 table => table
                     .Column<int>("Id", c => c.PrimaryKey().Identity())
                     .Column<int>("QueryPartRecord_id")
-            );
+                );
 
             SchemaBuilder.CreateTable("FilterRecord",
                 table => table
@@ -130,12 +132,10 @@ namespace Coevery.DeveloperTools.Projections {
                     .Column<string>("State", c => c.Unlimited())
                     .Column<int>("Position")
                     .Column<int>("LayoutRecord_id")
-
                     .Column<bool>("ExcludeFromDisplay")
                     .Column<bool>("CreateLabel")
                     .Column<string>("Label", c => c.WithLength(255))
                     .Column<bool>("LinkToContent")
-
                     .Column<bool>("CustomizePropertyHtml")
                     .Column<string>("CustomPropertyTag", c => c.WithLength(64))
                     .Column<string>("CustomPropertyCss", c => c.WithLength(64))
@@ -145,11 +145,9 @@ namespace Coevery.DeveloperTools.Projections {
                     .Column<bool>("CustomizeWrapperHtml")
                     .Column<string>("CustomWrapperTag", c => c.WithLength(64))
                     .Column<string>("CustomWrapperCss", c => c.WithLength(64))
-
                     .Column<string>("NoResultText", c => c.Unlimited())
                     .Column<bool>("ZeroIsEmpty")
                     .Column<bool>("HideEmpty")
-
                     .Column<bool>("RewriteOutput")
                     .Column<string>("RewriteText", c => c.Unlimited())
                     .Column<bool>("StripHtmlTags")
@@ -159,7 +157,7 @@ namespace Coevery.DeveloperTools.Projections {
                     .Column<bool>("TrimOnWordBoundary")
                     .Column<bool>("PreserveLines")
                     .Column<bool>("TrimWhiteSpace")
-            );
+                );
 
             SchemaBuilder.CreateTable("ProjectionPartRecord",
                 table => table
@@ -196,7 +194,7 @@ namespace Coevery.DeveloperTools.Projections {
                 cfg => cfg
                     .WithPart("CommonPart")
                     .WithPart("TitlePart")
-                     .WithPart("AutoroutePart", builder => builder
+                    .WithPart("AutoroutePart", builder => builder
                         .WithSetting("AutorouteSettings.AllowCustomPattern", "true")
                         .WithSetting("AutorouteSettings.AutomaticAdjustmentOnEdit", "false")
                         .WithSetting("AutorouteSettings.PatternDefinitions", "[{Name:'Title', Pattern: '{Content.Slug}', Description: 'my-projections'}]")
@@ -204,50 +202,49 @@ namespace Coevery.DeveloperTools.Projections {
                     .WithPart("MenuPart")
                     .WithPart("ProjectionPart")
                     .WithPart("AdminMenuPart", p => p.WithSetting("AdminMenuPartTypeSettings.DefaultPosition", "5"))
-                    .Creatable()
                     .DisplayedAs("Projection")
                 );
 
-            // Default Model Bindings - CommonPartRecord
+            //// Default Model Bindings - CommonPartRecord
 
-            _memberBindingRepository.Create(new MemberBindingRecord {
-                Type = typeof(CommonPartRecord).FullName,
-                Member = "CreatedUtc",
-                DisplayName = T("Creation date").Text,
-                Description = T("When the content item was created").Text
-            });
+            //_memberBindingRepository.Create(new MemberBindingRecord {
+            //    Type = typeof(CommonPartRecord).FullName,
+            //    Member = "CreatedUtc",
+            //    DisplayName = T("Creation date").Text,
+            //    Description = T("When the content item was created").Text
+            //});
 
-            _memberBindingRepository.Create(new MemberBindingRecord {
-                Type = typeof(CommonPartRecord).FullName,
-                Member = "ModifiedUtc",
-                DisplayName = T("Modification date").Text,
-                Description = T("When the content item was modified").Text
-            });
+            //_memberBindingRepository.Create(new MemberBindingRecord {
+            //    Type = typeof(CommonPartRecord).FullName,
+            //    Member = "ModifiedUtc",
+            //    DisplayName = T("Modification date").Text,
+            //    Description = T("When the content item was modified").Text
+            //});
 
-            _memberBindingRepository.Create(new MemberBindingRecord {
-                Type = typeof(CommonPartRecord).FullName,
-                Member = "PublishedUtc",
-                DisplayName = T("Publication date").Text,
-                Description = T("When the content item was published").Text
-            });
+            //_memberBindingRepository.Create(new MemberBindingRecord {
+            //    Type = typeof(CommonPartRecord).FullName,
+            //    Member = "PublishedUtc",
+            //    DisplayName = T("Publication date").Text,
+            //    Description = T("When the content item was published").Text
+            //});
 
-            // Default Model Bindings - TitlePartRecord
+            //// Default Model Bindings - TitlePartRecord
 
-            _memberBindingRepository.Create(new MemberBindingRecord {
-                Type = typeof(TitlePartRecord).FullName,
-                Member = "Title",
-                DisplayName = T("Title Part Title").Text,
-                Description = T("The title assigned using the Title part").Text
-            });
+            //_memberBindingRepository.Create(new MemberBindingRecord {
+            //    Type = typeof(TitlePartRecord).FullName,
+            //    Member = "Title",
+            //    DisplayName = T("Title Part Title").Text,
+            //    Description = T("The title assigned using the Title part").Text
+            //});
 
-            // Default Model Bindings - BodyPartRecord
+            //// Default Model Bindings - BodyPartRecord
 
-            _memberBindingRepository.Create(new MemberBindingRecord {
-                Type = typeof(BodyPartRecord).FullName,
-                Member = "Text",
-                DisplayName = T("Body Part Text").Text,
-                Description = T("The text from the Body part").Text
-            });
+            //_memberBindingRepository.Create(new MemberBindingRecord {
+            //    Type = typeof(BodyPartRecord).FullName,
+            //    Member = "Text",
+            //    DisplayName = T("Body Part Text").Text,
+            //    Description = T("The text from the Body part").Text
+            //});
 
             SchemaBuilder.CreateTable("LayoutPropertyRecord",
                 table => table
@@ -285,18 +282,13 @@ namespace Coevery.DeveloperTools.Projections {
             SchemaBuilder.CreateTable("ListViewPartRecord",
                 table => table
                     .ContentPartRecord()
+                    .Column<string>("Name", column => column.WithLength(1024))
                     .Column<string>("ItemContentType")
                     .Column<string>("VisableTo")
                 );
 
             ContentDefinitionManager.DeleteTypeDefinition("LayoutProperty");
             ContentDefinitionManager.DeletePartDefinition("LayoutPropertyPart");
-
-            SchemaBuilder.ExecuteSql(string.Format(@"INSERT INTO {0}Coevery_Projections_ListViewPartRecord(Id,ItemContentType,VisableTo)
-                                       SELECT Id = v.ProjectionPartRecord_id, ItemContentType = t.Name,VisableTo = 'All' 
-                                       FROM     {0}Coevery_Common_ViewPartRecord v 
-                                                INNER JOIN {0}Settings_ContentTypeDefinitionRecord t 
-                                                ON t.Id = v.ContentTypeDefinitionRecord_id", DataTablePrefix()));
 
             var dropViewPartRecordTable = _dialect.GetDropTableString("Coevery_Common_ViewPartRecord");
             SchemaBuilder.ExecuteSql(dropViewPartRecordTable);
@@ -312,34 +304,21 @@ namespace Coevery.DeveloperTools.Projections {
         }
 
         private string DataTablePrefix() {
-            if (string.IsNullOrEmpty(_shellSettings.DataTablePrefix)) return string.Empty;
+            if (string.IsNullOrEmpty(_shellSettings.DataTablePrefix)) {
+                return string.Empty;
+            }
             return _shellSettings.DataTablePrefix + "_";
         }
 
         public int UpdateFrom2() {
             SchemaBuilder.AlterTable("ProjectionPartRecord",
-                           table => table
-                               .AlterColumn("PagerSuffix", c => c.WithType(DbType.String).WithLength(255))
-                           );
+                table => table
+                    .AlterColumn("PagerSuffix", c => c.WithType(DbType.String).WithLength(255))
+                );
 
             SchemaBuilder.AlterTable("ListViewPartRecord",
                 table => table
                     .AddColumn<bool>("IsDefault", column => column.WithDefault(false)));
-
-            SchemaBuilder.ExecuteSql(string.Format(@" UPDATE {0}Coevery_Projections_ListViewPartRecord
-                                        SET	IsDefault = 1
-                                        FROM	{0}Coevery_Projections_ListViewPartRecord l
-                                        WHERE NOT EXISTS(   SELECT * 
-                                                            FROM {0}Coevery_Projections_ListViewPartRecord lvp 
-                                                            WHERE lvp.ItemContentType = l.ItemContentType AND lvp.IsDefault = 1)", DataTablePrefix()));
-
-            SchemaBuilder.ExecuteSql(string.Format(@" UPDATE {0}Coevery_Framework_ContentItemRecord
-                                        SET	ContentType_id	= (SELECT Id FROM {0}Coevery_Framework_ContentTypeRecord WHERE Name = 'LayoutProperty')
-                                        FROM {0}Coevery_Projections_ListViewPartRecord lvp INNER JOIN {0}Coevery_Framework_ContentItemRecord i ON	i.Id = lvp.Id
-
-                                        UPDATE	{0}Coevery_Framework_ContentTypeRecord
-                                        SET		Name = 'ListViewPage'
-                                        WHERE	Name = 'LayoutProperty'", DataTablePrefix()));
 
             ContentDefinitionManager.AlterTypeDefinition("ListViewPage",
                 cfg => cfg
@@ -381,8 +360,7 @@ namespace Coevery.DeveloperTools.Projections {
             return 5;
         }
 
-        public int UpdateFrom5()
-        {
+        public int UpdateFrom5() {
             SchemaBuilder.CreateTable("LayoutGroupRecord",
                 table => table
                     .Column<int>("Id", c => c.PrimaryKey().Identity())
@@ -395,8 +373,8 @@ namespace Coevery.DeveloperTools.Projections {
         }
 
         public int UpdateFrom6() {
-            SchemaBuilder.AlterTable("PropertyRecord", 
-                table => table.AlterColumn("Type", col => col.WithType(DbType.String).WithLength(1023) ));
+            SchemaBuilder.AlterTable("PropertyRecord",
+                table => table.AlterColumn("Type", col => col.WithType(DbType.String).WithLength(1023)));
             return 7;
         }
     }

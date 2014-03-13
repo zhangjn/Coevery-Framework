@@ -5,6 +5,8 @@ using System.Linq;
 using System.Management.Instrumentation;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
+using Coevery.Core.Forms.Services;
+using Coevery.DeveloperTools.Entities.Extensions;
 using Coevery.DeveloperTools.Projections.Models;
 using Coevery.DeveloperTools.Projections.ViewModels;
 using Coevery.Localization;
@@ -69,7 +71,7 @@ namespace Coevery.DeveloperTools.Projections.Services {
             var listViewPart = projectionItem.As<ListViewPart>();
             viewModel.Id = id;
             viewModel.ItemContentType = listViewPart.ItemContentType.ToPartName();
-            viewModel.DisplayName = listViewPart.As<TitlePart>().Title;
+            viewModel.DisplayName = listViewPart.Name;
             viewModel.VisableTo = listViewPart.VisableTo;
             viewModel.IsDefault = listViewPart.IsDefault;
             //Get AllFields
@@ -160,7 +162,7 @@ namespace Coevery.DeveloperTools.Projections.Services {
             }
 
             listViewPart.VisableTo = viewModel.VisableTo;
-            listViewPart.As<TitlePart>().Title = viewModel.DisplayName;
+            listViewPart.Name = viewModel.DisplayName;
             listViewPart.IsDefault = viewModel.IsDefault;
             queryPart.Name = listViewPart.ItemContentType + " - " + viewModel.DisplayName;
 

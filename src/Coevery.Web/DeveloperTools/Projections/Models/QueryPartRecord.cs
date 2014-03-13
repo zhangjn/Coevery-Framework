@@ -11,6 +11,8 @@ namespace Coevery.DeveloperTools.Projections.Models {
             Layouts = new List<LayoutRecord>();
         }
 
+        public virtual string Name { get; set; }
+
         [CascadeAllDeleteOrphan, Aggregate]
         [XmlArray("FilterGroupRecords")]
         public virtual IList<FilterGroupRecord> FilterGroups { get; set; }
