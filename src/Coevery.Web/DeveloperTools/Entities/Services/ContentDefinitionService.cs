@@ -5,7 +5,7 @@ using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
-using Coevery.DeveloperTools.Entities.Extensions;
+using Coevery.Core.Common.Extensions;
 using Coevery.DeveloperTools.Entities.ViewModels;
 using Coevery.Localization;
 

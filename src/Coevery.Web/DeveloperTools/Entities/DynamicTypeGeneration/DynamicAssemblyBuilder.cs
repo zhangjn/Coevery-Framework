@@ -7,9 +7,9 @@ using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.Records;
+using Coevery.Core.Common.Extensions;
 using Coevery.Data;
 using Coevery.DeveloperTools.Entities.Events;
-using Coevery.DeveloperTools.Entities.Extensions;
 using Coevery.FileSystems.VirtualPath;
 
 namespace Coevery.DeveloperTools.Entities.DynamicTypeGeneration {

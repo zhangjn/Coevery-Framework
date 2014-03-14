@@ -1,7 +1,7 @@
 using System.Linq;
 using System.Xml.Linq;
 using Coevery.ContentManagement.MetaData;
-using Coevery.DeveloperTools.Entities.Extensions;
+using Coevery.Core.Common.Extensions;
 using Coevery.Localization;
 
 namespace Coevery.DeveloperTools.FormDesigner.Services {

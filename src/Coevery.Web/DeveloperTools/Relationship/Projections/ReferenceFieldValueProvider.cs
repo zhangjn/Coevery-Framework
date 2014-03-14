@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using Coevery.ContentManagement;
+using Coevery.Core.Common.Extensions;
 using Coevery.Core.Fields.Providers;
-using Coevery.DeveloperTools.Entities.Extensions;
 using Coevery.DeveloperTools.Relationship.Fields;
 
 namespace Coevery.DeveloperTools.Relationship.Projections {

@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
-using Coevery.DeveloperTools.Projections.Services;
+using Coevery.Core.Projections.Services;
 using Coevery.DeveloperTools.Relationship.Fields;
 using Coevery.DeveloperTools.Relationship.Models;
 using Coevery.DeveloperTools.Relationship.Settings;

@@ -5,7 +5,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
-using Coevery.DeveloperTools.Entities.Extensions;
+using Coevery.Core.Common.Extensions;
 using Coevery.DeveloperTools.Entities.Services;
 using Coevery.DeveloperTools.FormDesigner.ViewModels;
 using Coevery.Localization;

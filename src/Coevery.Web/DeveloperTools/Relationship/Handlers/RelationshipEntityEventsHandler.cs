@@ -1,4 +1,5 @@
-﻿using Coevery.DeveloperTools.Entities.Events;
+﻿using Coevery.Core.Entities.Events;
+using Coevery.DeveloperTools.Entities.Events;
 using Coevery.DeveloperTools.Relationship.Services;
 
 namespace Coevery.DeveloperTools.Relationship.Handlers {

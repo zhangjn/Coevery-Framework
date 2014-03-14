@@ -1,4 +1,4 @@
-﻿using Coevery.DeveloperTools.Projections.Models;
+﻿using Coevery.Core.Projections.Models;
 
 namespace Coevery.DeveloperTools.Relationship.Records {
     public class ManyToManyRelationshipRecord : IRelationshipRecord {

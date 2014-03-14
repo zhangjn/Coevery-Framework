@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
-using Coevery.DeveloperTools.Entities.Extensions;
+using Coevery.Core.Common.Extensions;
 using Coevery.Utility.Extensions;
 
 namespace Coevery.DeveloperTools.Entities.ViewModels {
