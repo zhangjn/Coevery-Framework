@@ -65,7 +65,6 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdminMenu.cs" />
     <Compile Include="Commands\RoleCommands.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="ImportExport\RolesCustomExportStep.cs" />
