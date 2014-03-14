@@ -1,9 +1,9 @@
 ﻿using System;
 using Coevery.ContentManagement;
-using Coevery.DeveloperTools.Relationship.Settings;
+using Coevery.Core.Reference.Settings;
 using Coevery.Localization;
 
-namespace Coevery.DeveloperTools.Relationship.Models {
+namespace Coevery.Core.Reference.Models {
     public class ReferenceUpdateModel:IUpdateModel {
         public ReferenceFieldSettings Setting { get; set; }
 

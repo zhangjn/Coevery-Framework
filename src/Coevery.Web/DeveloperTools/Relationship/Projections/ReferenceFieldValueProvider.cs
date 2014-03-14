@@ -2,7 +2,7 @@
 using Coevery.ContentManagement;
 using Coevery.Core.Common.Extensions;
 using Coevery.Core.Fields.Providers;
-using Coevery.DeveloperTools.Relationship.Fields;
+using Coevery.Core.Reference.Fields;
 
 namespace Coevery.DeveloperTools.Relationship.Projections {
 

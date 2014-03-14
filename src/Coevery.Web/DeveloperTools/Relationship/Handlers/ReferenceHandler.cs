@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Handlers;
-using Coevery.DeveloperTools.Relationship.Fields;
+using Coevery.Core.Reference.Fields;
 using Coevery.Localization;
 
 namespace Coevery.DeveloperTools.Relationship.Handlers {

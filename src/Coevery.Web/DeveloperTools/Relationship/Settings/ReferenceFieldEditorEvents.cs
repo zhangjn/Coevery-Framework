@@ -8,9 +8,10 @@ using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 using Coevery.Core.Fields.Settings;
+using Coevery.Core.Reference.Records;
+using Coevery.Core.Reference.Settings;
 using Coevery.Data;
 using Coevery.DeveloperTools.EntityManagement.Services;
-using Coevery.DeveloperTools.Relationship.Records;
 using Coevery.DeveloperTools.Relationship.Services;
 using Coevery.Localization;
 

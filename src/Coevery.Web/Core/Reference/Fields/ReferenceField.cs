@@ -2,7 +2,7 @@
 using Coevery.ContentManagement.FieldStorage;
 using Coevery.Core.Common.Utilities;
 
-namespace Coevery.DeveloperTools.Relationship.Fields {
+namespace Coevery.Core.Reference.Fields {
     public class ReferenceField : ContentField {
         private readonly LazyField<IContent> _contentItem = new LazyField<IContent>();
 

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Coevery.DeveloperTools.Relationship.Models {
+namespace Coevery.Core.Reference.Models {
     public class RelationshipModel {
         public SelectListItem[] EntityList { get; set; }
         public string Name { get; set; }

@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
-using Coevery.DeveloperTools.Relationship.Records;
 
-namespace Coevery.DeveloperTools.Relationship.Models {
+namespace Coevery.Core.Reference.Models {
     public class OneToManyRelationshipModel : RelationshipModel {
         public string RelatedListLabel { get; set; }
         public bool ShowRelatedList { get; set; }

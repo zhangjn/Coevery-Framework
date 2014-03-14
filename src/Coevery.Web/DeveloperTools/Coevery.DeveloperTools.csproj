@@ -226,27 +226,17 @@
     <Compile Include="Relationship\Drivers\ReferenceFieldDriver.cs" />
     <Compile Include="Relationship\Drivers\RelatedEntityListDriver.cs" />
     <Compile Include="Relationship\EntityRecords\ReferenceFieldEntityRecordEditorEvents.cs" />
-    <Compile Include="Relationship\Fields\ReferenceField.cs" />
     <Compile Include="Relationship\Handlers\EntityMetadataPartHandler.cs" />
     <Compile Include="Relationship\Handlers\ReferenceHandler.cs" />
     <Compile Include="Relationship\Handlers\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="Relationship\Handlers\RelationshipEntityEventsHandler.cs" />
     <Compile Include="Relationship\Migrations.cs" />
-    <Compile Include="Relationship\Models\ManyToManyRelationshipModel.cs" />
-    <Compile Include="Relationship\Models\OneToManyRelationshipModel.cs" />
-    <Compile Include="Relationship\Models\ReferenceFieldViewModel.cs" />
-    <Compile Include="Relationship\Models\ReferenceUpdateModel.cs" />
-    <Compile Include="Relationship\Models\RelationshipModel.cs" />
     <Compile Include="Relationship\Projections\ReferenceFieldProperties.cs" />
     <Compile Include="Relationship\Projections\ReferenceFieldValueProvider.cs" />
-    <Compile Include="Relationship\Records\ManyToManyRelationshipRecord.cs" />
-    <Compile Include="Relationship\Records\OneToManyRelationshipRecord.cs" />
-    <Compile Include="Relationship\Records\RelationshipRecord.cs" />
     <Compile Include="Relationship\Services\ClientRouteProvider.cs" />
     <Compile Include="Relationship\Services\IRelationshipService.cs" />
     <Compile Include="Relationship\Services\RelationshipService.cs" />
     <Compile Include="Relationship\Settings\ReferenceFieldEditorEvents.cs" />
-    <Compile Include="Relationship\Settings\ReferenceFieldSettings.cs" />
     <Compile Include="Relationship\ViewModels\RelatedEntityViewModel.cs" />
   </ItemGroup>
   <ItemGroup>

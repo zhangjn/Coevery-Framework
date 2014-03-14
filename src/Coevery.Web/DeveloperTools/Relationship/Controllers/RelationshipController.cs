@@ -3,8 +3,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Coevery.Core.Reference.Records;
 using Coevery.Data;
-using Coevery.DeveloperTools.Relationship.Records;
 using Coevery.DeveloperTools.Relationship.Services;
 using Coevery.Localization;
 

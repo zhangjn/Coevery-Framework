@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using Coevery.Core.Fields.Settings;
 
-namespace Coevery.DeveloperTools.Relationship.Settings {
+namespace Coevery.Core.Reference.Settings {
     public class ReferenceFieldSettings : FieldSettings {
         public bool DisplayAsLink { get; set; }
 

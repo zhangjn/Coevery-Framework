@@ -7,7 +7,8 @@ using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 using Coevery.Core.Fields.EntityRecords;
 using Coevery.Core.Fields.Settings;
-using Coevery.DeveloperTools.EntityManagement.Services;
+using Coevery.Core.Reference.Settings;
+using Coevery.DeveloperTools.Entities.Services;
 using Coevery.DeveloperTools.Relationship.Services;
 using Coevery.DeveloperTools.Relationship.Settings;
 

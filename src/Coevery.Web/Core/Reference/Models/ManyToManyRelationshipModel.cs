@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
 
-namespace Coevery.DeveloperTools.Relationship.Models {
+namespace Coevery.Core.Reference.Models {
     public class ManyToManyRelationshipModel : RelationshipModel {
         public string[] PrimaryColumnList { get; set; }
         public IEnumerable<SelectListItem> PrimaryFields { get; set; }

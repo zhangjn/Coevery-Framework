@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using Coevery.DeveloperTools.Relationship.Fields;
+using Coevery.Core.Reference.Fields;
 
-namespace Coevery.DeveloperTools.Relationship.Models {
+namespace Coevery.Core.Reference.Models {
     public class ReferenceFieldViewModel {
         public ReferenceField Field { get; set; }
         public SelectList ItemList { get; set; }

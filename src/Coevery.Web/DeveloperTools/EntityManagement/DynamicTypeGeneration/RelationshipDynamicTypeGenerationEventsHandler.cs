@@ -5,9 +5,9 @@ using System.Reflection.Emit;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.Records;
+using Coevery.Core.Reference.Records;
 using Coevery.Data;
 using Coevery.DeveloperTools.EntityManagement.Events;
-using Coevery.DeveloperTools.Relationship.Records;
 
 namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
     public class RelationshipDynamicTypeGenerationEventsHandler : IDynamicTypeGenerationEvents {
