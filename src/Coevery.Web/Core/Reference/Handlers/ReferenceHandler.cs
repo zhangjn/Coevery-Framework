@@ -4,7 +4,7 @@ using Coevery.ContentManagement.Handlers;
 using Coevery.Core.Reference.Fields;
 using Coevery.Localization;
 
-namespace Coevery.DeveloperTools.Relationship.Handlers {
+namespace Coevery.Core.Reference.Handlers {
     public class ReferenceHandler : ContentHandler {
         private readonly IContentManager _contentManager;
         public ReferenceHandler(

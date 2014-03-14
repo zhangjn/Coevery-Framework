@@ -160,7 +160,6 @@
     <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicRelationshipPartDriver.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicRelationshipService.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicTypeDefinition.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\EditRelationshipViewModel.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\IDynamicAssemblyBuilder.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\RelationshipInfoAttribute.cs" />
@@ -224,11 +223,9 @@
     <Compile Include="ListViewDesigner\ViewModels\EntityViewListModel.cs" />
     <Compile Include="Relationship\Controllers\RelationshipController.cs" />
     <Compile Include="Relationship\Controllers\AdminController.cs" />
-    <Compile Include="Relationship\Drivers\ReferenceFieldDriver.cs" />
     <Compile Include="Relationship\Drivers\RelatedEntityListDriver.cs" />
     <Compile Include="Relationship\EntityRecords\ReferenceFieldEntityRecordEditorEvents.cs" />
     <Compile Include="Relationship\Handlers\EntityMetadataPartHandler.cs" />
-    <Compile Include="Relationship\Handlers\ReferenceHandler.cs" />
     <Compile Include="Relationship\Handlers\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="Relationship\Handlers\RelationshipEntityEventsHandler.cs" />
     <Compile Include="Relationship\Migrations.cs" />
@@ -266,12 +263,6 @@
     <Content Include="Relationship\Placement.info" />
     <Content Include="Relationship\Scripts\Web.config" />
     <Content Include="Relationship\Styles\Web.config" />
-    <Content Include="Relationship\Views\DefinitionTemplates\ReferenceFieldEntityRecord.cshtml" />
-    <Content Include="Relationship\Views\DefinitionTemplates\ReferenceFieldSettings.cshtml" />
-    <Content Include="Relationship\Views\DisplayTemplates\Reference.cshtml" />
-    <Content Include="Relationship\Views\EditorTemplates\Fields\Reference.Edit.cshtml" />
-    <Content Include="Relationship\Views\EditorTemplates\Parts\Relationship.Edit.cshtml" />
-    <Content Include="Relationship\Views\Fields\Reference.cshtml" />
     <Content Include="Relationship\Views\RelatedEntityList.cshtml" />
     <Content Include="Relationship\Views\Admin\CreateManyToMany.cshtml" />
     <Content Include="Relationship\Views\Admin\CreateOneToMany.cshtml" />

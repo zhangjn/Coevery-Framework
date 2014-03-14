@@ -11,7 +11,7 @@ using Coevery.Core.Reference.Models;
 using Coevery.Core.Reference.Settings;
 using Coevery.Localization;
 
-namespace Coevery.DeveloperTools.Relationship.Drivers {
+namespace Coevery.Core.Reference.Drivers {
     public class ReferenceFieldDriver : ContentFieldDriver<ReferenceField> {
         private readonly IContentManager _contentManager;
         private readonly IProjectionManager _projectionManager;

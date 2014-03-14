@@ -382,7 +382,9 @@
     <Compile Include="Projections\ViewModels\SortCriteriaAddViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Commands\FeatureCommands.cs" />
+    <Compile Include="Reference\Drivers\ReferenceFieldDriver.cs" />
     <Compile Include="Reference\Fields\ReferenceField.cs" />
+    <Compile Include="Reference\Handlers\ReferenceHandler.cs" />
     <Compile Include="Reference\Models\ManyToManyRelationshipModel.cs" />
     <Compile Include="Reference\Models\OneToManyRelationshipModel.cs" />
     <Compile Include="Reference\Models\ReferenceFieldViewModel.cs" />
@@ -392,6 +394,7 @@
     <Compile Include="Reference\Records\OneToManyRelationshipRecord.cs" />
     <Compile Include="Reference\Records\RelationshipRecord.cs" />
     <Compile Include="Reference\Settings\ReferenceFieldSettings.cs" />
+    <Compile Include="Reference\ViewModels\EditRelationshipViewModel.cs" />
     <Compile Include="Settings\Descriptor\Records\ShellDescriptorRecord.cs" />
     <Compile Include="Settings\Descriptor\Records\ShellFeatureRecord.cs" />
     <Compile Include="Settings\Descriptor\Records\ShellParameterRecord.cs" />
@@ -1186,6 +1189,24 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Projections\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reference\Views\DefinitionTemplates\ReferenceFieldEntityRecord.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reference\Views\DefinitionTemplates\ReferenceFieldSettings.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reference\Views\DisplayTemplates\Reference.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reference\Views\EditorTemplates\Fields\Reference.Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reference\Views\EditorTemplates\Parts\Relationship.Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Reference\Views\Fields\Reference.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
