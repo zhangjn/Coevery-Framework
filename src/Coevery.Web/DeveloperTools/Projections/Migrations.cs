@@ -246,18 +246,6 @@ namespace Coevery.DeveloperTools.Projections {
             //    Description = T("The text from the Body part").Text
             //});
 
-            SchemaBuilder.CreateTable("LayoutPropertyRecord",
-                table => table
-                    .ContentPartRecord()
-                    .Column<string>("VisableTo")
-                    .Column<int>("PageRowCount")
-                    .Column<int>("QueryPartRecord_id")
-                );
-
-            ContentDefinitionManager.AlterTypeDefinition("LayoutProperty", cfg => cfg
-                .WithPart("LayoutPropertyPart")
-                .DisplayedAs("LayoutProperty")
-                );
             return 1;
         }
 
@@ -286,13 +274,6 @@ namespace Coevery.DeveloperTools.Projections {
                     .Column<string>("ItemContentType")
                     .Column<string>("VisableTo")
                 );
-
-            ContentDefinitionManager.DeleteTypeDefinition("LayoutProperty");
-            ContentDefinitionManager.DeletePartDefinition("LayoutPropertyPart");
-
-            var dropViewPartRecordTable = _dialect.GetDropTableString("Coevery_Common_ViewPartRecord");
-            SchemaBuilder.ExecuteSql(dropViewPartRecordTable);
-            SchemaBuilder.DropTable("LayoutPropertyRecord");
 
             ContentDefinitionManager.AlterTypeDefinition("ListViewPage",
                 cfg => cfg

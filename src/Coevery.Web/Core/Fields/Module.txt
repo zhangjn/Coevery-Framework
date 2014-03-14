@@ -5,4 +5,4 @@ Website: http://www.coevery.com
 Version: 1.0
 CoeveryVersion: 1.0
 Description: Entities for Coevery CRM
-Category: DeveloperTools
+Category: Core
