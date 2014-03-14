@@ -1,5 +1,5 @@
 ﻿'use strict';
-define(['core/app/detourService', 'DeveloperTools/Projections/Scripts/services/projectiondataservice'], function (detour) {
+define(['core/app/detourService', 'DeveloperTools/ListViewDesigner/Scripts/services/projectiondataservice'], function (detour) {
     detour.registerController([
         'ProjectionDetailCtrl',
         ['$rootScope', '$scope', '$timeout', 'logger', '$state', '$stateParams', '$resource', '$http', 'projectionDataService', '$parse', '$q',
