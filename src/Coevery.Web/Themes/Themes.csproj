@@ -1977,6 +1977,9 @@
     <Content Include="MooncakeBase\Styles\widget.css" />
     <Content Include="MooncakeBase\Theme.png" />
     <Content Include="MooncakeBase\Theme.txt" />
+    <Content Include="Mooncake\Scripts\js\setup.js" />
+    <Content Include="Mooncake\Theme.png" />
+    <Content Include="Mooncake\Theme.txt" />
     <Content Include="TheAdmin\Scripts\admin.js" />
     <Content Include="TheAdmin\Styles\ie.css" />
     <Content Include="TheAdmin\Styles\ie7.css" />
@@ -2111,6 +2114,15 @@
     <Content Include="MooncakeBase\Views\LogOn.cshtml" />
     <Content Include="MooncakeBase\Views\Web.config" />
     <Content Include="MooncakeBase\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Mooncake\Placement.info" />
+    <Content Include="Mooncake\Scripts\Web.config" />
+    <Content Include="Mooncake\Views\Layout.cshtml" />
+    <Content Include="Mooncake\Views\Menu.cshtml" />
+    <Content Include="Mooncake\Views\MooncakeResource.cshtml" />
+    <Content Include="Mooncake\Views\Web.config" />
+    <Content Include="Mooncake\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
