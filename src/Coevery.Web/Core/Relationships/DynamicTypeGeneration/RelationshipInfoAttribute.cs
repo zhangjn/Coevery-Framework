@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
+namespace Coevery.Core.Relationships.DynamicTypeGeneration {
     [AttributeUsage(AttributeTargets.Class)]
     public class RelationshipInfoAttribute : Attribute {
         private readonly string _entityName;

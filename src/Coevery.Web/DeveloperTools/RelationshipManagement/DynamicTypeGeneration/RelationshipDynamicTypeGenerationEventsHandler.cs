@@ -5,11 +5,13 @@ using System.Reflection.Emit;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.Records;
+using Coevery.Core.Entities.DynamicTypeGeneration;
+using Coevery.Core.Relationships.DynamicTypeGeneration;
 using Coevery.Core.Relationships.Records;
 using Coevery.Data;
 using Coevery.DeveloperTools.EntityManagement.Events;
 
-namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
+namespace Coevery.DeveloperTools.RelationshipManagement.DynamicTypeGeneration {
     public class RelationshipDynamicTypeGenerationEventsHandler : IDynamicTypeGenerationEvents {
         private readonly IRepository<ManyToManyRelationshipRecord> _manyToManyRepository;
 

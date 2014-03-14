@@ -1,4 +1,4 @@
-﻿namespace Coevery.DeveloperTools.RelationshipManagement.ViewModels {
+﻿namespace Coevery.Core.Relationships.ViewModels {
     public class RelatedEntityViewModel {
         public string RelationId { get; set; }
         public string Label { get; set; }

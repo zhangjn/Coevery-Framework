@@ -17,7 +17,7 @@ using Coevery.Localization;
 using Coevery.Logging;
 using Coevery.Utility.Extensions;
 
-namespace Coevery.DeveloperTools.RelationshipManagement.Projections {
+namespace Coevery.Core.Relationships.Projections {
     public class ReferenceFieldProperties : IPropertyProvider {
         private readonly IContentDefinitionExtension _contentDefinitionExtension;
         private readonly IEnumerable<IContentFieldDriver> _contentFieldDrivers;

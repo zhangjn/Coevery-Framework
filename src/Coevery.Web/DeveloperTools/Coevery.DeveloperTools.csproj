@@ -47,21 +47,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\autofac\Autofac.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\lib\newtonsoft.json\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\nhibernate\NHibernate.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\..\lib\nunit\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -91,9 +80,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="TechTalk.SpecFlow">
-      <HintPath>..\..\..\lib\specflow\TechTalk.SpecFlow.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="EntityManagement\Module.txt" />
@@ -108,7 +94,6 @@
     <Content Include="EntityManagement\Scripts\services\entitydataservice.js" />
     <Content Include="EntityManagement\Scripts\services\fielddataservice.js" />
     <Content Include="FormDesigner\Module.txt" />
-    <Content Include="FormDesigner\Placement.info" />
     <Content Include="FormDesigner\Scripts\controllers\formdesignercontroller.js" />
     <Content Include="FormDesigner\Scripts\Web.config" />
     <Content Include="FormDesigner\Styles\formdesigner.css" />
@@ -152,17 +137,10 @@
     <Compile Include="EntityManagement\Controllers\EntityController.cs" />
     <Compile Include="EntityManagement\Controllers\FieldController.cs" />
     <Compile Include="EntityManagement\Controllers\HomeController.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\ContentLinkRecord.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicContentsDriver.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicContentsHandler.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicFieldDefinition.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicRelationshipPartDriver.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicRelationshipService.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicTypeDefinition.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicDefinition.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\IDynamicAssemblyBuilder.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\RelationshipInfoAttribute.cs" />
+    <Compile Include="RelationshipManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="EntityManagement\Events\IDynamicTypeGenerationEvents.cs" />
     <Compile Include="EntityManagement\Handlers\EntityMetadataPartHandler.cs" />
     <Compile Include="EntityManagement\Permissions.cs" />
@@ -174,7 +152,6 @@
     <Compile Include="EntityManagement\Services\DefaultDataMigrationInterpreter.cs" />
     <Compile Include="EntityManagement\Services\IContentDefinitionService.cs" />
     <Compile Include="EntityManagement\Services\SchemaUpdateService.cs" />
-    <Compile Include="EntityManagement\Settings\ContentTypeSettings.cs" />
     <Compile Include="EntityManagement\ViewModels\AddFieldViewModel.cs" />
     <Compile Include="EntityManagement\ViewModels\EditFieldViewModel.cs" />
     <Compile Include="EntityManagement\ViewModels\EditPartFieldViewModel.cs" />
@@ -223,22 +200,16 @@
     <Compile Include="ListViewDesigner\ViewModels\EntityViewListModel.cs" />
     <Compile Include="RelationshipManagement\Controllers\RelationshipController.cs" />
     <Compile Include="RelationshipManagement\Controllers\AdminController.cs" />
-    <Compile Include="RelationshipManagement\Drivers\RelatedEntityListDriver.cs" />
     <Compile Include="RelationshipManagement\EntityRecords\ReferenceFieldEntityRecordEditorEvents.cs" />
     <Compile Include="RelationshipManagement\Handlers\EntityMetadataPartHandler.cs" />
     <Compile Include="RelationshipManagement\Handlers\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="RelationshipManagement\Handlers\RelationshipEntityEventsHandler.cs" />
-    <Compile Include="RelationshipManagement\Migrations.cs" />
-    <Compile Include="RelationshipManagement\Projections\ReferenceFieldProperties.cs" />
-    <Compile Include="RelationshipManagement\Projections\ReferenceFieldValueProvider.cs" />
     <Compile Include="RelationshipManagement\Services\ClientRouteProvider.cs" />
     <Compile Include="RelationshipManagement\Services\IRelationshipService.cs" />
     <Compile Include="RelationshipManagement\Services\RelationshipService.cs" />
     <Compile Include="RelationshipManagement\Settings\ReferenceFieldEditorEvents.cs" />
-    <Compile Include="RelationshipManagement\ViewModels\RelatedEntityViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EntityManagement\Placement.info" />
     <Content Include="EntityManagement\Scripts\Web.config" />
     <Content Include="EntityManagement\Styles\Web.config" />
     <Content Include="EntityManagement\Views\Admin\Create.cshtml" />
@@ -254,16 +225,10 @@
     <Content Include="EntityManagement\Views\Home\Index.cshtml" />
     <Content Include="EntityManagement\Views\Web.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="EntityManagement\Extensions\" />
-    <Folder Include="EntityManagement\Providers\" />
-    <Folder Include="RelationshipManagement\Scripts\services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="RelationshipManagement\Placement.info" />
     <Content Include="RelationshipManagement\Scripts\Web.config" />
     <Content Include="RelationshipManagement\Styles\Web.config" />
-    <Content Include="RelationshipManagement\Views\RelatedEntityList.cshtml" />
     <Content Include="RelationshipManagement\Views\Admin\CreateManyToMany.cshtml" />
     <Content Include="RelationshipManagement\Views\Admin\CreateOneToMany.cshtml" />
     <Content Include="RelationshipManagement\Views\Admin\Relationships.cshtml" />

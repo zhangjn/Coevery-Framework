@@ -9,7 +9,7 @@ using Coevery.Core.Relationships.ViewModels;
 using Coevery.Data;
 using JetBrains.Annotations;
 
-namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
+namespace Coevery.Core.Relationships.DynamicTypeGeneration {
     [UsedImplicitly]
     public abstract class DynamicRelationshipPartDriver<TPrimaryPart, TContentLinkRecord>
         : ContentPartDriver<TPrimaryPart>

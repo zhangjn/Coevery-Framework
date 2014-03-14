@@ -5,10 +5,10 @@ using Coevery.ContentManagement.Drivers;
 using Coevery.Core.Common.Extensions;
 using Coevery.Core.Common.Services;
 using Coevery.Core.Relationships.Records;
-using Coevery.DeveloperTools.RelationshipManagement.Services;
-using Coevery.DeveloperTools.RelationshipManagement.ViewModels;
+using Coevery.Core.Relationships.Services;
+using Coevery.Core.Relationships.ViewModels;
 
-namespace Coevery.DeveloperTools.RelationshipManagement.Drivers {
+namespace Coevery.Core.Relationships.Drivers {
     public class RelatedEntityListDriver : ContentPartDriver<ContentPart> {
         private readonly IRelationshipService _relationshipService;
         private readonly ISettingService _settingService;
