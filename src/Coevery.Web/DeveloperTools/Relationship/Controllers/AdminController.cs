@@ -16,12 +16,12 @@ using Coevery.Localization;
 using Coevery.Logging;
 
 namespace Coevery.DeveloperTools.Relationship.Controllers {
-    public class SystemAdminController : Controller, IUpdateModel {
+    public class AdminController : Controller, IUpdateModel {
         private readonly IRelationshipService _relationshipService;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IContentMetadataService _contentMetadataService;
 
-        public SystemAdminController(
+        public AdminController(
             ICoeveryServices coeveryServices,
             IRelationshipService relationshipService,
             IContentMetadataService contentMetadataService,

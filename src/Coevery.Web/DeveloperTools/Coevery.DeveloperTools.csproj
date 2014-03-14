@@ -453,7 +453,7 @@
     <Compile Include="Projections\ViewModels\SortCriteriaAddViewModel.cs" />
     <Compile Include="Projections\ViewModels\SortCriteriaEditViewModel.cs" />
     <Compile Include="Relationship\Controllers\RelationshipController.cs" />
-    <Compile Include="Relationship\Controllers\SystemAdminController.cs" />
+    <Compile Include="Relationship\Controllers\AdminController.cs" />
     <Compile Include="Relationship\Drivers\ReferenceFieldDriver.cs" />
     <Compile Include="Relationship\Drivers\RelatedEntityListDriver.cs" />
     <Compile Include="Relationship\EntityRecords\ReferenceFieldEntityRecordEditorEvents.cs" />
@@ -557,9 +557,9 @@
     <Content Include="Relationship\Views\EditorTemplates\Parts\Relationship.Edit.cshtml" />
     <Content Include="Relationship\Views\Fields\Reference.cshtml" />
     <Content Include="Relationship\Views\RelatedEntityList.cshtml" />
-    <Content Include="Relationship\Views\SystemAdmin\CreateManyToMany.cshtml" />
-    <Content Include="Relationship\Views\SystemAdmin\CreateOneToMany.cshtml" />
-    <Content Include="Relationship\Views\SystemAdmin\Relationships.cshtml" />
+    <Content Include="Relationship\Views\Admin\CreateManyToMany.cshtml" />
+    <Content Include="Relationship\Views\Admin\CreateOneToMany.cshtml" />
+    <Content Include="Relationship\Views\Admin\Relationships.cshtml" />
     <Content Include="Relationship\Views\Web.config" />
   </ItemGroup>
   <PropertyGroup>
