@@ -1,6 +1,5 @@
 ﻿@model Coevery.Core.Fields.Fields.TextField
 @using Coevery.Core.Fields.Settings
-@using Coevery.DeveloperTools.Fields.Settings
 @{
     var settings = Model.PartFieldDefinition.Settings.GetModel<TextFieldSettings>();
     var required = settings.Required ? "required" : null;

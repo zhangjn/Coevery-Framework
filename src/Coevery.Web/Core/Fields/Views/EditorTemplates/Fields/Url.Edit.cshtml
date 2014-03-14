@@ -1,6 +1,5 @@
 ﻿@model Coevery.Core.Fields.Fields.UrlField
 @using Coevery.Core.Fields.Settings
-@using Coevery.DeveloperTools.Fields.Settings
 @{
     var settings = Model.PartFieldDefinition.Settings.GetModel<UrlFieldSettings>();
     var required = settings.Required ? "required" : null;
