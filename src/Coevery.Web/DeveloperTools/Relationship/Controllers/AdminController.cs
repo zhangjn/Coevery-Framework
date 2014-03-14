@@ -10,7 +10,7 @@ using Coevery.Core.Common.Extensions;
 using Coevery.Core.Projections.Services;
 using Coevery.Core.Reference.Models;
 using Coevery.Core.Reference.Records;
-using Coevery.DeveloperTools.Entities.Services;
+using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.Relationship.Services;
 using Coevery.Localization;
 using Coevery.Logging;

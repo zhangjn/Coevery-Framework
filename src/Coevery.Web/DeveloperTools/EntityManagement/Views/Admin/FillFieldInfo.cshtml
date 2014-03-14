@@ -89,7 +89,7 @@
         var $displayName = $(".labelForName");
         var $entityName = '@Request.Url.Segments.LastOrDefault()';
 
-        var jsonUrl = '@Url.Action("FieldName", "Admin", new RouteValueDictionary {{"Area", "Entities"}})';
+        var jsonUrl = '@Url.Action("FieldName", "Admin", new RouteValueDictionary {{"Area", "EntityManagement"}})';
         var version = 0;
 
         var nameAltered;
