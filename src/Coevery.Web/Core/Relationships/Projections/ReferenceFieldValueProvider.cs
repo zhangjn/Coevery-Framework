@@ -4,7 +4,7 @@ using Coevery.Core.Common.Extensions;
 using Coevery.Core.Projections.Providers.Properties;
 using Coevery.Core.Relationships.Fields;
 
-namespace Coevery.DeveloperTools.RelationshipManagement.Projections {
+namespace Coevery.Core.Relationships.Projections {
     public class ReferenceFieldValueProvider : ContentFieldValueProvider<ReferenceField> {
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionExtension _contentDefinitionExtension;

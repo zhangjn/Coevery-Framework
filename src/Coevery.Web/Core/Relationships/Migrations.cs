@@ -1,6 +1,6 @@
 ﻿using Coevery.Data.Migration;
 
-namespace Coevery.DeveloperTools.RelationshipManagement {
+namespace Coevery.Core.Relationships {
     public class Migrations : DataMigrationImpl {
         public int Create() {
             SchemaBuilder.CreateTable("RelationshipRecord",

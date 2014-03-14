@@ -108,7 +108,6 @@
     <Content Include="EntityManagement\Scripts\services\entitydataservice.js" />
     <Content Include="EntityManagement\Scripts\services\fielddataservice.js" />
     <Content Include="FormDesigner\Module.txt" />
-    <Content Include="FormDesigner\Placement.info" />
     <Content Include="FormDesigner\Scripts\controllers\formdesignercontroller.js" />
     <Content Include="FormDesigner\Scripts\Web.config" />
     <Content Include="FormDesigner\Styles\formdesigner.css" />
@@ -215,22 +214,16 @@
     <Compile Include="ListViewDesigner\ViewModels\EntityViewListModel.cs" />
     <Compile Include="RelationshipManagement\Controllers\RelationshipController.cs" />
     <Compile Include="RelationshipManagement\Controllers\AdminController.cs" />
-    <Compile Include="RelationshipManagement\Drivers\RelatedEntityListDriver.cs" />
     <Compile Include="RelationshipManagement\EntityRecords\ReferenceFieldEntityRecordEditorEvents.cs" />
     <Compile Include="RelationshipManagement\Handlers\EntityMetadataPartHandler.cs" />
     <Compile Include="RelationshipManagement\Handlers\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="RelationshipManagement\Handlers\RelationshipEntityEventsHandler.cs" />
-    <Compile Include="RelationshipManagement\Migrations.cs" />
-    <Compile Include="RelationshipManagement\Projections\ReferenceFieldProperties.cs" />
-    <Compile Include="RelationshipManagement\Projections\ReferenceFieldValueProvider.cs" />
     <Compile Include="RelationshipManagement\Services\ClientRouteProvider.cs" />
     <Compile Include="RelationshipManagement\Services\IRelationshipService.cs" />
     <Compile Include="RelationshipManagement\Services\RelationshipService.cs" />
     <Compile Include="RelationshipManagement\Settings\ReferenceFieldEditorEvents.cs" />
-    <Compile Include="RelationshipManagement\ViewModels\RelatedEntityViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="EntityManagement\Placement.info" />
     <Content Include="EntityManagement\Scripts\Web.config" />
     <Content Include="EntityManagement\Styles\Web.config" />
     <Content Include="EntityManagement\Views\Admin\Create.cshtml" />
@@ -246,14 +239,10 @@
     <Content Include="EntityManagement\Views\Home\Index.cshtml" />
     <Content Include="EntityManagement\Views\Web.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="RelationshipManagement\Scripts\services\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="RelationshipManagement\Placement.info" />
     <Content Include="RelationshipManagement\Scripts\Web.config" />
     <Content Include="RelationshipManagement\Styles\Web.config" />
-    <Content Include="RelationshipManagement\Views\RelatedEntityList.cshtml" />
     <Content Include="RelationshipManagement\Views\Admin\CreateManyToMany.cshtml" />
     <Content Include="RelationshipManagement\Views\Admin\CreateOneToMany.cshtml" />
     <Content Include="RelationshipManagement\Views\Admin\Relationships.cshtml" />
