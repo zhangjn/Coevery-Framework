@@ -2,7 +2,7 @@
 using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
-using Coevery.DeveloperTools.OptionSet.Models;
+using Coevery.Core.OptionSet.Models;
 using Coevery.DeveloperTools.Projections.Descriptors.Filter;
 using Coevery.DeveloperTools.Projections.FilterEditors.Forms;
 using Coevery.DeveloperTools.Projections.Models;

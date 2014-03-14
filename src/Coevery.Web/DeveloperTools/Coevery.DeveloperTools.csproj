@@ -123,7 +123,6 @@
     <Content Include="FormDesigner\Views\Admin\Index.cshtml" />
     <Content Include="FormDesigner\Views\FormTemplate\FormDesignerLayout.cshtml" />
     <Content Include="FormDesigner\Views\Web.config" />
-    <Content Include="OptionSet\Module.txt" />
     <Content Include="Projections\Module.txt" />
     <Content Include="Projections\Scripts\admin-projections.js" />
     <Content Include="Projections\Scripts\controllers\detailcontroller.js" />
@@ -240,34 +239,6 @@
     <Compile Include="FormDesigner\ViewModels\FieldViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="OptionSet\Controllers\OptionItemController.cs" />
-    <Compile Include="OptionSet\Drivers\OptionItemContainerPart.cs" />
-    <Compile Include="OptionSet\Drivers\OptionItemPartDriver.cs" />
-    <Compile Include="OptionSet\Drivers\OptionSetFieldDriver.cs" />
-    <Compile Include="OptionSet\Drivers\OptionSetPartDriver.cs" />
-    <Compile Include="OptionSet\Fields\OptionSetField.cs" />
-    <Compile Include="OptionSet\Handlers\OptionItemContainerPartHandler.cs" />
-    <Compile Include="OptionSet\Handlers\OptionItemPartHandler.cs" />
-    <Compile Include="OptionSet\Handlers\OptionSetPartHandler.cs" />
-    <Compile Include="OptionSet\Helpers\OptionItemExtensions.cs" />
-    <Compile Include="OptionSet\Helpers\PredicateBuilder.cs" />
-    <Compile Include="OptionSet\Migrations.cs" />
-    <Compile Include="OptionSet\Models\OptionItemContainerPartRecord.cs" />
-    <Compile Include="OptionSet\Models\OptionItemContentItem.cs" />
-    <Compile Include="OptionSet\Models\OptionItemContentItemPart.cs" />
-    <Compile Include="OptionSet\Models\OptionItemPart.cs" />
-    <Compile Include="OptionSet\Models\OptionItemPartRecord.cs" />
-    <Compile Include="OptionSet\Models\OptionItemsPart.cs" />
-    <Compile Include="OptionSet\Models\OptionSetPart.cs" />
-    <Compile Include="OptionSet\Models\OptionSetPartRecord.cs" />
-    <Compile Include="OptionSet\Permissions.cs" />
-    <Compile Include="OptionSet\Projections\OptionSetFieldValueProvider.cs" />
-    <Compile Include="OptionSet\Services\IOptionSetService.cs" />
-    <Compile Include="OptionSet\Services\OptionSetService.cs" />
-    <Compile Include="OptionSet\Settings\OptionSetFieldEditorEvents.cs" />
-    <Compile Include="OptionSet\Settings\OptionSetFieldSettings.cs" />
-    <Compile Include="OptionSet\Shapes.cs" />
-    <Compile Include="OptionSet\ViewModels\OptionSetFieldViewModel.cs" />
     <Compile Include="Projections\Controllers\EntityController.cs" />
     <Compile Include="Projections\Controllers\FilterController.cs" />
     <Compile Include="Projections\Controllers\GridColumnController.cs" />
@@ -496,21 +467,6 @@
     <Content Include="Entities\Views\Admin\FillFieldInfo.cshtml" />
     <Content Include="Entities\Views\Home\Index.cshtml" />
     <Content Include="Entities\Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="OptionSet\Placement.info" />
-    <Content Include="OptionSet\Views\DefinitionTemplates\OptionSetFieldSettings.cshtml" />
-    <Content Include="OptionSet\Views\DefinitionTemplates\OptionSetFieldSettings.Edit.cshtml" />
-    <Content Include="OptionSet\Views\DisplayTemplates\OptionSet.cshtml" />
-    <Content Include="OptionSet\Views\EditorTemplates\Fields\OptionSetField.cshtml" />
-    <Content Include="OptionSet\Views\EditorTemplates\Parts\Taxonomies.Term.Fields.cshtml" />
-    <Content Include="OptionSet\Views\Fields\OptionSetField.cshtml" />
-    <Content Include="OptionSet\Views\Items\Content-Term.Edit.cshtml" />
-    <Content Include="OptionSet\Views\Parts.TermPart.cshtml" />
-    <Content Include="OptionSet\Views\Taxonomy.cshtml" />
-    <Content Include="OptionSet\Views\TaxonomyItem.cshtml" />
-    <Content Include="OptionSet\Views\TaxonomyItemLink.cshtml" />
-    <Content Include="OptionSet\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Projections\Placement.info" />

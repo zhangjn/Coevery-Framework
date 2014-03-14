@@ -1,0 +1,8 @@
+﻿Name: OptionSet
+AntiForgery: enabled
+Author: The Coevery Team
+Website: http://www.coevery.com
+Version: 1.0
+CoeveryVersion: 1.0
+Description: The OptionSet module is providing option set field for arbitrary content types. 
+Category: Core
