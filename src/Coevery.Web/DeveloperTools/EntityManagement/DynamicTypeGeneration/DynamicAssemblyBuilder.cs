@@ -8,6 +8,7 @@ using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.Records;
 using Coevery.Core.Common.Extensions;
+using Coevery.Core.Entities.DynamicTypeGeneration;
 using Coevery.Data;
 using Coevery.DeveloperTools.EntityManagement.Events;
 using Coevery.FileSystems.VirtualPath;
@@ -47,7 +48,7 @@ namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
             // except for those parts with the same name as a type (implicit type's part or a mistake)
             var userDefinedParts = _contentDefinitionExtension
                 .ListUserDefinedPartDefinitions()
-                .Select(cpd => new DynamicTypeDefinition {
+                .Select(cpd => new DynamicDefinition {
                     Name = cpd.Name.RemovePartSuffix(),
                     Fields = cpd.Fields.Select(f => new DynamicFieldDefinition {
                         Name = f.Name,
@@ -62,7 +63,7 @@ namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
             return false;
         }
 
-        public void Build(IEnumerable<DynamicTypeDefinition> typeDefinitions) {
+        public void Build(IEnumerable<DynamicDefinition> typeDefinitions) {
             var assemblyBuidler = BuildAssembly();
             var moduleBuidler = BuildModule(assemblyBuidler);
             foreach (var definition in typeDefinitions) {
@@ -155,7 +156,7 @@ namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
             return modBuilder;
         }
 
-        private static TypeBuilder BuildType(DynamicTypeDefinition definition, ModuleBuilder modBuilder) {
+        private static TypeBuilder BuildType(DynamicDefinition definition, ModuleBuilder modBuilder) {
             // Build the type
             var typeName = string.Format("{0}.{1}.{2}PartRecord", AssemblyName, "Records", definition.Name);
             var typBuilder = modBuilder.DefineType(typeName,
@@ -168,7 +169,7 @@ namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
             return typBuilder;
         }
 
-        private static TypeBuilder BuildPartType(DynamicTypeDefinition definition, ModuleBuilder modBuilder, Type type) {
+        private static TypeBuilder BuildPartType(DynamicDefinition definition, ModuleBuilder modBuilder, Type type) {
             // Build the type
             var typeName = string.Format("{0}.{1}.{2}Part", AssemblyName, "Records", definition.Name);
             Type contentType = typeof (ContentPart<>);
@@ -183,7 +184,7 @@ namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
             return typBuilder;
         }
 
-        private static TypeBuilder BuildDriverType(DynamicTypeDefinition definition, ModuleBuilder modBuilder, Type type) {
+        private static TypeBuilder BuildDriverType(DynamicDefinition definition, ModuleBuilder modBuilder, Type type) {
             // Build the type
             var typeName = string.Format("{0}.{1}.{2}PartDriver", AssemblyName, "Records", definition.Name);
             Type driverType = typeof (DynamicContentsDriver<>);
@@ -198,7 +199,7 @@ namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
             return typBuilder;
         }
 
-        private static TypeBuilder BuildHandlerType(DynamicTypeDefinition definition, ModuleBuilder modBuilder, Type type) {
+        private static TypeBuilder BuildHandlerType(DynamicDefinition definition, ModuleBuilder modBuilder, Type type) {
             // Build the type
             var typeName = string.Format("{0}.{1}.{2}PartHandler", AssemblyName, "Records", definition.Name);
             Type contentType = typeof (DynamicContentsHandler<>);
@@ -213,7 +214,7 @@ namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
             return typBuilder;
         }
 
-        private static IEnumerable<FieldBuilder> BuildFields(DynamicTypeDefinition definition, TypeBuilder typBuilder) {
+        private static IEnumerable<FieldBuilder> BuildFields(DynamicDefinition definition, TypeBuilder typBuilder) {
             return definition.Fields.Select(field => typBuilder.DefineField("_" + field.Name, field.Type,
                 FieldAttributes.Private | FieldAttributes.InitOnly));
         }
@@ -269,7 +270,7 @@ namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
             ctorIL.Emit(OpCodes.Ret);
         }
 
-        private static void BuildProperties(DynamicTypeDefinition definition,
+        private static void BuildProperties(DynamicDefinition definition,
             TypeBuilder typBuilder,
             List<FieldBuilder> fieldBuilders, bool userParanet) {
             var fields = definition.Fields.ToList();

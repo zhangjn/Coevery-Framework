@@ -154,12 +154,9 @@
     <Compile Include="EntityManagement\Controllers\HomeController.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\ContentLinkRecord.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicContentsDriver.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicContentsHandler.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicFieldDefinition.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicRelationshipPartDriver.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicRelationshipService.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicTypeDefinition.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicDefinition.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\IDynamicAssemblyBuilder.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\RelationshipInfoAttribute.cs" />
@@ -174,7 +171,6 @@
     <Compile Include="EntityManagement\Services\DefaultDataMigrationInterpreter.cs" />
     <Compile Include="EntityManagement\Services\IContentDefinitionService.cs" />
     <Compile Include="EntityManagement\Services\SchemaUpdateService.cs" />
-    <Compile Include="EntityManagement\Settings\ContentTypeSettings.cs" />
     <Compile Include="EntityManagement\ViewModels\AddFieldViewModel.cs" />
     <Compile Include="EntityManagement\ViewModels\EditFieldViewModel.cs" />
     <Compile Include="EntityManagement\ViewModels\EditPartFieldViewModel.cs" />
@@ -255,8 +251,6 @@
     <Content Include="EntityManagement\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="EntityManagement\Extensions\" />
-    <Folder Include="EntityManagement\Providers\" />
     <Folder Include="RelationshipManagement\Scripts\services\" />
   </ItemGroup>
   <ItemGroup>

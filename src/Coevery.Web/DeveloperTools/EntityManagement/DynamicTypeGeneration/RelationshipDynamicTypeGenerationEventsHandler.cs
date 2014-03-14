@@ -5,7 +5,8 @@ using System.Reflection.Emit;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.Records;
-using Coevery.Core.Relationships.Records;
+using Coevery.Core.Entities.DynamicTypeGeneration;
+using Coevery.Core.Reference.Records;
 using Coevery.Data;
 using Coevery.DeveloperTools.EntityManagement.Events;
 
