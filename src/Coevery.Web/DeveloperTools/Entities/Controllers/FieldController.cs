@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Web.Http;
 using Coevery.Core.Fields.Settings;
 using Coevery.DeveloperTools.Entities.Services;
-using Coevery.DeveloperTools.Entities.Settings;
 using Coevery.Localization;
 using Coevery.Utility.Extensions;
 

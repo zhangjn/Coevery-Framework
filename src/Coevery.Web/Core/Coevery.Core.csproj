@@ -136,7 +136,7 @@
     <Compile Include="Fields\Settings\EntityRecordTemplateViewModel.cs" />
     <Compile Include="Fields\Settings\FieldEditorEvents.cs" />
     <Compile Include="Fields\Settings\FieldSettings.cs" />
-    <Compile Include="Fields\Settings\IEntityRecordEditorEvents.cs" />
+    <Compile Include="Fields\EntityRecords\IEntityRecordEditorEvents.cs" />
     <Compile Include="Fields\Settings\MultilineTextFieldEditorEvents.cs" />
     <Compile Include="Fields\Settings\MultilineTextFieldSettings.cs" />
     <Compile Include="Fields\Settings\NumberFieldEditorEvents.cs" />
@@ -165,7 +165,6 @@
     <Compile Include="OptionSet\Handlers\OptionItemPartHandler.cs" />
     <Compile Include="OptionSet\Handlers\OptionSetPartHandler.cs" />
     <Compile Include="OptionSet\Helpers\OptionItemExtensions.cs" />
-    <Compile Include="OptionSet\Helpers\PredicateBuilder.cs" />
     <Compile Include="OptionSet\Migrations.cs" />
     <Compile Include="OptionSet\Models\OptionItemContainerPartRecord.cs" />
     <Compile Include="OptionSet\Models\OptionItemContentItem.cs" />
@@ -698,11 +697,6 @@
   <ItemGroup>
     <Content Include="Common\Scripts\jQuery\jquery.min.map" />
     <Content Include="Common\Scripts\jQuery\jquery.validate.min.js.map" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Forms\Scripts\Web.config" />
-    <Content Include="Forms\Styles\Web.config" />
-    <Content Include="Forms\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Tokens\Scripts\Web.config" />
