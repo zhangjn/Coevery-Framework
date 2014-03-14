@@ -221,6 +221,7 @@
     </Compile>
     <Compile Include="ListViewDesigner\Controllers\AdminController.cs" />
     <Compile Include="ListViewDesigner\Services\ClientRouteProvider.cs" />
+    <Compile Include="ListViewDesigner\ViewModels\EntityViewListModel.cs" />
     <Compile Include="Relationship\Controllers\RelationshipController.cs" />
     <Compile Include="Relationship\Controllers\AdminController.cs" />
     <Compile Include="Relationship\Drivers\ReferenceFieldDriver.cs" />

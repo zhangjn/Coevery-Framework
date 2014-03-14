@@ -4,7 +4,6 @@ using Coevery.DisplayManagement;
 using Coevery.Localization;
 
 namespace Coevery.Core.Projections.Providers.Layouts {
-
     public class GridLayoutForms : IFormProvider {
         protected dynamic Shape { get; set; }
         public Localizer T { get; set; }
@@ -18,7 +17,6 @@ namespace Coevery.Core.Projections.Providers.Layouts {
         public void Describe(DescribeContext context) {
             Func<IShapeFactory, object> form =
                 shape => {
-
                     var f = Shape.Form(
                         Id: "GridLayout",
                         _Options: Shape.Fieldset(
@@ -39,7 +37,7 @@ namespace Coevery.Core.Projections.Providers.Layouts {
                                 Title: T("Number of columns/lines "),
                                 Value: 3,
                                 Description: T("How many columns (in Horizontal mode) or lines (in Vertical mode) to display in the grid."),
-                                Classes: new[] { "small-text", "tokenized" }
+                                Classes: new[] {"small-text", "tokenized"}
                                 )
                             ),
                         _HtmlProperties: Shape.Fieldset(
@@ -48,49 +46,49 @@ namespace Coevery.Core.Projections.Providers.Layouts {
                                 Id: "grid-tag", Name: "GridTag",
                                 Title: T("Grid tag"),
                                 Description: T("The tag of the grid. Leave empty for no tag. (e.g., table)"),
-                                Classes: new[] { "text medium", "tokenized" }
+                                Classes: new[] {"text medium", "tokenized"}
                                 ),
                             _GridId: Shape.TextBox(
                                 Id: "grid-id", Name: "GridId",
                                 Title: T("Grid id"),
                                 Description: T("The id to provide on the grid element."),
-                                Classes: new[] { "text medium", "tokenized" }
+                                Classes: new[] {"text medium", "tokenized"}
                                 ),
                             _GridClass: Shape.TextBox(
                                 Id: "grid-class", Name: "GridClass",
                                 Title: T("Grid class"),
                                 Description: T("The class to provide on the grid element."),
-                                Classes: new[] { "text medium", "tokenized" }
+                                Classes: new[] {"text medium", "tokenized"}
                                 ),
                             _RowTag: Shape.TextBox(
                                 Id: "row-tag", Name: "RowTag",
                                 Title: T("Row tag"),
                                 Description: T("The tag of a row. Leave empty for no tag. (e.g., tr)"),
-                                Classes: new[] { "text medium", "tokenized" }
+                                Classes: new[] {"text medium", "tokenized"}
                                 ),
                             _RowClass: Shape.TextBox(
                                 Id: "row-class", Name: "RowClass",
                                 Title: T("Row class"),
                                 Description: T("The class to provide on each row."),
-                                Classes: new[] { "text medium", "tokenized" }
+                                Classes: new[] {"text medium", "tokenized"}
                                 ),
                             _CellTag: Shape.TextBox(
                                 Id: "cell-tag", Name: "CellTag",
                                 Title: T("Cell tag"),
                                 Description: T("The tag of a cell. Leave empty for no tag. (e.g., td)"),
-                                Classes: new[] { "text medium", "tokenized" }
+                                Classes: new[] {"text medium", "tokenized"}
                                 ),
                             _CellClass: Shape.TextBox(
                                 Id: "cell-class", Name: "CellClass",
                                 Title: T("Cell class"),
                                 Description: T("The class to provide on each cell."),
-                                Classes: new[] { "text medium", "tokenized" }
+                                Classes: new[] {"text medium", "tokenized"}
                                 ),
                             _EmptyCell: Shape.TextBox(
                                 Id: "empty-cell", Name: "EmptyCell",
                                 Title: T("Empty Cell"),
                                 Description: T("The HTML to render as empty cells to fill a row. (e.g., <td>&nbsp;</td>"),
-                                Classes: new[] { "text medium", "tokenized" }
+                                Classes: new[] {"text medium", "tokenized"}
                                 )
                             )
                         );
@@ -99,7 +97,6 @@ namespace Coevery.Core.Projections.Providers.Layouts {
                 };
 
             context.Form("GridLayout", form);
-
         }
     }
 
@@ -124,5 +121,4 @@ namespace Coevery.Core.Projections.Providers.Layouts {
             }
         }
     }
-
 }

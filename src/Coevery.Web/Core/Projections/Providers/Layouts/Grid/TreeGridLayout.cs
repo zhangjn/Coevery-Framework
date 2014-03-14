@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Coevery.ContentManagement;
 using Coevery.Core.Projections.Descriptors.Layout;
 using Coevery.Core.Projections.Services;
 using Coevery.DisplayManagement;
@@ -7,11 +6,9 @@ using Coevery.Localization;
 
 namespace Coevery.Core.Projections.Providers.Layouts.Grid {
     public class TreeGridLayout : ILayoutProvider {
-        private readonly IContentManager _contentManager;
         protected dynamic Shape { get; set; }
 
-        public TreeGridLayout(IShapeFactory shapeFactory, IContentManager contentManager) {
-            _contentManager = contentManager;
+        public TreeGridLayout(IShapeFactory shapeFactory) {
             Shape = shapeFactory;
             T = NullLocalizer.Instance;
         }

@@ -5,7 +5,6 @@ using Coevery.DisplayManagement;
 using Coevery.Localization;
 
 namespace Coevery.Core.Projections.Providers.Layouts.Grid {
-
     public class TreeGridLayoutForms : IFormProvider {
         protected dynamic Shape { get; set; }
         public Localizer T { get; set; }

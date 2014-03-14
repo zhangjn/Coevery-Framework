@@ -6,6 +6,7 @@ using Coevery.Core.Forms.Services;
 using Coevery.Core.Projections.Services;
 using Coevery.Core.Projections.ViewModels;
 using Coevery.DeveloperTools.EntityManagement.Services;
+using Coevery.DeveloperTools.ListViewDesigner.ViewModels;
 using Coevery.Localization;
 using Coevery.Mvc;
 using Coevery.Security;

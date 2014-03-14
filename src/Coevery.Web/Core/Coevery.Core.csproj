@@ -282,7 +282,6 @@
     <Compile Include="Projections\Handlers\ProjectionEntityEventsHandler.cs" />
     <Compile Include="Projections\Handlers\ProjectionPartHandler.cs" />
     <Compile Include="Projections\Handlers\QueryPartHandler.cs" />
-    <Compile Include="Projections\ListViewShape.cs" />
     <Compile Include="Projections\Migrations.cs" />
     <Compile Include="Projections\Models\EntityFilterRecord.cs" />
     <Compile Include="Projections\Models\FieldIndexPart.cs" />
@@ -326,7 +325,6 @@
     <Compile Include="Projections\Providers\Layouts\LayoutShapes.cs" />
     <Compile Include="Projections\Providers\Layouts\ListLayout.cs" />
     <Compile Include="Projections\Providers\Layouts\ListLayoutForms.cs" />
-    <Compile Include="Projections\Providers\Layouts\NgGridLayout.cs" />
     <Compile Include="Projections\Providers\Layouts\RawLayout.cs" />
     <Compile Include="Projections\Providers\Layouts\RawLayoutForms.cs" />
     <Compile Include="Projections\Providers\Layouts\RawShapes.cs" />
@@ -371,18 +369,8 @@
     <Compile Include="Projections\Services\QueryService.cs" />
     <Compile Include="Projections\Services\SortService.cs" />
     <Compile Include="Projections\Shapes.cs" />
-    <Compile Include="Projections\ViewModels\AdminCreateViewModel.cs" />
-    <Compile Include="Projections\ViewModels\AdminEditViewModel.cs" />
-    <Compile Include="Projections\ViewModels\AdminIndexViewModel.cs" />
-    <Compile Include="Projections\ViewModels\BindingEditViewModel.cs" />
-    <Compile Include="Projections\ViewModels\BindingIndexViewModel.cs" />
-    <Compile Include="Projections\ViewModels\BindingSelectViewModel.cs" />
     <Compile Include="Projections\ViewModels\Data.cs" />
-    <Compile Include="Projections\ViewModels\EntityViewListModel.cs" />
-    <Compile Include="Projections\ViewModels\FieldFilterViewModel.cs" />
-    <Compile Include="Projections\ViewModels\FilterAddViewModel.cs" />
     <Compile Include="Projections\ViewModels\FilterData.cs" />
-    <Compile Include="Projections\ViewModels\FilterEditViewModel.cs" />
     <Compile Include="Projections\ViewModels\FilterViewModel.cs" />
     <Compile Include="Projections\ViewModels\GroupAddViewModel.cs" />
     <Compile Include="Projections\ViewModels\GroupEditViewModel.cs" />

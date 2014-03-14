@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Coevery.ContentManagement;
 using Coevery.Core.Projections.Descriptors.Layout;
 using Coevery.Core.Projections.Services;
 using Coevery.DisplayManagement;
@@ -7,11 +6,9 @@ using Coevery.Localization;
 
 namespace Coevery.Core.Projections.Providers.Layouts.Grid {
     public class DefaultGridLayout : ILayoutProvider {
-        private readonly IContentManager _contentManager;
         protected dynamic Shape { get; set; }
 
-        public DefaultGridLayout(IShapeFactory shapeFactory, IContentManager contentManager) {
-            _contentManager = contentManager;
+        public DefaultGridLayout(IShapeFactory shapeFactory) {
             Shape = shapeFactory;
             T = NullLocalizer.Instance;
         }
@@ -32,7 +29,6 @@ namespace Coevery.Core.Projections.Providers.Layouts.Grid {
         }
 
         public dynamic RenderLayout(LayoutContext context, IEnumerable<LayoutComponentResult> layoutComponentResults) {
-            
             //int pageRowCount = Convert.ToInt32(context.State["PageRowCount"]);
             //string sortedBy = context.State["SortedBy"];
             //string sortMode = context.State["SortMode"];
