@@ -127,13 +127,13 @@
     <Content Include="ListViewDesigner\Scripts\controllers\detailcontroller.js" />
     <Content Include="ListViewDesigner\Scripts\controllers\listcontroller.js" />
     <Content Include="ListViewDesigner\Scripts\services\projectiondataservice.js" />
-    <Content Include="Relationship\Module.txt" />
-    <Content Include="Relationship\Scripts\controllers\editmanytomanycontroller.js" />
-    <Content Include="Relationship\Scripts\controllers\editonetomanycontroller.js" />
-    <Content Include="Relationship\Scripts\controllers\manytomanydetailcontroller.js" />
-    <Content Include="Relationship\Scripts\controllers\onetomanydetailcontroller.js" />
-    <Content Include="Relationship\Scripts\controllers\relatedentitylistcontroller.js" />
-    <Content Include="Relationship\Scripts\controllers\relationshipscontroller.js" />
+    <Content Include="RelationshipManagement\Module.txt" />
+    <Content Include="RelationshipManagement\Scripts\controllers\editmanytomanycontroller.js" />
+    <Content Include="RelationshipManagement\Scripts\controllers\editonetomanycontroller.js" />
+    <Content Include="RelationshipManagement\Scripts\controllers\manytomanydetailcontroller.js" />
+    <Content Include="RelationshipManagement\Scripts\controllers\onetomanydetailcontroller.js" />
+    <Content Include="RelationshipManagement\Scripts\controllers\relatedentitylistcontroller.js" />
+    <Content Include="RelationshipManagement\Scripts\controllers\relationshipscontroller.js" />
     <Content Include="Web.config" />
     <Content Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -221,21 +221,21 @@
     <Compile Include="ListViewDesigner\Controllers\AdminController.cs" />
     <Compile Include="ListViewDesigner\Services\ClientRouteProvider.cs" />
     <Compile Include="ListViewDesigner\ViewModels\EntityViewListModel.cs" />
-    <Compile Include="Relationship\Controllers\RelationshipController.cs" />
-    <Compile Include="Relationship\Controllers\AdminController.cs" />
-    <Compile Include="Relationship\Drivers\RelatedEntityListDriver.cs" />
-    <Compile Include="Relationship\EntityRecords\ReferenceFieldEntityRecordEditorEvents.cs" />
-    <Compile Include="Relationship\Handlers\EntityMetadataPartHandler.cs" />
-    <Compile Include="Relationship\Handlers\RelationshipDynamicTypeGenerationEventsHandler.cs" />
-    <Compile Include="Relationship\Handlers\RelationshipEntityEventsHandler.cs" />
-    <Compile Include="Relationship\Migrations.cs" />
-    <Compile Include="Relationship\Projections\ReferenceFieldProperties.cs" />
-    <Compile Include="Relationship\Projections\ReferenceFieldValueProvider.cs" />
-    <Compile Include="Relationship\Services\ClientRouteProvider.cs" />
-    <Compile Include="Relationship\Services\IRelationshipService.cs" />
-    <Compile Include="Relationship\Services\RelationshipService.cs" />
-    <Compile Include="Relationship\Settings\ReferenceFieldEditorEvents.cs" />
-    <Compile Include="Relationship\ViewModels\RelatedEntityViewModel.cs" />
+    <Compile Include="RelationshipManagement\Controllers\RelationshipController.cs" />
+    <Compile Include="RelationshipManagement\Controllers\AdminController.cs" />
+    <Compile Include="RelationshipManagement\Drivers\RelatedEntityListDriver.cs" />
+    <Compile Include="RelationshipManagement\EntityRecords\ReferenceFieldEntityRecordEditorEvents.cs" />
+    <Compile Include="RelationshipManagement\Handlers\EntityMetadataPartHandler.cs" />
+    <Compile Include="RelationshipManagement\Handlers\RelationshipDynamicTypeGenerationEventsHandler.cs" />
+    <Compile Include="RelationshipManagement\Handlers\RelationshipEntityEventsHandler.cs" />
+    <Compile Include="RelationshipManagement\Migrations.cs" />
+    <Compile Include="RelationshipManagement\Projections\ReferenceFieldProperties.cs" />
+    <Compile Include="RelationshipManagement\Projections\ReferenceFieldValueProvider.cs" />
+    <Compile Include="RelationshipManagement\Services\ClientRouteProvider.cs" />
+    <Compile Include="RelationshipManagement\Services\IRelationshipService.cs" />
+    <Compile Include="RelationshipManagement\Services\RelationshipService.cs" />
+    <Compile Include="RelationshipManagement\Settings\ReferenceFieldEditorEvents.cs" />
+    <Compile Include="RelationshipManagement\ViewModels\RelatedEntityViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EntityManagement\Placement.info" />
@@ -257,17 +257,17 @@
   <ItemGroup>
     <Folder Include="EntityManagement\Extensions\" />
     <Folder Include="EntityManagement\Providers\" />
-    <Folder Include="Relationship\Scripts\services\" />
+    <Folder Include="RelationshipManagement\Scripts\services\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Relationship\Placement.info" />
-    <Content Include="Relationship\Scripts\Web.config" />
-    <Content Include="Relationship\Styles\Web.config" />
-    <Content Include="Relationship\Views\RelatedEntityList.cshtml" />
-    <Content Include="Relationship\Views\Admin\CreateManyToMany.cshtml" />
-    <Content Include="Relationship\Views\Admin\CreateOneToMany.cshtml" />
-    <Content Include="Relationship\Views\Admin\Relationships.cshtml" />
-    <Content Include="Relationship\Views\Web.config" />
+    <Content Include="RelationshipManagement\Placement.info" />
+    <Content Include="RelationshipManagement\Scripts\Web.config" />
+    <Content Include="RelationshipManagement\Styles\Web.config" />
+    <Content Include="RelationshipManagement\Views\RelatedEntityList.cshtml" />
+    <Content Include="RelationshipManagement\Views\Admin\CreateManyToMany.cshtml" />
+    <Content Include="RelationshipManagement\Views\Admin\CreateOneToMany.cshtml" />
+    <Content Include="RelationshipManagement\Views\Admin\Relationships.cshtml" />
+    <Content Include="RelationshipManagement\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ListViewDesigner\Views\Admin\Edit.cshtml" />

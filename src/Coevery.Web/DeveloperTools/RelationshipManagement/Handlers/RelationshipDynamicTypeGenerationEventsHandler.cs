@@ -7,9 +7,10 @@ using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.Records;
 using Coevery.Core.Relationships.Records;
 using Coevery.Data;
+using Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration;
 using Coevery.DeveloperTools.EntityManagement.Events;
 
-namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
+namespace Coevery.DeveloperTools.RelationshipManagement.Handlers {
     public class RelationshipDynamicTypeGenerationEventsHandler : IDynamicTypeGenerationEvents {
         private readonly IRepository<ManyToManyRelationshipRecord> _manyToManyRepository;
 

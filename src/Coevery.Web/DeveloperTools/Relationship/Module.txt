@@ -1,8 +1,0 @@
-Name: Relationship
-AntiForgery: enabled
-Author: 
-Website: http://coevery.codeplex.com
-Version: 1.0
-CoeveryVersion: 1.6
-Description: Relationship for Coevery CRM
-Category: Coevery
