@@ -48,6 +48,13 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FubuCore">
+      <HintPath>..\..\..\..\lib\fubu\FubuCore.dll</HintPath>
+    </Reference>
+    <Reference Include="FubuCsProjFile">
+      <HintPath>..\..\..\..\lib\fubu\FubuCsProjFile.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -128,13 +135,9 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ModuleTestsCsProj.cs</LastGenOutput>
     </None>
-    <Content Include="CodeGenerationTemplates\ModuleTestsCsProj.txt" />
     <Content Include="CodeGenerationTemplates\StaticFilesWebConfig.txt" />
     <Content Include="CodeGenerationTemplates\Theme.png" />
-    <Content Include="CodeGenerationTemplates\ThemeManifest.txt" />
     <Content Include="Module.txt" />
-    <Content Include="CodeGenerationTemplates\Controller.txt" />
-    <Content Include="CodeGenerationTemplates\DataMigration.txt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config">
