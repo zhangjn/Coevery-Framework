@@ -11,6 +11,7 @@ using Coevery.Data.Migration.Generator;
 using Coevery.Data.Migration.Schema;
 using Coevery.Environment.Extensions;
 using Coevery.Environment.Extensions.Models;
+using FubuCore;
 using FubuCsProjFile;
 using FubuCsProjFile.MSBuild;
 
@@ -148,23 +149,20 @@ namespace Coevery.CodeGeneration.Commands {
                 }
             }
 
-            var projectGuid = Guid.NewGuid();
+            var csprojTemplate = new ModuleTestsCsProj();
+            var csprojText = csprojTemplate.TransformText();
+            var project = MSBuildProject.Parse(projectName, csprojText);
+            var csProject = new CsProjFile(testsPath + projectName + ".csproj", project);
+            SetProjectGuid(csProject);
+
             var assemblyInfoTemplate = new ModuleAssemblyInfo();
             assemblyInfoTemplate.Session = new Dictionary<string, object>();
             assemblyInfoTemplate.Session["ModuleName"] = moduleName;
-            assemblyInfoTemplate.Session["ModuleTypeLibGuid"] = projectGuid;
+            assemblyInfoTemplate.Session["ModuleTypeLibGuid"] = csProject.ProjectGuid;
             assemblyInfoTemplate.Initialize();
             string templateText = assemblyInfoTemplate.TransformText();
             File.WriteAllText(propertiesPath + "\\AssemblyInfo.cs", templateText);
             content.Add(propertiesPath + "\\AssemblyInfo.cs");
-
-            var csprojTemplate = new ModuleTestsCsProj() {Session = new Dictionary<string, object>()};
-            csprojTemplate.Session["ProjectName"] = projectName;
-            csprojTemplate.Session["TestsProjectGuid"] = projectGuid;
-            csprojTemplate.Initialize();
-            var csprojText = csprojTemplate.TransformText();
-            var project = MSBuildProject.Parse(projectName, csprojText);
-            var csProject = new CsProjFile(testsPath + projectName + ".csproj", project);
 
             CreateProjectItemGroup(csProject, testsPath, content, folders);
             AddCoeveryReferences(csProject);
@@ -172,7 +170,7 @@ namespace Coevery.CodeGeneration.Commands {
 
             // The string searches in solution/project files can be made aware of comment lines.
             if (IncludeInSolution) {
-                AddToSolution(Context.Output, csProject, projectGuid, SolutionDirectoryTests);
+                AddToSolution(Context.Output, csProject, SolutionDirectoryTests);
             }
 
             Context.Output.WriteLine(T("Module tests project {0} created successfully", projectName));
@@ -240,12 +238,11 @@ namespace Coevery.CodeGeneration.Commands {
         }
 
         private void IntegrateModule(string moduleName) {
-            var projectGuid = Guid.NewGuid();
 
-            var project = CreateFilesFromTemplates(moduleName, projectGuid);
+            var project = CreateFilesFromTemplates(moduleName);
             // The string searches in solution/project files can be made aware of comment lines.
             if (IncludeInSolution) {
-                AddToSolution(Context.Output, project, projectGuid, SolutionDirectoryModules);
+                AddToSolution(Context.Output, project, SolutionDirectoryModules);
             }
         }
 
@@ -253,16 +250,17 @@ namespace Coevery.CodeGeneration.Commands {
             CreateThemeFromTemplates(Context.Output,
                 themeName,
                 baseTheme,
-                CreateProject ? Guid.NewGuid() : (Guid?)null,
+                CreateProject,
                 IncludeInSolution);
         }
 
-        private CsProjFile CreateFilesFromTemplates(string moduleName, Guid? projectGuid) {
+        private CsProjFile CreateFilesFromTemplates(string moduleName) {
             string modulePath = HostingEnvironment.MapPath("~/Modules/" + moduleName + "/");
+            var csProject = CreateCsProject(modulePath + moduleName + ".csproj",moduleName);
+
             string propertiesPath = modulePath + "Properties";
             var content = new HashSet<string>();
             var folders = new HashSet<string>();
-
             foreach (var folder in _moduleDirectories) {
                 Directory.CreateDirectory(modulePath + folder);
                 if (!String.IsNullOrEmpty(folder)) {
@@ -280,7 +278,7 @@ namespace Coevery.CodeGeneration.Commands {
             var assemblyInfoTemplate = new ModuleAssemblyInfo();
             assemblyInfoTemplate.Session = new Dictionary<string, object>();
             assemblyInfoTemplate.Session["ModuleName"] = moduleName;
-            assemblyInfoTemplate.Session["ModuleTypeLibGuid"] = Guid.NewGuid();
+            assemblyInfoTemplate.Session["ModuleTypeLibGuid"] = csProject.ProjectGuid;
             assemblyInfoTemplate.Initialize();
             string templateText = assemblyInfoTemplate.TransformText();
             File.WriteAllText(propertiesPath + "\\AssemblyInfo.cs", templateText);
@@ -294,23 +292,20 @@ namespace Coevery.CodeGeneration.Commands {
             File.WriteAllText(modulePath + "Module.txt", templateText, System.Text.Encoding.UTF8);
             content.Add(modulePath + "Module.txt");
 
-            var csProject = CreateCsProject(moduleName, projectGuid);
             CreateProjectItemGroup(csProject, modulePath, content, folders);
-            csProject.Save(modulePath + moduleName + ".csproj");
+            csProject.Save();
             return csProject;
         }
 
-        private static CsProjFile CreateCsProject(string projectName, Guid? projectGuid) {
-            var session = new Dictionary<string, object>();
-            session["ModuleName"] = projectName;
-            session["ModuleProjectGuid"] = projectGuid;
-            var projectTemplate = new ModuleCsProj {Session = session};
-            projectTemplate.Initialize();
+        private static CsProjFile CreateCsProject(string fileName, string projectName) {
+            var projectTemplate = new ModuleCsProj();
             var projectText = projectTemplate.TransformText();
             var project = MSBuildProject.Parse(projectName, projectText);
-            var csProject = new CsProjFile(string.Empty, project);
+            var csProject = new CsProjFile(fileName, project);
             csProject.RootNamespace = projectName;
+            csProject.AssemblyName = projectName;
             AddCoeveryReferences(csProject);
+            SetProjectGuid(csProject);
             return csProject;
         }
 
@@ -326,7 +321,7 @@ namespace Coevery.CodeGeneration.Commands {
             });
         }
 
-        private void CreateThemeFromTemplates(TextWriter output, string themeName, string baseTheme, Guid? projectGuid, bool includeInSolution) {
+        private void CreateThemeFromTemplates(TextWriter output, string themeName, string baseTheme, bool createProject, bool includeInSolution) {
             var themePath = HostingEnvironment.MapPath("~/Themes/" + themeName + "/");
             var createdFiles = new HashSet<string>();
             var createdFolders = new HashSet<string>();
@@ -365,17 +360,17 @@ namespace Coevery.CodeGeneration.Commands {
             createdFiles.Add(themePath + "Placement.info");
 
             // create new csproj for the theme
-            if (projectGuid != null) {
-                var csProject = CreateCsProject(themeName, projectGuid);
+            if (createProject) {
+                var csProject = CreateCsProject(themePath + "\\" + themeName + ".csproj", themeName);
                 CreateProjectItemGroup(csProject, themePath, createdFiles, createdFolders);
-                csProject.Save(themePath + "\\" + themeName + ".csproj");
+                csProject.Save();
                 if (includeInSolution) {
                     // create a project (already done) and add it to the solution
-                    AddToSolution(output, csProject, projectGuid, SolutionDirectoryThemes);
+                    AddToSolution(output, csProject, SolutionDirectoryThemes);
                 }
             }
 
-            if (includeInSolution && projectGuid == null) {
+            if (includeInSolution && !createProject) {
                 // include in solution but dont create a project: just add the references to Coevery.Themes project
                 if (!File.Exists(_CoeveryThemesProj)) {
                     output.WriteLine(T("Warning: Coevery.Themes project file could not be found at {0}", _CoeveryThemesProj));
@@ -390,29 +385,24 @@ namespace Coevery.CodeGeneration.Commands {
         }
 
 
-        private void AddToSolution(TextWriter output, CsProjFile csProject, Guid? projectGuid, string solutionFolderGuid) {
-            if (projectGuid != null) {
-                var parentDirectory = Directory.GetParent(_WebRootProj).Parent;
-                if (parentDirectory == null) {
-                    return;
-                }
-                var solutions = parentDirectory.GetFiles("*.sln");
-                if (solutions.Length == 0) return;
-                var solutionPath = solutions.First().FullName;
-                if (File.Exists(solutionPath)) {
-                    var solution = Solution.LoadFrom(solutionPath);
-                    
-                    var projectConfiguationPlatforms = string.Format("{{{0}}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n\t\t{{{0}}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n\t\t{{{0}}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n\t\t{{{0}}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n", projectGuid);
-                    var selection = solution.FindSection("ProjectConfigurationPlatforms");
-                    selection.Properties.Add(projectConfiguationPlatforms);
-
-                    var nestedProjectsSection = solution.FindSection("NestedProjects");
-                    nestedProjectsSection.Properties.Add("{" + projectGuid + "} = {" + solutionFolderGuid + "}");
-
-                    solution.AddProject(csProject);
-                    solution.Save();
-                    TouchSolution(output);
-                }
+        private void AddToSolution(TextWriter output, CsProjFile csProject, string solutionFolderGuid) {
+            var parentDirectory = Directory.GetParent(_WebRootProj).Parent;
+            if (parentDirectory == null) {
+                return;
+            }
+            var solutions = parentDirectory.GetFiles("*.sln");
+            if (solutions.Length == 0) return;
+            var solutionPath = solutions.First().FullName;
+            if (File.Exists(solutionPath)) {
+                var solution = Solution.LoadFrom(solutionPath);
+                var solutionProject = new SolutionProject(csProject, solution.ParentDirectory);
+                var projectReference = string.Format("EndProject\r\nProject(\"{{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}}\") = \"{0}\", \"{2}\", \"{{{1}}}\"\r\n", solutionProject.ProjectName, solutionProject.ProjectGuid, solutionProject.RelativePath);
+                var projectConfiguationPlatforms = string.Format("GlobalSection(ProjectConfigurationPlatforms) = postSolution\r\n\t\t{{{0}}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n\t\t{{{0}}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n\t\t{{{0}}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n\t\t{{{0}}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n", solutionProject.ProjectGuid);
+                var solutionText = File.ReadAllText(solutionPath);
+                solutionText = solutionText.Insert(solutionText.LastIndexOf("EndProject\r\n"), projectReference).Replace("GlobalSection(ProjectConfigurationPlatforms) = postSolution\r\n", projectConfiguationPlatforms);
+                solutionText = solutionText.Insert(solutionText.LastIndexOf("EndGlobalSection"), "\t{" + solutionProject.ProjectGuid + "} = {" + solutionFolderGuid + "}\r\n\t");
+                File.WriteAllText(solutionPath, solutionText);
+                TouchSolution(output);
             }
         }
 
@@ -455,6 +445,13 @@ namespace Coevery.CodeGeneration.Commands {
             catch {
                 output.WriteLine(T("An unexpected error occured while trying to refresh the Visual Studio solution. Please reload it."));
             }
+        }
+
+        private static void SetProjectGuid(CsProjFile project) {
+            var group = project.BuildProject.PropertyGroups.FirstOrDefault(x => x.Properties.Any(p => p.Name == "ProjectGuid"))
+                        ?? project.BuildProject.PropertyGroups.FirstOrDefault() ?? project.BuildProject.AddNewPropertyGroup(true);
+
+            group.SetPropertyValue("ProjectGuid", Guid.NewGuid().ToString().ToUpper(), false);
         }
     }
 }

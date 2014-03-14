@@ -25,279 +25,49 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"<?xml version=""1.0"" encoding=""utf-8""?>
-<Project ToolsVersion=""4.0"" DefaultTargets=""Build"" xmlns=""http://schemas.microsoft.com/developer/msbuild/2003"">
-  <Import Project=""$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"" Condition=""Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"" />
-  <PropertyGroup>
-    <Configuration Condition="" '$(Configuration)' == '' "">Debug</Configuration>
-    <Platform Condition="" '$(Platform)' == '' "">AnyCPU</Platform>
-    <ProjectGuid>{");
-            
-            #line 13 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(TestsProjectGuid));
-            
-            #line default
-            #line hidden
-            this.Write("}</ProjectGuid>\r\n    <OutputType>Library</OutputType>\r\n    <AppDesignerFolder>Pro" +
-                    "perties</AppDesignerFolder>\r\n    <RootNamespace>");
-            
-            #line 16 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectName));
-            
-            #line default
-            #line hidden
-            this.Write("</RootNamespace>\r\n    <AssemblyName>");
-            
-            #line 17 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ProjectName));
-            
-            #line default
-            #line hidden
-            this.Write("</AssemblyName>\r\n    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>\r\n    <" +
-                    "OldToolsVersion>4.0</OldToolsVersion>\r\n  </PropertyGroup>\r\n  <PropertyGroup Cond" +
-                    "ition=\" \'$(Configuration)|$(Platform)\' == \'Debug|AnyCPU\' \">\r\n    <DebugSymbols>t" +
-                    "rue</DebugSymbols>\r\n    <DebugType>full</DebugType>\r\n    <Optimize>false</Optimi" +
-                    "ze>\r\n    <OutputPath>bin\\</OutputPath>\r\n    <DefineConstants>DEBUG;TRACE</Define" +
-                    "Constants>\r\n    <ErrorReport>prompt</ErrorReport>\r\n    <WarningLevel>4</WarningL" +
-                    "evel>\r\n    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>\r\n    <Pre" +
-                    "fer32Bit>false</Prefer32Bit>\r\n  </PropertyGroup>\r\n  <PropertyGroup Condition=\" \'" +
-                    "$(Configuration)|$(Platform)\' == \'Release|AnyCPU\' \">\r\n    <DebugType>pdbonly</De" +
-                    "bugType>\r\n    <Optimize>true</Optimize>\r\n    <OutputPath>bin\\</OutputPath>\r\n    " +
-                    "<DefineConstants>TRACE</DefineConstants>\r\n    <ErrorReport>prompt</ErrorReport>\r" +
-                    "\n    <WarningLevel>4</WarningLevel>\r\n    <CodeAnalysisRuleSet>AllRules.ruleset</" +
-                    "CodeAnalysisRuleSet>\r\n    <Prefer32Bit>false</Prefer32Bit>\r\n  </PropertyGroup>\r\n" +
-                    "  <ItemGroup>\r\n    <Reference Include=\"Autofac\">\r\n      <HintPath>..\\..\\..\\..\\.." +
-                    "\\lib\\autofac\\Autofac.dll</HintPath>\r\n    </Reference>\r\n    <Reference Include=\"M" +
-                    "oq\">\r\n      <HintPath>..\\..\\..\\..\\..\\lib\\moq\\Moq.dll</HintPath>\r\n    </Reference" +
-                    ">\r\n    <Reference Include=\"NHibernate\">\r\n      <HintPath>..\\..\\..\\..\\..\\lib\\nhib" +
-                    "ernate\\NHibernate.dll</HintPath>\r\n    </Reference>\r\n    <Reference Include=\"nuni" +
-                    "t.framework\">\r\n      <HintPath>..\\..\\..\\..\\..\\lib\\nunit\\nunit.framework.dll</Hin" +
-                    "tPath>\r\n    </Reference>\r\n    <Reference Include=\"System\" />\r\n    <Reference Inc" +
-                    "lude=\"System.Core\" />\r\n    <Reference Include=\"Microsoft.CSharp\" />\r\n    <Refere" +
-                    "nce Include=\"System.Data\" />\r\n    <Reference Include=\"System.Data.SqlServerCe, V" +
-                    "ersion=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchi" +
-                    "tecture=MSIL\">\r\n      <SpecificVersion>False</SpecificVersion>\r\n      <HintPath>" +
-                    "..\\..\\..\\..\\..\\lib\\sqlce\\System.Data.SqlServerCe.dll</HintPath>\r\n      <Private>" +
-                    "True</Private>\r\n    </Reference>\r\n  </ItemGroup>\r\n  ");
-            
-            #line 65 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(FileIncludes));
-            
-            #line default
-            #line hidden
-            this.Write(@"
-  <ItemGroup>
-    <ProjectReference Include=""..\..\..\..\Coevery.Tests.Modules\Coevery.Tests.Modules.csproj"">
-        <Project>{6CB3EB30-F725-45C0-9742-42599BA8E8D2}</Project>
-        <Name>Coevery.Tests.Modules</Name>
-    </ProjectReference>
-    <ProjectReference Include=""..\..\..\..\Coevery.Tests\Coevery.Framework.Tests.csproj"">
-      <Project>{abc826d4-2fa1-4f2f-87de-e6095f653810}</Project>
-      <Name>Coevery.Framework.Tests</Name>
-    </ProjectReference>
-    ");
-            
-            #line 75 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CoeveryReferences));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n    </ItemGroup>\r\n  <Import Project=\"$(MSBuildToolsPath)\\Microsoft.CSharp.targe" +
-                    "ts\" />\r\n</Project>");
+            this.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<Project ToolsVersion=\"4.0\" DefaultTarget" +
+                    "s=\"Build\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">\r\n  <Impor" +
+                    "t Project=\"$(MSBuildExtensionsPath)\\$(MSBuildToolsVersion)\\Microsoft.Common.prop" +
+                    "s\" Condition=\"Exists(\'$(MSBuildExtensionsPath)\\$(MSBuildToolsVersion)\\Microsoft." +
+                    "Common.props\')\" />\r\n  <PropertyGroup>\r\n    <Configuration Condition=\" \'$(Configu" +
+                    "ration)\' == \'\' \">Debug</Configuration>\r\n    <Platform Condition=\" \'$(Platform)\' " +
+                    "== \'\' \">AnyCPU</Platform>\r\n    <OutputType>Library</OutputType>\r\n    <AppDesigne" +
+                    "rFolder>Properties</AppDesignerFolder>\r\n    <TargetFrameworkVersion>v4.5</Target" +
+                    "FrameworkVersion>\r\n    <OldToolsVersion>4.0</OldToolsVersion>\r\n  </PropertyGroup" +
+                    ">\r\n  <PropertyGroup Condition=\" \'$(Configuration)|$(Platform)\' == \'Debug|AnyCPU\'" +
+                    " \">\r\n    <DebugSymbols>true</DebugSymbols>\r\n    <DebugType>full</DebugType>\r\n   " +
+                    " <Optimize>false</Optimize>\r\n    <OutputPath>bin\\</OutputPath>\r\n    <DefineConst" +
+                    "ants>DEBUG;TRACE</DefineConstants>\r\n    <ErrorReport>prompt</ErrorReport>\r\n    <" +
+                    "WarningLevel>4</WarningLevel>\r\n    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAn" +
+                    "alysisRuleSet>\r\n    <Prefer32Bit>false</Prefer32Bit>\r\n  </PropertyGroup>\r\n  <Pro" +
+                    "pertyGroup Condition=\" \'$(Configuration)|$(Platform)\' == \'Release|AnyCPU\' \">\r\n  " +
+                    "  <DebugType>pdbonly</DebugType>\r\n    <Optimize>true</Optimize>\r\n    <OutputPath" +
+                    ">bin\\</OutputPath>\r\n    <DefineConstants>TRACE</DefineConstants>\r\n    <ErrorRepo" +
+                    "rt>prompt</ErrorReport>\r\n    <WarningLevel>4</WarningLevel>\r\n    <CodeAnalysisRu" +
+                    "leSet>AllRules.ruleset</CodeAnalysisRuleSet>\r\n    <Prefer32Bit>false</Prefer32Bi" +
+                    "t>\r\n  </PropertyGroup>\r\n  <ItemGroup>\r\n    <Reference Include=\"Autofac\">\r\n      " +
+                    "<HintPath>..\\..\\..\\..\\..\\lib\\autofac\\Autofac.dll</HintPath>\r\n    </Reference>\r\n " +
+                    "   <Reference Include=\"Moq\">\r\n      <HintPath>..\\..\\..\\..\\..\\lib\\moq\\Moq.dll</Hi" +
+                    "ntPath>\r\n    </Reference>\r\n    <Reference Include=\"NHibernate\">\r\n      <HintPath" +
+                    ">..\\..\\..\\..\\..\\lib\\nhibernate\\NHibernate.dll</HintPath>\r\n    </Reference>\r\n    " +
+                    "<Reference Include=\"nunit.framework\">\r\n      <HintPath>..\\..\\..\\..\\..\\lib\\nunit\\" +
+                    "nunit.framework.dll</HintPath>\r\n    </Reference>\r\n    <Reference Include=\"System" +
+                    "\" />\r\n    <Reference Include=\"System.Core\" />\r\n    <Reference Include=\"Microsoft" +
+                    ".CSharp\" />\r\n    <Reference Include=\"System.Data\" />\r\n    <Reference Include=\"Sy" +
+                    "stem.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd" +
+                    "8080cc91, processorArchitecture=MSIL\">\r\n      <SpecificVersion>False</SpecificVe" +
+                    "rsion>\r\n      <HintPath>..\\..\\..\\..\\..\\lib\\sqlce\\System.Data.SqlServerCe.dll</Hi" +
+                    "ntPath>\r\n      <Private>True</Private>\r\n    </Reference>\r\n  </ItemGroup>\r\n  <Ite" +
+                    "mGroup>\r\n    <ProjectReference Include=\"..\\..\\..\\..\\Coevery.Tests.Modules\\Coever" +
+                    "y.Tests.Modules.csproj\">\r\n        <Project>{6CB3EB30-F725-45C0-9742-42599BA8E8D2" +
+                    "}</Project>\r\n        <Name>Coevery.Tests.Modules</Name>\r\n    </ProjectReference>" +
+                    "\r\n    <ProjectReference Include=\"..\\..\\..\\..\\Coevery.Tests\\Coevery.Framework.Tes" +
+                    "ts.csproj\">\r\n      <Project>{abc826d4-2fa1-4f2f-87de-e6095f653810}</Project>\r\n  " +
+                    "    <Name>Coevery.Framework.Tests</Name>\r\n    </ProjectReference>\r\n    </ItemGro" +
+                    "up>\r\n  <Import Project=\"$(MSBuildToolsPath)\\Microsoft.CSharp.targets\" />\r\n</Proj" +
+                    "ect>");
             return this.GenerationEnvironment.ToString();
         }
-        
-        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.tt"
-
-private global::System.Guid _TestsProjectGuidField;
-
-/// <summary>
-/// Access the TestsProjectGuid parameter of the template.
-/// </summary>
-private global::System.Guid TestsProjectGuid
-{
-    get
-    {
-        return this._TestsProjectGuidField;
-    }
-}
-
-private string _ProjectNameField;
-
-/// <summary>
-/// Access the ProjectName parameter of the template.
-/// </summary>
-private string ProjectName
-{
-    get
-    {
-        return this._ProjectNameField;
-    }
-}
-
-private string _FileIncludesField;
-
-/// <summary>
-/// Access the FileIncludes parameter of the template.
-/// </summary>
-private string FileIncludes
-{
-    get
-    {
-        return this._FileIncludesField;
-    }
-}
-
-private string _CoeveryReferencesField;
-
-/// <summary>
-/// Access the CoeveryReferences parameter of the template.
-/// </summary>
-private string CoeveryReferences
-{
-    get
-    {
-        return this._CoeveryReferencesField;
-    }
-}
-
-
-/// <summary>
-/// Initialize the template
-/// </summary>
-public virtual void Initialize()
-{
-    if ((this.Errors.HasErrors == false))
-    {
-bool TestsProjectGuidValueAcquired = false;
-if (this.Session.ContainsKey("TestsProjectGuid"))
-{
-    if ((typeof(global::System.Guid).IsAssignableFrom(this.Session["TestsProjectGuid"].GetType()) == false))
-    {
-        this.Error("The type \'System.Guid\' of the parameter \'TestsProjectGuid\' did not match the type" +
-                " of the data passed to the template.");
-    }
-    else
-    {
-        this._TestsProjectGuidField = ((global::System.Guid)(this.Session["TestsProjectGuid"]));
-        TestsProjectGuidValueAcquired = true;
-    }
-}
-if ((TestsProjectGuidValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("TestsProjectGuid");
-    if ((data != null))
-    {
-        if ((typeof(global::System.Guid).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Guid\' of the parameter \'TestsProjectGuid\' did not match the type" +
-                    " of the data passed to the template.");
-        }
-        else
-        {
-            this._TestsProjectGuidField = ((global::System.Guid)(data));
-        }
-    }
-}
-bool ProjectNameValueAcquired = false;
-if (this.Session.ContainsKey("ProjectName"))
-{
-    if ((typeof(string).IsAssignableFrom(this.Session["ProjectName"].GetType()) == false))
-    {
-        this.Error("The type \'System.String\' of the parameter \'ProjectName\' did not match the type of" +
-                " the data passed to the template.");
-    }
-    else
-    {
-        this._ProjectNameField = ((string)(this.Session["ProjectName"]));
-        ProjectNameValueAcquired = true;
-    }
-}
-if ((ProjectNameValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ProjectName");
-    if ((data != null))
-    {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.String\' of the parameter \'ProjectName\' did not match the type of" +
-                    " the data passed to the template.");
-        }
-        else
-        {
-            this._ProjectNameField = ((string)(data));
-        }
-    }
-}
-bool FileIncludesValueAcquired = false;
-if (this.Session.ContainsKey("FileIncludes"))
-{
-    if ((typeof(string).IsAssignableFrom(this.Session["FileIncludes"].GetType()) == false))
-    {
-        this.Error("The type \'System.String\' of the parameter \'FileIncludes\' did not match the type o" +
-                "f the data passed to the template.");
-    }
-    else
-    {
-        this._FileIncludesField = ((string)(this.Session["FileIncludes"]));
-        FileIncludesValueAcquired = true;
-    }
-}
-if ((FileIncludesValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("FileIncludes");
-    if ((data != null))
-    {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.String\' of the parameter \'FileIncludes\' did not match the type o" +
-                    "f the data passed to the template.");
-        }
-        else
-        {
-            this._FileIncludesField = ((string)(data));
-        }
-    }
-}
-bool CoeveryReferencesValueAcquired = false;
-if (this.Session.ContainsKey("CoeveryReferences"))
-{
-    if ((typeof(string).IsAssignableFrom(this.Session["CoeveryReferences"].GetType()) == false))
-    {
-        this.Error("The type \'System.String\' of the parameter \'CoeveryReferences\' did not match the t" +
-                "ype of the data passed to the template.");
-    }
-    else
-    {
-        this._CoeveryReferencesField = ((string)(this.Session["CoeveryReferences"]));
-        CoeveryReferencesValueAcquired = true;
-    }
-}
-if ((CoeveryReferencesValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("CoeveryReferences");
-    if ((data != null))
-    {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.String\' of the parameter \'CoeveryReferences\' did not match the t" +
-                    "ype of the data passed to the template.");
-        }
-        else
-        {
-            this._CoeveryReferencesField = ((string)(data));
-        }
-    }
-}
-
-
-    }
-}
-
-
-        
-        #line default
-        #line hidden
     }
     
     #line default

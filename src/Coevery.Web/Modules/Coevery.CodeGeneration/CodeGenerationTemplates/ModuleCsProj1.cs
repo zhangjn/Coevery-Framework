@@ -25,305 +25,77 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"<?xml version=""1.0"" encoding=""utf-8""?>
-<Project ToolsVersion=""4.0"" DefaultTargets=""Build"" xmlns=""http://schemas.microsoft.com/developer/msbuild/2003"">
-  <Import Project=""$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"" Condition=""Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"" />
-  <PropertyGroup>
-    <Configuration Condition="" '$(Configuration)' == '' "">Debug</Configuration>
-    <Platform Condition="" '$(Platform)' == '' "">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{");
-            
-            #line 15 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleCsProj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleProjectGuid));
-            
-            #line default
-            #line hidden
-            this.Write("}</ProjectGuid>\r\n    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fa" +
-                    "e04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>\r\n    <OutputType>Library<" +
-                    "/OutputType>\r\n    <AppDesignerFolder>Properties</AppDesignerFolder>\r\n    <RootNa" +
-                    "mespace>");
-            
-            #line 19 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleCsProj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
-            
-            #line default
-            #line hidden
-            this.Write("</RootNamespace>\r\n    <AssemblyName>");
-            
-            #line 20 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleCsProj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
-            
-            #line default
-            #line hidden
-            this.Write("</AssemblyName>\r\n    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>\r\n    <" +
-                    "MvcBuildViews>false</MvcBuildViews>\r\n    <FileUpgradeFlags>\r\n    </FileUpgradeFl" +
-                    "ags>\r\n    <OldToolsVersion>4.0</OldToolsVersion>\r\n    <UpgradeBackupLocation />\r" +
-                    "\n    <TargetFrameworkProfile />\r\n  </PropertyGroup>\r\n  <PropertyGroup Condition=" +
-                    "\" \'$(Configuration)|$(Platform)\' == \'Debug|AnyCPU\' \">\r\n    <DebugSymbols>true</D" +
-                    "ebugSymbols>\r\n    <DebugType>full</DebugType>\r\n    <Optimize>false</Optimize>\r\n " +
-                    "   <OutputPath>bin\\</OutputPath>\r\n    <DefineConstants>DEBUG;TRACE</DefineConsta" +
-                    "nts>\r\n    <ErrorReport>prompt</ErrorReport>\r\n    <WarningLevel>4</WarningLevel>\r" +
-                    "\n    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>\r\n    <Prefer32B" +
-                    "it>false</Prefer32Bit>\r\n  </PropertyGroup>\r\n  <PropertyGroup Condition=\" \'$(Conf" +
-                    "iguration)|$(Platform)\' == \'Release|AnyCPU\' \">\r\n    <DebugType>pdbonly</DebugTyp" +
-                    "e>\r\n    <Optimize>true</Optimize>\r\n    <OutputPath>bin\\</OutputPath>\r\n    <Defin" +
-                    "eConstants>TRACE</DefineConstants>\r\n    <ErrorReport>prompt</ErrorReport>\r\n    <" +
-                    "WarningLevel>4</WarningLevel>\r\n    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAn" +
-                    "alysisRuleSet>\r\n    <Prefer32Bit>false</Prefer32Bit>\r\n  </PropertyGroup>\r\n  <Ite" +
-                    "mGroup>\r\n    <Reference Include=\"Microsoft.CSharp\" />\r\n    <Reference Include=\"S" +
-                    "ystem\" />\r\n    <Reference Include=\"System.Data\" />\r\n    <Reference Include=\"Syst" +
-                    "em.ComponentModel.DataAnnotations\">\r\n      <RequiredTargetFramework>3.5</Require" +
-                    "dTargetFramework>\r\n    </Reference>\r\n    <Reference Include=\"System.Web.DynamicD" +
-                    "ata\" />\r\n    <Reference Include=\"System.Web.Mvc, Version=5.1.0.0, Culture=neutra" +
-                    "l, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\r\n      <Specifi" +
-                    "cVersion>False</SpecificVersion>\r\n      <HintPath>..\\..\\..\\..\\lib\\aspnetmvc\\Syst" +
-                    "em.Web.Mvc.dll</HintPath>\r\n    </Reference>\r\n    <Reference Include=\"System.Web\"" +
-                    " />\r\n    <Reference Include=\"System.Web.Extensions\" />\r\n    <Reference Include=\"" +
-                    "System.Web.Abstractions\" />\r\n    <Reference Include=\"System.Web.Routing\" />\r\n   " +
-                    " <Reference Include=\"System.Xml\" />\r\n    <Reference Include=\"System.Configuratio" +
-                    "n\" />\r\n    <Reference Include=\"System.Xml.Linq\" />\r\n  </ItemGroup>\r\n  ");
-            
-            #line 70 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleCsProj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(FileIncludes));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n  <ItemGroup>\r\n    ");
-            
-            #line 72 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleCsProj.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(CoeveryReferences));
-            
-            #line default
-            #line hidden
-            this.Write("\r\n    </ItemGroup>\r\n  <PropertyGroup>\r\n    <VisualStudioVersion Condition=\"\'$(Vis" +
-                    "ualStudioVersion)\' == \'\'\">10.0</VisualStudioVersion>\r\n    <VSToolsPath Condition" +
-                    "=\"\'$(VSToolsPath)\' == \'\'\">$(MSBuildExtensionsPath32)\\Microsoft\\VisualStudio\\v$(V" +
-                    "isualStudioVersion)</VSToolsPath>\r\n  </PropertyGroup>\r\n  <Import Project=\"$(MSBu" +
-                    "ildBinPath)\\Microsoft.CSharp.targets\" />\r\n  <Import Project=\"$(VSToolsPath)\\WebA" +
-                    "pplications\\Microsoft.WebApplication.targets\" Condition=\"\'$(VSToolsPath)\' != \'\'\"" +
-                    " />\r\n  <Import Project=\"$(MSBuildExtensionsPath32)\\Microsoft\\VisualStudio\\v10.0\\" +
-                    "WebApplications\\Microsoft.WebApplication.targets\" Condition=\"false\" />\r\n  <!-- T" +
-                    "o modify your build process, add your task inside one of the targets below and u" +
-                    "ncomment it. \r\n       Other similar extension points exist, see Microsoft.Common" +
-                    ".targets.\r\n  <Target Name=\"BeforeBuild\">\r\n  </Target> -->\r\n  <Target Name=\"After" +
-                    "Build\" DependsOnTargets=\"AfterBuildCompiler\">\r\n    <PropertyGroup>\r\n      <Areas" +
-                    "ManifestDir>$(ProjectDir)\\..\\Manifests</AreasManifestDir>\r\n    </PropertyGroup>\r" +
-                    "\n    <!-- If this is an area child project, uncomment the following line:\r\n    <" +
-                    "CreateAreaManifest AreaName=\"$(AssemblyName)\" AreaType=\"Child\" AreaPath=\"$(Proje" +
-                    "ctDir)\" ManifestPath=\"$(AreasManifestDir)\" ContentFiles=\"@(Content)\" />\r\n    -->" +
-                    "\r\n    <!-- If this is an area parent project, uncomment the following lines:\r\n  " +
-                    "  <CreateAreaManifest AreaName=\"$(AssemblyName)\" AreaType=\"Parent\" AreaPath=\"$(P" +
-                    "rojectDir)\" ManifestPath=\"$(AreasManifestDir)\" ContentFiles=\"@(Content)\" />\r\n   " +
-                    " <CopyAreaManifests ManifestPath=\"$(AreasManifestDir)\" CrossCopy=\"false\" RenameV" +
-                    "iews=\"true\" />\r\n    -->\r\n  </Target>\r\n  <Target Name=\"AfterBuildCompiler\" Condit" +
-                    "ion=\"\'$(MvcBuildViews)\'==\'true\'\">\r\n    <AspNetCompiler VirtualPath=\"temp\" Physic" +
-                    "alPath=\"$(ProjectDir)\\..\\$(ProjectName)\" />\r\n  </Target>\r\n  <ProjectExtensions>\r" +
-                    "\n    <VisualStudio>\r\n      <FlavorProperties GUID=\"{349c5851-65df-11da-9384-0006" +
-                    "5b846f21}\">\r\n        <WebProjectProperties>\r\n          <UseIIS>False</UseIIS>\r\n " +
-                    "         <AutoAssignPort>True</AutoAssignPort>\r\n          <DevelopmentServerPort" +
-                    ">45979</DevelopmentServerPort>\r\n          <DevelopmentServerVPath>/</Development" +
-                    "ServerVPath>\r\n          <IISUrl>\r\n          </IISUrl>\r\n          <NTLMAuthentica" +
-                    "tion>False</NTLMAuthentication>\r\n          <UseCustomServer>True</UseCustomServe" +
-                    "r>\r\n          <CustomServerUrl>http://coevery.codeplex.com</CustomServerUrl>\r\n  " +
-                    "        <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>\r\n    " +
-                    "    </WebProjectProperties>\r\n      </FlavorProperties>\r\n    </VisualStudio>\r\n  <" +
-                    "/ProjectExtensions>\r\n</Project>");
+            this.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<Project ToolsVersion=\"4.0\" DefaultTarget" +
+                    "s=\"Build\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">\r\n  <Impor" +
+                    "t Project=\"$(MSBuildExtensionsPath)\\$(MSBuildToolsVersion)\\Microsoft.Common.prop" +
+                    "s\" Condition=\"Exists(\'$(MSBuildExtensionsPath)\\$(MSBuildToolsVersion)\\Microsoft." +
+                    "Common.props\')\" />\r\n  <PropertyGroup>\r\n    <Configuration Condition=\" \'$(Configu" +
+                    "ration)\' == \'\' \">Debug</Configuration>\r\n    <Platform Condition=\" \'$(Platform)\' " +
+                    "== \'\' \">AnyCPU</Platform>\r\n    <ProductVersion>9.0.30729</ProductVersion>\r\n    <" +
+                    "SchemaVersion>2.0</SchemaVersion>\r\n    <ProjectTypeGuids>{349c5851-65df-11da-938" +
+                    "4-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>\r\n    <" +
+                    "OutputType>Library</OutputType>\r\n    <AppDesignerFolder>Properties</AppDesignerF" +
+                    "older>\r\n    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>\r\n    <MvcBuild" +
+                    "Views>false</MvcBuildViews>\r\n    <FileUpgradeFlags>\r\n    </FileUpgradeFlags>\r\n  " +
+                    "  <OldToolsVersion>4.0</OldToolsVersion>\r\n    <UpgradeBackupLocation />\r\n    <Ta" +
+                    "rgetFrameworkProfile />\r\n  </PropertyGroup>\r\n  <PropertyGroup Condition=\" \'$(Con" +
+                    "figuration)|$(Platform)\' == \'Debug|AnyCPU\' \">\r\n    <DebugSymbols>true</DebugSymb" +
+                    "ols>\r\n    <DebugType>full</DebugType>\r\n    <Optimize>false</Optimize>\r\n    <Outp" +
+                    "utPath>bin\\</OutputPath>\r\n    <DefineConstants>DEBUG;TRACE</DefineConstants>\r\n  " +
+                    "  <ErrorReport>prompt</ErrorReport>\r\n    <WarningLevel>4</WarningLevel>\r\n    <Co" +
+                    "deAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>\r\n    <Prefer32Bit>false" +
+                    "</Prefer32Bit>\r\n  </PropertyGroup>\r\n  <PropertyGroup Condition=\" \'$(Configuratio" +
+                    "n)|$(Platform)\' == \'Release|AnyCPU\' \">\r\n    <DebugType>pdbonly</DebugType>\r\n    " +
+                    "<Optimize>true</Optimize>\r\n    <OutputPath>bin\\</OutputPath>\r\n    <DefineConstan" +
+                    "ts>TRACE</DefineConstants>\r\n    <ErrorReport>prompt</ErrorReport>\r\n    <WarningL" +
+                    "evel>4</WarningLevel>\r\n    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRu" +
+                    "leSet>\r\n    <Prefer32Bit>false</Prefer32Bit>\r\n  </PropertyGroup>\r\n  <ItemGroup>\r" +
+                    "\n    <Reference Include=\"Microsoft.CSharp\" />\r\n    <Reference Include=\"System\" /" +
+                    ">\r\n    <Reference Include=\"System.Data\" />\r\n    <Reference Include=\"System.Compo" +
+                    "nentModel.DataAnnotations\">\r\n      <RequiredTargetFramework>3.5</RequiredTargetF" +
+                    "ramework>\r\n    </Reference>\r\n    <Reference Include=\"System.Web.DynamicData\" />\r" +
+                    "\n    <Reference Include=\"System.Web.Mvc, Version=5.1.0.0, Culture=neutral, Publi" +
+                    "cKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\r\n      <SpecificVersion" +
+                    ">False</SpecificVersion>\r\n      <HintPath>..\\..\\..\\..\\lib\\aspnetmvc\\System.Web.M" +
+                    "vc.dll</HintPath>\r\n    </Reference>\r\n    <Reference Include=\"System.Web\" />\r\n   " +
+                    " <Reference Include=\"System.Web.Extensions\" />\r\n    <Reference Include=\"System.W" +
+                    "eb.Abstractions\" />\r\n    <Reference Include=\"System.Web.Routing\" />\r\n    <Refere" +
+                    "nce Include=\"System.Xml\" />\r\n    <Reference Include=\"System.Configuration\" />\r\n " +
+                    "   <Reference Include=\"System.Xml.Linq\" />\r\n  </ItemGroup>\r\n  <PropertyGroup>\r\n " +
+                    "   <VisualStudioVersion Condition=\"\'$(VisualStudioVersion)\' == \'\'\">10.0</VisualS" +
+                    "tudioVersion>\r\n    <VSToolsPath Condition=\"\'$(VSToolsPath)\' == \'\'\">$(MSBuildExte" +
+                    "nsionsPath32)\\Microsoft\\VisualStudio\\v$(VisualStudioVersion)</VSToolsPath>\r\n  </" +
+                    "PropertyGroup>\r\n  <Import Project=\"$(MSBuildBinPath)\\Microsoft.CSharp.targets\" /" +
+                    ">\r\n  <Import Project=\"$(VSToolsPath)\\WebApplications\\Microsoft.WebApplication.ta" +
+                    "rgets\" Condition=\"\'$(VSToolsPath)\' != \'\'\" />\r\n  <Import Project=\"$(MSBuildExtens" +
+                    "ionsPath32)\\Microsoft\\VisualStudio\\v10.0\\WebApplications\\Microsoft.WebApplicatio" +
+                    "n.targets\" Condition=\"false\" />\r\n  <!-- To modify your build process, add your t" +
+                    "ask inside one of the targets below and uncomment it. \r\n       Other similar ext" +
+                    "ension points exist, see Microsoft.Common.targets.\r\n  <Target Name=\"BeforeBuild\"" +
+                    ">\r\n  </Target> -->\r\n  <Target Name=\"AfterBuild\" DependsOnTargets=\"AfterBuildComp" +
+                    "iler\">\r\n    <PropertyGroup>\r\n      <AreasManifestDir>$(ProjectDir)\\..\\Manifests<" +
+                    "/AreasManifestDir>\r\n    </PropertyGroup>\r\n    <!-- If this is an area child proj" +
+                    "ect, uncomment the following line:\r\n    <CreateAreaManifest AreaName=\"$(Assembly" +
+                    "Name)\" AreaType=\"Child\" AreaPath=\"$(ProjectDir)\" ManifestPath=\"$(AreasManifestDi" +
+                    "r)\" ContentFiles=\"@(Content)\" />\r\n    -->\r\n    <!-- If this is an area parent pr" +
+                    "oject, uncomment the following lines:\r\n    <CreateAreaManifest AreaName=\"$(Assem" +
+                    "blyName)\" AreaType=\"Parent\" AreaPath=\"$(ProjectDir)\" ManifestPath=\"$(AreasManife" +
+                    "stDir)\" ContentFiles=\"@(Content)\" />\r\n    <CopyAreaManifests ManifestPath=\"$(Are" +
+                    "asManifestDir)\" CrossCopy=\"false\" RenameViews=\"true\" />\r\n    -->\r\n  </Target>\r\n " +
+                    " <Target Name=\"AfterBuildCompiler\" Condition=\"\'$(MvcBuildViews)\'==\'true\'\">\r\n    " +
+                    "<AspNetCompiler VirtualPath=\"temp\" PhysicalPath=\"$(ProjectDir)\\..\\$(ProjectName)" +
+                    "\" />\r\n  </Target>\r\n  <ProjectExtensions>\r\n    <VisualStudio>\r\n      <FlavorPrope" +
+                    "rties GUID=\"{349c5851-65df-11da-9384-00065b846f21}\">\r\n        <WebProjectPropert" +
+                    "ies>\r\n          <UseIIS>False</UseIIS>\r\n          <AutoAssignPort>True</AutoAssi" +
+                    "gnPort>\r\n          <DevelopmentServerPort>45979</DevelopmentServerPort>\r\n       " +
+                    "   <DevelopmentServerVPath>/</DevelopmentServerVPath>\r\n          <IISUrl>\r\n     " +
+                    "     </IISUrl>\r\n          <NTLMAuthentication>False</NTLMAuthentication>\r\n      " +
+                    "    <UseCustomServer>True</UseCustomServer>\r\n          <CustomServerUrl>http://c" +
+                    "oevery.codeplex.com</CustomServerUrl>\r\n          <SaveServerSettingsInUserFile>F" +
+                    "alse</SaveServerSettingsInUserFile>\r\n        </WebProjectProperties>\r\n      </Fl" +
+                    "avorProperties>\r\n    </VisualStudio>\r\n  </ProjectExtensions>\r\n</Project>");
             return this.GenerationEnvironment.ToString();
         }
-        
-        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleCsProj.tt"
-
-private global::System.Guid _ModuleProjectGuidField;
-
-/// <summary>
-/// Access the ModuleProjectGuid parameter of the template.
-/// </summary>
-private global::System.Guid ModuleProjectGuid
-{
-    get
-    {
-        return this._ModuleProjectGuidField;
-    }
-}
-
-private string _ModuleNameField;
-
-/// <summary>
-/// Access the ModuleName parameter of the template.
-/// </summary>
-private string ModuleName
-{
-    get
-    {
-        return this._ModuleNameField;
-    }
-}
-
-private string _FileIncludesField;
-
-/// <summary>
-/// Access the FileIncludes parameter of the template.
-/// </summary>
-private string FileIncludes
-{
-    get
-    {
-        return this._FileIncludesField;
-    }
-}
-
-private string _CoeveryReferencesField;
-
-/// <summary>
-/// Access the CoeveryReferences parameter of the template.
-/// </summary>
-private string CoeveryReferences
-{
-    get
-    {
-        return this._CoeveryReferencesField;
-    }
-}
-
-
-/// <summary>
-/// Initialize the template
-/// </summary>
-public virtual void Initialize()
-{
-    if ((this.Errors.HasErrors == false))
-    {
-bool ModuleProjectGuidValueAcquired = false;
-if (this.Session.ContainsKey("ModuleProjectGuid"))
-{
-    if ((typeof(global::System.Guid).IsAssignableFrom(this.Session["ModuleProjectGuid"].GetType()) == false))
-    {
-        this.Error("The type \'System.Guid\' of the parameter \'ModuleProjectGuid\' did not match the typ" +
-                "e of the data passed to the template.");
-    }
-    else
-    {
-        this._ModuleProjectGuidField = ((global::System.Guid)(this.Session["ModuleProjectGuid"]));
-        ModuleProjectGuidValueAcquired = true;
-    }
-}
-if ((ModuleProjectGuidValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModuleProjectGuid");
-    if ((data != null))
-    {
-        if ((typeof(global::System.Guid).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Guid\' of the parameter \'ModuleProjectGuid\' did not match the typ" +
-                    "e of the data passed to the template.");
-        }
-        else
-        {
-            this._ModuleProjectGuidField = ((global::System.Guid)(data));
-        }
-    }
-}
-bool ModuleNameValueAcquired = false;
-if (this.Session.ContainsKey("ModuleName"))
-{
-    if ((typeof(string).IsAssignableFrom(this.Session["ModuleName"].GetType()) == false))
-    {
-        this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
-                "the data passed to the template.");
-    }
-    else
-    {
-        this._ModuleNameField = ((string)(this.Session["ModuleName"]));
-        ModuleNameValueAcquired = true;
-    }
-}
-if ((ModuleNameValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModuleName");
-    if ((data != null))
-    {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
-                    "the data passed to the template.");
-        }
-        else
-        {
-            this._ModuleNameField = ((string)(data));
-        }
-    }
-}
-bool FileIncludesValueAcquired = false;
-if (this.Session.ContainsKey("FileIncludes"))
-{
-    if ((typeof(string).IsAssignableFrom(this.Session["FileIncludes"].GetType()) == false))
-    {
-        this.Error("The type \'System.String\' of the parameter \'FileIncludes\' did not match the type o" +
-                "f the data passed to the template.");
-    }
-    else
-    {
-        this._FileIncludesField = ((string)(this.Session["FileIncludes"]));
-        FileIncludesValueAcquired = true;
-    }
-}
-if ((FileIncludesValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("FileIncludes");
-    if ((data != null))
-    {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.String\' of the parameter \'FileIncludes\' did not match the type o" +
-                    "f the data passed to the template.");
-        }
-        else
-        {
-            this._FileIncludesField = ((string)(data));
-        }
-    }
-}
-bool CoeveryReferencesValueAcquired = false;
-if (this.Session.ContainsKey("CoeveryReferences"))
-{
-    if ((typeof(string).IsAssignableFrom(this.Session["CoeveryReferences"].GetType()) == false))
-    {
-        this.Error("The type \'System.String\' of the parameter \'CoeveryReferences\' did not match the t" +
-                "ype of the data passed to the template.");
-    }
-    else
-    {
-        this._CoeveryReferencesField = ((string)(this.Session["CoeveryReferences"]));
-        CoeveryReferencesValueAcquired = true;
-    }
-}
-if ((CoeveryReferencesValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("CoeveryReferences");
-    if ((data != null))
-    {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.String\' of the parameter \'CoeveryReferences\' did not match the t" +
-                    "ype of the data passed to the template.");
-        }
-        else
-        {
-            this._CoeveryReferencesField = ((string)(data));
-        }
-    }
-}
-
-
-    }
-}
-
-
-        
-        #line default
-        #line hidden
     }
     
     #line default
