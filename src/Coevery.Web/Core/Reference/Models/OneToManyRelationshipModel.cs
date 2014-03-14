@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using Coevery.Core.Reference.Records;
 
 namespace Coevery.Core.Reference.Models {
     public class OneToManyRelationshipModel : RelationshipModel {

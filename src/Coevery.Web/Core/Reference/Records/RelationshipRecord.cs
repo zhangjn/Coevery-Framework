@@ -1,6 +1,6 @@
 ﻿using Coevery.Core.Entities.Models;
 
-namespace Coevery.DeveloperTools.Relationship.Records {
+namespace Coevery.Core.Reference.Records {
     public enum RelationshipType {
         OneToMany = 0,
         ManyToMany = 1

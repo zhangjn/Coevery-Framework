@@ -846,6 +846,7 @@
     <Content Include="Projections\Styles\images\menu.projection.png" />
     <Content Include="Projections\Styles\images\menu.queries.png" />
     <Content Include="Projections\Styles\menu.projector-admin.css" />
+    <Content Include="Reference\Module.txt" />
     <Content Include="Settings\Module.txt" />
     <Content Include="Settings\Placement.info" />
   </ItemGroup>

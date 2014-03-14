@@ -12,7 +12,7 @@ using Coevery.Core.Projections.Descriptors.Property;
 using Coevery.Core.Projections.FieldTypeEditors;
 using Coevery.Core.Projections.PropertyEditors;
 using Coevery.Core.Projections.Services;
-using Coevery.DeveloperTools.Relationship.Settings;
+using Coevery.Core.Reference.Settings;
 using Coevery.Localization;
 using Coevery.Logging;
 using Coevery.Utility.Extensions;

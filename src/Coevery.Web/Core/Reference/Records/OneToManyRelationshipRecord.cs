@@ -1,7 +1,7 @@
 ﻿using Coevery.Core.Entities.Models;
 using Coevery.Core.Projections.Models;
 
-namespace Coevery.DeveloperTools.Relationship.Records {
+namespace Coevery.Core.Reference.Records {
     public enum OneToManyDeleteOption {
         NoAction = 0,
         NotAllowed = 1,

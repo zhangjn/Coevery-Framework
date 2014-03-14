@@ -4,7 +4,7 @@ using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.Core.Common.Extensions;
 using Coevery.Core.Entities.Services;
-using Coevery.DeveloperTools.Relationship.Records;
+using Coevery.Core.Reference.Records;
 using Coevery.DeveloperTools.Relationship.Services;
 using Coevery.DeveloperTools.Relationship.ViewModels;
 

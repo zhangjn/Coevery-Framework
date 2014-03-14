@@ -6,11 +6,9 @@ using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
 using Coevery.Core.Projections.Services;
+using Coevery.Core.Reference.Fields;
 using Coevery.Core.Reference.Models;
 using Coevery.Core.Reference.Settings;
-using Coevery.DeveloperTools.Relationship.Fields;
-using Coevery.DeveloperTools.Relationship.Models;
-using Coevery.DeveloperTools.Relationship.Settings;
 using Coevery.Localization;
 
 namespace Coevery.DeveloperTools.Relationship.Drivers {

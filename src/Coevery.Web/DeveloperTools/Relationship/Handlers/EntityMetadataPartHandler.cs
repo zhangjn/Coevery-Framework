@@ -1,8 +1,8 @@
 ﻿using System.Linq;
 using Coevery.ContentManagement.Handlers;
 using Coevery.Core.Entities.Models;
+using Coevery.Core.Reference.Records;
 using Coevery.Data;
-using Coevery.DeveloperTools.Relationship.Records;
 
 namespace Coevery.DeveloperTools.Relationship.Handlers {
     public class EntityMetadataPartHandler : ContentHandler {

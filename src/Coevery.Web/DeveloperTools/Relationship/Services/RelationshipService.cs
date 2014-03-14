@@ -5,15 +5,13 @@ using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.Core.Common.Extensions;
 using Coevery.Core.Projections.Models;
+using Coevery.Core.Reference.Models;
 using Coevery.Core.Reference.Records;
 using Coevery.Core.Reference.Settings;
 using Coevery.Data;
 using Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.EntityManagement.ViewModels;
-using Coevery.DeveloperTools.Relationship.Models;
-using Coevery.DeveloperTools.Relationship.Records;
-using Coevery.DeveloperTools.Relationship.Settings;
 using Coevery.Utility.Extensions;
 
 namespace Coevery.DeveloperTools.Relationship.Services {

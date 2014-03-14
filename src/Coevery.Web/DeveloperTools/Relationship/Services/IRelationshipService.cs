@@ -1,7 +1,6 @@
 ﻿using System.Web.Mvc;
 using Coevery.Core.Reference.Models;
 using Coevery.Core.Reference.Records;
-using Coevery.DeveloperTools.Relationship.Models;
 
 namespace Coevery.DeveloperTools.Relationship.Services {
     public interface IRelationshipService : IDependency {
