@@ -1,11 +1,10 @@
 ﻿using System.Linq;
 using Coevery.ContentManagement;
-using Coevery.Core.Fields.Providers;
 using Coevery.Core.OptionSet.Fields;
 using Coevery.Core.OptionSet.Services;
+using Coevery.Core.Projections.Providers.Properties;
 
 namespace Coevery.Core.OptionSet.Projections {
-
     public class OptionSetFieldValueProvider : ContentFieldValueProvider<OptionSetField> {
         private readonly IOptionSetService _optionSetService;
 

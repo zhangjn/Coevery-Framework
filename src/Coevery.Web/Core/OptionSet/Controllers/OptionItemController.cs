@@ -13,6 +13,7 @@ using Coevery.Localization;
 namespace Coevery.Core.OptionSet.Controllers {
     public class OptionItemController : ApiController {
         private readonly IOptionSetService _optionSetService;
+
         public OptionItemController(
             IOptionSetService optionSetService,
             ICoeveryServices coeveryServices) {
@@ -20,6 +21,7 @@ namespace Coevery.Core.OptionSet.Controllers {
             Services = coeveryServices;
             T = NullLocalizer.Instance;
         }
+
         public Localizer T { get; set; }
         public ICoeveryServices Services { get; set; }
 
@@ -32,7 +34,7 @@ namespace Coevery.Core.OptionSet.Controllers {
             var query = result.Select(part => part.CreateTermEntry());
             var totalRecords = query.Count();
             return new {
-                total = Convert.ToInt32(Math.Ceiling((double)totalRecords / rows)),
+                total = Convert.ToInt32(Math.Ceiling((double) totalRecords/rows)),
                 page = page,
                 records = totalRecords,
                 rows = query
@@ -48,7 +50,7 @@ namespace Coevery.Core.OptionSet.Controllers {
             itemPart.Weight = optionItem.Weight;
             return _optionSetService.CreateTerm(itemPart)
                 ? Request.CreateResponse(HttpStatusCode.OK)
-               : Request.CreateResponse(HttpStatusCode.Conflict, T("The term {0} already exists in this optionset", itemPart.Name));
+                : Request.CreateResponse(HttpStatusCode.Conflict, T("The term {0} already exists in this optionset", itemPart.Name));
         }
 
         // PUT api/<controller>/...

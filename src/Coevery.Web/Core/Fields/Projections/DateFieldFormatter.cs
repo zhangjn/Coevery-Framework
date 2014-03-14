@@ -2,13 +2,13 @@
 using Coevery.Core.Fields.Fields;
 using Coevery.Core.Projections.PropertyEditors;
 
-namespace Coevery.Core.Fields.Providers {
-    public class DatetimeFieldFormatter : IContentFieldFormatter {
+namespace Coevery.Core.Fields.Projections {
+    public class DateFieldFormatter : IContentFieldFormatter {
         public void SetFormat(ContentField field, dynamic formState) {
-            var datetimeField = field as DatetimeField;
-            if (datetimeField != null) {
+            var dateField = field as DateField;
+            if (dateField != null) {
                 if (formState.Format == null) {
-                    formState.Format = "g";
+                    formState.Format = "d";
                 }
             }
         }

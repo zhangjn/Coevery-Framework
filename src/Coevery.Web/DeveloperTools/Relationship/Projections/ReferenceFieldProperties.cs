@@ -7,7 +7,6 @@ using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.Core.Common.Extensions;
-using Coevery.Core.Fields.Providers;
 using Coevery.Core.Projections.Descriptors.Property;
 using Coevery.Core.Projections.FieldTypeEditors;
 using Coevery.Core.Projections.PropertyEditors;

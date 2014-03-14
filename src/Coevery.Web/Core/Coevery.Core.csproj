@@ -132,14 +132,37 @@
     <Compile Include="Fields\Fields\PhoneField.cs" />
     <Compile Include="Fields\Fields\TextField.cs" />
     <Compile Include="Fields\Fields\UrlField.cs" />
-    <Compile Include="Fields\Providers\ContentFieldValueProvider.cs" />
-    <Compile Include="Fields\Providers\CurrencyFieldFormatter.cs" />
-    <Compile Include="Fields\Providers\DateFieldFormatter.cs" />
-    <Compile Include="Fields\Providers\DatetimeFieldFormatter.cs" />
-    <Compile Include="Fields\Providers\DatetimeTypeValueProvider.cs" />
+    <Compile Include="Fields\Projections\CurrencyFieldFormatter.cs" />
+    <Compile Include="Fields\Projections\DateFieldFormatter.cs" />
+    <Compile Include="Fields\Projections\DatetimeFieldFormatter.cs" />
+    <Compile Include="Fields\Projections\DatetimeTypeValueProvider.cs" />
+    <Compile Include="Forms\Services\DefaultFormManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Services\FormParametersHelper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Services\FormProcessor.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Services\IFormEvents.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Services\IFormManager.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Services\IFormProvider.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Shapes\EditorShapes.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Forms\Shapes\PropertyItemsBehavior.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Projections\PropertyEditors\IContentFieldFormatter.cs" />
     <Compile Include="Projections\Providers\Properties\IContentFieldValueProvider.cs" />
-    <Compile Include="Fields\Providers\NumericFieldFormatter.cs" />
+    <Compile Include="Fields\Projections\NumericFieldFormatter.cs" />
     <Compile Include="Fields\ResourceManifest.cs" />
     <Compile Include="Fields\Settings\BooleanFieldDisplaySettings.cs" />
     <Compile Include="Fields\Settings\BooleanFieldEditorEvents.cs" />
@@ -166,14 +189,6 @@
     <Compile Include="Fields\Settings\TextFieldSettings.cs" />
     <Compile Include="Fields\Settings\UrlFieldEditorEvents.cs" />
     <Compile Include="Fields\Settings\UrlFieldSettings.cs" />
-    <Compile Include="Forms\Services\DefaultFormManager.cs" />
-    <Compile Include="Forms\Services\FormParametersHelper.cs" />
-    <Compile Include="Forms\Services\FormProcessor.cs" />
-    <Compile Include="Forms\Services\IFormEvents.cs" />
-    <Compile Include="Forms\Services\IFormManager.cs" />
-    <Compile Include="Forms\Services\IFormProvider.cs" />
-    <Compile Include="Forms\Shapes\EditorShapes.cs" />
-    <Compile Include="Forms\Shapes\PropertyItemsBehavior.cs" />
     <Compile Include="OptionSet\Controllers\OptionItemController.cs" />
     <Compile Include="OptionSet\Drivers\OptionItemContainerPart.cs" />
     <Compile Include="OptionSet\Drivers\OptionItemPartDriver.cs" />

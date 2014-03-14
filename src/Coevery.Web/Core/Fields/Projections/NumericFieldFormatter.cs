@@ -3,7 +3,7 @@ using Coevery.Core.Fields.Fields;
 using Coevery.Core.Fields.Settings;
 using Coevery.Core.Projections.PropertyEditors;
 
-namespace Coevery.Core.Fields.Providers {
+namespace Coevery.Core.Fields.Projections {
     public class NumericFieldFormatter : IContentFieldFormatter {
 
         public void SetFormat(ContentField field, dynamic formState) {

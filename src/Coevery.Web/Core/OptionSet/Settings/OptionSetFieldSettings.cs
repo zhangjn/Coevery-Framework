@@ -1,7 +1,6 @@
 ﻿using Coevery.Core.Fields.Settings;
 
 namespace Coevery.Core.OptionSet.Settings {
-
     public enum ListMode {
         Dropdown,
         Radiobutton,
@@ -9,8 +8,7 @@ namespace Coevery.Core.OptionSet.Settings {
         Checkbox
     }
 
-    public class OptionSetFieldSettings: FieldSettings {
-
+    public class OptionSetFieldSettings : FieldSettings {
         /// <summary>
         /// The Option Set Id to which this field is related to
         /// </summary>

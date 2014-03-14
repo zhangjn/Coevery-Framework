@@ -3,7 +3,7 @@ using Coevery.Core.Fields.Fields;
 using Coevery.Core.Fields.Settings;
 using Coevery.Core.Projections.PropertyEditors;
 
-namespace Coevery.Core.Fields.Providers {
+namespace Coevery.Core.Fields.Projections {
     public class CurrencyFieldFormatter : IContentFieldFormatter {
         public void SetFormat(ContentField field, dynamic formState) {
             var currencyField = field as CurrencyField;
