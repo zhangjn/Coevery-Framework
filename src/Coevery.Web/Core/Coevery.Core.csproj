@@ -92,10 +92,8 @@
   <ItemGroup>
     <Compile Include="Common\ClientRouteShape.cs" />
     <Compile Include="Common\Controllers\HomeController.cs" />
-    <Compile Include="Common\Extensions\CoeveryContentExtension.cs" />
+    <Compile Include="Common\Extensions\IContentDefinitionExtension.cs" />
     <Compile Include="Common\Extensions\CoeveryStringExtension.cs" />
-    <Compile Include="Common\Extensions\ContentDefinitionServiceExtension.cs" />
-    <Compile Include="Common\Extensions\MetaDataExtensions.cs" />
     <Compile Include="Common\Permissions.cs" />
     <Compile Include="Common\Routes.cs" />
     <Compile Include="Common\Services\AutoLoadResourceFilter.cs" />
@@ -112,7 +110,7 @@
     <Compile Include="Entities\Models\EntityMetadataPart.cs" />
     <Compile Include="Entities\Models\EntityMetadataRecord.cs" />
     <Compile Include="Entities\Models\FieldMetadataRecord.cs" />
-    <Compile Include="Entities\Services\SettingService.cs" />
+    <Compile Include="Common\Services\SettingService.cs" />
     <Compile Include="Fields\Drivers\BooleanFieldDriver.cs" />
     <Compile Include="Fields\Drivers\CurrencyFieldDriver.cs" />
     <Compile Include="Fields\Drivers\DateFieldDriver.cs" />
@@ -135,13 +133,13 @@
     <Compile Include="Fields\Fields\TextField.cs" />
     <Compile Include="Fields\Fields\UrlField.cs" />
     <Compile Include="Fields\Providers\ContentFieldValueProvider.cs" />
-    <Compile Include="Fields\Providers\CurrencyFieldFormatProvider.cs" />
-    <Compile Include="Fields\Providers\DateFieldFormatProvider.cs" />
-    <Compile Include="Fields\Providers\DatetimeFieldFormatProvider.cs" />
+    <Compile Include="Fields\Providers\CurrencyFieldFormatter.cs" />
+    <Compile Include="Fields\Providers\DateFieldFormatter.cs" />
+    <Compile Include="Fields\Providers\DatetimeFieldFormatter.cs" />
     <Compile Include="Fields\Providers\DatetimeTypeValueProvider.cs" />
-    <Compile Include="Fields\Providers\IContentFieldFormatProvider.cs" />
-    <Compile Include="Fields\Providers\IContentFieldValueProvider.cs" />
-    <Compile Include="Fields\Providers\NumericFieldFormatProvider.cs" />
+    <Compile Include="Projections\PropertyEditors\IContentFieldFormatter.cs" />
+    <Compile Include="Projections\Providers\Properties\IContentFieldValueProvider.cs" />
+    <Compile Include="Fields\Providers\NumericFieldFormatter.cs" />
     <Compile Include="Fields\ResourceManifest.cs" />
     <Compile Include="Fields\Settings\BooleanFieldDisplaySettings.cs" />
     <Compile Include="Fields\Settings\BooleanFieldEditorEvents.cs" />

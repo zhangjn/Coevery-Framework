@@ -450,13 +450,11 @@ namespace Coevery.DeveloperTools.Relationship.Services {
             _contentDefinitionManager.AlterPartDefinition(
                 primaryName.ToPartName(),
                 builder => builder
-                    .Attachable()
                     .WithSetting("DisplayName", manyToMany.RelatedListLabel));
 
             _contentDefinitionManager.AlterPartDefinition(
                 relatedName.ToPartName(),
                 builder => builder
-                    .Attachable()
                     .WithSetting("DisplayName", manyToMany.PrimaryListLabel));
 
             _contentDefinitionManager.AlterTypeDefinition(manyToMany.PrimaryEntity, typeBuilder => typeBuilder.WithPart(primaryName.ToPartName()));

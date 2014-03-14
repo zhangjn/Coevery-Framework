@@ -23,11 +23,11 @@ namespace Coevery.Core.Common.Services {
         private readonly ShellSettings _shellSettings;
 
         public NavigationManager(
-            IEnumerable<INavigationProvider> navigationProviders, 
+            IEnumerable<INavigationProvider> navigationProviders,
             IEnumerable<IMenuProvider> menuProviders,
             IAuthorizationService authorizationService,
             IEnumerable<INavigationFilter> navigationFilters,
-            UrlHelper urlHelper, 
+            UrlHelper urlHelper,
             ICoeveryServices coeveryServices,
             ShellSettings shellSettings) {
             _navigationProviders = navigationProviders;
@@ -75,7 +75,7 @@ namespace Coevery.Core.Common.Services {
 
         private IEnumerable<MenuItem> Filter(IEnumerable<MenuItem> menuItems) {
             IEnumerable<MenuItem> result = menuItems;
-            foreach(var filter in _navigationFilters) {
+            foreach (var filter in _navigationFilters) {
                 result = filter.Filter(result);
             }
 
@@ -84,24 +84,24 @@ namespace Coevery.Core.Common.Services {
 
         public string GetUrl(string menuItemUrl, RouteValueDictionary routeValueDictionary) {
             var url = string.IsNullOrEmpty(menuItemUrl) && (routeValueDictionary == null || routeValueDictionary.Count == 0)
-                          ? "~/"
-                          : !string.IsNullOrEmpty(menuItemUrl)
-                                ? menuItemUrl
-                                : _urlHelper.RouteUrl(routeValueDictionary);
+                ? "~/"
+                : !string.IsNullOrEmpty(menuItemUrl)
+                    ? menuItemUrl
+                    : _urlHelper.RouteUrl(routeValueDictionary);
 
-            var schemes = new[] { "http", "https", "tel", "mailto" };
+            var schemes = new[] {"http", "https", "tel", "mailto"};
             if (!string.IsNullOrEmpty(url) && _urlHelper.RequestContext.HttpContext != null &&
                 !(url.StartsWith("/") || schemes.Any(scheme => url.StartsWith(scheme + ":")))) {
                 if (url.StartsWith("~/")) {
-
                     if (!String.IsNullOrEmpty(_shellSettings.RequestUrlPrefix)) {
                         url = _shellSettings.RequestUrlPrefix + "/" + url.Substring(2);
                     }
                 }
                 if (!url.StartsWith("#")) {
                     var appPath = _urlHelper.RequestContext.HttpContext.Request.ApplicationPath;
-                    if (appPath == "/")
+                    if (appPath == "/") {
                         appPath = "";
+                    }
                     url = string.Format("{0}/{1}", appPath, url);
                 }
             }
@@ -112,17 +112,16 @@ namespace Coevery.Core.Common.Services {
         /// Updates the items by checking for permissions
         /// </summary>
         private IEnumerable<MenuItem> Reduce(IEnumerable<MenuItem> items, bool isAdminMenu, bool hasDebugShowAllMenuItems) {
-            foreach (var item in items.Where(item => 
+            foreach (var item in items.Where(item =>
                 // debug flag is on
                 hasDebugShowAllMenuItems ||
                 // or item does not have any permissions set
                 !item.Permissions.Any() ||
                 // or user has permission (either based on the linked item or global, if there's no linked item)
                 item.Permissions.Any(x => _authorizationService.TryCheckAccess(
-                    x, 
-                    _coeveryServices.WorkContext.CurrentUser, 
-                    item.Content == null || isAdminMenu ? null : item.Content))))
-            {
+                    x,
+                    _coeveryServices.WorkContext.CurrentUser,
+                    item.Content == null || isAdminMenu ? null : item.Content)))) {
                 item.Items = Reduce(item.Items, isAdminMenu, hasDebugShowAllMenuItems);
                 yield return item;
             }
@@ -202,7 +201,6 @@ namespace Coevery.Core.Common.Services {
         /// Organizes a list of <see cref="MenuItem"/> into a hierarchy based on their positions
         /// </summary>
         private static IEnumerable<MenuItem> Arrange(IEnumerable<MenuItem> items) {
-            
             var result = new List<MenuItem>();
             var index = new Dictionary<string, MenuItem>();
 
@@ -218,7 +216,7 @@ namespace Coevery.Core.Common.Services {
                 }
 
                 if (index.TryGetValue(parentPosition, out parent)) {
-                    parent.Items = parent.Items.Concat(new [] { item });
+                    parent.Items = parent.Items.Concat(new[] {item});
                 }
                 else {
                     result.Add(item);
@@ -226,18 +224,19 @@ namespace Coevery.Core.Common.Services {
 
                 if (!index.ContainsKey(position)) {
                     // prevent invalid positions
-                    index.Add(position, item);    
+                    index.Add(position, item);
                 }
             }
 
             return result;
         }
 
-        static MenuItem Join(IEnumerable<MenuItem> items) {
+        private static MenuItem Join(IEnumerable<MenuItem> items) {
             var list = items.ToArray();
 
-            if (list.Count() < 2)
+            if (list.Count() < 2) {
                 return list.Single();
+            }
 
             var joined = new MenuItem {
                 Text = list.First().Text,
@@ -261,12 +260,12 @@ namespace Coevery.Core.Common.Services {
         private static string SelectBestPositionValue(IEnumerable<string> positions) {
             var comparer = new FlatPositionComparer();
             return positions.Aggregate(string.Empty,
-                                       (agg, pos) =>
-                                       string.IsNullOrEmpty(agg)
-                                           ? pos
-                                           : string.IsNullOrEmpty(pos)
-                                                 ? agg
-                                                 : comparer.Compare(agg, pos) < 0 ? agg : pos);
+                (agg, pos) =>
+                    string.IsNullOrEmpty(agg)
+                        ? pos
+                        : string.IsNullOrEmpty(pos)
+                            ? agg
+                            : comparer.Compare(agg, pos) < 0 ? agg : pos);
         }
     }
 }

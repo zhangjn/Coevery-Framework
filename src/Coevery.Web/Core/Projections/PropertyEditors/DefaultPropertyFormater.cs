@@ -10,13 +10,13 @@ using Coevery.Logging;
 namespace Coevery.Core.Projections.PropertyEditors {
     public class DefaultPropertyFormater : IPropertyFormater {
         private readonly IShapeFactory _shapeFactory;
-        private readonly IEnumerable<IContentFieldFormatProvider> _contentFieldFormatProviders;
+        private readonly IEnumerable<IContentFieldFormatter> _contentFieldFormatProviders;
         private readonly IEnumerable<IPropertyEditor> _propertyEditors;
 
         public DefaultPropertyFormater(
             IShapeFactory shapeFactory,
             IEnumerable<IPropertyEditor> propertyEditors, 
-            IEnumerable<IContentFieldFormatProvider> contentFieldFormatProviders) {
+            IEnumerable<IContentFieldFormatter> contentFieldFormatProviders) {
             _shapeFactory = shapeFactory;
             _propertyEditors = propertyEditors;
             _contentFieldFormatProviders = contentFieldFormatProviders;

@@ -1,4 +1,5 @@
 ﻿using Coevery.ContentManagement;
+using Coevery.Core.Projections.Providers.Properties;
 
 namespace Coevery.Core.Fields.Providers {
     public abstract class ContentFieldValueProvider<TContentField> : IContentFieldValueProvider where TContentField : ContentField, new() {

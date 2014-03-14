@@ -7,6 +7,20 @@ using Coevery.Core.Entities.Models;
 using Coevery.Data;
 
 namespace Coevery.Core.Common.Extensions {
+    public class EntityNames {
+        public string DisplayName { get; set; }
+        public string Name { get; set; }
+        public string CollectionName { get; set; }
+        public string CollectionDisplayName { get; set; }
+    }
+
+    public interface IContentDefinitionExtension : IDependency {
+        IEnumerable<ContentTypeDefinition> ListUserDefinedTypeDefinitions();
+        IEnumerable<ContentPartDefinition> ListUserDefinedPartDefinitions();
+        EntityNames GetEntityNames(string entityName);
+        string GetEntityNameFromCollectionName(string collectionname, bool isDisplayName = false);
+    }
+
     public class ContentDefinitionExtension : IContentDefinitionExtension {
         private const string ContentDefinitionSignal = "ContentDefinitionManager";
         private readonly IContentDefinitionManager _contentDefinitionManager;

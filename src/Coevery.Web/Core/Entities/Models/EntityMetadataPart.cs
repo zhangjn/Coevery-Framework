@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.MetaData.Services;
-using Coevery.Core.Entities.Services;
+using Coevery.Core.Common.Services;
 
 namespace Coevery.Core.Entities.Models {
     public class EntityMetadataPart : ContentPart<EntityMetadataRecord> {
