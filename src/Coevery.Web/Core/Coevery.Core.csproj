@@ -385,6 +385,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Commands\FeatureCommands.cs" />
     <Compile Include="Relationships\Drivers\ReferenceFieldDriver.cs" />
+    <Compile Include="Relationships\DynamicTypeGeneration\ContentLinkRecord.cs" />
+    <Compile Include="Relationships\DynamicTypeGeneration\DynamicRelationshipPartDriver.cs" />
+    <Compile Include="Relationships\DynamicTypeGeneration\DynamicRelationshipService.cs" />
+    <Compile Include="Relationships\DynamicTypeGeneration\RelationshipInfoAttribute.cs" />
     <Compile Include="Relationships\Fields\ReferenceField.cs" />
     <Compile Include="Relationships\Handlers\ReferenceHandler.cs" />
     <Compile Include="Relationships\Models\ManyToManyRelationshipModel.cs" />

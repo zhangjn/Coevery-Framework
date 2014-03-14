@@ -3,7 +3,7 @@ using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.Data;
 
-namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
+namespace Coevery.Core.Relationships.DynamicTypeGeneration {
     public interface IDynamicRelationshipService : IDependency {
         void UpdateForContentItem<TContentLinkRecord>(ContentItem item, string[] links, bool isPrimary, IRepository<TContentLinkRecord> repository) where TContentLinkRecord : ContentLinkRecord, new();
         IEnumerable<IContent> GetLinks(string entityName);

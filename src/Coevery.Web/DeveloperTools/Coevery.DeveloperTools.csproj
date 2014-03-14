@@ -152,14 +152,10 @@
     <Compile Include="EntityManagement\Controllers\EntityController.cs" />
     <Compile Include="EntityManagement\Controllers\FieldController.cs" />
     <Compile Include="EntityManagement\Controllers\HomeController.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\ContentLinkRecord.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicRelationshipPartDriver.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicRelationshipService.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicDefinition.cs" />
     <Compile Include="EntityManagement\DynamicTypeGeneration\IDynamicAssemblyBuilder.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\RelationshipInfoAttribute.cs" />
+    <Compile Include="RelationshipManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="EntityManagement\Events\IDynamicTypeGenerationEvents.cs" />
     <Compile Include="EntityManagement\Handlers\EntityMetadataPartHandler.cs" />
     <Compile Include="EntityManagement\Permissions.cs" />
