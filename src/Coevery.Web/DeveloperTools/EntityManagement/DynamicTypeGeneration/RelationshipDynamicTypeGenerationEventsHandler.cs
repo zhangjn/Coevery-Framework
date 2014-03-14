@@ -6,11 +6,10 @@ using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.Records;
 using Coevery.Data;
-using Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration;
 using Coevery.DeveloperTools.EntityManagement.Events;
 using Coevery.DeveloperTools.Relationship.Records;
 
-namespace Coevery.DeveloperTools.Relationship.Handlers {
+namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
     public class RelationshipDynamicTypeGenerationEventsHandler : IDynamicTypeGenerationEvents {
         private readonly IRepository<ManyToManyRelationshipRecord> _manyToManyRepository;
 

@@ -5,7 +5,7 @@ using Coevery.Core.Common.Extensions;
 using Coevery.Core.Forms.Services;
 using Coevery.Core.Projections.Services;
 using Coevery.Core.Projections.ViewModels;
-using Coevery.DeveloperTools.Entities.Services;
+using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.Localization;
 using Coevery.Mvc;
 using Coevery.Security;

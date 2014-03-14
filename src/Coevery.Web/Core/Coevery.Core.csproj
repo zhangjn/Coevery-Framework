@@ -331,7 +331,6 @@
     <Compile Include="Projections\Providers\SortCriteria\RandomSortCriterion.cs" />
     <Compile Include="Projections\Providers\SortCriteria\SortOrderFormProvider.cs" />
     <Compile Include="Projections\Services\AutoLoadResourceProvider.cs" />
-    <Compile Include="Projections\Services\ClientRouteProvider.cs" />
     <Compile Include="Projections\Services\CompareContentService.cs" />
     <Compile Include="Projections\Services\CustomMemberBindingProvider.cs" />
     <Compile Include="Projections\Services\FieldIndexService.cs" />
@@ -832,12 +831,6 @@
     <Content Include="Forms\Module.txt" />
     <Content Include="OptionSet\Module.txt" />
     <Content Include="Projections\Module.txt" />
-    <Content Include="Projections\Scripts\admin-projections.js" />
-    <Content Include="Projections\Scripts\controllers\detailcontroller.js" />
-    <Content Include="Projections\Scripts\controllers\listcontroller.js" />
-    <Content Include="Projections\Scripts\datetime-editor-filter.js" />
-    <Content Include="Projections\Scripts\numeric-editor-filter.js" />
-    <Content Include="Projections\Scripts\services\projectiondataservice.js" />
     <Content Include="Projections\Styles\admin-projections.css" />
     <Content Include="Projections\Styles\datetime-editor-filter.css" />
     <Content Include="Projections\Styles\images\menu.projection.png" />
@@ -1117,16 +1110,7 @@
     <Content Include="Projections\Placement.info" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Projections\Scripts\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Projections\Styles\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Projections\Views\Admin\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Projections\Views\Admin\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Projections\Views\DefaultGrid.cshtml" />

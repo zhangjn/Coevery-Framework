@@ -96,17 +96,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Entities\Module.txt" />
-    <Content Include="Entities\Scripts\controllers\choosefieldtypecontroller.js" />
-    <Content Include="Entities\Scripts\controllers\confirmfieldinfocontroller.js" />
-    <Content Include="Entities\Scripts\controllers\detailcontroller.js" />
-    <Content Include="Entities\Scripts\controllers\editcontroller.js" />
-    <Content Include="Entities\Scripts\controllers\editfieldscontroller.js" />
-    <Content Include="Entities\Scripts\controllers\fieldscontroller.js" />
-    <Content Include="Entities\Scripts\controllers\fillfieldinfocontroller.js" />
-    <Content Include="Entities\Scripts\controllers\listcontroller.js" />
-    <Content Include="Entities\Scripts\services\entitydataservice.js" />
-    <Content Include="Entities\Scripts\services\fielddataservice.js" />
+    <Content Include="EntityManagement\Module.txt" />
+    <Content Include="EntityManagement\Scripts\controllers\choosefieldtypecontroller.js" />
+    <Content Include="EntityManagement\Scripts\controllers\confirmfieldinfocontroller.js" />
+    <Content Include="EntityManagement\Scripts\controllers\detailcontroller.js" />
+    <Content Include="EntityManagement\Scripts\controllers\editcontroller.js" />
+    <Content Include="EntityManagement\Scripts\controllers\editfieldscontroller.js" />
+    <Content Include="EntityManagement\Scripts\controllers\fieldscontroller.js" />
+    <Content Include="EntityManagement\Scripts\controllers\fillfieldinfocontroller.js" />
+    <Content Include="EntityManagement\Scripts\controllers\listcontroller.js" />
+    <Content Include="EntityManagement\Scripts\services\entitydataservice.js" />
+    <Content Include="EntityManagement\Scripts\services\fielddataservice.js" />
     <Content Include="FormDesigner\Module.txt" />
     <Content Include="FormDesigner\Placement.info" />
     <Content Include="FormDesigner\Scripts\controllers\formdesignercontroller.js" />
@@ -123,6 +123,10 @@
     <Content Include="FormDesigner\Views\Admin\Index.cshtml" />
     <Content Include="FormDesigner\Views\FormTemplate\FormDesignerLayout.cshtml" />
     <Content Include="FormDesigner\Views\Web.config" />
+    <Content Include="ListViewDesigner\Module.txt" />
+    <Content Include="ListViewDesigner\Scripts\controllers\detailcontroller.js" />
+    <Content Include="ListViewDesigner\Scripts\controllers\listcontroller.js" />
+    <Content Include="ListViewDesigner\Scripts\services\projectiondataservice.js" />
     <Content Include="Relationship\Module.txt" />
     <Content Include="Relationship\Scripts\controllers\editmanytomanycontroller.js" />
     <Content Include="Relationship\Scripts\controllers\editonetomanycontroller.js" />
@@ -144,41 +148,41 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Controllers\AdminController.cs" />
-    <Compile Include="Entities\Controllers\EntityController.cs" />
-    <Compile Include="Entities\Controllers\FieldController.cs" />
-    <Compile Include="Entities\Controllers\HomeController.cs" />
-    <Compile Include="Entities\DynamicTypeGeneration\ContentLinkRecord.cs" />
-    <Compile Include="Entities\DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
-    <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsDriver.cs" />
-    <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsHandler.cs" />
-    <Compile Include="Entities\DynamicTypeGeneration\DynamicFieldDefinition.cs" />
-    <Compile Include="Entities\DynamicTypeGeneration\DynamicRelationshipPartDriver.cs" />
-    <Compile Include="Entities\DynamicTypeGeneration\DynamicRelationshipService.cs" />
-    <Compile Include="Entities\DynamicTypeGeneration\DynamicTypeDefinition.cs" />
-    <Compile Include="Entities\DynamicTypeGeneration\EditRelationshipViewModel.cs" />
-    <Compile Include="Entities\DynamicTypeGeneration\IDynamicAssemblyBuilder.cs" />
-    <Compile Include="Entities\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
-    <Compile Include="Entities\DynamicTypeGeneration\RelationshipInfoAttribute.cs" />
-    <Compile Include="Entities\Events\IDynamicTypeGenerationEvents.cs" />
-    <Compile Include="Entities\Handlers\EntityMetadataPartHandler.cs" />
-    <Compile Include="Entities\Permissions.cs" />
-    <Compile Include="Entities\Routes.cs" />
-    <Compile Include="Entities\Services\AdminMenu.cs" />
-    <Compile Include="Entities\Services\ClientRouteProvider.cs" />
-    <Compile Include="Entities\Services\ContentDefinitionService.cs" />
-    <Compile Include="Entities\Services\ContentMetadataService.cs" />
-    <Compile Include="Entities\Services\DefaultDataMigrationInterpreter.cs" />
-    <Compile Include="Entities\Services\IContentDefinitionService.cs" />
-    <Compile Include="Entities\Services\SchemaUpdateService.cs" />
-    <Compile Include="Entities\Settings\ContentTypeSettings.cs" />
-    <Compile Include="Entities\ViewModels\AddFieldViewModel.cs" />
-    <Compile Include="Entities\ViewModels\EditFieldViewModel.cs" />
-    <Compile Include="Entities\ViewModels\EditPartFieldViewModel.cs" />
-    <Compile Include="Entities\ViewModels\EditPartViewModel.cs" />
-    <Compile Include="Entities\ViewModels\EditTypePartViewModel.cs" />
-    <Compile Include="Entities\ViewModels\EditTypeViewModel.cs" />
-    <Compile Include="Entities\ViewModels\EntityDetailViewModel.cs" />
+    <Compile Include="EntityManagement\Controllers\AdminController.cs" />
+    <Compile Include="EntityManagement\Controllers\EntityController.cs" />
+    <Compile Include="EntityManagement\Controllers\FieldController.cs" />
+    <Compile Include="EntityManagement\Controllers\HomeController.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\ContentLinkRecord.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicContentsDriver.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicContentsHandler.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicFieldDefinition.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicRelationshipPartDriver.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicRelationshipService.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicTypeDefinition.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\EditRelationshipViewModel.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\IDynamicAssemblyBuilder.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
+    <Compile Include="EntityManagement\DynamicTypeGeneration\RelationshipInfoAttribute.cs" />
+    <Compile Include="EntityManagement\Events\IDynamicTypeGenerationEvents.cs" />
+    <Compile Include="EntityManagement\Handlers\EntityMetadataPartHandler.cs" />
+    <Compile Include="EntityManagement\Permissions.cs" />
+    <Compile Include="EntityManagement\Routes.cs" />
+    <Compile Include="EntityManagement\Services\AdminMenu.cs" />
+    <Compile Include="EntityManagement\Services\ClientRouteProvider.cs" />
+    <Compile Include="EntityManagement\Services\ContentDefinitionService.cs" />
+    <Compile Include="EntityManagement\Services\ContentMetadataService.cs" />
+    <Compile Include="EntityManagement\Services\DefaultDataMigrationInterpreter.cs" />
+    <Compile Include="EntityManagement\Services\IContentDefinitionService.cs" />
+    <Compile Include="EntityManagement\Services\SchemaUpdateService.cs" />
+    <Compile Include="EntityManagement\Settings\ContentTypeSettings.cs" />
+    <Compile Include="EntityManagement\ViewModels\AddFieldViewModel.cs" />
+    <Compile Include="EntityManagement\ViewModels\EditFieldViewModel.cs" />
+    <Compile Include="EntityManagement\ViewModels\EditPartFieldViewModel.cs" />
+    <Compile Include="EntityManagement\ViewModels\EditPartViewModel.cs" />
+    <Compile Include="EntityManagement\ViewModels\EditTypePartViewModel.cs" />
+    <Compile Include="EntityManagement\ViewModels\EditTypeViewModel.cs" />
+    <Compile Include="EntityManagement\ViewModels\EntityDetailViewModel.cs" />
     <Compile Include="FormDesigner\Controllers\AdminController.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -216,6 +220,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ListViewDesigner\Controllers\AdminController.cs" />
+    <Compile Include="ListViewDesigner\Services\ClientRouteProvider.cs" />
     <Compile Include="Relationship\Controllers\RelationshipController.cs" />
     <Compile Include="Relationship\Controllers\AdminController.cs" />
     <Compile Include="Relationship\Drivers\ReferenceFieldDriver.cs" />
@@ -245,25 +250,25 @@
     <Compile Include="Relationship\ViewModels\RelatedEntityViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Entities\Placement.info" />
-    <Content Include="Entities\Scripts\Web.config" />
-    <Content Include="Entities\Styles\Web.config" />
-    <Content Include="Entities\Views\Admin\Create.cshtml" />
-    <Content Include="Entities\Views\Admin\Detail.cshtml" />
-    <Content Include="Entities\Views\Admin\Edit.cshtml" />
-    <Content Include="Entities\Views\Admin\List.cshtml" />
-    <Content Include="Entities\Views\Admin\ChooseFieldType.cshtml" />
-    <Content Include="Entities\Views\Admin\ConfirmFieldInfo.cshtml" />
-    <Content Include="Entities\Views\Admin\CreateEditInfo.cshtml" />
-    <Content Include="Entities\Views\Admin\EditFields.cshtml" />
-    <Content Include="Entities\Views\Admin\Fields.cshtml" />
-    <Content Include="Entities\Views\Admin\FillFieldInfo.cshtml" />
-    <Content Include="Entities\Views\Home\Index.cshtml" />
-    <Content Include="Entities\Views\Web.config" />
+    <Content Include="EntityManagement\Placement.info" />
+    <Content Include="EntityManagement\Scripts\Web.config" />
+    <Content Include="EntityManagement\Styles\Web.config" />
+    <Content Include="EntityManagement\Views\Admin\Create.cshtml" />
+    <Content Include="EntityManagement\Views\Admin\Detail.cshtml" />
+    <Content Include="EntityManagement\Views\Admin\Edit.cshtml" />
+    <Content Include="EntityManagement\Views\Admin\List.cshtml" />
+    <Content Include="EntityManagement\Views\Admin\ChooseFieldType.cshtml" />
+    <Content Include="EntityManagement\Views\Admin\ConfirmFieldInfo.cshtml" />
+    <Content Include="EntityManagement\Views\Admin\CreateEditInfo.cshtml" />
+    <Content Include="EntityManagement\Views\Admin\EditFields.cshtml" />
+    <Content Include="EntityManagement\Views\Admin\Fields.cshtml" />
+    <Content Include="EntityManagement\Views\Admin\FillFieldInfo.cshtml" />
+    <Content Include="EntityManagement\Views\Home\Index.cshtml" />
+    <Content Include="EntityManagement\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\Extensions\" />
-    <Folder Include="Entities\Providers\" />
+    <Folder Include="EntityManagement\Extensions\" />
+    <Folder Include="EntityManagement\Providers\" />
     <Folder Include="Relationship\Scripts\services\" />
   </ItemGroup>
   <ItemGroup>
@@ -281,6 +286,15 @@
     <Content Include="Relationship\Views\Admin\CreateOneToMany.cshtml" />
     <Content Include="Relationship\Views\Admin\Relationships.cshtml" />
     <Content Include="Relationship\Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ListViewDesigner\Views\Admin\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ListViewDesigner\Views\Admin\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ListViewDesigner\Scripts\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
