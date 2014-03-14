@@ -1,4 +1,4 @@
-﻿using Coevery.DeveloperTools.Entities.Models;
+﻿using Coevery.Core.Entities.Models;
 using Coevery.DeveloperTools.Projections.Models;
 
 namespace Coevery.DeveloperTools.Relationship.Records {

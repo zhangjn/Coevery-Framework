@@ -92,6 +92,12 @@
     <Compile Include="Common\Services\SafeModeThemeSelector.cs" />
     <Compile Include="Common\Shapes\Localization\DateTimeLocalization.cs" />
     <Compile Include="Common\Utilities\LazyField.cs" />
+    <Compile Include="Entities\Drivers\EntityMetadataPartDriver.cs" />
+    <Compile Include="Entities\Migrations.cs" />
+    <Compile Include="Entities\Models\EntityMetadataPart.cs" />
+    <Compile Include="Entities\Models\EntityMetadataRecord.cs" />
+    <Compile Include="Entities\Models\FieldMetadataRecord.cs" />
+    <Compile Include="Entities\Services\SettingService.cs" />
     <Compile Include="Fields\Drivers\BooleanFieldDriver.cs" />
     <Compile Include="Fields\Drivers\CurrencyFieldDriver.cs" />
     <Compile Include="Fields\Drivers\DateFieldDriver.cs" />
@@ -616,6 +622,7 @@
     <Content Include="Common\Styles\jQuery\ui.datepicker.css" />
     <Content Include="Common\Styles\jQuery\ui.jqgrid.css" />
     <Content Include="Common\Styles\module.css" />
+    <Content Include="Entities\Module.txt" />
     <Content Include="Fields\Module.txt" />
     <Content Include="Fields\Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Fields\Scripts\bootstrap-datetimepicker.min.js" />

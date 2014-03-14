@@ -3,8 +3,8 @@ using System.Linq;
 using Coevery.Caching;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
+using Coevery.Core.Entities.Models;
 using Coevery.Data;
-using Coevery.DeveloperTools.Entities.Models;
 
 namespace Coevery.DeveloperTools.Entities.Extensions {
     public class ContentDefinitionExtension : IContentDefinitionExtension {

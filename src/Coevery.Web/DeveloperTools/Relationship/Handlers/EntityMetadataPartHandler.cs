@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Coevery.ContentManagement.Handlers;
+using Coevery.Core.Entities.Models;
 using Coevery.Data;
-using Coevery.DeveloperTools.Entities.Models;
 using Coevery.DeveloperTools.Relationship.Records;
 
 namespace Coevery.DeveloperTools.Relationship.Handlers {

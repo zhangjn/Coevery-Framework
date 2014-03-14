@@ -160,7 +160,6 @@
     <Compile Include="Entities\Controllers\EntityController.cs" />
     <Compile Include="Entities\Controllers\FieldController.cs" />
     <Compile Include="Entities\Controllers\HomeController.cs" />
-    <Compile Include="Entities\Drivers\EntityMetadataPartDriver.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\ContentLinkRecord.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsDriver.cs" />
@@ -181,10 +180,6 @@
     <Compile Include="Entities\Extensions\CoeveryStringExtension.cs" />
     <Compile Include="Entities\Extensions\ContentDefinitionServiceExtension.cs" />
     <Compile Include="Entities\Handlers\EntityMetadataPartHandler.cs" />
-    <Compile Include="Entities\Migrations.cs" />
-    <Compile Include="Entities\Models\EntityMetadataPart.cs" />
-    <Compile Include="Entities\Models\EntityMetadataRecord.cs" />
-    <Compile Include="Entities\Models\FieldMetadataRecord.cs" />
     <Compile Include="Entities\Permissions.cs" />
     <Compile Include="Entities\Routes.cs" />
     <Compile Include="Entities\Services\AdminMenu.cs" />
@@ -194,7 +189,6 @@
     <Compile Include="Entities\Services\DefaultDataMigrationInterpreter.cs" />
     <Compile Include="Entities\Services\IContentDefinitionService.cs" />
     <Compile Include="Entities\Services\SchemaUpdateService.cs" />
-    <Compile Include="Entities\Services\SettingService.cs" />
     <Compile Include="Entities\Settings\ContentTypeSettings.cs" />
     <Compile Include="Entities\ViewModels\AddFieldViewModel.cs" />
     <Compile Include="Entities\ViewModels\EditFieldViewModel.cs" />

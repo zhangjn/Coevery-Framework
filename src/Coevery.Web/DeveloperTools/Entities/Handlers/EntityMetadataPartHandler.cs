@@ -4,11 +4,12 @@ using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData;
+using Coevery.Core.Entities.Models;
+using Coevery.Core.Entities.Services;
 using Coevery.Data;
 using Coevery.Data.Migration.Schema;
 using Coevery.DeveloperTools.Entities.Events;
 using Coevery.DeveloperTools.Entities.Extensions;
-using Coevery.DeveloperTools.Entities.Models;
 using Coevery.DeveloperTools.Entities.Services;
 
 namespace Coevery.DeveloperTools.Entities.Handlers {

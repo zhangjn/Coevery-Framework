@@ -1,4 +1,4 @@
-﻿using Coevery.DeveloperTools.Entities.Models;
+﻿using Coevery.Core.Entities.Models;
 
 namespace Coevery.DeveloperTools.Relationship.Records {
     public enum RelationshipType {
