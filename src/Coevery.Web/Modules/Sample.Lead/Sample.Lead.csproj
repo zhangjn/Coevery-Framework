@@ -144,4 +144,13 @@
     <Compile Include="Models\LeadPart.cs" />
     <Compile Include="Models\LeadPartRecord.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Lead\Details.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Lead\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Lead\Edit.cshtml" />
+  </ItemGroup>
 </Project>
