@@ -1,0 +1,29 @@
+﻿<div class="row-fluid">
+    <section id="leadGrid"></section>
+    <section id="leadGridPager"></section>
+</div>
+
+@using (Script.Foot()) {
+    <script type="text/javascript">
+        jQuery("#leadGrid").jqGrid({
+            url: 'api?q=4',
+            datatype: "json",
+            "colModel": [
+                { "name": "ContentId", "label": "Content Id", "hidden": true, "key": true },
+                { "name": "AccountDetail", "label": "Account Name" },
+                { "name": "AccountRating", "label": "Account Rating" },
+                { "name": "AccountType", "label": "Account Type" },
+                { "name": "Industry", "label": "Industry" },
+                { "name": "Phone", "label": "Phone" },
+                { "name": "Country", "label": "Country" }
+            ],
+            rowNum: 10,
+            rowList: [10, 20, 30],
+            pager: '#leadGridPager',
+            sortname: 'id',
+            viewrecords: true,
+            sortorder: "desc",
+            height: '100%'
+        });
+    </script>
+}
