@@ -1,13 +1,62 @@
-﻿.form-structure .clearfix div {
-    margin: 0px;
+﻿.form-structure fieldset {
+    float: left;
+    clear: both;
+    width: 98%;
 }
 
-.form-structure .span6 {
-    width: 48%;
+.form-structure .data-row > div {
     display: inline-block;
-    margin: 0px;
 }
 
-.form-structure .span6 input {
+.form-structure .column-1-eq .data-column {
+    width: 98%;
+}
+
+.form-structure .column-2-eq .data-column {
+    width: 48%;
+}
+
+.form-structure .column-3-eq .data-column {
+    width: 33%;
+}
+
+.form-structure .data-column-25p {
+    width: 24%;
+}
+
+.form-structure .data-column-75p {
+    width: 74%;
+}
+
+.form-structure .data-column-33p {
+    width: 33%;
+}
+
+.form-structure .data-column-66p {
+    width: 66%;
+}
+
+.form-structure .data-column-50p {
+    width: 48%;
+}
+
+.form-structure .data-column-100p {
+    width: 98%;
+}
+
+.form-structure .data-row input {
     width: 100%;
 }
+
+/*__________________________分割线___________________________________*/
+
+.form-structure .data-row > div {
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.form-structure legend {
+    border-bottom: 1px solid gray;
+}
+
+
