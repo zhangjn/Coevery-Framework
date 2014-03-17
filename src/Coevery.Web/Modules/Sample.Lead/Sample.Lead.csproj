@@ -129,6 +129,7 @@
     <Content Include="Scripts\jqGrid\jquery.jqGrid.min.js" />
     <Content Include="Scripts\jqGrid\jquery.jqGrid.src.js" />
     <Content Include="Scripts\Web.config" />
+    <Content Include="Styles\Create.css" />
     <Content Include="Styles\grid.css" />
     <Content Include="Styles\Web.config" />
     <Content Include="Web.config" />

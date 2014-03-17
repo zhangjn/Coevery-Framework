@@ -1,40 +1,63 @@
-﻿<div class="row-fluid">
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="Create.css"/>
+</head>
+<body>
+<div class="form-structure">
     <section class="edit-mode span12">
         <form class="form-horizontal" method="post" name="myForm" novalidate="novalidate">
-            <fieldset class="data-section fd-section">
+            <fieldset class="data-section">
                 <legend class="title">Sample Title</legend>
-                    <div class="data-row clearfix fd-row">
-                        <div class="fd-column span6">
-                            <div class="control-group fd-field">
-                                <label class="title control-label required" for="LeadPart_Subject_Value">Subject</label>
-                                <div class="control controls errortips">
-                                    <input class="span12" type="text" id="LeadPart_Subject_Value" name="LeadPart.Subject.Value" data-msg-required="This field is required." maxlength="255">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="fd-column span6" >
-                            <div class="control-group fd-field">
-                                <label class="title control-label" for="LeadPart_CompanyName_Value">CompanyName</label>
-                                <div class="control controls errortips">
-                                    <input class="span12" type="text" id="LeadPart_CompanyName_Value" name="LeadPart.CompanyName.Value" maxlength="255">
-                                </div>
+                <div class="data-row clearfix">
+                    <div class="row-left span6">
+                        <div class="control-group">
+                            <label class="title control-label required" for="LeadPart_Subject_Value">Subject</label>
+
+                            <div class="control controls errortips">
+                                <input class="span12" type="text" id="LeadPart_Subject_Value"
+                                       name="LeadPart.Subject.Value" data-msg-required="This field is required."
+                                       maxlength="255">
                             </div>
                         </div>
                     </div>
-                    <div class="data-row clearfix fd-row">
-                        <div class="fd-column span6">
-                            <div class="control-group fd-field">
-                                <label class="title control-label" for="LeadPart_Description_Value">Description</label>
-                                <div class="control controls errortips">
-                                    <input class="span12" type="text" id="LeadPart_Description_Value" name="LeadPart.Description.Value" maxlength="255">
-                                </div>
+                    <div class="row-right span6">
+                        <div class="control-group">
+                            <label class="title control-label" for="LeadPart_CompanyName_Value">CompanyName</label>
+
+                            <div class="control controls errortips">
+                                <input class="span12" type="text" id="LeadPart_CompanyName_Value"
+                                       name="LeadPart.CompanyName.Value" maxlength="255">
                             </div>
                         </div>
-                        <div class="fd-column span6">
+                    </div>
+                </div>
+                <div class="data-row clearfix">
+                    <div class="row-left span6">
+                        <div class="control-group">
                         </div>
                     </div>
+                    <div class="row-right span6">
+                        <div class="control-group">
+                            <label class="title control-label" for="LeadPart_Description_Value">Description</label>
+
+                            <div class="control controls errortips">
+                                <input class="span12" type="text" id="LeadPart_Description_Value"
+                                       name="LeadPart.Description.Value" maxlength="255">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </fieldset>
-            <input name="__RequestVerificationToken" type="hidden" value="7GtCMIK-U8zTicSIJtLtJrHkC88mMnNniNjaKX09ykbaYGo6HKjiTbyEBXZ2Lx7Yp0_RowHE1DdsviA89hfGfM3gDUsBcLpLB39uumVB68-f5LuWjqRD_ra7zcnCKYCYm7HBqtx5O0w9anOuMU3zhx3mnGFNrNVCeYTABS4PsCc1">
-        </form>   
+            <input name="__RequestVerificationToken" type="hidden"
+                   value="7GtCMIK-U8zTicSIJtLtJrHkC88mMnNniNjaKX09ykbaYGo6HKjiTbyEBXZ2Lx7Yp0_RowHE1DdsviA89hfGfM3gDUsBcLpLB39uumVB68-f5LuWjqRD_ra7zcnCKYCYm7HBqtx5O0w9anOuMU3zhx3mnGFNrNVCeYTABS4PsCc1">
+        </form>
     </section>
 </div>
+</body>
+</html>
+@{
+    Style.Include("Create.css");
+}

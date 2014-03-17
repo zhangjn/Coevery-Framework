@@ -1,0 +1,13 @@
+﻿.form-structure .clearfix div {
+    margin: 0px;
+}
+
+.form-structure .span6 {
+    width: 48%;
+    display: inline-block;
+    margin: 0px;
+}
+
+.form-structure .span6 input {
+    width: 100%;
+}
