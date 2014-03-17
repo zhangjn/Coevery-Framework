@@ -5,3 +5,50 @@
     Name: <input id="Name" type="text">
     <input type="button" name="submit" value="submit " />
 </form>
+
+<div class="row-fluid">
+    <section class="edit-mode span12">
+        <form action="/CoeveryLocal/CoeveryCommon/ViewTemplate/Create/Lead" class="form-horizontal ng-pristine ng-valid" method="post" name="myForm" novalidate="novalidate">
+            <fieldset class="data-section fd-section" fd-section="" section-columns="2" section-columns-width="6:6" section-title="Sample Title">
+                <legend class="title">Sample Title</legend>
+                <div ng-transclude="">
+                    <div fd-row="" class="ng-scope">
+                        <div class="data-row clearfix fd-row" ng-transclude="">
+                            <div class="fd-column ng-scope span6" ng-transclude="" fd-column="">
+                                <div class="control-group fd-field ng-scope" fd-field="" field-name="Subject">
+                                    <label class="title control-label required ng-scope" for="LeadPart_Subject_Value">Subject</label>
+                                    <div class="control controls errortips ng-scope">
+                                        <input class="span12" type="text" id="LeadPart_Subject_Value" name="LeadPart.Subject.Value" required="" data-msg-required="This field is required." maxlength="255" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fd-column ng-scope span6" ng-transclude="" fd-column="">
+                                <div class="control-group fd-field ng-scope" fd-field="" field-name="CompanyName">
+                                    <label class="title control-label ng-scope" for="LeadPart_CompanyName_Value">CompanyName</label>
+                                    <div class="control controls errortips ng-scope">
+                                        <input class="span12" type="text" id="LeadPart_CompanyName_Value" name="LeadPart.CompanyName.Value" maxlength="255" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div fd-row="" class="ng-scope">
+                        <div class="data-row clearfix fd-row" ng-transclude="">
+                            <div class="fd-column ng-scope span6" ng-transclude="" fd-column="">
+                                <div class="control-group fd-field ng-scope" fd-field="" field-name="Description">
+                                    <label class="title control-label ng-scope" for="LeadPart_Description_Value">Description</label>
+                                    <div class="control controls errortips ng-scope">
+                                        <input class="span12" type="text" id="LeadPart_Description_Value" name="LeadPart.Description.Value" maxlength="255" placeholder="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fd-column ng-scope span6" ng-transclude="" fd-column="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            <input name="__RequestVerificationToken" type="hidden" value="7GtCMIK-U8zTicSIJtLtJrHkC88mMnNniNjaKX09ykbaYGo6HKjiTbyEBXZ2Lx7Yp0_RowHE1DdsviA89hfGfM3gDUsBcLpLB39uumVB68-f5LuWjqRD_ra7zcnCKYCYm7HBqtx5O0w9anOuMU3zhx3mnGFNrNVCeYTABS4PsCc1">
+        </form>   
+    </section>
+</div>
