@@ -1,48 +1,44 @@
 ﻿<div>
     This is a view that create forms
 </div>
-<form action="/" method="post">
-    Name: <input id="Name" type="text">
-    <input type="button" name="submit" value="submit " />
-</form>
 
 <div class="row-fluid">
     <section class="edit-mode span12">
-        <form action="/CoeveryLocal/CoeveryCommon/ViewTemplate/Create/Lead" class="form-horizontal ng-pristine ng-valid" method="post" name="myForm" novalidate="novalidate">
-            <fieldset class="data-section fd-section" fd-section="" section-columns="2" section-columns-width="6:6" section-title="Sample Title">
+        <form class="form-horizontal" method="post" name="myForm" novalidate="novalidate">
+            <fieldset class="data-section fd-section">
                 <legend class="title">Sample Title</legend>
-                <div ng-transclude="">
-                    <div fd-row="" class="ng-scope">
-                        <div class="data-row clearfix fd-row" ng-transclude="">
-                            <div class="fd-column ng-scope span6" ng-transclude="" fd-column="">
-                                <div class="control-group fd-field ng-scope" fd-field="" field-name="Subject">
-                                    <label class="title control-label required ng-scope" for="LeadPart_Subject_Value">Subject</label>
-                                    <div class="control controls errortips ng-scope">
+                <div>
+                    <div class="">
+                        <div class="data-row clearfix fd-row">
+                            <div class="fd-column span6">
+                                <div class="control-group fd-field">
+                                    <label class="title control-label required" for="LeadPart_Subject_Value">Subject</label>
+                                    <div class="control controls errortips">
                                         <input class="span12" type="text" id="LeadPart_Subject_Value" name="LeadPart.Subject.Value" required="" data-msg-required="This field is required." maxlength="255" placeholder="">
                                     </div>
                                 </div>
                             </div>
-                            <div class="fd-column ng-scope span6" ng-transclude="" fd-column="">
-                                <div class="control-group fd-field ng-scope" fd-field="" field-name="CompanyName">
-                                    <label class="title control-label ng-scope" for="LeadPart_CompanyName_Value">CompanyName</label>
-                                    <div class="control controls errortips ng-scope">
+                            <div class="fd-column span6" >
+                                <div class="control-group fd-field">
+                                    <label class="title control-label" for="LeadPart_CompanyName_Value">CompanyName</label>
+                                    <div class="control controls errortips">
                                         <input class="span12" type="text" id="LeadPart_CompanyName_Value" name="LeadPart.CompanyName.Value" maxlength="255" placeholder="">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div fd-row="" class="ng-scope">
-                        <div class="data-row clearfix fd-row" ng-transclude="">
-                            <div class="fd-column ng-scope span6" ng-transclude="" fd-column="">
-                                <div class="control-group fd-field ng-scope" fd-field="" field-name="Description">
-                                    <label class="title control-label ng-scope" for="LeadPart_Description_Value">Description</label>
-                                    <div class="control controls errortips ng-scope">
+                    <div fd-row="" class="">
+                        <div class="data-row clearfix fd-row">
+                            <div class="fd-column span6">
+                                <div class="control-group fd-field">
+                                    <label class="title control-label" for="LeadPart_Description_Value">Description</label>
+                                    <div class="control controls errortips">
                                         <input class="span12" type="text" id="LeadPart_Description_Value" name="LeadPart.Description.Value" maxlength="255" placeholder="">
                                     </div>
                                 </div>
                             </div>
-                            <div class="fd-column ng-scope span6" ng-transclude="" fd-column="">
+                            <div class="fd-column span6">
                             </div>
                         </div>
                     </div>
