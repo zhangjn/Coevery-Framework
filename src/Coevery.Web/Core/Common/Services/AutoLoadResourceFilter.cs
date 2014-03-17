@@ -26,10 +26,10 @@ namespace Coevery.Core.Common.Services {
             }
 
             var ctx = _workContextAccessor.GetContext();
-            var resources = _autoLoadResourceProviders.SelectMany<IAutoLoadResourceProvider, dynamic>(x => x.GetResources(_shapeFactory));
-            foreach (var o in resources) {
-                ctx.Layout.Footer.Add(o);
-            }
+            //var resources = _autoLoadResourceProviders.SelectMany<IAutoLoadResourceProvider, dynamic>(x => x.GetResources(_shapeFactory));
+            //foreach (var o in resources) {
+            //    ctx.Layout.Footer.Add(o);
+            //}
         }
 
         public void OnResultExecuted(ResultExecutedContext filterContext) {}

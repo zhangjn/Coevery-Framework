@@ -1,29 +1,43 @@
-﻿<div class="row-fluid">
-    <section id="leadGrid"></section>
+﻿@{
+    Style.Require("jqGrid");
+    Style.Require("jqGridCustom");
+    Script.Require("jqGrid");
+}
+
+<div class="row-fluid">
+    <table id="leadGrid"></table>
     <section id="leadGridPager"></section>
 </div>
 
 @using (Script.Foot()) {
     <script type="text/javascript">
         jQuery("#leadGrid").jqGrid({
-            url: 'api?q=4',
+            url: '@Href("~/api/Sample.Lead/LeadApi")',
             datatype: "json",
-            "colModel": [
-                { "name": "ContentId", "label": "Content Id", "hidden": true, "key": true },
-                { "name": "AccountDetail", "label": "Account Name" },
-                { "name": "AccountRating", "label": "Account Rating" },
-                { "name": "AccountType", "label": "Account Type" },
-                { "name": "Industry", "label": "Industry" },
-                { "name": "Phone", "label": "Phone" },
-                { "name": "Country", "label": "Country" }
+            colModel: [
+                { "name": "Id", "label": "Content Id", "hidden": true, "key": true },
+                { "name": "Subject", "label": "Subject" },
+                { "name": "Description", "label": "Description" },
+                { "name": "CompanyName", "label": "Company Name" }
             ],
             rowNum: 10,
             rowList: [10, 20, 30],
             pager: '#leadGridPager',
-            sortname: 'id',
             viewrecords: true,
-            sortorder: "desc",
-            height: '100%'
+            height: '100%',
+            pagerpos: "right",
+            recordpos: "left",
+            sortable: true,
+            headertitles: true,
+            multiselect: true,
+            multiboxonly: true,
+            autowidth: true,
+            jsonReader: {
+                page: "page",
+                total: "totalPages",
+                records: "totalRecords",
+                repeatitems: false
+            }
         });
     </script>
 }
