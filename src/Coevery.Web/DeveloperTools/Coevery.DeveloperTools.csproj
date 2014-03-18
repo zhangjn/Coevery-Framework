@@ -273,6 +273,9 @@
     <Compile Include="RelationshipManagement\Services\IRelationshipService.cs" />
     <Compile Include="RelationshipManagement\Services\RelationshipService.cs" />
     <Compile Include="RelationshipManagement\Settings\ReferenceFieldEditorEvents.cs" />
+    <Content Include="EntityManagement\Views\Admin\PublishConfirm.cshtml">
+      <SubType>Code</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="EntityManagement\Scripts\Web.config" />
