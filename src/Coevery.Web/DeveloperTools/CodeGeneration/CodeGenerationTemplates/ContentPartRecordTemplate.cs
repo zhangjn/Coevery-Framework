@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
+    using Coevery.DeveloperTools.CodeGeneration.Utils;
     using System;
     
     /// <summary>
@@ -25,44 +26,45 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Coevery.ContentManagement.Records;\r\n\r\nnamespace ");
+            this.Write("using System;\r\nusing System.Collections.Generic;\r\nusing Coevery.ContentManagement" +
+                    ".Records;\r\n\r\nnamespace ");
             
-            #line 7 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt"
+            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Models {\r\n    public class ");
             
-            #line 8 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt"
+            #line 11 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
             this.Write("PartRecord : ContentPartRecord {\r\n");
             
-            #line 9 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt"
+            #line 12 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt"
 foreach (var field in ModelDefinition.Fields) { 
             
             #line default
             #line hidden
             this.Write("\t\tpublic virtual ");
             
-            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Type));
+            #line 13 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.Type.GetFriendlyName()));
             
             #line default
             #line hidden
             this.Write(" ");
             
-            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt"
+            #line 13 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
             
             #line default
             #line hidden
             this.Write(" { get; set; }\r\n");
             
-            #line 11 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt"
+            #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt"
  } 
             
             #line default

@@ -198,6 +198,9 @@
     </None>
     <Compile Include="CodeGeneration\Commands\CodeGenerationCommands.cs" />
     <Compile Include="CodeGeneration\Services\CodeGenerationCommandInterpreter.cs" />
+    <Compile Include="CodeGeneration\Utils\CSharpTypeNameProvider.cs" />
+    <Compile Include="CodeGeneration\Utils\TypeExtensions.cs" />
+    <Compile Include="CodeGeneration\Utils\TypeNameProvider.cs" />
     <Compile Include="EntityManagement\Controllers\AdminController.cs" />
     <Compile Include="EntityManagement\Controllers\EntityController.cs" />
     <Compile Include="EntityManagement\Controllers\FieldController.cs" />
