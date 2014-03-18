@@ -163,6 +163,9 @@
     <Content Include="Views\Lead\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Parts\CreateView.cshtml" />
+    <Content Include="Views\Parts\CreateView-Lead.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\CreateView.Actions-Lead.cshtml" />
   </ItemGroup>
 </Project>

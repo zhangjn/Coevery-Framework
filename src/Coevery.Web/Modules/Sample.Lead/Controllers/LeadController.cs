@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Coevery;
+using Coevery.ContentManagement;
 using Coevery.Localization;
 using Coevery.Mvc;
 using Coevery.Themes;
 using Sample.Lead.Models;
 
-namespace Sample.Lead.Controllers
-{
+namespace Sample.Lead.Controllers {
     [Themed]
-    public class LeadController : Controller
-    {
+    public class LeadController : Controller, IUpdateModel {
         public LeadController(ICoeveryServices services) {
             Services = services;
             T = NullLocalizer.Instance;
@@ -33,84 +33,74 @@ namespace Sample.Lead.Controllers
 
         //
         // GET: /Lead/Details/5
-        public ActionResult Details(int id)
-        {
+        public ActionResult Details(int id) {
             return View();
         }
 
         //
         // GET: /Lead/Create
-        public ActionResult Create()
-        {
+        public ActionResult Create() {
             var contentItem = Services.ContentManager.New("Lead");
             var model = Services.ContentManager.BuildEditor(contentItem);
             return View(model);
         }
 
-
         //
         // POST: /Lead/Create
-        [HttpPost]
-        public ActionResult Create(FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
+        [HttpPost, ActionName("Create")]
+        public ActionResult CreatePost() {
+            var contentItem = Services.ContentManager.New("Lead");
+            Services.ContentManager.UpdateEditor(contentItem, this);
 
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         //
         // GET: /Lead/Edit/5
-        public ActionResult Edit(int id)
-        {
+        public ActionResult Edit(int id) {
             return View();
         }
 
         //
         // POST: /Lead/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
-        {
-            try
-            {
+        public ActionResult Edit(int id, FormCollection collection) {
+            try {
                 // TODO: Add update logic here
 
                 return RedirectToAction("Index");
             }
-            catch
-            {
+            catch {
                 return View();
             }
         }
 
         //
         // GET: /Lead/Delete/5
-        public ActionResult Delete(int id)
-        {
+        public ActionResult Delete(int id) {
             return View();
         }
 
         //
         // POST: /Lead/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
+        public ActionResult Delete(int id, FormCollection collection) {
+            try {
                 // TODO: Add delete logic here
 
                 return RedirectToAction("Index");
             }
-            catch
-            {
+            catch {
                 return View();
             }
+        }
+
+        bool IUpdateModel.TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties) {
+            return TryUpdateModel(model, prefix, includeProperties, excludeProperties);
+        }
+
+        void IUpdateModel.AddModelError(string key, LocalizedString errorMessage) {
+            ModelState.AddModelError(key, errorMessage.ToString());
         }
     }
 }

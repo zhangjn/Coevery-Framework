@@ -1,7 +1,10 @@
 ﻿.form-structure fieldset {
-    float: left;
     clear: both;
     width: 98%;
+}
+
+.form-structure fieldset div {
+    margin: 0;
 }
 
 .form-structure .data-row > div {

@@ -14,7 +14,10 @@ namespace Sample.Lead.Drivers {
         }
 
         protected override DriverResult Editor(LeadPart part, dynamic shapeHelper) {
-            return ContentShape("Parts_CreateView", () => shapeHelper.Parts_CreateView());
+            return Combined(
+                ContentShape("Parts_CreateView_Actions", actions => actions),
+                ContentShape("Parts_CreateView", () => shapeHelper.Parts_CreateView())
+                );
         }
     }
 }

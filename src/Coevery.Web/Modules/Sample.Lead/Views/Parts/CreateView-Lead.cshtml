@@ -1,0 +1,117 @@
+﻿@using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "Lead"),
+    FormMethod.Post, new {@class = "form-structure"})) {
+    <fieldset class="column-2-eq">
+        <legend>2 columns</legend>
+        <div class="data-row">
+            <div class="data-column">
+                @Display.DisplayField(part: Model.ContentPart, fieldName: "Subject")
+            </div>
+            <div class="data-column">
+                @Display.DisplayField(part: Model.ContentPart, fieldName: "CompanyName")
+            </div>
+        </div>
+        <div class="data-row">
+            <div class="data-column">
+            </div>
+            <div class="data-column">
+                @Display.DisplayField(part: Model.ContentPart, fieldName: "Description")
+            </div>
+        </div>
+    </fieldset>
+    <input type="submit" value="@T("Submit")" />
+}
+
+@*<fieldset class="column-1-eq">
+    <legend>1 column</legend>
+    <div class="data-row">
+        <div class="data-column">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "Subject")
+        </div>
+    </div>
+    <div class="data-row">
+        <div class="data-column">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "Description")
+        </div>
+    </div>
+</fieldset>
+
+
+<fieldset class="column-3-eq">
+    <legend>3 columns</legend>
+    <div class="data-row">
+        <div class="data-column">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "Subject")
+        </div>
+        <div class="data-column">
+        </div>
+        <div class="data-column">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "CompanyName")
+        </div>
+    </div>
+    <div class="data-row">
+        <div class="data-column">
+        </div>
+        <div class="data-column">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "Description")
+        </div>
+        <div class="data-column">
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="column-3-eq">
+    <legend>3 columns with 1 line</legend>
+    <div class="data-row">
+        <div class="data-column">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "Subject")
+        </div>
+        <div class="data-column">
+        </div>
+        <div class="data-column">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "CompanyName")
+        </div>
+    </div>
+    <div class="data-row">
+        <div class="data-column-100p">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "Description")
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="column-3-eq">
+    <legend>3 columns with 1 line 66p</legend>
+    <div class="data-row">
+        <div class="data-column">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "Subject")
+        </div>
+        <div class="data-column">
+        </div>
+        <div class="data-column">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "CompanyName")
+        </div>
+    </div>
+    <div class="data-row">
+        <div class="data-column-66p">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "Description")
+        </div>
+    </div>
+</fieldset>
+
+<fieldset class="column-25p-75p">
+    <legend>columns with 25% and 75%</legend>
+    <div class="data-row">
+        <div class="data-column-25p">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "Subject")
+        </div>
+        <div class="data-column-75p">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "CompanyName")
+        </div>
+    </div>
+    <div class="data-row">
+        <div class="data-column-25p">
+        </div>
+        <div class="data-column-75p">
+            @Display.DisplayField(part: Model.ContentPart, fieldName: "Description")
+        </div>
+    </div>
+</fieldset>*@
