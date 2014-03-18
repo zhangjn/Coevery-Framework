@@ -5,7 +5,7 @@ using System.Linq;
 using Coevery.Data.Migration.Interpreters;
 using Coevery.Data.Migration.Schema;
 
-namespace Coevery.CodeGeneration.Services {
+namespace Coevery.DeveloperTools.CodeGeneration.Services {
     public class CodeGenerationCommandInterpreter : AbstractDataMigrationInterpreter {
         private readonly TextWriter _output;
 

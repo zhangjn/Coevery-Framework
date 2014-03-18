@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Coevery.CodeGeneration.CodeGenerationTemplates
+namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
     using System;
     
@@ -15,9 +15,9 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.tt"
+    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class ModuleTestsCsProj : ModuleTestsCsProjBase
+    public partial class ModuleManifest : ModuleManifestBase
     {
 #line hidden
         /// <summary>
@@ -25,49 +25,94 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<Project ToolsVersion=\"4.0\" DefaultTarget" +
-                    "s=\"Build\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">\r\n  <Impor" +
-                    "t Project=\"$(MSBuildExtensionsPath)\\$(MSBuildToolsVersion)\\Microsoft.Common.prop" +
-                    "s\" Condition=\"Exists(\'$(MSBuildExtensionsPath)\\$(MSBuildToolsVersion)\\Microsoft." +
-                    "Common.props\')\" />\r\n  <PropertyGroup>\r\n    <Configuration Condition=\" \'$(Configu" +
-                    "ration)\' == \'\' \">Debug</Configuration>\r\n    <Platform Condition=\" \'$(Platform)\' " +
-                    "== \'\' \">AnyCPU</Platform>\r\n    <OutputType>Library</OutputType>\r\n    <AppDesigne" +
-                    "rFolder>Properties</AppDesignerFolder>\r\n    <TargetFrameworkVersion>v4.5</Target" +
-                    "FrameworkVersion>\r\n    <OldToolsVersion>4.0</OldToolsVersion>\r\n  </PropertyGroup" +
-                    ">\r\n  <PropertyGroup Condition=\" \'$(Configuration)|$(Platform)\' == \'Debug|AnyCPU\'" +
-                    " \">\r\n    <DebugSymbols>true</DebugSymbols>\r\n    <DebugType>full</DebugType>\r\n   " +
-                    " <Optimize>false</Optimize>\r\n    <OutputPath>bin\\</OutputPath>\r\n    <DefineConst" +
-                    "ants>DEBUG;TRACE</DefineConstants>\r\n    <ErrorReport>prompt</ErrorReport>\r\n    <" +
-                    "WarningLevel>4</WarningLevel>\r\n    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAn" +
-                    "alysisRuleSet>\r\n    <Prefer32Bit>false</Prefer32Bit>\r\n  </PropertyGroup>\r\n  <Pro" +
-                    "pertyGroup Condition=\" \'$(Configuration)|$(Platform)\' == \'Release|AnyCPU\' \">\r\n  " +
-                    "  <DebugType>pdbonly</DebugType>\r\n    <Optimize>true</Optimize>\r\n    <OutputPath" +
-                    ">bin\\</OutputPath>\r\n    <DefineConstants>TRACE</DefineConstants>\r\n    <ErrorRepo" +
-                    "rt>prompt</ErrorReport>\r\n    <WarningLevel>4</WarningLevel>\r\n    <CodeAnalysisRu" +
-                    "leSet>AllRules.ruleset</CodeAnalysisRuleSet>\r\n    <Prefer32Bit>false</Prefer32Bi" +
-                    "t>\r\n  </PropertyGroup>\r\n  <ItemGroup>\r\n    <Reference Include=\"Autofac\">\r\n      " +
-                    "<HintPath>..\\..\\..\\..\\..\\lib\\autofac\\Autofac.dll</HintPath>\r\n    </Reference>\r\n " +
-                    "   <Reference Include=\"Moq\">\r\n      <HintPath>..\\..\\..\\..\\..\\lib\\moq\\Moq.dll</Hi" +
-                    "ntPath>\r\n    </Reference>\r\n    <Reference Include=\"NHibernate\">\r\n      <HintPath" +
-                    ">..\\..\\..\\..\\..\\lib\\nhibernate\\NHibernate.dll</HintPath>\r\n    </Reference>\r\n    " +
-                    "<Reference Include=\"nunit.framework\">\r\n      <HintPath>..\\..\\..\\..\\..\\lib\\nunit\\" +
-                    "nunit.framework.dll</HintPath>\r\n    </Reference>\r\n    <Reference Include=\"System" +
-                    "\" />\r\n    <Reference Include=\"System.Core\" />\r\n    <Reference Include=\"Microsoft" +
-                    ".CSharp\" />\r\n    <Reference Include=\"System.Data\" />\r\n    <Reference Include=\"Sy" +
-                    "stem.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd" +
-                    "8080cc91, processorArchitecture=MSIL\">\r\n      <SpecificVersion>False</SpecificVe" +
-                    "rsion>\r\n      <HintPath>..\\..\\..\\..\\..\\lib\\sqlce\\System.Data.SqlServerCe.dll</Hi" +
-                    "ntPath>\r\n      <Private>True</Private>\r\n    </Reference>\r\n  </ItemGroup>\r\n  <Ite" +
-                    "mGroup>\r\n    <ProjectReference Include=\"..\\..\\..\\..\\Coevery.Tests.Modules\\Coever" +
-                    "y.Tests.Modules.csproj\">\r\n        <Project>{6CB3EB30-F725-45C0-9742-42599BA8E8D2" +
-                    "}</Project>\r\n        <Name>Coevery.Tests.Modules</Name>\r\n    </ProjectReference>" +
-                    "\r\n    <ProjectReference Include=\"..\\..\\..\\..\\Coevery.Tests\\Coevery.Framework.Tes" +
-                    "ts.csproj\">\r\n      <Project>{abc826d4-2fa1-4f2f-87de-e6095f653810}</Project>\r\n  " +
-                    "    <Name>Coevery.Framework.Tests</Name>\r\n    </ProjectReference>\r\n    </ItemGro" +
-                    "up>\r\n  <Import Project=\"$(MSBuildToolsPath)\\Microsoft.CSharp.targets\" />\r\n</Proj" +
-                    "ect>");
+            this.Write("Name: ");
+            
+            #line 4 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
+            
+            #line default
+            #line hidden
+            this.Write("\r\nAntiForgery: enabled\r\nAuthor: The Coevery Team\r\nWebsite: http://www.coevery.com" +
+                    "\r\nVersion: 1.0\r\nCoeveryVersion: 1.0\r\nDescription: Description for the module\r\nFe" +
+                    "atures:\r\n    ");
+            
+            #line 12 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
+            
+            #line default
+            #line hidden
+            this.Write(":\r\n        Description: Description for feature ");
+            
+            #line 13 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
+            
+            #line default
+            #line hidden
             return this.GenerationEnvironment.ToString();
         }
+        
+        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt"
+
+private string _ModuleNameField;
+
+/// <summary>
+/// Access the ModuleName parameter of the template.
+/// </summary>
+private string ModuleName
+{
+    get
+    {
+        return this._ModuleNameField;
+    }
+}
+
+
+/// <summary>
+/// Initialize the template
+/// </summary>
+public virtual void Initialize()
+{
+    if ((this.Errors.HasErrors == false))
+    {
+bool ModuleNameValueAcquired = false;
+if (this.Session.ContainsKey("ModuleName"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["ModuleName"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
+                "the data passed to the template.");
+    }
+    else
+    {
+        this._ModuleNameField = ((string)(this.Session["ModuleName"]));
+        ModuleNameValueAcquired = true;
+    }
+}
+if ((ModuleNameValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModuleName");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
+                    "the data passed to the template.");
+        }
+        else
+        {
+            this._ModuleNameField = ((string)(data));
+        }
+    }
+}
+
+
+    }
+}
+
+
+        
+        #line default
+        #line hidden
     }
     
     #line default
@@ -77,7 +122,7 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class ModuleTestsCsProjBase
+    public class ModuleManifestBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

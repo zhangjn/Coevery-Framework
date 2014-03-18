@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
+using System.Web.Hosting;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
@@ -10,10 +12,12 @@ using Coevery.ContentManagement.Records;
 using Coevery.Core.Common.Extensions;
 using Coevery.Core.Entities.DynamicTypeGeneration;
 using Coevery.Data;
-using Coevery.DeveloperTools.EntityManagement.Events;
+using Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates;
 using Coevery.FileSystems.VirtualPath;
+using FubuCore;
+using FubuCsProjFile;
 
-namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
+namespace Coevery.DeveloperTools.CodeGeneration.Services {
     public class DynamicAssemblyBuilder : IDynamicAssemblyBuilder {
         internal const string AssemblyName = "Coevery.DynamicTypes";
         private readonly IVirtualPathProvider _virtualPathProvider;
@@ -63,36 +67,41 @@ namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
             return false;
         }
 
-        public void Build(IEnumerable<DynamicDefinition> typeDefinitions) {
-            var assemblyBuidler = BuildAssembly();
-            var moduleBuidler = BuildModule(assemblyBuidler);
+        private void Build(IEnumerable<DynamicDefinition> typeDefinitions) {
+            //var assemblyBuidler = BuildAssembly();
+            //var moduleBuidler = BuildModule(assemblyBuidler);
+            var moduleName = "Sample.Lead";
+            string moduleCsProjPath = HostingEnvironment.MapPath(string.Format("~/Modules/{0}/{0}.csproj", moduleName));
+            var csProjFile = CsProjFile.LoadFrom(moduleCsProjPath);
             foreach (var definition in typeDefinitions) {
-                if (!definition.Fields.Any()) {
-                    continue;
-                }
-                var typeBuidler = BuildType(definition, moduleBuidler);
-                var fieldBuilders = BuildFields(definition, typeBuidler).ToList();
-                BuildEmptyCtor(typeBuidler);
-                BuildCtor(typeBuidler, fieldBuilders);
-                BuildProperties(definition, typeBuidler, fieldBuilders, false);
-                Type type = typeBuidler.CreateType();
+                AddModelClassFile(csProjFile, definition);
+                //if (!definition.Fields.Any()) {
+                //    continue;
+                //}
+                //var typeBuidler = BuildType(definition, moduleBuidler);
+                //var fieldBuilders = BuildFields(definition, typeBuidler).ToList();
+                //BuildEmptyCtor(typeBuidler);
+                //BuildCtor(typeBuidler, fieldBuilders);
+                //BuildProperties(definition, typeBuidler, fieldBuilders, false);
+                //Type type = typeBuidler.CreateType();
 
-                var partTypeBuidler = BuildPartType(definition, moduleBuidler, type);
-                var partFieldBuilders = BuildFields(definition, partTypeBuidler).ToList();
-                BuildPartEmptyCtor(partTypeBuidler, type);
-                BuildCtor(partTypeBuidler, partFieldBuilders);
-                BuildProperties(definition, partTypeBuidler, partFieldBuilders, true);
-                var contentPartType = partTypeBuidler.CreateType();
+                //var partTypeBuidler = BuildPartType(definition, moduleBuidler, type);
+                //var partFieldBuilders = BuildFields(definition, partTypeBuidler).ToList();
+                //BuildPartEmptyCtor(partTypeBuidler, type);
+                //BuildCtor(partTypeBuidler, partFieldBuilders);
+                //BuildProperties(definition, partTypeBuidler, partFieldBuilders, true);
+                //var contentPartType = partTypeBuidler.CreateType();
 
-                var driverTypeBuidler = BuildDriverType(definition, moduleBuidler, contentPartType);
-                driverTypeBuidler.CreateType();
+                //var driverTypeBuidler = BuildDriverType(definition, moduleBuidler, contentPartType);
+                //driverTypeBuidler.CreateType();
 
-                var handlerTypeBuidler = BuildHandlerType(definition, moduleBuidler, type);
-                BuildHandlerCtor(handlerTypeBuidler, type);
-                handlerTypeBuidler.CreateType();
+                //var handlerTypeBuidler = BuildHandlerType(definition, moduleBuidler, type);
+                //BuildHandlerCtor(handlerTypeBuidler, type);
+                //handlerTypeBuidler.CreateType();
             }
-            _dynamicTypeGenerationEvents.OnBuilded(moduleBuidler);
-            assemblyBuidler.Save(AssemblyName + ".dll");
+            csProjFile.Save();
+            //_dynamicTypeGenerationEvents.OnBuilded(moduleBuidler);
+            //assemblyBuidler.Save(AssemblyName + ".dll");
         }
 
         private static void BuildHandlerCtor(TypeBuilder typBuilder, Type type) {
@@ -154,6 +163,48 @@ namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
             var fileName = AssemblyName + ".dll";
             ModuleBuilder modBuilder = asmBuilder.DefineDynamicModule(AssemblyName, fileName);
             return modBuilder;
+        }
+
+        private void AddModelClassFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
+            string moduleModelsPath = Path.Combine(csProjFile.ProjectDirectory, "Models");
+            if (!moduleModelsPath.EndsWith(Path.DirectorySeparatorChar.ToString())) {
+                moduleModelsPath += Path.DirectorySeparatorChar;
+            }
+            if (!Directory.Exists(moduleModelsPath)) {
+                Directory.CreateDirectory(moduleModelsPath);
+            }
+
+            string partClassFilePath = moduleModelsPath + modelDefinition.Name + "Part.cs";
+            if (File.Exists(partClassFilePath))
+            {
+                //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
+                return;
+            }
+            var partTemplate = new ContentPartTemplate() {Session = new Dictionary<string, object>()};
+            partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
+            partTemplate.Session["ModelDefinition"] = modelDefinition;
+            partTemplate.Initialize();
+            string partText = partTemplate.TransformText();
+            File.WriteAllText(partClassFilePath, partText);
+
+            var partRelativePath = partClassFilePath.PathRelativeTo(csProjFile.ProjectDirectory);
+            csProjFile.Add<CodeFile>(partRelativePath);
+
+            string recordClassFilePath = moduleModelsPath + modelDefinition.Name + "PartRecord.cs";
+            if (File.Exists(recordClassFilePath))
+            {
+                //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
+                return;
+            }
+            var recordTemplate = new ContentPartRecordTemplate() { Session = new Dictionary<string, object>() };
+            recordTemplate.Session["Namespace"] = csProjFile.RootNamespace;
+            recordTemplate.Session["ModelDefinition"] = modelDefinition;
+            recordTemplate.Initialize();
+            string recordText = recordTemplate.TransformText();
+            File.WriteAllText(recordClassFilePath, recordText);
+
+            var recordRelativePath = recordClassFilePath.PathRelativeTo(csProjFile.ProjectDirectory);
+            csProjFile.Add<CodeFile>(recordRelativePath);
         }
 
         private static TypeBuilder BuildType(DynamicDefinition definition, ModuleBuilder modBuilder) {

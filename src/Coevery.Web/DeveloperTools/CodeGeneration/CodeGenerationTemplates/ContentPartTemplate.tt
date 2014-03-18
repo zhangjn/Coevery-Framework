@@ -1,0 +1,16 @@
+﻿<#@ template debug="false" language="C#" #>
+<#@ output extension=".txt" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition" name="ModelDefinition" #>
+using Coevery.ContentManagement;
+
+namespace <#=Namespace#>.Models {
+    public sealed class <#=ModelDefinition.Name#>Part : ContentPart<<#=ModelDefinition.Name#>PartRecord> {
+<#foreach (var field in ModelDefinition.Fields) { #>
+		public <#= field.Type #> <#=field.Name #>{
+			get{ return Record.<#=field.Name #>; }
+			set{ Record.<#=field.Name #> = value; }
+		}
+<# } #>
+    }
+}

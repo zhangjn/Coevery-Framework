@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Coevery.CodeGeneration.CodeGenerationTemplates
+namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
     using System;
     
@@ -15,9 +15,9 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\Controller.tt"
+    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class Controller : ControllerBase
+    public partial class ModuleAssemblyInfo : ModuleAssemblyInfoBase
     {
 #line hidden
         /// <summary>
@@ -25,35 +25,61 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System.Web.Mvc;\r\nusing Coevery.Localization;\r\nusing Coevery;\r\n\r\nnamespace ");
+            this.Write(@"using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Security;
+
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+[assembly: AssemblyTitle(""");
             
-            #line 9 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\Controller.tt"
+            #line 13 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
             
             #line default
             #line hidden
-            this.Write(".Controllers {\r\n    public class ");
+            this.Write(@""")]
+[assembly: AssemblyDescription("""")]
+[assembly: AssemblyConfiguration("""")]
+[assembly: AssemblyProduct(""Coevery"")]
+[assembly: AssemblyCopyright("""")]
+[assembly: AssemblyTrademark("""")]
+[assembly: AssemblyCulture("""")]
+
+// Setting ComVisible to false makes the types in this assembly not visible 
+// to COM components.  If you need to access a type in this assembly from 
+// COM, set the ComVisible attribute to true on that type.
+[assembly: ComVisible(false)]
+
+// The following GUID is for the ID of the typelib if this project is exposed to COM
+[assembly: Guid(""");
             
-            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\Controller.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 27 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleTypeLibGuid));
             
             #line default
             #line hidden
-            this.Write(" : Controller {\r\n        public ICoeveryServices Services { get; set; }\r\n\r\n      " +
-                    "  public ");
-            
-            #line 13 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\Controller.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("(ICoeveryServices services) {\r\n            Services = services;\r\n            T = " +
-                    "NullLocalizer.Instance;\r\n        }\r\n\r\n        public Localizer T { get; set; }\r\n" +
-                    "    }\r\n}\r\n");
+            this.Write(@""")]
+
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+[assembly: AssemblyVersion(""1.0.0.0"")]
+[assembly: AssemblyFileVersion(""1.0.0.0"")]
+
+");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\Controller.tt"
+        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.tt"
 
 private string _ModuleNameField;
 
@@ -68,16 +94,16 @@ private string ModuleName
     }
 }
 
-private string _ControllerNameField;
+private global::System.Guid _ModuleTypeLibGuidField;
 
 /// <summary>
-/// Access the ControllerName parameter of the template.
+/// Access the ModuleTypeLibGuid parameter of the template.
 /// </summary>
-private string ControllerName
+private global::System.Guid ModuleTypeLibGuid
 {
     get
     {
-        return this._ControllerNameField;
+        return this._ModuleTypeLibGuidField;
     }
 }
 
@@ -119,33 +145,33 @@ if ((ModuleNameValueAcquired == false))
         }
     }
 }
-bool ControllerNameValueAcquired = false;
-if (this.Session.ContainsKey("ControllerName"))
+bool ModuleTypeLibGuidValueAcquired = false;
+if (this.Session.ContainsKey("ModuleTypeLibGuid"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["ControllerName"].GetType()) == false))
+    if ((typeof(global::System.Guid).IsAssignableFrom(this.Session["ModuleTypeLibGuid"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'ControllerName\' did not match the type" +
-                " of the data passed to the template.");
+        this.Error("The type \'System.Guid\' of the parameter \'ModuleTypeLibGuid\' did not match the typ" +
+                "e of the data passed to the template.");
     }
     else
     {
-        this._ControllerNameField = ((string)(this.Session["ControllerName"]));
-        ControllerNameValueAcquired = true;
+        this._ModuleTypeLibGuidField = ((global::System.Guid)(this.Session["ModuleTypeLibGuid"]));
+        ModuleTypeLibGuidValueAcquired = true;
     }
 }
-if ((ControllerNameValueAcquired == false))
+if ((ModuleTypeLibGuidValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ControllerName");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModuleTypeLibGuid");
     if ((data != null))
     {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::System.Guid).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'ControllerName\' did not match the type" +
-                    " of the data passed to the template.");
+            this.Error("The type \'System.Guid\' of the parameter \'ModuleTypeLibGuid\' did not match the typ" +
+                    "e of the data passed to the template.");
         }
         else
         {
-            this._ControllerNameField = ((string)(data));
+            this._ModuleTypeLibGuidField = ((global::System.Guid)(data));
         }
     }
 }
@@ -167,7 +193,7 @@ if ((ControllerNameValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class ControllerBase
+    public class ModuleAssemblyInfoBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

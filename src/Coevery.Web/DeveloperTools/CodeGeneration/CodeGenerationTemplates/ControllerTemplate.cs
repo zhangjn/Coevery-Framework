@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Coevery.CodeGeneration.CodeGenerationTemplates
+namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
     using System;
     
@@ -15,9 +15,9 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt"
+    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class ModuleManifest : ModuleManifestBase
+    public partial class ControllerTemplate : ControllerTemplateBase
     {
 #line hidden
         /// <summary>
@@ -25,33 +25,35 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("Name: ");
+            this.Write("using System.Web.Mvc;\r\nusing Coevery.Localization;\r\nusing Coevery;\r\n\r\nnamespace ");
             
-            #line 4 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt"
+            #line 9 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
             
             #line default
             #line hidden
-            this.Write("\r\nAntiForgery: enabled\r\nAuthor: The Coevery Team\r\nWebsite: http://www.coevery.com" +
-                    "\r\nVersion: 1.0\r\nCoeveryVersion: 1.0\r\nDescription: Description for the module\r\nFe" +
-                    "atures:\r\n    ");
+            this.Write(".Controllers {\r\n    public class ");
             
-            #line 12 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
+            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
             #line hidden
-            this.Write(":\r\n        Description: Description for feature ");
+            this.Write(" : Controller {\r\n        public ICoeveryServices Services { get; set; }\r\n\r\n      " +
+                    "  public ");
             
-            #line 13 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
+            #line 13 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
             #line hidden
+            this.Write("(ICoeveryServices services) {\r\n            Services = services;\r\n            T = " +
+                    "NullLocalizer.Instance;\r\n        }\r\n\r\n        public Localizer T { get; set; }\r\n" +
+                    "    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt"
+        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
 
 private string _ModuleNameField;
 
@@ -63,6 +65,19 @@ private string ModuleName
     get
     {
         return this._ModuleNameField;
+    }
+}
+
+private string _ControllerNameField;
+
+/// <summary>
+/// Access the ControllerName parameter of the template.
+/// </summary>
+private string ControllerName
+{
+    get
+    {
+        return this._ControllerNameField;
     }
 }
 
@@ -104,6 +119,36 @@ if ((ModuleNameValueAcquired == false))
         }
     }
 }
+bool ControllerNameValueAcquired = false;
+if (this.Session.ContainsKey("ControllerName"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["ControllerName"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'ControllerName\' did not match the type" +
+                " of the data passed to the template.");
+    }
+    else
+    {
+        this._ControllerNameField = ((string)(this.Session["ControllerName"]));
+        ControllerNameValueAcquired = true;
+    }
+}
+if ((ControllerNameValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ControllerName");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'ControllerName\' did not match the type" +
+                    " of the data passed to the template.");
+        }
+        else
+        {
+            this._ControllerNameField = ((string)(data));
+        }
+    }
+}
 
 
     }
@@ -122,7 +167,7 @@ if ((ModuleNameValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class ModuleManifestBase
+    public class ControllerTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

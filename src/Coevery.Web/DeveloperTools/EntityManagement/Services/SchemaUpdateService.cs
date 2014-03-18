@@ -4,7 +4,7 @@ using System.Data.Common;
 using Coevery.Data;
 using Coevery.Data.Migration.Interpreters;
 using Coevery.Data.Migration.Schema;
-using Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration;
+using Coevery.DeveloperTools.CodeGeneration.Services;
 using Coevery.Environment.Configuration;
 using Coevery.Reports.Services;
 using NHibernate.Dialect;
@@ -36,8 +36,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             _tableCommand.TableCommands.Add(command);
         }
     }
-
-    public static class CreateTableCommandExteisons {}
 
     public interface ISchemaUpdateService : IDependency {
         void CreateTable(string tableName, Action<CreateTableContext> action = null);

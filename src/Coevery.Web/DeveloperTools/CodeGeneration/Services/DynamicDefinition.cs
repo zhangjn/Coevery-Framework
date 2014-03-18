@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration {
+namespace Coevery.DeveloperTools.CodeGeneration.Services {
     public class DynamicDefinition {
         public string Name { get; set; }
         public IEnumerable<DynamicFieldDefinition> Fields { get; set; }

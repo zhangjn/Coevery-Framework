@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Coevery.CodeGeneration.CodeGenerationTemplates
+namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
     using System;
     
@@ -15,9 +15,9 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ThemeManifest.tt"
+    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class ThemeManifest : ThemeManifestBase
+    public partial class ContentPartTemplate : ContentPartTemplateBase
     {
 #line hidden
         /// <summary>
@@ -25,50 +25,98 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("Name: ");
+            this.Write("using Coevery.ContentManagement;\r\n\r\nnamespace ");
             
-            #line 5 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ThemeManifest.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ThemeName));
-            
-            #line default
-            #line hidden
-            this.Write("\r\nAuthor: The Coevery Team\r\nWebsite: http://www.coevery.com\r\nDescription: Descrip" +
-                    "tion for the theme\r\nVersion: 1.0\r\nBaseTheme: ");
-            
-            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ThemeManifest.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(BaseTheme));
+            #line 7 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write("\r\n# todo: provide tags\r\n# Tags: Classic, Serif\r\n");
+            this.Write(".Models {\r\n    public sealed class ");
+            
+            #line 8 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Part : ContentPart<");
+            
+            #line 8 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
+            
+            #line default
+            #line hidden
+            this.Write("PartRecord> {\r\n");
+            
+            #line 9 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+foreach (var field in ModelDefinition.Fields) { 
+            
+            #line default
+            #line hidden
+            this.Write("\t\tpublic ");
+            
+            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.Type));
+            
+            #line default
+            #line hidden
+            this.Write(" ");
+            
+            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
+            
+            #line default
+            #line hidden
+            this.Write("{\r\n\t\t\tget{ return Record.");
+            
+            #line 11 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
+            
+            #line default
+            #line hidden
+            this.Write("; }\r\n\t\t\tset{ Record.");
+            
+            #line 12 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" = value; }\r\n\t\t}\r\n");
+            
+            #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ThemeManifest.tt"
+        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
 
-private string _ThemeNameField;
+private string _NamespaceField;
 
 /// <summary>
-/// Access the ThemeName parameter of the template.
+/// Access the Namespace parameter of the template.
 /// </summary>
-private string ThemeName
+private string Namespace
 {
     get
     {
-        return this._ThemeNameField;
+        return this._NamespaceField;
     }
 }
 
-private string _BaseThemeField;
+private global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition _ModelDefinitionField;
 
 /// <summary>
-/// Access the BaseTheme parameter of the template.
+/// Access the ModelDefinition parameter of the template.
 /// </summary>
-private string BaseTheme
+private global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition ModelDefinition
 {
     get
     {
-        return this._BaseThemeField;
+        return this._ModelDefinitionField;
     }
 }
 
@@ -80,63 +128,65 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool ThemeNameValueAcquired = false;
-if (this.Session.ContainsKey("ThemeName"))
+bool NamespaceValueAcquired = false;
+if (this.Session.ContainsKey("Namespace"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["ThemeName"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["Namespace"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'ThemeName\' did not match the type of t" +
+        this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
                 "he data passed to the template.");
     }
     else
     {
-        this._ThemeNameField = ((string)(this.Session["ThemeName"]));
-        ThemeNameValueAcquired = true;
+        this._NamespaceField = ((string)(this.Session["Namespace"]));
+        NamespaceValueAcquired = true;
     }
 }
-if ((ThemeNameValueAcquired == false))
+if ((NamespaceValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ThemeName");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Namespace");
     if ((data != null))
     {
         if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'ThemeName\' did not match the type of t" +
+            this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
                     "he data passed to the template.");
         }
         else
         {
-            this._ThemeNameField = ((string)(data));
+            this._NamespaceField = ((string)(data));
         }
     }
 }
-bool BaseThemeValueAcquired = false;
-if (this.Session.ContainsKey("BaseTheme"))
+bool ModelDefinitionValueAcquired = false;
+if (this.Session.ContainsKey("ModelDefinition"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["BaseTheme"].GetType()) == false))
+    if ((typeof(global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition).IsAssignableFrom(this.Session["ModelDefinition"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'BaseTheme\' did not match the type of t" +
-                "he data passed to the template.");
+        this.Error("The type \'Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition\' of th" +
+                "e parameter \'ModelDefinition\' did not match the type of the data passed to the t" +
+                "emplate.");
     }
     else
     {
-        this._BaseThemeField = ((string)(this.Session["BaseTheme"]));
-        BaseThemeValueAcquired = true;
+        this._ModelDefinitionField = ((global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition)(this.Session["ModelDefinition"]));
+        ModelDefinitionValueAcquired = true;
     }
 }
-if ((BaseThemeValueAcquired == false))
+if ((ModelDefinitionValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("BaseTheme");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModelDefinition");
     if ((data != null))
     {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'BaseTheme\' did not match the type of t" +
-                    "he data passed to the template.");
+            this.Error("The type \'Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition\' of th" +
+                    "e parameter \'ModelDefinition\' did not match the type of the data passed to the t" +
+                    "emplate.");
         }
         else
         {
-            this._BaseThemeField = ((string)(data));
+            this._ModelDefinitionField = ((global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition)(data));
         }
     }
 }
@@ -158,7 +208,7 @@ if ((BaseThemeValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class ThemeManifestBase
+    public class ContentPartTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

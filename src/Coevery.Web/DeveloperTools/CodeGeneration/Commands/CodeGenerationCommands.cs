@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
-using Coevery.CodeGeneration.CodeGenerationTemplates;
-using Coevery.CodeGeneration.Services;
 using Coevery.Commands;
 using Coevery.Data.Migration.Generator;
 using Coevery.Data.Migration.Schema;
+using Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates;
+using Coevery.DeveloperTools.CodeGeneration.Services;
 using Coevery.Environment.Extensions;
 using Coevery.Environment.Extensions.Models;
-using FubuCore;
 using FubuCsProjFile;
 using FubuCsProjFile.MSBuild;
 
-namespace Coevery.CodeGeneration.Commands {
+namespace Coevery.DeveloperTools.CodeGeneration.Commands {
 
     public class CodeGenerationCommands : DefaultCoeveryCommandHandler {
         private readonly IExtensionManager _extensionManager;
@@ -35,7 +33,7 @@ namespace Coevery.CodeGeneration.Commands {
         };
 
         private const string ModuleName = "CodeGeneration";
-        private static readonly string _codeGenTemplatePath = HostingEnvironment.MapPath("~/Modules/Coevery." + ModuleName + "/CodeGenerationTemplates/");
+        private static readonly string _codeGenTemplatePath = HostingEnvironment.MapPath("~/DeveloperTools/CodeGeneration/CodeGenerationTemplates/");
         private static readonly string _WebRootProj = HostingEnvironment.MapPath("~/");
         private static readonly string _CoeveryThemesProj = HostingEnvironment.MapPath("~/Themes/Themes.csproj");
 
@@ -223,7 +221,7 @@ namespace Coevery.CodeGeneration.Commands {
                 return;
             }
 
-            var controllerTemplate = new Controller {Session = new Dictionary<string, object>()};
+            var controllerTemplate = new ControllerTemplate() {Session = new Dictionary<string, object>()};
             controllerTemplate.Session["ModuleName"] = moduleName;
             controllerTemplate.Session["ControllerName"] = controllerName;
             controllerTemplate.Initialize();

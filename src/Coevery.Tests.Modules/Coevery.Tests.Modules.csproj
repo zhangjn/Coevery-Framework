@@ -62,7 +62,7 @@
       <HintPath>..\..\lib\autofac\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Castle.Core">
-      <HintPath>..\..\lib\castle-windsor\net45\Castle.Core.dll</HintPath>
+      <HintPath>..\..\lib\Castle Windsor 2.0\bin\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -183,9 +183,9 @@
       <Project>{9916839c-39fc-4ceb-a5af-89ca7e87119f}</Project>
       <Name>Coevery.Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Coevery.Web\Modules\Coevery.CodeGeneration\Coevery.CodeGeneration.csproj">
-      <Project>{c0c45321-b51d-4d8d-9b7b-aa4c2e0b2962}</Project>
-      <Name>Coevery.CodeGeneration</Name>
+    <ProjectReference Include="..\Coevery.Web\DeveloperTools\Coevery.DeveloperTools.csproj">
+      <Project>{ff9b6471-b758-4911-ab6b-67b974a859bf}</Project>
+      <Name>Coevery.DeveloperTools</Name>
     </ProjectReference>
     <ProjectReference Include="..\Coevery.Web\Modules\Coevery.Roles\Coevery.Roles.csproj">
       <Project>{d10ad48f-407d-4db5-a328-173ec7cb010f}</Project>

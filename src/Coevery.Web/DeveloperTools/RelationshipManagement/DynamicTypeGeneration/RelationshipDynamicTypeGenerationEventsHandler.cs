@@ -9,7 +9,7 @@ using Coevery.Core.Entities.DynamicTypeGeneration;
 using Coevery.Core.Relationships.DynamicTypeGeneration;
 using Coevery.Core.Relationships.Records;
 using Coevery.Data;
-using Coevery.DeveloperTools.EntityManagement.Events;
+using Coevery.DeveloperTools.CodeGeneration.Services;
 
 namespace Coevery.DeveloperTools.RelationshipManagement.DynamicTypeGeneration {
     public class RelationshipDynamicTypeGenerationEventsHandler : IDynamicTypeGenerationEvents {

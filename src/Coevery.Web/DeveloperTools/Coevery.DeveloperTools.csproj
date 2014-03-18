@@ -47,6 +47,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FubuCore">
+      <HintPath>..\..\..\lib\fubu\FubuCore.dll</HintPath>
+    </Reference>
+    <Reference Include="FubuCsProjFile">
+      <HintPath>..\..\..\lib\fubu\FubuCsProjFile.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -82,6 +88,10 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleRootWebConfig.txt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\StaticFilesWebConfig.txt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\Theme.png" />
+    <Content Include="CodeGeneration\Module.txt" />
     <Content Include="EntityManagement\Module.txt" />
     <Content Include="EntityManagement\Scripts\controllers\choosefieldtypecontroller.js" />
     <Content Include="EntityManagement\Scripts\controllers\confirmfieldinfocontroller.js" />
@@ -133,15 +143,70 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContentPartRecordTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ContentPartTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\ControllerTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControllerTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\DataMigration.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataMigration.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModuleAssemblyInfo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\ModuleCsProj.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModuleCsProj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\ModuleManifest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModuleManifest.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModuleTestsCsProj.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\ThemeManifest.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ThemeManifest.tt</DependentUpon>
+    </Compile>
+    <None Include="CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ContentPartTemplate.cs</LastGenOutput>
+    </None>
+    <None Include="CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ContentPartRecordTemplate.cs</LastGenOutput>
+    </None>
+    <Compile Include="CodeGeneration\Commands\CodeGenerationCommands.cs" />
+    <Compile Include="CodeGeneration\Services\CodeGenerationCommandInterpreter.cs" />
     <Compile Include="EntityManagement\Controllers\AdminController.cs" />
     <Compile Include="EntityManagement\Controllers\EntityController.cs" />
     <Compile Include="EntityManagement\Controllers\FieldController.cs" />
     <Compile Include="EntityManagement\Controllers\HomeController.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicAssemblyBuilder.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\DynamicDefinition.cs" />
-    <Compile Include="EntityManagement\DynamicTypeGeneration\IDynamicAssemblyBuilder.cs" />
+    <Compile Include="CodeGeneration\Services\DynamicAssemblyBuilder.cs" />
+    <Compile Include="CodeGeneration\Services\DynamicDefinition.cs" />
+    <Compile Include="CodeGeneration\Services\IDynamicAssemblyBuilder.cs" />
     <Compile Include="RelationshipManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
-    <Compile Include="EntityManagement\Events\IDynamicTypeGenerationEvents.cs" />
+    <Compile Include="CodeGeneration\Services\IDynamicTypeGenerationEvents.cs" />
     <Compile Include="EntityManagement\Handlers\EntityMetadataPartHandler.cs" />
     <Compile Include="EntityManagement\Permissions.cs" />
     <Compile Include="EntityManagement\Routes.cs" />
@@ -225,7 +290,38 @@
     <Content Include="EntityManagement\Views\Home\Index.cshtml" />
     <Content Include="EntityManagement\Views\Web.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ControllerTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\DataMigration.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DataMigration.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ModuleAssemblyInfo.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleCsProj.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ModuleCsProj.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ModuleManifest.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ModuleTestsCsProj.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\Placement.info" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ThemeManifest.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ThemeManifest.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\web.config" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="RelationshipManagement\Scripts\Web.config" />
     <Content Include="RelationshipManagement\Styles\Web.config" />
@@ -242,6 +338,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ListViewDesigner\Scripts\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

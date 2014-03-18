@@ -9,7 +9,7 @@ using Coevery.Core.Relationships.Models;
 using Coevery.Core.Relationships.Records;
 using Coevery.Core.Relationships.Settings;
 using Coevery.Data;
-using Coevery.DeveloperTools.EntityManagement.DynamicTypeGeneration;
+using Coevery.DeveloperTools.CodeGeneration.Services;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.EntityManagement.ViewModels;
 using Coevery.Utility.Extensions;

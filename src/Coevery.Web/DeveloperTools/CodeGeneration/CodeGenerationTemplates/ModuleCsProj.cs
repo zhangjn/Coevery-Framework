@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Coevery.CodeGeneration.CodeGenerationTemplates
+namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
     using System;
     
@@ -15,9 +15,9 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.tt"
+    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ModuleCsProj.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class ModuleAssemblyInfo : ModuleAssemblyInfoBase
+    public partial class ModuleCsProj : ModuleCsProjBase
     {
 #line hidden
         /// <summary>
@@ -25,165 +25,77 @@ namespace Coevery.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
-using System.Security;
-
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle(""");
-            
-            #line 13 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
-            
-            #line default
-            #line hidden
-            this.Write(@""")]
-[assembly: AssemblyDescription("""")]
-[assembly: AssemblyConfiguration("""")]
-[assembly: AssemblyProduct(""Coevery"")]
-[assembly: AssemblyCopyright("""")]
-[assembly: AssemblyTrademark("""")]
-[assembly: AssemblyCulture("""")]
-
-// Setting ComVisible to false makes the types in this assembly not visible 
-// to COM components.  If you need to access a type in this assembly from 
-// COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid(""");
-            
-            #line 27 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleTypeLibGuid));
-            
-            #line default
-            #line hidden
-            this.Write(@""")]
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build Numbers 
-// by using the '*' as shown below:
-[assembly: AssemblyVersion(""1.0.0.0"")]
-[assembly: AssemblyFileVersion(""1.0.0.0"")]
-
-");
+            this.Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<Project ToolsVersion=\"4.0\" DefaultTarget" +
+                    "s=\"Build\" xmlns=\"http://schemas.microsoft.com/developer/msbuild/2003\">\r\n  <Impor" +
+                    "t Project=\"$(MSBuildExtensionsPath)\\$(MSBuildToolsVersion)\\Microsoft.Common.prop" +
+                    "s\" Condition=\"Exists(\'$(MSBuildExtensionsPath)\\$(MSBuildToolsVersion)\\Microsoft." +
+                    "Common.props\')\" />\r\n  <PropertyGroup>\r\n    <Configuration Condition=\" \'$(Configu" +
+                    "ration)\' == \'\' \">Debug</Configuration>\r\n    <Platform Condition=\" \'$(Platform)\' " +
+                    "== \'\' \">AnyCPU</Platform>\r\n    <ProductVersion>9.0.30729</ProductVersion>\r\n    <" +
+                    "SchemaVersion>2.0</SchemaVersion>\r\n    <ProjectTypeGuids>{349c5851-65df-11da-938" +
+                    "4-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>\r\n    <" +
+                    "OutputType>Library</OutputType>\r\n    <AppDesignerFolder>Properties</AppDesignerF" +
+                    "older>\r\n    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>\r\n    <MvcBuild" +
+                    "Views>false</MvcBuildViews>\r\n    <FileUpgradeFlags>\r\n    </FileUpgradeFlags>\r\n  " +
+                    "  <OldToolsVersion>4.0</OldToolsVersion>\r\n    <UpgradeBackupLocation />\r\n    <Ta" +
+                    "rgetFrameworkProfile />\r\n  </PropertyGroup>\r\n  <PropertyGroup Condition=\" \'$(Con" +
+                    "figuration)|$(Platform)\' == \'Debug|AnyCPU\' \">\r\n    <DebugSymbols>true</DebugSymb" +
+                    "ols>\r\n    <DebugType>full</DebugType>\r\n    <Optimize>false</Optimize>\r\n    <Outp" +
+                    "utPath>bin\\</OutputPath>\r\n    <DefineConstants>DEBUG;TRACE</DefineConstants>\r\n  " +
+                    "  <ErrorReport>prompt</ErrorReport>\r\n    <WarningLevel>4</WarningLevel>\r\n    <Co" +
+                    "deAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>\r\n    <Prefer32Bit>false" +
+                    "</Prefer32Bit>\r\n  </PropertyGroup>\r\n  <PropertyGroup Condition=\" \'$(Configuratio" +
+                    "n)|$(Platform)\' == \'Release|AnyCPU\' \">\r\n    <DebugType>pdbonly</DebugType>\r\n    " +
+                    "<Optimize>true</Optimize>\r\n    <OutputPath>bin\\</OutputPath>\r\n    <DefineConstan" +
+                    "ts>TRACE</DefineConstants>\r\n    <ErrorReport>prompt</ErrorReport>\r\n    <WarningL" +
+                    "evel>4</WarningLevel>\r\n    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRu" +
+                    "leSet>\r\n    <Prefer32Bit>false</Prefer32Bit>\r\n  </PropertyGroup>\r\n  <ItemGroup>\r" +
+                    "\n    <Reference Include=\"Microsoft.CSharp\" />\r\n    <Reference Include=\"System\" /" +
+                    ">\r\n    <Reference Include=\"System.Data\" />\r\n    <Reference Include=\"System.Compo" +
+                    "nentModel.DataAnnotations\">\r\n      <RequiredTargetFramework>3.5</RequiredTargetF" +
+                    "ramework>\r\n    </Reference>\r\n    <Reference Include=\"System.Web.DynamicData\" />\r" +
+                    "\n    <Reference Include=\"System.Web.Mvc, Version=5.1.0.0, Culture=neutral, Publi" +
+                    "cKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\r\n      <SpecificVersion" +
+                    ">False</SpecificVersion>\r\n      <HintPath>..\\..\\..\\..\\lib\\aspnetmvc\\System.Web.M" +
+                    "vc.dll</HintPath>\r\n    </Reference>\r\n    <Reference Include=\"System.Web\" />\r\n   " +
+                    " <Reference Include=\"System.Web.Extensions\" />\r\n    <Reference Include=\"System.W" +
+                    "eb.Abstractions\" />\r\n    <Reference Include=\"System.Web.Routing\" />\r\n    <Refere" +
+                    "nce Include=\"System.Xml\" />\r\n    <Reference Include=\"System.Configuration\" />\r\n " +
+                    "   <Reference Include=\"System.Xml.Linq\" />\r\n  </ItemGroup>\r\n  <PropertyGroup>\r\n " +
+                    "   <VisualStudioVersion Condition=\"\'$(VisualStudioVersion)\' == \'\'\">10.0</VisualS" +
+                    "tudioVersion>\r\n    <VSToolsPath Condition=\"\'$(VSToolsPath)\' == \'\'\">$(MSBuildExte" +
+                    "nsionsPath32)\\Microsoft\\VisualStudio\\v$(VisualStudioVersion)</VSToolsPath>\r\n  </" +
+                    "PropertyGroup>\r\n  <Import Project=\"$(MSBuildBinPath)\\Microsoft.CSharp.targets\" /" +
+                    ">\r\n  <Import Project=\"$(VSToolsPath)\\WebApplications\\Microsoft.WebApplication.ta" +
+                    "rgets\" Condition=\"\'$(VSToolsPath)\' != \'\'\" />\r\n  <Import Project=\"$(MSBuildExtens" +
+                    "ionsPath32)\\Microsoft\\VisualStudio\\v10.0\\WebApplications\\Microsoft.WebApplicatio" +
+                    "n.targets\" Condition=\"false\" />\r\n  <!-- To modify your build process, add your t" +
+                    "ask inside one of the targets below and uncomment it. \r\n       Other similar ext" +
+                    "ension points exist, see Microsoft.Common.targets.\r\n  <Target Name=\"BeforeBuild\"" +
+                    ">\r\n  </Target> -->\r\n  <Target Name=\"AfterBuild\" DependsOnTargets=\"AfterBuildComp" +
+                    "iler\">\r\n    <PropertyGroup>\r\n      <AreasManifestDir>$(ProjectDir)\\..\\Manifests<" +
+                    "/AreasManifestDir>\r\n    </PropertyGroup>\r\n    <!-- If this is an area child proj" +
+                    "ect, uncomment the following line:\r\n    <CreateAreaManifest AreaName=\"$(Assembly" +
+                    "Name)\" AreaType=\"Child\" AreaPath=\"$(ProjectDir)\" ManifestPath=\"$(AreasManifestDi" +
+                    "r)\" ContentFiles=\"@(Content)\" />\r\n    -->\r\n    <!-- If this is an area parent pr" +
+                    "oject, uncomment the following lines:\r\n    <CreateAreaManifest AreaName=\"$(Assem" +
+                    "blyName)\" AreaType=\"Parent\" AreaPath=\"$(ProjectDir)\" ManifestPath=\"$(AreasManife" +
+                    "stDir)\" ContentFiles=\"@(Content)\" />\r\n    <CopyAreaManifests ManifestPath=\"$(Are" +
+                    "asManifestDir)\" CrossCopy=\"false\" RenameViews=\"true\" />\r\n    -->\r\n  </Target>\r\n " +
+                    " <Target Name=\"AfterBuildCompiler\" Condition=\"\'$(MvcBuildViews)\'==\'true\'\">\r\n    " +
+                    "<AspNetCompiler VirtualPath=\"temp\" PhysicalPath=\"$(ProjectDir)\\..\\$(ProjectName)" +
+                    "\" />\r\n  </Target>\r\n  <ProjectExtensions>\r\n    <VisualStudio>\r\n      <FlavorPrope" +
+                    "rties GUID=\"{349c5851-65df-11da-9384-00065b846f21}\">\r\n        <WebProjectPropert" +
+                    "ies>\r\n          <UseIIS>False</UseIIS>\r\n          <AutoAssignPort>True</AutoAssi" +
+                    "gnPort>\r\n          <DevelopmentServerPort>45979</DevelopmentServerPort>\r\n       " +
+                    "   <DevelopmentServerVPath>/</DevelopmentServerVPath>\r\n          <IISUrl>\r\n     " +
+                    "     </IISUrl>\r\n          <NTLMAuthentication>False</NTLMAuthentication>\r\n      " +
+                    "    <UseCustomServer>True</UseCustomServer>\r\n          <CustomServerUrl>http://c" +
+                    "oevery.codeplex.com</CustomServerUrl>\r\n          <SaveServerSettingsInUserFile>F" +
+                    "alse</SaveServerSettingsInUserFile>\r\n        </WebProjectProperties>\r\n      </Fl" +
+                    "avorProperties>\r\n    </VisualStudio>\r\n  </ProjectExtensions>\r\n</Project>");
             return this.GenerationEnvironment.ToString();
         }
-        
-        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\Modules\Coevery.CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.tt"
-
-private string _ModuleNameField;
-
-/// <summary>
-/// Access the ModuleName parameter of the template.
-/// </summary>
-private string ModuleName
-{
-    get
-    {
-        return this._ModuleNameField;
-    }
-}
-
-private global::System.Guid _ModuleTypeLibGuidField;
-
-/// <summary>
-/// Access the ModuleTypeLibGuid parameter of the template.
-/// </summary>
-private global::System.Guid ModuleTypeLibGuid
-{
-    get
-    {
-        return this._ModuleTypeLibGuidField;
-    }
-}
-
-
-/// <summary>
-/// Initialize the template
-/// </summary>
-public virtual void Initialize()
-{
-    if ((this.Errors.HasErrors == false))
-    {
-bool ModuleNameValueAcquired = false;
-if (this.Session.ContainsKey("ModuleName"))
-{
-    if ((typeof(string).IsAssignableFrom(this.Session["ModuleName"].GetType()) == false))
-    {
-        this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
-                "the data passed to the template.");
-    }
-    else
-    {
-        this._ModuleNameField = ((string)(this.Session["ModuleName"]));
-        ModuleNameValueAcquired = true;
-    }
-}
-if ((ModuleNameValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModuleName");
-    if ((data != null))
-    {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
-                    "the data passed to the template.");
-        }
-        else
-        {
-            this._ModuleNameField = ((string)(data));
-        }
-    }
-}
-bool ModuleTypeLibGuidValueAcquired = false;
-if (this.Session.ContainsKey("ModuleTypeLibGuid"))
-{
-    if ((typeof(global::System.Guid).IsAssignableFrom(this.Session["ModuleTypeLibGuid"].GetType()) == false))
-    {
-        this.Error("The type \'System.Guid\' of the parameter \'ModuleTypeLibGuid\' did not match the typ" +
-                "e of the data passed to the template.");
-    }
-    else
-    {
-        this._ModuleTypeLibGuidField = ((global::System.Guid)(this.Session["ModuleTypeLibGuid"]));
-        ModuleTypeLibGuidValueAcquired = true;
-    }
-}
-if ((ModuleTypeLibGuidValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModuleTypeLibGuid");
-    if ((data != null))
-    {
-        if ((typeof(global::System.Guid).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Guid\' of the parameter \'ModuleTypeLibGuid\' did not match the typ" +
-                    "e of the data passed to the template.");
-        }
-        else
-        {
-            this._ModuleTypeLibGuidField = ((global::System.Guid)(data));
-        }
-    }
-}
-
-
-    }
-}
-
-
-        
-        #line default
-        #line hidden
     }
     
     #line default
@@ -193,7 +105,7 @@ if ((ModuleTypeLibGuidValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class ModuleAssemblyInfoBase
+    public class ModuleCsProjBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

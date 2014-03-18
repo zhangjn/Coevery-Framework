@@ -100,7 +100,6 @@ namespace Coevery.Core.Projections.Services {
                 return "Invalid entity name!";
             }
 
-            const string settingName = "TextFieldSettings.IsDisplayField";
             foreach (var view in listViewParts) {
                 var projection = view.As<ProjectionPart>().Record;
                 var layout = projection.LayoutRecord;
@@ -110,7 +109,7 @@ namespace Coevery.Core.Projections.Services {
                         Type = field.Type,
                         Text = field.Description
                     }).ToArray();
-                UpdateLayoutProperties(entityName.ToPartName(), layout, settingName, pickedFileds);
+                UpdateLayoutProperties(layout, pickedFileds);
                 var state = FormParametersHelper.FromString(layout.State);
                 layout.State = FormParametersHelper.ToString(MergeDictionary(
                     new[] {state, GetLayoutState(projection.QueryPartRecord.Id, layout.Properties.Count, layout.Description)}));
@@ -170,9 +169,8 @@ namespace Coevery.Core.Projections.Services {
             var layoutRecord = projectionPart.Record.LayoutRecord;
 
             var category = viewModel.ItemContentType + "ContentFields";
-            const string settingName = "TextFieldSettings.IsDisplayField";
             try {
-                UpdateLayoutProperties(viewModel.ItemContentType, layoutRecord, settingName, viewModel.PickedFields);
+                UpdateLayoutProperties(layoutRecord, viewModel.PickedFields);
             }
             catch (Exception exception) {
                 Services.Notifier.Add(NotifyType.Error, T(exception.Message));
@@ -199,7 +197,7 @@ namespace Coevery.Core.Projections.Services {
             return listViewPart.Id;
         }
 
-        private void UpdateLayoutProperties(string partName, LayoutRecord layout, string settingName, IEnumerable<PropertyDescriptorViewModel> pickedFileds) {
+        private void UpdateLayoutProperties(LayoutRecord layout, IEnumerable<PropertyDescriptorViewModel> pickedFileds) {
 
             layout.Properties.Clear();
             foreach (var property in pickedFileds) {

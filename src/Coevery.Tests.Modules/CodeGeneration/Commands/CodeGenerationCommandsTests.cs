@@ -2,9 +2,9 @@
 using System.IO;
 using Autofac;
 using Autofac.Features.Metadata;
+using Coevery.DeveloperTools.CodeGeneration.Commands;
 using NUnit.Framework;
 using Coevery.Caching;
-using Coevery.CodeGeneration.Commands;
 using Coevery.Commands;
 using Coevery.Data;
 using Coevery.Data.Migration.Generator;
