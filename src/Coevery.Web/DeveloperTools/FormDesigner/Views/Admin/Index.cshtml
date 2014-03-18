@@ -105,5 +105,14 @@
     </div>
 </section>
 @foreach (var item in Model.Templates) {
-    Output.Write(Display(item));
+    string templateName;
+    if (item.TemplateName == "Parts/Relationship.Edit") {
+        templateName = item.ContentPart.GetType().Name + ".html";
+    }
+    else {
+        templateName = item.ContentField.Name + ".html";
+    }
+    <script type="text/ng-template" id="@templateName">
+    @Display(item)
+    </script>
 }

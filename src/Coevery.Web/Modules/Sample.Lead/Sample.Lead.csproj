@@ -129,7 +129,9 @@
   <ItemGroup>
     <Content Include="Module.txt" />
     <Content Include="Properties\AssemblyInfo.cs" />
-    <Content Include="Placement.info" />
+    <Content Include="Placement.info">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Scripts\jqGrid\jquery.jqGrid.min.js" />
     <Content Include="Scripts\jqGrid\jquery.jqGrid.src.js" />
     <Content Include="Scripts\Web.config" />
@@ -145,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\LeadApiController.cs" />
+    <Compile Include="Migrations.cs" />
     <Compile Include="Controllers\LeadController.cs" />
     <Compile Include="Drivers\LeadPartDriver.cs" />
     <Compile Include="Models\LeadPart.cs" />
@@ -158,5 +161,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Lead\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\CreateView.cshtml" />
   </ItemGroup>
 </Project>

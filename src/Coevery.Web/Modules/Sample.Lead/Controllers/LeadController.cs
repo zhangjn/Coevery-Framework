@@ -42,7 +42,9 @@ namespace Sample.Lead.Controllers
         // GET: /Lead/Create
         public ActionResult Create()
         {
-            return View();
+            var contentItem = Services.ContentManager.New("Lead");
+            var model = Services.ContentManager.BuildEditor(contentItem);
+            return View(model);
         }
 
 
