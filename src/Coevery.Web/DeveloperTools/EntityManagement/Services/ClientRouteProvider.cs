@@ -8,6 +8,16 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         }
 
         private void RegisterEntityRoutes(ClientRouteTableBuilder builder) {
+
+            builder.Describe("PublishConfirm")
+                .Configure(descriptor => { descriptor.Url = "/Entities/PublishConfirm"; })
+                .View(view =>
+                {
+                    view.TemplateUrl = "'" + ModuleBasePath + @"PublishConfirm'";
+                    view.Controller = "EntityListCtrl";
+                    view.AddDependencies(ToAbsoluteScriptUrl, "controllers/listcontroller");
+                });
+
             builder.Describe("EntityList")
                 .Configure(descriptor => { descriptor.Url = "/Entities"; })
                 .View(view => {

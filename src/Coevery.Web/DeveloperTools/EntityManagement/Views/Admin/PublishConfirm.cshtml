@@ -1,0 +1,23 @@
+﻿@using System.Web.Mvc.Html
+@using (Html.BeginForm("PublishConfirm", "Admin", FormMethod.Post)) {
+    @Html.ValidationSummary()
+
+    <div>
+        <span>Modules</span> @*@Html.DropDownList()*@   <!-- 此处还未实现 -->
+    </div>
+    
+    <div>
+        <span>Controller: </span> @Html.CheckBox("Controller")
+    </div>
+    <div>
+        <span>View: </span>@Html.CheckBox("View")
+    </div>
+    <div>
+        <span>Model: </span>@Html.CheckBox("Model")
+    </div>
+    <div>
+        <span>Javascript: </span>@Html.CheckBox("Javascript")
+    </div>
+    
+    
+}

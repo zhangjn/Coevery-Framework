@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -73,7 +74,23 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             });
         }
 
-        public ActionResult Publish(string id) {
+        [HttpGet]
+        public ActionResult PublishConfirm(string id)
+        {
+            var entity = _contentMetadataService.GetEntity(id);
+
+            var items = new SelectListItem
+            {
+                Value = "sample",
+                Text = "sample"
+            };
+            ViewData["Modules"] = items;
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult PublishConfirm(string id, FormCollection formCollection) {
             var entity = _contentMetadataService.GetEntity(id);
             Services.ContentManager.Publish(entity.ContentItem);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
