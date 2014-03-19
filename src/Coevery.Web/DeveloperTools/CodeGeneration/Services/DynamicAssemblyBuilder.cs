@@ -8,14 +8,17 @@ using System.Web.Hosting;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
+using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.Records;
 using Coevery.Core.Common.Extensions;
 using Coevery.Core.Entities.DynamicTypeGeneration;
 using Coevery.Data;
 using Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates;
+using Coevery.DeveloperTools.FormDesigner.Models;
 using Coevery.FileSystems.VirtualPath;
 using FubuCore;
 using FubuCsProjFile;
+using Newtonsoft.Json;
 
 namespace Coevery.DeveloperTools.CodeGeneration.Services {
     public class DynamicAssemblyBuilder : IDynamicAssemblyBuilder {
@@ -24,15 +27,18 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
         private readonly IEnumerable<IContentFieldDriver> _contentFieldDrivers;
         private readonly IDynamicTypeGenerationEvents _dynamicTypeGenerationEvents;
         private readonly IContentDefinitionExtension _contentDefinitionExtension;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
 
         public DynamicAssemblyBuilder(
             IVirtualPathProvider virtualPathProvider,
             IEnumerable<IContentFieldDriver> contentFieldDrivers,
             IContentDefinitionExtension contentDefinitionExtension,
-            IDynamicTypeGenerationEvents dynamicTypeGenerationEvents) {
+            IDynamicTypeGenerationEvents dynamicTypeGenerationEvents,
+            IContentDefinitionManager contentDefinitionManager) {
             _virtualPathProvider = virtualPathProvider;
             _contentFieldDrivers = contentFieldDrivers;
             _dynamicTypeGenerationEvents = dynamicTypeGenerationEvents;
+            _contentDefinitionManager = contentDefinitionManager;
             _contentDefinitionExtension = contentDefinitionExtension;
         }
 
@@ -75,6 +81,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             var csProjFile = CsProjFile.LoadFrom(moduleCsProjPath);
             foreach (var definition in typeDefinitions) {
                 AddModelClassFile(csProjFile, definition);
+                AddViewFiles(csProjFile, definition);
                 //if (!definition.Fields.Any()) {
                 //    continue;
                 //}
@@ -175,8 +182,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             }
 
             string partClassFilePath = moduleModelsPath + modelDefinition.Name + "Part.cs";
-            if (File.Exists(partClassFilePath))
-            {
+            if (File.Exists(partClassFilePath)) {
                 //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
                 return;
             }
@@ -191,12 +197,11 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             csProjFile.Add<CodeFile>(partRelativePath);
 
             string recordClassFilePath = moduleModelsPath + modelDefinition.Name + "PartRecord.cs";
-            if (File.Exists(recordClassFilePath))
-            {
+            if (File.Exists(recordClassFilePath)) {
                 //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
                 return;
             }
-            var recordTemplate = new ContentPartRecordTemplate() { Session = new Dictionary<string, object>() };
+            var recordTemplate = new ContentPartRecordTemplate() {Session = new Dictionary<string, object>()};
             recordTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             recordTemplate.Session["ModelDefinition"] = modelDefinition;
             recordTemplate.Initialize();
@@ -205,6 +210,70 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
 
             var recordRelativePath = recordClassFilePath.PathRelativeTo(csProjFile.ProjectDirectory);
             csProjFile.Add<CodeFile>(recordRelativePath);
+        }
+
+        private void AddViewFiles(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
+            string viewsPath = Path.Combine(csProjFile.ProjectDirectory, "Views");
+            string controllerViewPath = Path.Combine(viewsPath, modelDefinition.Name);
+            string partsViewPath = Path.Combine(viewsPath, "Parts");
+            CheckDirectories(viewsPath, controllerViewPath, partsViewPath);
+
+            // {{EntityName}}/Create.cshtml
+            string createViewFilePath = Path.Combine(controllerViewPath, "Create.cshtml");
+            var createViewTemplate = new CreateViewTemplate();
+            AddFile(csProjFile, createViewFilePath, createViewTemplate.TransformText());
+
+            // {{EntityName}}/Edit.cshtml
+            string editViewFilePath = Path.Combine(controllerViewPath, "Edit.cshtml");
+            var editViewTemplate = new EditViewTemplate();
+            AddFile(csProjFile, editViewFilePath, editViewTemplate.TransformText());
+
+            // {{EntityName}}/Detail.cshtml
+            string detailViewFilePath = Path.Combine(controllerViewPath, "Detail.cshtml");
+            var detailViewTemplate = new DetailViewTemplate();
+            AddFile(csProjFile, detailViewFilePath, detailViewTemplate.TransformText());
+
+            // Parts/CreateView-{{EntityName}}.cshtml
+            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(modelDefinition.Name);
+            var sectionList = contentTypeDefinition.Settings.ContainsKey("Layout")
+                ? JsonConvert.DeserializeObject<ICollection<Section>>(contentTypeDefinition.Settings["Layout"])
+                : Enumerable.Empty<Section>();
+
+            string partsCreateViewFilePath = Path.Combine(partsViewPath, string.Format("CreateView-{0}.cshtml", modelDefinition.Name));
+            var partsCreateViewTemplate = new PartsCreateViewTemplate() {Session = new Dictionary<string, object>()};
+            partsCreateViewTemplate.Session["ModuleName"] = modelDefinition.Name;
+            partsCreateViewTemplate.Session["SectionList"] = sectionList;
+            partsCreateViewTemplate.Initialize();
+            AddFile(csProjFile, partsCreateViewFilePath, partsCreateViewTemplate.TransformText());
+
+            // Parts/EditView-{{EntityName}}.cshtml
+            string partsEditViewFilePath = Path.Combine(partsViewPath, string.Format("EditView-{0}.cshtml", modelDefinition.Name));
+            var partsEditViewTemplate = new PartsEditViewTemplate() { Session = new Dictionary<string, object>() };
+            partsEditViewTemplate.Session["ModuleName"] = modelDefinition.Name;
+            partsEditViewTemplate.Session["SectionList"] = sectionList;
+            partsEditViewTemplate.Initialize();
+            AddFile(csProjFile, partsEditViewFilePath, partsEditViewTemplate.TransformText());
+
+            // Parts/DetailView-{{EntityName}}.cshtml
+            string partsDetailViewFilePath = Path.Combine(partsViewPath, string.Format("DetailView-{0}.cshtml", modelDefinition.Name));
+            var partsDetailViewTemplate = new PartsDetailViewTemplate() { Session = new Dictionary<string, object>() };
+            partsDetailViewTemplate.Session["SectionList"] = sectionList;
+            partsDetailViewTemplate.Initialize();
+            AddFile(csProjFile, partsDetailViewFilePath, partsDetailViewTemplate.TransformText());
+        }
+
+        private void AddFile(CsProjFile csProjFile, string path, string text) {
+            File.WriteAllText(path, text);
+            var relativePath = path.PathRelativeTo(csProjFile.ProjectDirectory);
+            csProjFile.Add<CodeFile>(relativePath);
+        }
+
+        private void CheckDirectories(params string[] paths) {
+            foreach (var path in paths) {
+                if (!Directory.Exists(path)) {
+                    Directory.CreateDirectory(path);
+                }
+            }
         }
 
         private static TypeBuilder BuildType(DynamicDefinition definition, ModuleBuilder modBuilder) {

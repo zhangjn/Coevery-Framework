@@ -54,6 +54,10 @@
       <HintPath>..\..\..\lib\fubu\FubuCsProjFile.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\lib\newtonsoft.json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\lib\nhibernate\NHibernate.dll</HintPath>
@@ -156,6 +160,26 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ControllerTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.cs">
+      <DependentUpon>PartsDetailViewTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\DetailViewTemplate.cs">
+      <DependentUpon>DetailViewTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.cs">
+      <DependentUpon>PartsEditViewTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\EditViewTemplate.cs">
+      <DependentUpon>EditViewTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.cs">
       <DependentUpon>PartsCreateViewTemplate.tt</DependentUpon>
@@ -295,6 +319,22 @@
     <Content Include="CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>PartsCreateViewTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\EditViewTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>EditViewTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>PartsEditViewTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\DetailViewTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DetailViewTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>PartsDetailViewTemplate.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -1,0 +1,4 @@
+﻿@if (Model.Actions != null) {
+    @Display(Model.Actions)
+}
+@Display(Model.Content)
