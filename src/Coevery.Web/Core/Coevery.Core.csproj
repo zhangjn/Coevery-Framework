@@ -138,6 +138,7 @@
     <Compile Include="Fields\Projections\DateFieldFormatter.cs" />
     <Compile Include="Fields\Projections\DatetimeFieldFormatter.cs" />
     <Compile Include="Fields\Projections\DatetimeTypeValueProvider.cs" />
+    <Compile Include="Fields\Shapes.cs" />
     <Compile Include="Forms\Services\DefaultFormManager.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -1085,9 +1086,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Fields\Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Fields\Views\Wrapper.Script.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="OptionSet\Placement.info" />

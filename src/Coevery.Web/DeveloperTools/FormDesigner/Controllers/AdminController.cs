@@ -55,7 +55,7 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
             var fields = _contentDefinitionManager.GetPartDefinition(id.ToPartName()).Fields
                 .Select(x => new FieldViewModel {DisplayName = x.DisplayName, Name = x.Name})
                 .ToList();
-            foreach (var item in model.Content.Items) {
+            foreach (var item in model.Fields.Items) {
                 if (item.TemplateName != null && item.TemplateName.StartsWith("Fields/")) {
                     templates.Add(item);
                 }
