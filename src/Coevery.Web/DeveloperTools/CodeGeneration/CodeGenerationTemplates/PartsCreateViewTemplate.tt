@@ -1,0 +1,25 @@
+﻿<#@ template debug="false" language="C#" #>
+<#@ output extension=".txt" #>
+<#@ parameter type="System.String" name="ModuleName" #>
+<#@ parameter type="System.Collections.Generic.ICollection<Coevery.DeveloperTools.FormDesigner.Models.Section>" name="SectionList" #>
+
+@using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "<#=ModuleName #>"),
+    FormMethod.Post, new {@class = "form-structure"})) {
+	<# foreach (var layoutSection in SectionList) { #>
+    <fieldset>
+        <legend><#= layoutSection.SectionTitle #></legend>
+		<# foreach (var row in layoutSection.Rows) { #>
+            <div class="data-row">
+                <# foreach (var column in row.Columns) { #>
+                    <div class="data-column">
+                        <# if (column.Field != null) { #>
+                            @Display.DisplayField(part: Model.ContentPart, fieldName: "<#= column.Field.FieldName #>")
+                        <# } #>
+                    </div>
+                <# } #>
+            </div>
+        <# } #>
+    </fieldset>
+<# } #>
+<input type="submit" value="@T("Submit")" />
+}

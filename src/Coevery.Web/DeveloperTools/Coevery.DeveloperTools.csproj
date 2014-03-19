@@ -116,7 +116,6 @@
     <Content Include="FormDesigner\Styles\images\wrenchRemove.png" />
     <Content Include="FormDesigner\Styles\Web.config" />
     <Content Include="FormDesigner\Views\Admin\Index.cshtml" />
-    <Content Include="FormDesigner\Views\FormTemplate\FormDesignerLayout.cshtml" />
     <Content Include="FormDesigner\Views\Web.config" />
     <Content Include="ListViewDesigner\Module.txt" />
     <Content Include="ListViewDesigner\Scripts\controllers\detailcontroller.js" />
@@ -157,6 +156,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ControllerTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.cs">
+      <DependentUpon>PartsCreateViewTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\CreateViewTemplate.cs">
+      <DependentUpon>CreateViewTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="CodeGeneration\CodeGenerationTemplates\DataMigration.cs">
       <AutoGen>True</AutoGen>
@@ -278,6 +287,14 @@
     <Compile Include="RelationshipManagement\Settings\ReferenceFieldEditorEvents.cs" />
     <Content Include="EntityManagement\Views\Admin\PublishConfirm.cshtml">
       <SubType>Code</SubType>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\CreateViewTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>CreateViewTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>PartsCreateViewTemplate.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>
