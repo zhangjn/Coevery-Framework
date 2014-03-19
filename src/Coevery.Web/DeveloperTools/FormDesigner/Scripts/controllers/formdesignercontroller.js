@@ -49,8 +49,8 @@ define(['core/app/detourService'], function (detour) {
                     var promise = $http({
                         url: 'api/formdesigner/layout/' + $stateParams.EntityName,
                         method: "POST",
-                        data: JSON.stringify(layoutObject),
-                        headers: { 'Content-Type': 'application/json' },
+                        data: 'Layout=' + JSON.stringify(layoutObject),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         tracker: 'saveform'
                     }).then(function () {
                         logger.success('Save succeeded.');
