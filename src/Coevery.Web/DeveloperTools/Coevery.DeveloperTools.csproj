@@ -345,7 +345,6 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>PartsCreateViewTemplate.cs</LastGenOutput>
     </Content>
-    <Content Include="packages.config" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\IndexViewTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>IndexViewTemplate.cs</LastGenOutput>

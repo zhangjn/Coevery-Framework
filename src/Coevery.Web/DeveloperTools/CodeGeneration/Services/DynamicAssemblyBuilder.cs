@@ -82,20 +82,20 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
         }
 
         private void AddControllerFile(CsProjFile csProjFile, DynamicDefinition controllerDefinition) {
-            string moduleControllersPath = Path.Combine(csProjFile.ProjectDirectory, "Controllers");
 
+            string moduleControllersPath = Path.Combine(csProjFile.ProjectDirectory, "Controllers");
             CheckDirectories(moduleControllersPath);
 
             // Controller
-            string controllerClassFilePath = moduleControllersPath + controllerDefinition.Name + "Controller.cs";
-            var partTemplate = new ControllerTemplate() {Session = new Dictionary<string, object>()};
+            string controllerClassFilePath = Path.Combine(moduleControllersPath, string.Format("{0}Controller.cs", controllerDefinition.Name));
+            var partTemplate = new ControllerTemplate() { Session = new Dictionary<string, object>() };
             partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             partTemplate.Session["ControllerName"] = controllerDefinition.Name;
             partTemplate.Initialize();
             AddFile<Content>(csProjFile, controllerClassFilePath, partTemplate.TransformText());
 
             // Api controller
-            string apiControllerClassFilePath = moduleControllersPath + controllerDefinition.Name + "ApiController.cs";
+            string apiControllerClassFilePath = Path.Combine(moduleControllersPath, string.Format("{0}ApiController.cs", controllerDefinition.Name));
             var apiControllerTemplate = new ApiControllerTemplate() {Session = new Dictionary<string, object>()};
             apiControllerTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             apiControllerTemplate.Session["ControllerName"] = controllerDefinition.Name;
@@ -109,7 +109,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
 
             CheckDirectories(moduleDriversPath);
 
-            string partClassFilePath = moduleDriversPath + driverDefinition.Name + "PartDriver.cs";
+            string partClassFilePath = Path.Combine(moduleDriversPath, driverDefinition.Name + "PartDriver.cs");
             var partTemplate = new DriverTemplate() {Session = new Dictionary<string, object>()};
             partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             partTemplate.Session["DriverName"] = driverDefinition.Name;
@@ -183,7 +183,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             var gridDefinition = (Object[])_gridColumn.Get(modelDefinition.Name, query.Id);
 
             string partsListViewFilePath = Path.Combine(partsViewPath, string.Format("EditView-{0}.cshtml", modelDefinition.Name));
-            var partsListViewTemplate = new PartsEditViewTemplate() { Session = new Dictionary<string, object>() };
+            var partsListViewTemplate = new ListViewTemplate() { Session = new Dictionary<string, object>() };
             partsListViewTemplate.Session["ModelDefinition"] = gridDefinition;
             partsListViewTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             partsListViewTemplate.Session["ViewName"] = modelDefinition.Name;
