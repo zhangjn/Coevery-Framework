@@ -352,7 +352,7 @@
     <Content Include="CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ListViewTemplate.cs</LastGenOutput>
-
+    </Content>
     <Content Include="CodeGeneration\CodeGenerationTemplates\EditViewTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>EditViewTemplate.cs</LastGenOutput>
