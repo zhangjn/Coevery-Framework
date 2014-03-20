@@ -292,9 +292,6 @@
     <Compile Include="FormDesigner\Services\ILayoutManager.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FormDesigner\Services\TemplateViewService.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="FormDesigner\ViewModels\FieldViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
