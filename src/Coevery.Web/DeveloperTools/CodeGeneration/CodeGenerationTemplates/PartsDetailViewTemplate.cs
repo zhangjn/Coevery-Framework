@@ -25,73 +25,72 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n<div class = \"form-structure\">\r\n\t");
+            this.Write("<div class = \"form-structure\">\r\n");
             
-            #line 6 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 5 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  foreach (var layoutSection in SectionList) { 
             
             #line default
             #line hidden
-            this.Write("    <fieldset>\r\n        <legend>");
+            this.Write("    <fieldset>\r\n\t\t<legend>");
             
-            #line 8 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 7 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(layoutSection.SectionTitle));
             
             #line default
             #line hidden
-            this.Write("</legend>\r\n\t\t");
+            this.Write("</legend>\r\n");
             
-            #line 9 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 8 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  foreach (var row in layoutSection.Rows) { 
             
             #line default
             #line hidden
-            this.Write("            <div class=\"data-row\">\r\n                ");
+            this.Write("\t\t<div class=\"data-row\">\r\n");
             
-            #line 11 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 10 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  foreach (var column in row.Columns) { 
             
             #line default
             #line hidden
-            this.Write("                    <div class=\"data-column\">\r\n                        ");
+            this.Write("\t\t\t<div class=\"data-column\">\r\n");
             
-            #line 13 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 12 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  if (column.Field != null) { 
             
             #line default
             #line hidden
-            this.Write("                            @Display.DisplayField(part: Model.ContentPart, fieldN" +
-                    "ame: \"");
+            this.Write("\t\t\t\t@Display.DisplayField(part: Model.ContentPart, fieldName: \"");
             
-            #line 14 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 13 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(column.Field.FieldName));
             
             #line default
             #line hidden
-            this.Write("\")\r\n                        ");
+            this.Write("\")\r\n");
             
-            #line 15 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 14 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("                    </div>\r\n                ");
+            this.Write("\t\t\t</div>\r\n");
             
-            #line 17 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 16 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("            </div>\r\n        ");
+            this.Write("\t\t</div>\r\n");
             
-            #line 19 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 18 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("    </fieldset>\r\n");
+            this.Write("\t</fieldset>\r\n");
             
-            #line 21 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 20 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  } 
             
             #line default
