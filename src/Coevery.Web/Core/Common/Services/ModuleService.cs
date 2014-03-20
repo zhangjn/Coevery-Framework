@@ -29,9 +29,9 @@ namespace Coevery.Core.Common.Services {
 
         public ModuleService(
                 IFeatureManager featureManager,
-                ICoeveryServices CoeveryServices) {
+                ICoeveryServices coeveryServices) {
 
-            Services = CoeveryServices;
+            Services = coeveryServices;
 
             _featureManager = featureManager;
 

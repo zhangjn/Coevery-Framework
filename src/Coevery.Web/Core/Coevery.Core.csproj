@@ -372,17 +372,14 @@
     <Compile Include="Projections\Services\QueryService.cs" />
     <Compile Include="Projections\Services\SortService.cs" />
     <Compile Include="Projections\Shapes.cs" />
-    <Compile Include="Projections\ViewModels\Data.cs" />
     <Compile Include="Projections\ViewModels\FilterData.cs" />
     <Compile Include="Projections\ViewModels\FilterViewModel.cs" />
-    <Compile Include="Projections\ViewModels\LayoutAddViewModel.cs" />
     <Compile Include="Projections\ViewModels\ListQueryModel.cs" />
     <Compile Include="Projections\ViewModels\NavigationQueryPartEditViewModel.cs" />
     <Compile Include="Projections\ViewModels\PicklistItemViewModel.cs" />
     <Compile Include="Projections\ViewModels\ProjectionEditViewModel.cs" />
     <Compile Include="Projections\ViewModels\ProjectionPartEditViewModel.cs" />
     <Compile Include="Projections\ViewModels\PropertyDescriptorViewModel.cs" />
-    <Compile Include="Projections\ViewModels\SortCriteriaAddViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\Commands\FeatureCommands.cs" />
     <Compile Include="Relationships\Drivers\ReferenceFieldDriver.cs" />
