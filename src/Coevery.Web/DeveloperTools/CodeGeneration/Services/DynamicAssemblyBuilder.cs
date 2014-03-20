@@ -92,7 +92,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             partTemplate.Session["ControllerName"] = controllerDefinition.Name;
             partTemplate.Initialize();
-            AddFile<Content>(csProjFile, controllerClassFilePath, partTemplate.TransformText());
+            AddFile<CodeFile>(csProjFile, controllerClassFilePath, partTemplate.TransformText());
 
             // Api controller
             string apiControllerClassFilePath = Path.Combine(moduleControllersPath, string.Format("{0}ApiController.cs", controllerDefinition.Name));
@@ -100,7 +100,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             apiControllerTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             apiControllerTemplate.Session["ControllerName"] = controllerDefinition.Name;
             apiControllerTemplate.Initialize();
-            AddFile<Content>(csProjFile, apiControllerClassFilePath, apiControllerTemplate.TransformText());
+            AddFile<CodeFile>(csProjFile, apiControllerClassFilePath, apiControllerTemplate.TransformText());
 
         }
 
@@ -115,7 +115,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             partTemplate.Session["DriverName"] = driverDefinition.Name;
             partTemplate.Initialize();
 
-            AddFile<Content>(csProjFile, partClassFilePath, partTemplate.TransformText());
+            AddFile<CodeFile>(csProjFile, partClassFilePath, partTemplate.TransformText());
         }
 
         private void AddModelClassFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
