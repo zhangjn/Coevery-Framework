@@ -15,7 +15,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+    #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class ControllerTemplate : ControllerTemplateBase
     {
@@ -25,24 +25,24 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nusing System.Net;\r\nusing System.Web.Mvc;\r\nusing Coevery;\r\nusing Coevery.Content" +
-                    "Management;\r\nusing Coevery.Localization;\r\nusing Coevery.Themes;\r\nusing ");
+            this.Write("using System.Net;\r\nusing System.Web.Mvc;\r\nusing Coevery;\r\nusing Coevery.ContentMa" +
+                    "nagement;\r\nusing Coevery.Localization;\r\nusing Coevery.Themes;\r\nusing ");
             
-            #line 12 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 11 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Models;\r\n\r\nnamespace ");
             
-            #line 14 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 13 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Controllers {\r\n    public class ");
             
-            #line 15 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 14 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
@@ -50,7 +50,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("Controller : Controller , IUpdateModel{\r\n        public ICoeveryServices Services" +
                     " { get; set; }\r\n\t\tpublic Localizer T { get; set; }\r\n\r\n\r\n        public ");
             
-            #line 20 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 19 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
@@ -59,14 +59,14 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "       T = NullLocalizer.Instance;\r\n        }\r\n\r\n\t\tpublic ActionResult Index() {" +
                     "\r\n            var contentItem = Services.ContentManager.New(\"");
             
-            #line 26 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 25 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
             #line hidden
             this.Write("\");\r\n            contentItem.Weld(new ");
             
-            #line 27 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 26 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
@@ -84,7 +84,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public ActionResult Create() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 38 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 37 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
@@ -98,14 +98,15 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public ActionResult CreatePost() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 45 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 44 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
             #line hidden
             this.Write(@""");
             Services.ContentManager.UpdateEditor(contentItem, this);
-
+			Services.ContentManager.Create(contentItem, VersionOptions.Draft);
+			Services.ContentManager.Publish(contentItem);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
@@ -158,7 +159,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+        #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
 
 private string _NamespaceField;
 

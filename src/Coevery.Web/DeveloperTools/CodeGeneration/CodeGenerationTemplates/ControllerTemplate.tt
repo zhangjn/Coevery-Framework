@@ -2,7 +2,6 @@
 <#@ output extension=".txt" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="ControllerName" #>
-
 using System.Net;
 using System.Web.Mvc;
 using Coevery;
@@ -44,7 +43,8 @@ namespace <#=Namespace#>.Controllers {
         public ActionResult CreatePost() {
             var contentItem = Services.ContentManager.New("<#=ControllerName#>");
             Services.ContentManager.UpdateEditor(contentItem, this);
-
+			Services.ContentManager.Create(contentItem, VersionOptions.Draft);
+			Services.ContentManager.Publish(contentItem);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
