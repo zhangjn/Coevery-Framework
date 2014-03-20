@@ -76,7 +76,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
                 AddModelClassFile(csProjFile, definition);
                 AddControllerFile(csProjFile, definition);
                 AddDriverFile(csProjFile, definition);
-                AddViewFiles(csProjFile, definition);
+                AddViewFile(csProjFile, definition);
             }
             csProjFile.Save();
         }
@@ -137,7 +137,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             AddFile<CodeFile>(csProjFile, recordClassFilePath, recordTemplate.TransformText());
         }
 
-        private void AddViewFiles(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
+        private void AddViewFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
             string viewsPath = Path.Combine(csProjFile.ProjectDirectory, "Views");
             string controllerViewPath = Path.Combine(viewsPath, modelDefinition.Name);
             string partsViewPath = Path.Combine(viewsPath, "Parts");
