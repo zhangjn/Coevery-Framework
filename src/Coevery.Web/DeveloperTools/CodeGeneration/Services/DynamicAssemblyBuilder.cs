@@ -3,17 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Hosting;
-using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData;
-using Coevery.ContentManagement.Records;
 using Coevery.Core.Common.Extensions;
-using Coevery.Core.Entities.DynamicTypeGeneration;
-using Coevery.Data;
 using Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates;
 using Coevery.DeveloperTools.FormDesigner.Models;
-using Coevery.FileSystems.VirtualPath;
 using FubuCore;
 using FubuCsProjFile;
 using Newtonsoft.Json;
@@ -21,21 +16,14 @@ using Newtonsoft.Json;
 namespace Coevery.DeveloperTools.CodeGeneration.Services {
     public class DynamicAssemblyBuilder : IDynamicAssemblyBuilder {
         internal const string AssemblyName = "Coevery.DynamicTypes";
-        private readonly IVirtualPathProvider _virtualPathProvider;
         private readonly IEnumerable<IContentFieldDriver> _contentFieldDrivers;
-        private readonly IDynamicTypeGenerationEvents _dynamicTypeGenerationEvents;
         private readonly IContentDefinitionExtension _contentDefinitionExtension;
         private readonly IContentDefinitionManager _contentDefinitionManager;
 
-        public DynamicAssemblyBuilder(
-            IVirtualPathProvider virtualPathProvider,
-            IEnumerable<IContentFieldDriver> contentFieldDrivers,
+        public DynamicAssemblyBuilder(IEnumerable<IContentFieldDriver> contentFieldDrivers,
             IContentDefinitionExtension contentDefinitionExtension,
-            IDynamicTypeGenerationEvents dynamicTypeGenerationEvents,
             IContentDefinitionManager contentDefinitionManager) {
-            _virtualPathProvider = virtualPathProvider;
             _contentFieldDrivers = contentFieldDrivers;
-            _dynamicTypeGenerationEvents = dynamicTypeGenerationEvents;
             _contentDefinitionManager = contentDefinitionManager;
             _contentDefinitionExtension = contentDefinitionExtension;
         }
@@ -83,14 +71,9 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
 
         private void AddModelClassFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
             string moduleModelsPath = Path.Combine(csProjFile.ProjectDirectory, "Models");
-            if (!moduleModelsPath.EndsWith(Path.DirectorySeparatorChar.ToString())) {
-                moduleModelsPath += Path.DirectorySeparatorChar;
-            }
-            if (!Directory.Exists(moduleModelsPath)) {
-                Directory.CreateDirectory(moduleModelsPath);
-            }
+            CheckDirectories(moduleModelsPath);
 
-            string partClassFilePath = moduleModelsPath + modelDefinition.Name + "Part.cs";
+            string partClassFilePath = Path.Combine(moduleModelsPath, modelDefinition.Name + "Part.cs");
             if (File.Exists(partClassFilePath)) {
                 //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
                 return;
@@ -99,13 +82,9 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             partTemplate.Session["ModelDefinition"] = modelDefinition;
             partTemplate.Initialize();
-            string partText = partTemplate.TransformText();
-            File.WriteAllText(partClassFilePath, partText);
+            AddFile<CodeFile>(csProjFile, partClassFilePath, partTemplate.TransformText());
 
-            var partRelativePath = partClassFilePath.PathRelativeTo(csProjFile.ProjectDirectory);
-            csProjFile.Add<CodeFile>(partRelativePath);
-
-            string recordClassFilePath = moduleModelsPath + modelDefinition.Name + "PartRecord.cs";
+            string recordClassFilePath = Path.Combine(moduleModelsPath, modelDefinition.Name + "PartRecord.cs");
             if (File.Exists(recordClassFilePath)) {
                 //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
                 return;
@@ -114,11 +93,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             recordTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             recordTemplate.Session["ModelDefinition"] = modelDefinition;
             recordTemplate.Initialize();
-            string recordText = recordTemplate.TransformText();
-            File.WriteAllText(recordClassFilePath, recordText);
-
-            var recordRelativePath = recordClassFilePath.PathRelativeTo(csProjFile.ProjectDirectory);
-            csProjFile.Add<CodeFile>(recordRelativePath);
+            AddFile<CodeFile>(csProjFile, recordClassFilePath, recordTemplate.TransformText());
         }
 
         private void AddViewFiles(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
