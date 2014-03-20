@@ -221,17 +221,17 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             // {{EntityName}}/Create.cshtml
             string createViewFilePath = Path.Combine(controllerViewPath, "Create.cshtml");
             var createViewTemplate = new CreateViewTemplate();
-            AddFile(csProjFile, createViewFilePath, createViewTemplate.TransformText());
+            AddFile<Content>(csProjFile, createViewFilePath, createViewTemplate.TransformText());
 
             // {{EntityName}}/Edit.cshtml
             string editViewFilePath = Path.Combine(controllerViewPath, "Edit.cshtml");
             var editViewTemplate = new EditViewTemplate();
-            AddFile(csProjFile, editViewFilePath, editViewTemplate.TransformText());
+            AddFile<Content>(csProjFile, editViewFilePath, editViewTemplate.TransformText());
 
             // {{EntityName}}/Detail.cshtml
             string detailViewFilePath = Path.Combine(controllerViewPath, "Detail.cshtml");
             var detailViewTemplate = new DetailViewTemplate();
-            AddFile(csProjFile, detailViewFilePath, detailViewTemplate.TransformText());
+            AddFile<Content>(csProjFile, detailViewFilePath, detailViewTemplate.TransformText());
 
             // Parts/CreateView-{{EntityName}}.cshtml
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(modelDefinition.Name);
@@ -244,28 +244,28 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             partsCreateViewTemplate.Session["ModuleName"] = modelDefinition.Name;
             partsCreateViewTemplate.Session["SectionList"] = sectionList;
             partsCreateViewTemplate.Initialize();
-            AddFile(csProjFile, partsCreateViewFilePath, partsCreateViewTemplate.TransformText());
+            AddFile<Content>(csProjFile, partsCreateViewFilePath, partsCreateViewTemplate.TransformText());
 
             // Parts/EditView-{{EntityName}}.cshtml
             string partsEditViewFilePath = Path.Combine(partsViewPath, string.Format("EditView-{0}.cshtml", modelDefinition.Name));
-            var partsEditViewTemplate = new PartsEditViewTemplate() { Session = new Dictionary<string, object>() };
+            var partsEditViewTemplate = new PartsEditViewTemplate() {Session = new Dictionary<string, object>()};
             partsEditViewTemplate.Session["ModuleName"] = modelDefinition.Name;
             partsEditViewTemplate.Session["SectionList"] = sectionList;
             partsEditViewTemplate.Initialize();
-            AddFile(csProjFile, partsEditViewFilePath, partsEditViewTemplate.TransformText());
+            AddFile<Content>(csProjFile, partsEditViewFilePath, partsEditViewTemplate.TransformText());
 
             // Parts/DetailView-{{EntityName}}.cshtml
             string partsDetailViewFilePath = Path.Combine(partsViewPath, string.Format("DetailView-{0}.cshtml", modelDefinition.Name));
-            var partsDetailViewTemplate = new PartsDetailViewTemplate() { Session = new Dictionary<string, object>() };
+            var partsDetailViewTemplate = new PartsDetailViewTemplate() {Session = new Dictionary<string, object>()};
             partsDetailViewTemplate.Session["SectionList"] = sectionList;
             partsDetailViewTemplate.Initialize();
-            AddFile(csProjFile, partsDetailViewFilePath, partsDetailViewTemplate.TransformText());
+            AddFile<Content>(csProjFile, partsDetailViewFilePath, partsDetailViewTemplate.TransformText());
         }
 
-        private void AddFile(CsProjFile csProjFile, string path, string text) {
+        private void AddFile<T>(CsProjFile csProjFile, string path, string text) where T : ProjectItem, new() {
             File.WriteAllText(path, text);
             var relativePath = path.PathRelativeTo(csProjFile.ProjectDirectory);
-            csProjFile.Add<CodeFile>(relativePath);
+            csProjFile.Add<T>(relativePath);
         }
 
         private void CheckDirectories(params string[] paths) {
