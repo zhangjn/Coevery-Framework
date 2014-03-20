@@ -29,46 +29,30 @@ namespace Coevery.Core.Fields {
         [Shape]
         public void DisplayField(ContentPart part, string fieldName, dynamic Display, TextWriter Output) {
 
-            dynamic shapeFactory = _shapeFactory.Value;
+            var shapeFactory = _shapeFactory.Value;
 
-            //dynamic itemShape = shapeFactory.Create("ViewModel", Arguments.Empty(), () => new ZoneHolding(() => shapeFactory.Create("ContentZone", Arguments.Empty())));
-            dynamic itemShape = shapeFactory.ViewModel();
+            dynamic itemShape = shapeFactory.Create("Content", Arguments.Empty(), () => new ZoneHolding(() => shapeFactory.Create("ContentZone", Arguments.Empty())));
             itemShape.ContentItem = part.ContentItem;
 
             var context = new BuildEditorContext(itemShape, part, string.Empty, shapeFactory);
-            context.FindPlacement = (partShapeType, differentiator, defaultLocation) => new PlacementInfo {Location = "Fields"};
+            context.FindPlacement = (partShapeType, differentiator, defaultLocation) => new PlacementInfo {Location = "Content"};
 
-            var field = part.PartDefinition.Fields.FirstOrDefault(f => f.Name == fieldName);
+            var field = part.Fields.FirstOrDefault(f => f.Name == fieldName);
             if (field != null) {
                 var fieldTypeName = field.FieldDefinition.Name;
                 var drivers = _contentFieldDrivers.Where(x => x.Value.GetFieldInfo().Any(fi => fi.FieldTypeName == fieldTypeName)).ToList();
                 drivers.Invoke(driver => {
                     context.Logger = Logger;
-                    var result = driver.Value.BuildEditorShape(context);
+                    var result = driver.Value.BuildEditorShape(context) as CombinedResult;
                     if (result != null) {
-                        result.Apply(context);
+                        var driverResults = result.GetResults().Where(x => x.ContentField == field);
+                        foreach (var driverResult in driverResults) {
+                            driverResult.Apply(context);
+                        }
                     }
                 }, Logger);
                 Output.Write(Display(context.Shape));
             }
-
-            
-
-            //var drivers = _contentFieldDrivers.Where(x => x.Value.GetFieldInfo().Any(fi => fi.FieldTypeName == fieldNameType)).ToList();
-            //_drivers.Invoke(driver => {
-            //    context.Logger = Logger;
-            //    var result = driver.BuildEditorShape(context);
-            //    if (result != null) {
-            //        result.Apply(context);
-            //    }
-            //}, Logger);
-
-            //IEnumerable<dynamic> fields = context.Shape.Fields.Items;
-            //string partName = part.PartDefinition.Name;
-            //dynamic field = fields.FirstOrDefault(x => x.ContentPart.PartDefinition.Name == partName && x.ContentField.Name == fieldName);
-            //if (field != null) {
-            //    Output.Write(Display(field));
-            //}
         }
     }
 }

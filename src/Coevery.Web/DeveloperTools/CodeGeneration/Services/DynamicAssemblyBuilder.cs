@@ -17,7 +17,6 @@ using Newtonsoft.Json;
 
 namespace Coevery.DeveloperTools.CodeGeneration.Services {
     public class DynamicAssemblyBuilder : IDynamicAssemblyBuilder {
-        internal const string AssemblyName = "Coevery.DynamicTypes";
         private readonly IEnumerable<IContentFieldDriver> _contentFieldDrivers;
         private readonly IContentDefinitionExtension _contentDefinitionExtension;
         private readonly IContentDefinitionManager _contentDefinitionManager;

@@ -1222,6 +1222,9 @@
   <ItemGroup>
     <Content Include="Relationships\Placement.info" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Common\Views\Content.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
