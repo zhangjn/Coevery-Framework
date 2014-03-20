@@ -1,7 +1,7 @@
 ﻿<#@ template debug="false" language="C#" #>
 <#@ output extension=".txt" #>
 <#@ parameter type="System.String" name="ModuleName" #>
-<#@ parameter type="System.Collections.Generic.ICollection<Coevery.DeveloperTools.FormDesigner.Models.Section>" name="SectionList" #>
+<#@ parameter type="System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>" name="SectionList" #>
 
 @using (Html.BeginFormAntiForgeryPost(Url.Action("Edit", "<#=ModuleName #>"),
     FormMethod.Post, new {@class = "form-structure"})) {

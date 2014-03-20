@@ -102,12 +102,12 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         
         #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
 
-private global::System.Collections.Generic.ICollection<Coevery.DeveloperTools.FormDesigner.Models.Section> _SectionListField;
+private global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section> _SectionListField;
 
 /// <summary>
 /// Access the SectionList parameter of the template.
 /// </summary>
-private global::System.Collections.Generic.ICollection<Coevery.DeveloperTools.FormDesigner.Models.Section> SectionList
+private global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section> SectionList
 {
     get
     {
@@ -126,15 +126,15 @@ public virtual void Initialize()
 bool SectionListValueAcquired = false;
 if (this.Session.ContainsKey("SectionList"))
 {
-    if ((typeof(global::System.Collections.Generic.ICollection<Coevery.DeveloperTools.FormDesigner.Models.Section>).IsAssignableFrom(this.Session["SectionList"].GetType()) == false))
+    if ((typeof(global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>).IsAssignableFrom(this.Session["SectionList"].GetType()) == false))
     {
-        this.Error("The type \'System.Collections.Generic.ICollection<Coevery.DeveloperTools.FormDesig" +
-                "ner.Models.Section>\' of the parameter \'SectionList\' did not match the type of th" +
-                "e data passed to the template.");
+        this.Error("The type \'System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Mo" +
+                "dels.Section>\' of the parameter \'SectionList\' did not match the type of the data" +
+                " passed to the template.");
     }
     else
     {
-        this._SectionListField = ((global::System.Collections.Generic.ICollection<Coevery.DeveloperTools.FormDesigner.Models.Section>)(this.Session["SectionList"]));
+        this._SectionListField = ((global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>)(this.Session["SectionList"]));
         SectionListValueAcquired = true;
     }
 }
@@ -143,15 +143,15 @@ if ((SectionListValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("SectionList");
     if ((data != null))
     {
-        if ((typeof(global::System.Collections.Generic.ICollection<Coevery.DeveloperTools.FormDesigner.Models.Section>).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.Collections.Generic.ICollection<Coevery.DeveloperTools.FormDesig" +
-                    "ner.Models.Section>\' of the parameter \'SectionList\' did not match the type of th" +
-                    "e data passed to the template.");
+            this.Error("The type \'System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Mo" +
+                    "dels.Section>\' of the parameter \'SectionList\' did not match the type of the data" +
+                    " passed to the template.");
         }
         else
         {
-            this._SectionListField = ((global::System.Collections.Generic.ICollection<Coevery.DeveloperTools.FormDesigner.Models.Section>)(data));
+            this._SectionListField = ((global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>)(data));
         }
     }
 }

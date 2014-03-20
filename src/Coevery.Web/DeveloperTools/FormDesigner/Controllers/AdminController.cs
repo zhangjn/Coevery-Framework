@@ -7,9 +7,11 @@ using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.Core.Common.Extensions;
 using Coevery.DeveloperTools.EntityManagement.Services;
+using Coevery.DeveloperTools.FormDesigner.Models;
 using Coevery.DeveloperTools.FormDesigner.ViewModels;
 using Coevery.Localization;
 using Coevery.Logging;
+using Newtonsoft.Json;
 
 namespace Coevery.DeveloperTools.FormDesigner.Controllers {
     public class AdminController : Controller {
@@ -42,14 +44,11 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
             var contentItem = _contentManager.New(id);
             dynamic model = _contentManager.BuildEditor(contentItem);
             var contentTypeDefinition = contentItem.TypeDefinition;
-            string layout = contentTypeDefinition.Settings.ContainsKey("Layout")
-                ? contentTypeDefinition.Settings["Layout"]
-                : string.Empty;
-            layout = string.IsNullOrEmpty(layout)
-                ? "<div fd-section=\"\" section-columns=\"1\" section-columns-width=\"6:6\" section-title=\"Sample Title\"><div fd-row=\"\"><div fd-column=\"\"></div></div></div>"
-                : layout;
+
             var viewModel = Services.New.ViewModel();
-            viewModel.Layout = layout;
+            viewModel.Layout = contentTypeDefinition.Settings.ContainsKey("Layout")
+                ? JsonConvert.DeserializeObject<IList<Section>>(contentTypeDefinition.Settings["Layout"])
+                : Enumerable.Empty<Section>();
             viewModel.DisplayName = contentItem.TypeDefinition.DisplayName;
             var templates = new List<dynamic>();
             var fields = _contentDefinitionManager.GetPartDefinition(id.ToPartName()).Fields

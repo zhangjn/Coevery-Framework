@@ -1,6 +1,12 @@
-﻿namespace Coevery.DeveloperTools.FormDesigner.Models {
+﻿using System.Collections.Generic;
+
+namespace Coevery.DeveloperTools.FormDesigner.Models {
     public class Row {
-        public Column[] Columns { get; set; }
+        public Row() {
+            Columns = new List<Column>();
+        }
+
+        public IList<Column> Columns { get; set; }
         public bool IsMerged { get; set; }
     }
 }

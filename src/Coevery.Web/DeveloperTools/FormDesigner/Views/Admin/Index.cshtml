@@ -1,5 +1,7 @@
-﻿@{
+﻿@using Coevery.DeveloperTools.FormDesigner.Models
+@{
     Style.Include("formdesigner.css");
+    IList<Section> sectionList = Model.Layout;
 }
 @Display.StylesheetLinks()
 
@@ -52,7 +54,7 @@
                             <div class="tab-pane" id="fieldTools">
                                 @{
                                     foreach (var field in Model.Fields) {
-                                    @:<div fd-tools-field field-display-name="@field.DisplayName" field-name="@field.Name"></div>
+                                        @:<div fd-tools-field field-display-name="@field.DisplayName" field-name="@field.Name"></div>
                                     }
                                 }
                             </div>
@@ -64,7 +66,23 @@
         <div class="span9">
             <div id="form-designer">
                 <div fd-form>
-                    @{ Output.Write(Model.Layout); }
+                    @foreach (var layoutSection in sectionList) {
+                        <div fd-section="" section-columns="@layoutSection.SectionColumns" section-columns-width="@layoutSection.SectionColumnsWidth" section-title="@layoutSection.SectionTitle">
+                            @foreach (var row in layoutSection.Rows) {
+                                <div fd-row="" @if (row.IsMerged) {
+                                                   <text>class="merged-row"</text>
+                                               }>
+                                    @foreach (var column in row.Columns) {
+                                        <div fd-column="">
+                                            @if (column.Field != null) {
+                                                <div fd-field="" field-name="@column.Field.FieldName"></div>
+                                            }
+                                        </div>
+                                    }
+                                </div>
+                            }
+                        </div>
+                    }
                 </div>
             </div>
         </div>

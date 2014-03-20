@@ -236,7 +236,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             // Parts/CreateView-{{EntityName}}.cshtml
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(modelDefinition.Name);
             var sectionList = contentTypeDefinition.Settings.ContainsKey("Layout")
-                ? JsonConvert.DeserializeObject<ICollection<Section>>(contentTypeDefinition.Settings["Layout"])
+                ? JsonConvert.DeserializeObject<IList<Section>>(contentTypeDefinition.Settings["Layout"])
                 : Enumerable.Empty<Section>();
 
             string partsCreateViewFilePath = Path.Combine(partsViewPath, string.Format("CreateView-{0}.cshtml", modelDefinition.Name));
