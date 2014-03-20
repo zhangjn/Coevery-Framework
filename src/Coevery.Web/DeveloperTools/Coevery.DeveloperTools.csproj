@@ -171,6 +171,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ControllerTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\DriverTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DriverTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.cs">
       <DependentUpon>PartsDetailViewTemplate.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -205,11 +210,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DataMigration.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\DriverTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DriverTemplate.tt</DependentUpon>
     </Compile>
     <Compile Include="CodeGeneration\CodeGenerationTemplates\IndexViewTemplate.cs">
       <AutoGen>True</AutoGen>
@@ -246,6 +246,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ThemeManifest.tt</DependentUpon>
     </Compile>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ApiControllerTemplate.cs</LastGenOutput>
+    </Content>
     <None Include="CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ContentPartTemplate.cs</LastGenOutput>
@@ -368,6 +372,10 @@
     <Content Include="CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>PartsDetailViewTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>DriverTemplate.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

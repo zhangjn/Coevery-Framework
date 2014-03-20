@@ -76,129 +76,46 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
                 AddModelClassFile(csProjFile, definition);
                 AddControllerFile(csProjFile, definition);
                 AddDriverFile(csProjFile, definition);
-                AddViewFile(csProjFile, definition);
+                AddViewFiles(csProjFile, definition);
             }
             csProjFile.Save();
         }
 
         private void AddControllerFile(CsProjFile csProjFile, DynamicDefinition controllerDefinition) {
             string moduleControllersPath = Path.Combine(csProjFile.ProjectDirectory, "Controllers");
-            if (!moduleControllersPath.EndsWith(Path.DirectorySeparatorChar.ToString())) {
-                moduleControllersPath += Path.DirectorySeparatorChar;
-            }
-            if (!Directory.Exists(moduleControllersPath)) {
-                Directory.CreateDirectory(moduleControllersPath);
-            }
 
+            CheckDirectories(moduleControllersPath);
+
+            // Controller
             string controllerClassFilePath = moduleControllersPath + controllerDefinition.Name + "Controller.cs";
-            if (File.Exists(controllerClassFilePath)) {
-                //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
-                return;
-            }
             var partTemplate = new ControllerTemplate() {Session = new Dictionary<string, object>()};
             partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             partTemplate.Session["ControllerName"] = controllerDefinition.Name;
             partTemplate.Initialize();
-            string controllerText = partTemplate.TransformText();
-            File.WriteAllText(controllerClassFilePath, controllerText);
+            AddFile<Content>(csProjFile, controllerClassFilePath, partTemplate.TransformText());
 
-            var partRelativePath = controllerClassFilePath.PathRelativeTo(csProjFile.ProjectDirectory);
-            csProjFile.Add<CodeFile>(partRelativePath);
-
+            // Api controller
             string apiControllerClassFilePath = moduleControllersPath + controllerDefinition.Name + "ApiController.cs";
-            if (File.Exists(apiControllerClassFilePath)) {
-                //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
-                return;
-            }
             var apiControllerTemplate = new ApiControllerTemplate() {Session = new Dictionary<string, object>()};
             apiControllerTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             apiControllerTemplate.Session["ControllerName"] = controllerDefinition.Name;
             apiControllerTemplate.Initialize();
-            string apiControllerText = apiControllerTemplate.TransformText();
-            File.WriteAllText(apiControllerClassFilePath, apiControllerText);
+            AddFile<Content>(csProjFile, apiControllerClassFilePath, apiControllerTemplate.TransformText());
 
-            var recordRelativePath = apiControllerClassFilePath.PathRelativeTo(csProjFile.ProjectDirectory);
-            csProjFile.Add<CodeFile>(recordRelativePath);
-        }
-
-        private void AddViewFile(CsProjFile csProjFile, DynamicDefinition viewDefinition) {
-            string viewsNamePath = Path.Combine(csProjFile.ProjectDirectory, "Views", viewDefinition.Name);
-            string viewsPartPath = Path.Combine(csProjFile.ProjectDirectory, "Views", "Parts");
-
-            if (!viewsNamePath.EndsWith(Path.DirectorySeparatorChar.ToString())) {
-                viewsNamePath += Path.DirectorySeparatorChar;
-            }
-            if (!Directory.Exists(viewsNamePath)) {
-                Directory.CreateDirectory(viewsNamePath);
-            }
-
-            if (!viewsPartPath.EndsWith(Path.DirectorySeparatorChar.ToString())) {
-                viewsPartPath += Path.DirectorySeparatorChar;
-            }
-            if (!Directory.Exists(viewsPartPath)) {
-                Directory.CreateDirectory(viewsPartPath);
-            }
-
-            var id = _contentDefinitionExtension.GetEntityNameFromCollectionName(viewDefinition.Name);
-
-            var query = Services.ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")
-                .Where(v => v.IsDefault).List().ToList().FirstOrDefault();
-
-            var gridDefinition = (Object[]) _gridColumn.Get(viewDefinition.Name, query.Id);
-
-            string viewNameFilePath = viewsNamePath + "ListView-" + viewDefinition.Name + ".cshtml";
-            if (File.Exists(viewNameFilePath)) {
-                //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
-                return;
-            }
-            var viewNameTemplate = new ListViewTemplate() {Session = new Dictionary<string, object>()};
-
-            viewNameTemplate.Session["ModelDefinition"] = gridDefinition;
-            viewNameTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            viewNameTemplate.Session["ViewName"] = viewDefinition.Name;
-            viewNameTemplate.Initialize();
-            string partText = viewNameTemplate.TransformText();
-            File.WriteAllText(viewNameFilePath, partText);
-
-            var viewNameRelativePath = viewNameFilePath.PathRelativeTo(csProjFile.ProjectDirectory);
-            csProjFile.Add<Content>(viewNameRelativePath);
-
-            string viewPartFilePath = viewsPartPath + "Index.cshtml";
-            if (File.Exists(viewPartFilePath)) {
-                //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
-                return;
-            }
-            var indexViewTemplate = new IndexViewTemplate() {Session = new Dictionary<string, object>()};
-            string indexViewText = indexViewTemplate.TransformText();
-            File.WriteAllText(viewPartFilePath, indexViewText);
-
-            var indexViewRelativePath = viewPartFilePath.PathRelativeTo(csProjFile.ProjectDirectory);
-            csProjFile.Add<Content>(indexViewRelativePath);
         }
 
         private void AddDriverFile(CsProjFile csProjFile, DynamicDefinition driverDefinition) {
             string moduleDriversPath = Path.Combine(csProjFile.ProjectDirectory, "Drivers");
-            if (!moduleDriversPath.EndsWith(Path.DirectorySeparatorChar.ToString())) {
-                moduleDriversPath += Path.DirectorySeparatorChar;
-            }
-            if (!Directory.Exists(moduleDriversPath)) {
-                Directory.CreateDirectory(moduleDriversPath);
-            }
+
+            CheckDirectories(moduleDriversPath);
 
             string partClassFilePath = moduleDriversPath + driverDefinition.Name + "PartDriver.cs";
-            if (File.Exists(partClassFilePath)) {
-                //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
-                return;
-            }
             var partTemplate = new DriverTemplate() {Session = new Dictionary<string, object>()};
             partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             partTemplate.Session["DriverName"] = driverDefinition.Name;
             partTemplate.Initialize();
-            string partText = partTemplate.TransformText();
-            File.WriteAllText(partClassFilePath, partText);
 
-            var partRelativePath = partClassFilePath.PathRelativeTo(csProjFile.ProjectDirectory);
-            csProjFile.Add<CodeFile>(partRelativePath);
+            AddFile<Content>(csProjFile, partClassFilePath, partTemplate.TransformText());
         }
 
         private void AddModelClassFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
@@ -236,6 +153,11 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             var editViewTemplate = new EditViewTemplate();
             AddFile<Content>(csProjFile, editViewFilePath, editViewTemplate.TransformText());
 
+            // {{EntityName}}/Create.cshtml
+            string indexViewFilePath = Path.Combine(controllerViewPath, "Index.cshtml");
+            var indexViewTemplate = new CreateViewTemplate();
+            AddFile<Content>(csProjFile, indexViewFilePath, indexViewTemplate.TransformText());
+
             // {{EntityName}}/Detail.cshtml
             string detailViewFilePath = Path.Combine(controllerViewPath, "Detail.cshtml");
             var detailViewTemplate = new DetailViewTemplate();
@@ -253,6 +175,20 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             partsCreateViewTemplate.Session["SectionList"] = sectionList;
             partsCreateViewTemplate.Initialize();
             AddFile<Content>(csProjFile, partsCreateViewFilePath, partsCreateViewTemplate.TransformText());
+
+            // Parts/ListView-{{EntityName}}.cshtml
+            var query = Services.ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")
+                .Where(v => v.IsDefault).List().ToList().FirstOrDefault();
+
+            var gridDefinition = (Object[])_gridColumn.Get(modelDefinition.Name, query.Id);
+
+            string partsListViewFilePath = Path.Combine(partsViewPath, string.Format("EditView-{0}.cshtml", modelDefinition.Name));
+            var partsListViewTemplate = new PartsEditViewTemplate() { Session = new Dictionary<string, object>() };
+            partsListViewTemplate.Session["ModelDefinition"] = gridDefinition;
+            partsListViewTemplate.Session["Namespace"] = csProjFile.RootNamespace;
+            partsListViewTemplate.Session["ViewName"] = modelDefinition.Name;
+            partsListViewTemplate.Initialize();
+            AddFile<Content>(csProjFile, partsListViewFilePath, partsListViewTemplate.TransformText());
 
             // Parts/EditView-{{EntityName}}.cshtml
             string partsEditViewFilePath = Path.Combine(partsViewPath, string.Format("EditView-{0}.cshtml", modelDefinition.Name));

@@ -23,7 +23,7 @@ namespace <#=Namespace#>.Controllers {
         }
 
 		public ActionResult Index() {
-            var contentItem = Services.ContentManager.New("Lead");
+            var contentItem = Services.ContentManager.New("<#=ControllerName#>");
             contentItem.Weld(new <#=ControllerName#>Part());
             var model = Services.ContentManager.BuildDisplay(contentItem, "List");
             return View(model);
@@ -35,14 +35,14 @@ namespace <#=Namespace#>.Controllers {
         }
 
         public ActionResult Create() {
-            var contentItem = Services.ContentManager.New("Lead");
+            var contentItem = Services.ContentManager.New("<#=ControllerName#>");
             var model = Services.ContentManager.BuildEditor(contentItem);
             return View(model);
         }
 
         [HttpPost, ActionName("Create")]
         public ActionResult CreatePost() {
-            var contentItem = Services.ContentManager.New("Lead");
+            var contentItem = Services.ContentManager.New("<#=ControllerName#>");
             Services.ContentManager.UpdateEditor(contentItem, this);
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);

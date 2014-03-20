@@ -55,45 +55,106 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             
             #line default
             #line hidden
-            this.Write(@"Controller (ICoeveryServices services) {
-            Services = services;
-            T = NullLocalizer.Instance;
-        }
-
-		public ActionResult Index() {
-            var contentItem = Services.ContentManager.New(""Lead"");
-            contentItem.Weld(new ");
+            this.Write("Controller (ICoeveryServices services) {\r\n            Services = services;\r\n     " +
+                    "       T = NullLocalizer.Instance;\r\n        }\r\n\r\n\t\tpublic ActionResult Index() {" +
+                    "\r\n            var contentItem = Services.ContentManager.New(\"");
+            
+            #line 26 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            
+            #line default
+            #line hidden
+            this.Write("\");\r\n            contentItem.Weld(new ");
             
             #line 27 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
             #line hidden
-            this.Write("Part());\r\n            var model = Services.ContentManager.BuildDisplay(contentIte" +
-                    "m, \"List\");\r\n            return View(model);\r\n        }\r\n\r\n\r\n        public Acti" +
-                    "onResult Details(int id) {\r\n            return View();\r\n        }\r\n\r\n        pub" +
-                    "lic ActionResult Create() {\r\n            var contentItem = Services.ContentManag" +
-                    "er.New(\"Lead\");\r\n            var model = Services.ContentManager.BuildEditor(con" +
-                    "tentItem);\r\n            return View(model);\r\n        }\r\n\r\n        [HttpPost, Act" +
-                    "ionName(\"Create\")]\r\n        public ActionResult CreatePost() {\r\n            var " +
-                    "contentItem = Services.ContentManager.New(\"Lead\");\r\n            Services.Content" +
-                    "Manager.UpdateEditor(contentItem, this);\r\n\r\n            return new HttpStatusCod" +
-                    "eResult(HttpStatusCode.OK);\r\n        }\r\n\r\n\r\n        public ActionResult Edit(int" +
-                    " id) {\r\n            return View();\r\n        }\r\n\r\n\r\n        [HttpPost]\r\n        p" +
-                    "ublic ActionResult EditPost(int id, FormCollection collection) {\r\n            tr" +
-                    "y {\r\n                // TODO: Add update logic here\r\n\r\n                return Re" +
-                    "directToAction(\"Index\");\r\n            }\r\n            catch {\r\n                re" +
-                    "turn View();\r\n            }\r\n        }\r\n\r\n\r\n        public ActionResult Delete(i" +
-                    "nt id) {\r\n            return View();\r\n        }\r\n\r\n        [HttpPost]\r\n        p" +
-                    "ublic ActionResult DeletePost(int id, FormCollection collection) {\r\n            " +
-                    "try {\r\n                // TODO: Add delete logic here\r\n\r\n                return " +
-                    "RedirectToAction(\"Index\");\r\n            }\r\n            catch {\r\n                " +
-                    "return View();\r\n            }\r\n        }\r\n\r\n        bool IUpdateModel.TryUpdateM" +
-                    "odel<TModel>(TModel model, string prefix, string[] includeProperties, string[] e" +
-                    "xcludeProperties) {\r\n            return TryUpdateModel(model, prefix, includePro" +
-                    "perties, excludeProperties);\r\n        }\r\n\r\n        void IUpdateModel.AddModelErr" +
-                    "or(string key, LocalizedString errorMessage) {\r\n            ModelState.AddModelE" +
-                    "rror(key, errorMessage.ToString());\r\n        }\r\n\r\n    }\r\n}\r\n");
+            this.Write(@"Part());
+            var model = Services.ContentManager.BuildDisplay(contentItem, ""List"");
+            return View(model);
+        }
+
+
+        public ActionResult Details(int id) {
+            return View();
+        }
+
+        public ActionResult Create() {
+            var contentItem = Services.ContentManager.New(""");
+            
+            #line 38 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            
+            #line default
+            #line hidden
+            this.Write(@""");
+            var model = Services.ContentManager.BuildEditor(contentItem);
+            return View(model);
+        }
+
+        [HttpPost, ActionName(""Create"")]
+        public ActionResult CreatePost() {
+            var contentItem = Services.ContentManager.New(""");
+            
+            #line 45 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            
+            #line default
+            #line hidden
+            this.Write(@""");
+            Services.ContentManager.UpdateEditor(contentItem, this);
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+
+        public ActionResult Edit(int id) {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult EditPost(int id, FormCollection collection) {
+            try {
+                // TODO: Add update logic here
+
+                return RedirectToAction(""Index"");
+            }
+            catch {
+                return View();
+            }
+        }
+
+
+        public ActionResult Delete(int id) {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DeletePost(int id, FormCollection collection) {
+            try {
+                // TODO: Add delete logic here
+
+                return RedirectToAction(""Index"");
+            }
+            catch {
+                return View();
+            }
+        }
+
+        bool IUpdateModel.TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties) {
+            return TryUpdateModel(model, prefix, includeProperties, excludeProperties);
+        }
+
+        void IUpdateModel.AddModelError(string key, LocalizedString errorMessage) {
+            ModelState.AddModelError(key, errorMessage.ToString());
+        }
+
+    }
+}
+");
             return this.GenerationEnvironment.ToString();
         }
         
