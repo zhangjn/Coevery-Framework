@@ -1,5 +1,4 @@
 ﻿<#@ template debug="false" language="C#" #>
-<#@ output extension=".txt" #>
 <#@ parameter type="System.String" name="ModuleName" #>
 <#@ parameter type="System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>" name="SectionList" #>
 @using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "<#=ModuleName #>"),

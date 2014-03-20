@@ -1,5 +1,4 @@
 ﻿<#@ template debug="false" language="C#" #>
-<#@ output extension=".txt" #>
 <#@ parameter type="System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>" name="SectionList" #>
 <div class = "form-structure">
 <# foreach (var layoutSection in SectionList) { #>
