@@ -9,16 +9,15 @@
 // ------------------------------------------------------------------------------
 namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
-    using Coevery.DeveloperTools.CodeGeneration.Utils;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class ContentPartTemplate : ContentPartTemplateBase
+    public partial class DriverTemplate : DriverTemplateBase
     {
 #line hidden
         /// <summary>
@@ -26,75 +25,70 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System;\r\nusing System.Collections.Generic;\r\nusing Coevery.ContentManagement" +
-                    ";\r\n\r\nnamespace ");
+            this.Write("\r\nusing Coevery.ContentManagement.Drivers;\r\nusing ");
             
-            #line 7 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+            #line 7 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(".Models {\r\n    public sealed class ");
+            this.Write(".Models;\r\n\r\nnamespace ");
             
-            #line 8 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
-            
-            #line default
-            #line hidden
-            this.Write("Part : ContentPart<");
-            
-            #line 8 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
+            #line 9 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write("PartRecord> {\r\n");
+            this.Write(".Drivers {\r\n    public class ");
             
-            #line 9 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-foreach (var field in ModelDefinition.Fields) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\tpublic ");
-            
-            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Type.GetFriendlyName()));
+            #line 10 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DriverName));
             
             #line default
             #line hidden
-            this.Write(" ");
+            this.Write("PartDriver : ContentPartDriver<");
             
-            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
-            
-            #line default
-            #line hidden
-            this.Write("{\r\n\t\t\tget{ return Record.");
-            
-            #line 11 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
+            #line 10 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DriverName));
             
             #line default
             #line hidden
-            this.Write("; }\r\n\t\t\tset{ Record.");
+            this.Write("Part> {\r\n        protected override DriverResult Display(");
             
-            #line 12 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = value; }\r\n\t\t}\r\n");
-            
-            #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
- } 
+            #line 11 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DriverName));
             
             #line default
             #line hidden
-            this.Write("    }\r\n}\r\n");
+            this.Write(@"Part part, string displayType, dynamic shapeHelper) {
+            if (displayType == ""List"") {
+                return Combined(
+                    ContentShape(""Parts_ListView"",
+                        () => shapeHelper.Parts_ListView())
+                    );
+            }
+            return null;
+        }
+
+        protected override DriverResult Editor(");
+            
+            #line 21 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(DriverName));
+            
+            #line default
+            #line hidden
+            this.Write(@"Part part, dynamic shapeHelper) {
+            return Combined(
+                ContentShape(""Parts_CreateView_Actions"", actions => actions),
+                ContentShape(""Parts_CreateView"", () => shapeHelper.Parts_CreateView())
+                );
+        }
+    }
+}");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
 
 private string _NamespaceField;
 
@@ -109,16 +103,16 @@ private string Namespace
     }
 }
 
-private global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition _ModelDefinitionField;
+private string _DriverNameField;
 
 /// <summary>
-/// Access the ModelDefinition parameter of the template.
+/// Access the DriverName parameter of the template.
 /// </summary>
-private global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition ModelDefinition
+private string DriverName
 {
     get
     {
-        return this._ModelDefinitionField;
+        return this._DriverNameField;
     }
 }
 
@@ -160,35 +154,33 @@ if ((NamespaceValueAcquired == false))
         }
     }
 }
-bool ModelDefinitionValueAcquired = false;
-if (this.Session.ContainsKey("ModelDefinition"))
+bool DriverNameValueAcquired = false;
+if (this.Session.ContainsKey("DriverName"))
 {
-    if ((typeof(global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition).IsAssignableFrom(this.Session["ModelDefinition"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["DriverName"].GetType()) == false))
     {
-        this.Error("The type \'Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition\' of th" +
-                "e parameter \'ModelDefinition\' did not match the type of the data passed to the t" +
-                "emplate.");
+        this.Error("The type \'System.String\' of the parameter \'DriverName\' did not match the type of " +
+                "the data passed to the template.");
     }
     else
     {
-        this._ModelDefinitionField = ((global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition)(this.Session["ModelDefinition"]));
-        ModelDefinitionValueAcquired = true;
+        this._DriverNameField = ((string)(this.Session["DriverName"]));
+        DriverNameValueAcquired = true;
     }
 }
-if ((ModelDefinitionValueAcquired == false))
+if ((DriverNameValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModelDefinition");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DriverName");
     if ((data != null))
     {
-        if ((typeof(global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition\' of th" +
-                    "e parameter \'ModelDefinition\' did not match the type of the data passed to the t" +
-                    "emplate.");
+            this.Error("The type \'System.String\' of the parameter \'DriverName\' did not match the type of " +
+                    "the data passed to the template.");
         }
         else
         {
-            this._ModelDefinitionField = ((global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition)(data));
+            this._DriverNameField = ((string)(data));
         }
     }
 }
@@ -210,7 +202,7 @@ if ((ModelDefinitionValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class ContentPartTemplateBase
+    public class DriverTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

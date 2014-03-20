@@ -1,20 +1,95 @@
 ﻿<#@ template debug="false" language="C#" #>
 <#@ output extension=".txt" #>
-<#@ parameter type="System.String" name="ModuleName" #>
+<#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="ControllerName" #>
+
+using System.Net;
 using System.Web.Mvc;
-using Coevery.Localization;
 using Coevery;
+using Coevery.ContentManagement;
+using Coevery.Localization;
+using Coevery.Themes;
+using <#=Namespace#>.Models;
 
-namespace <#=ModuleName#>.Controllers {
-    public class <#=ControllerName#> : Controller {
+namespace <#=Namespace#>.Controllers {
+    public class <#=ControllerName#>Controller : Controller , IUpdateModel{
         public ICoeveryServices Services { get; set; }
+		public Localizer T { get; set; }
 
-        public <#=ControllerName#>(ICoeveryServices services) {
+
+        public <#=ControllerName#>Controller (ICoeveryServices services) {
             Services = services;
             T = NullLocalizer.Instance;
         }
 
-        public Localizer T { get; set; }
+		public ActionResult Index() {
+            var contentItem = Services.ContentManager.New("Lead");
+            contentItem.Weld(new <#=ControllerName#>Part());
+            var model = Services.ContentManager.BuildDisplay(contentItem, "List");
+            return View(model);
+        }
+
+
+        public ActionResult Details(int id) {
+            return View();
+        }
+
+        public ActionResult Create() {
+            var contentItem = Services.ContentManager.New("Lead");
+            var model = Services.ContentManager.BuildEditor(contentItem);
+            return View(model);
+        }
+
+        [HttpPost, ActionName("Create")]
+        public ActionResult CreatePost() {
+            var contentItem = Services.ContentManager.New("Lead");
+            Services.ContentManager.UpdateEditor(contentItem, this);
+
+            return new HttpStatusCodeResult(HttpStatusCode.OK);
+        }
+
+
+        public ActionResult Edit(int id) {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult EditPost(int id, FormCollection collection) {
+            try {
+                // TODO: Add update logic here
+
+                return RedirectToAction("Index");
+            }
+            catch {
+                return View();
+            }
+        }
+
+
+        public ActionResult Delete(int id) {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DeletePost(int id, FormCollection collection) {
+            try {
+                // TODO: Add delete logic here
+
+                return RedirectToAction("Index");
+            }
+            catch {
+                return View();
+            }
+        }
+
+        bool IUpdateModel.TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties) {
+            return TryUpdateModel(model, prefix, includeProperties, excludeProperties);
+        }
+
+        void IUpdateModel.AddModelError(string key, LocalizedString errorMessage) {
+            ModelState.AddModelError(key, errorMessage.ToString());
+        }
+
     }
 }

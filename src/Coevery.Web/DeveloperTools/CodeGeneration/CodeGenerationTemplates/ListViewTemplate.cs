@@ -9,16 +9,15 @@
 // ------------------------------------------------------------------------------
 namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
-    using Coevery.DeveloperTools.CodeGeneration.Utils;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class ContentPartTemplate : ContentPartTemplateBase
+    public partial class ListViewTemplate : ListViewTemplateBase
     {
 #line hidden
         /// <summary>
@@ -26,75 +25,96 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System;\r\nusing System.Collections.Generic;\r\nusing Coevery.ContentManagement" +
-                    ";\r\n\r\nnamespace ");
+            this.Write("\r\n\r\n");
+            this.Write("\r\n@{\r\n    Style.Require(\"jqGrid\");\r\n    Style.Require(\"jqGridCustom\");\r\n    Scrip" +
+                    "t.Require(\"jqGrid\");\r\n}\r\n\r\n<div class=\"row-fluid\">\r\n    <table id=\"");
             
-            #line 7 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+            #line 17 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
+            
+            #line default
+            #line hidden
+            this.Write("Grid\"></table>\r\n    <section id=\"");
+            
+            #line 18 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
+            
+            #line default
+            #line hidden
+            this.Write("GridPager\"></section>\r\n</div>\r\n\r\n@using (Script.Foot()) {\r\n    <script type=\"text" +
+                    "/javascript\">\r\n        jQuery(\"#");
+            
+            #line 23 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
+            
+            #line default
+            #line hidden
+            this.Write("Grid\").jqGrid({\r\n            url: \'@Href(\"~/api/");
+            
+            #line 24 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(".Models {\r\n    public sealed class ");
+            this.Write("/");
             
-            #line 8 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
-            
-            #line default
-            #line hidden
-            this.Write("Part : ContentPart<");
-            
-            #line 8 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
+            #line 24 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName));
             
             #line default
             #line hidden
-            this.Write("PartRecord> {\r\n");
+            this.Write("Api\")\',\r\n            datatype: \"json\",\r\n            colModel: [\r\n                " +
+                    "");
             
-            #line 9 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-foreach (var field in ModelDefinition.Fields) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\tpublic ");
-            
-            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Type.GetFriendlyName()));
+            #line 27 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(String.Join(",", ModelDefinition)));
             
             #line default
             #line hidden
-            this.Write(" ");
+            this.Write("\r\n            ],\r\n            rowNum: 10,\r\n            rowList: [10, 20, 30],\r\n  " +
+                    "          pager: \'#");
             
-            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
-            
-            #line default
-            #line hidden
-            this.Write("{\r\n\t\t\tget{ return Record.");
-            
-            #line 11 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
+            #line 31 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
             
             #line default
             #line hidden
-            this.Write("; }\r\n\t\t\tset{ Record.");
-            
-            #line 12 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = value; }\r\n\t\t}\r\n");
-            
-            #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("    }\r\n}\r\n");
+            this.Write(@"GridPager',
+            viewrecords: true,
+            height: '100%',
+            pagerpos: ""right"",
+            recordpos: ""left"",
+            sortable: true,
+            headertitles: true,
+            multiselect: true,
+            multiboxonly: true,
+            autowidth: true,
+            jsonReader: {
+                page: ""page"",
+                total: ""totalPages"",
+                records: ""totalRecords"",
+                repeatitems: false
+            }
+        });
+    </script>
+}");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+
+private string _ViewNameField;
+
+/// <summary>
+/// Access the ViewName parameter of the template.
+/// </summary>
+private string ViewName
+{
+    get
+    {
+        return this._ViewNameField;
+    }
+}
 
 private string _NamespaceField;
 
@@ -109,12 +129,12 @@ private string Namespace
     }
 }
 
-private global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition _ModelDefinitionField;
+private object[] _ModelDefinitionField;
 
 /// <summary>
 /// Access the ModelDefinition parameter of the template.
 /// </summary>
-private global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition ModelDefinition
+private object[] ModelDefinition
 {
     get
     {
@@ -130,6 +150,36 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
+bool ViewNameValueAcquired = false;
+if (this.Session.ContainsKey("ViewName"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["ViewName"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'ViewName\' did not match the type of th" +
+                "e data passed to the template.");
+    }
+    else
+    {
+        this._ViewNameField = ((string)(this.Session["ViewName"]));
+        ViewNameValueAcquired = true;
+    }
+}
+if ((ViewNameValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ViewName");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'ViewName\' did not match the type of th" +
+                    "e data passed to the template.");
+        }
+        else
+        {
+            this._ViewNameField = ((string)(data));
+        }
+    }
+}
 bool NamespaceValueAcquired = false;
 if (this.Session.ContainsKey("Namespace"))
 {
@@ -163,15 +213,14 @@ if ((NamespaceValueAcquired == false))
 bool ModelDefinitionValueAcquired = false;
 if (this.Session.ContainsKey("ModelDefinition"))
 {
-    if ((typeof(global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition).IsAssignableFrom(this.Session["ModelDefinition"].GetType()) == false))
+    if ((typeof(object[]).IsAssignableFrom(this.Session["ModelDefinition"].GetType()) == false))
     {
-        this.Error("The type \'Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition\' of th" +
-                "e parameter \'ModelDefinition\' did not match the type of the data passed to the t" +
-                "emplate.");
+        this.Error("The type \'System.Object[]\' of the parameter \'ModelDefinition\' did not match the t" +
+                "ype of the data passed to the template.");
     }
     else
     {
-        this._ModelDefinitionField = ((global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition)(this.Session["ModelDefinition"]));
+        this._ModelDefinitionField = ((object[])(this.Session["ModelDefinition"]));
         ModelDefinitionValueAcquired = true;
     }
 }
@@ -180,15 +229,14 @@ if ((ModelDefinitionValueAcquired == false))
     object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModelDefinition");
     if ((data != null))
     {
-        if ((typeof(global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(object[]).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition\' of th" +
-                    "e parameter \'ModelDefinition\' did not match the type of the data passed to the t" +
-                    "emplate.");
+            this.Error("The type \'System.Object[]\' of the parameter \'ModelDefinition\' did not match the t" +
+                    "ype of the data passed to the template.");
         }
         else
         {
-            this._ModelDefinitionField = ((global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition)(data));
+            this._ModelDefinitionField = ((object[])(data));
         }
     }
 }
@@ -210,7 +258,7 @@ if ((ModelDefinitionValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class ContentPartTemplateBase
+    public class ListViewTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

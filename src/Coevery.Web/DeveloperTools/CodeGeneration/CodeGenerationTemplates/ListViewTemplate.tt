@@ -1,0 +1,49 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ parameter type="System.String" name="ViewName" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.Object[]" name="ModelDefinition" #>
+
+
+<#@ output extension=".txt" #>
+
+@{
+    Style.Require("jqGrid");
+    Style.Require("jqGridCustom");
+    Script.Require("jqGrid");
+}
+
+<div class="row-fluid">
+    <table id="<#=ViewName.ToLower()#>Grid"></table>
+    <section id="<#=ViewName.ToLower()#>GridPager"></section>
+</div>
+
+@using (Script.Foot()) {
+    <script type="text/javascript">
+        jQuery("#<#=ViewName.ToLower()#>Grid").jqGrid({
+            url: '@Href("~/api/<#=Namespace#>/<#=ViewName#>Api")',
+            datatype: "json",
+            colModel: [
+                <#=String.Join(",", ModelDefinition)#>
+            ],
+            rowNum: 10,
+            rowList: [10, 20, 30],
+            pager: '#<#=ViewName.ToLower()#>GridPager',
+            viewrecords: true,
+            height: '100%',
+            pagerpos: "right",
+            recordpos: "left",
+            sortable: true,
+            headertitles: true,
+            multiselect: true,
+            multiboxonly: true,
+            autowidth: true,
+            jsonReader: {
+                page: "page",
+                total: "totalPages",
+                records: "totalRecords",
+                repeatitems: false
+            }
+        });
+    </script>
+}

@@ -15,7 +15,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class ControllerTemplate : ControllerTemplateBase
     {
@@ -25,46 +25,90 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System.Web.Mvc;\r\nusing Coevery.Localization;\r\nusing Coevery;\r\n\r\nnamespace ");
+            this.Write("\r\nusing System.Net;\r\nusing System.Web.Mvc;\r\nusing Coevery;\r\nusing Coevery.Content" +
+                    "Management;\r\nusing Coevery.Localization;\r\nusing Coevery.Themes;\r\nusing ");
             
-            #line 9 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
+            #line 12 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write(".Models;\r\n\r\nnamespace ");
+            
+            #line 14 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Controllers {\r\n    public class ");
             
-            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 15 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
             #line hidden
-            this.Write(" : Controller {\r\n        public ICoeveryServices Services { get; set; }\r\n\r\n      " +
-                    "  public ");
+            this.Write("Controller : Controller , IUpdateModel{\r\n        public ICoeveryServices Services" +
+                    " { get; set; }\r\n\t\tpublic Localizer T { get; set; }\r\n\r\n\r\n        public ");
             
-            #line 13 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 20 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
             #line hidden
-            this.Write("(ICoeveryServices services) {\r\n            Services = services;\r\n            T = " +
-                    "NullLocalizer.Instance;\r\n        }\r\n\r\n        public Localizer T { get; set; }\r\n" +
-                    "    }\r\n}\r\n");
+            this.Write(@"Controller (ICoeveryServices services) {
+            Services = services;
+            T = NullLocalizer.Instance;
+        }
+
+		public ActionResult Index() {
+            var contentItem = Services.ContentManager.New(""Lead"");
+            contentItem.Weld(new ");
+            
+            #line 27 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            
+            #line default
+            #line hidden
+            this.Write("Part());\r\n            var model = Services.ContentManager.BuildDisplay(contentIte" +
+                    "m, \"List\");\r\n            return View(model);\r\n        }\r\n\r\n\r\n        public Acti" +
+                    "onResult Details(int id) {\r\n            return View();\r\n        }\r\n\r\n        pub" +
+                    "lic ActionResult Create() {\r\n            var contentItem = Services.ContentManag" +
+                    "er.New(\"Lead\");\r\n            var model = Services.ContentManager.BuildEditor(con" +
+                    "tentItem);\r\n            return View(model);\r\n        }\r\n\r\n        [HttpPost, Act" +
+                    "ionName(\"Create\")]\r\n        public ActionResult CreatePost() {\r\n            var " +
+                    "contentItem = Services.ContentManager.New(\"Lead\");\r\n            Services.Content" +
+                    "Manager.UpdateEditor(contentItem, this);\r\n\r\n            return new HttpStatusCod" +
+                    "eResult(HttpStatusCode.OK);\r\n        }\r\n\r\n\r\n        public ActionResult Edit(int" +
+                    " id) {\r\n            return View();\r\n        }\r\n\r\n\r\n        [HttpPost]\r\n        p" +
+                    "ublic ActionResult EditPost(int id, FormCollection collection) {\r\n            tr" +
+                    "y {\r\n                // TODO: Add update logic here\r\n\r\n                return Re" +
+                    "directToAction(\"Index\");\r\n            }\r\n            catch {\r\n                re" +
+                    "turn View();\r\n            }\r\n        }\r\n\r\n\r\n        public ActionResult Delete(i" +
+                    "nt id) {\r\n            return View();\r\n        }\r\n\r\n        [HttpPost]\r\n        p" +
+                    "ublic ActionResult DeletePost(int id, FormCollection collection) {\r\n            " +
+                    "try {\r\n                // TODO: Add delete logic here\r\n\r\n                return " +
+                    "RedirectToAction(\"Index\");\r\n            }\r\n            catch {\r\n                " +
+                    "return View();\r\n            }\r\n        }\r\n\r\n        bool IUpdateModel.TryUpdateM" +
+                    "odel<TModel>(TModel model, string prefix, string[] includeProperties, string[] e" +
+                    "xcludeProperties) {\r\n            return TryUpdateModel(model, prefix, includePro" +
+                    "perties, excludeProperties);\r\n        }\r\n\r\n        void IUpdateModel.AddModelErr" +
+                    "or(string key, LocalizedString errorMessage) {\r\n            ModelState.AddModelE" +
+                    "rror(key, errorMessage.ToString());\r\n        }\r\n\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
 
-private string _ModuleNameField;
+private string _NamespaceField;
 
 /// <summary>
-/// Access the ModuleId parameter of the template.
+/// Access the Namespace parameter of the template.
 /// </summary>
-private string ModuleName
+private string Namespace
 {
     get
     {
-        return this._ModuleNameField;
+        return this._NamespaceField;
     }
 }
 
@@ -89,33 +133,33 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool ModuleNameValueAcquired = false;
-if (this.Session.ContainsKey("ModuleId"))
+bool NamespaceValueAcquired = false;
+if (this.Session.ContainsKey("Namespace"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["ModuleId"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["Namespace"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'ModuleId\' did not match the type of " +
-                "the data passed to the template.");
+        this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                "he data passed to the template.");
     }
     else
     {
-        this._ModuleNameField = ((string)(this.Session["ModuleId"]));
-        ModuleNameValueAcquired = true;
+        this._NamespaceField = ((string)(this.Session["Namespace"]));
+        NamespaceValueAcquired = true;
     }
 }
-if ((ModuleNameValueAcquired == false))
+if ((NamespaceValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModuleId");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Namespace");
     if ((data != null))
     {
         if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'ModuleId\' did not match the type of " +
-                    "the data passed to the template.");
+            this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                    "he data passed to the template.");
         }
         else
         {
-            this._ModuleNameField = ((string)(data));
+            this._NamespaceField = ((string)(data));
         }
     }
 }

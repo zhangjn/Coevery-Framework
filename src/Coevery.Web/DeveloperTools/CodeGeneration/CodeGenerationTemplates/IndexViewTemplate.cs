@@ -9,16 +9,15 @@
 // ------------------------------------------------------------------------------
 namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
-    using Coevery.DeveloperTools.CodeGeneration.Utils;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
+    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\IndexViewTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class ContentPartTemplate : ContentPartTemplateBase
+    public partial class IndexViewTemplate : IndexViewTemplateBase
     {
 #line hidden
         /// <summary>
@@ -26,181 +25,32 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System;\r\nusing System.Collections.Generic;\r\nusing Coevery.ContentManagement" +
-                    ";\r\n\r\nnamespace ");
-            
-            #line 7 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
-            
-            #line default
-            #line hidden
-            this.Write(".Models {\r\n    public sealed class ");
-            
-            #line 8 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
-            
-            #line default
-            #line hidden
-            this.Write("Part : ContentPart<");
-            
-            #line 8 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord> {\r\n");
-            
-            #line 9 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-foreach (var field in ModelDefinition.Fields) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\tpublic ");
-            
-            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Type.GetFriendlyName()));
-            
-            #line default
-            #line hidden
-            this.Write(" ");
-            
-            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
-            
-            #line default
-            #line hidden
-            this.Write("{\r\n\t\t\tget{ return Record.");
-            
-            #line 11 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
-            
-            #line default
-            #line hidden
-            this.Write("; }\r\n\t\t\tset{ Record.");
-            
-            #line 12 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
-            
-            #line default
-            #line hidden
-            this.Write(" = value; }\r\n\t\t}\r\n");
-            
-            #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("    }\r\n}\r\n");
+            this.Write(@"
+
+@if (Model.Header != null) {
+    @Display(Model.Header)
+}
+<section id=""main-content"">
+    <div id=""page-actions"" class=""clearfix"">
+        @if (Model.Actions != null) {
+            @Display(Model.Actions)
+        }
+        <div class=""btn-toolbar pull-right"">
+            @if (Model.Sidebar != null) {
+                @Display(Model.Sidebar)
+            }
+        </div>
+    </div>
+    @Display(Model.Content)
+</section>
+
+@if (Model.Footer != null) {
+    <footer>
+        @Display(Model.Footer)
+    </footer>
+}");
             return this.GenerationEnvironment.ToString();
         }
-        
-        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt"
-
-private string _NamespaceField;
-
-/// <summary>
-/// Access the Namespace parameter of the template.
-/// </summary>
-private string Namespace
-{
-    get
-    {
-        return this._NamespaceField;
-    }
-}
-
-private global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition _ModelDefinitionField;
-
-/// <summary>
-/// Access the ModelDefinition parameter of the template.
-/// </summary>
-private global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition ModelDefinition
-{
-    get
-    {
-        return this._ModelDefinitionField;
-    }
-}
-
-
-/// <summary>
-/// Initialize the template
-/// </summary>
-public virtual void Initialize()
-{
-    if ((this.Errors.HasErrors == false))
-    {
-bool NamespaceValueAcquired = false;
-if (this.Session.ContainsKey("Namespace"))
-{
-    if ((typeof(string).IsAssignableFrom(this.Session["Namespace"].GetType()) == false))
-    {
-        this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
-                "he data passed to the template.");
-    }
-    else
-    {
-        this._NamespaceField = ((string)(this.Session["Namespace"]));
-        NamespaceValueAcquired = true;
-    }
-}
-if ((NamespaceValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Namespace");
-    if ((data != null))
-    {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
-                    "he data passed to the template.");
-        }
-        else
-        {
-            this._NamespaceField = ((string)(data));
-        }
-    }
-}
-bool ModelDefinitionValueAcquired = false;
-if (this.Session.ContainsKey("ModelDefinition"))
-{
-    if ((typeof(global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition).IsAssignableFrom(this.Session["ModelDefinition"].GetType()) == false))
-    {
-        this.Error("The type \'Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition\' of th" +
-                "e parameter \'ModelDefinition\' did not match the type of the data passed to the t" +
-                "emplate.");
-    }
-    else
-    {
-        this._ModelDefinitionField = ((global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition)(this.Session["ModelDefinition"]));
-        ModelDefinitionValueAcquired = true;
-    }
-}
-if ((ModelDefinitionValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModelDefinition");
-    if ((data != null))
-    {
-        if ((typeof(global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition\' of th" +
-                    "e parameter \'ModelDefinition\' did not match the type of the data passed to the t" +
-                    "emplate.");
-        }
-        else
-        {
-            this._ModelDefinitionField = ((global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition)(data));
-        }
-    }
-}
-
-
-    }
-}
-
-
-        
-        #line default
-        #line hidden
     }
     
     #line default
@@ -210,7 +60,7 @@ if ((ModelDefinitionValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class ContentPartTemplateBase
+    public class IndexViewTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

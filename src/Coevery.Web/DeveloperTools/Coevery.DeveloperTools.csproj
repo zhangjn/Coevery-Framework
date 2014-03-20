@@ -47,6 +47,9 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="FubuCore">
       <HintPath>..\..\..\lib\fubu\FubuCore.dll</HintPath>
     </Reference>
@@ -67,6 +70,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -147,6 +151,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ApiControllerTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -197,6 +206,21 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataMigration.tt</DependentUpon>
     </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\DriverTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DriverTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\IndexViewTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IndexViewTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\ListViewTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ListViewTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -232,6 +256,7 @@
     </None>
     <Compile Include="CodeGeneration\Commands\CodeGenerationCommands.cs" />
     <Compile Include="CodeGeneration\Services\CodeGenerationCommandInterpreter.cs" />
+    <Compile Include="CodeGeneration\Services\GridColumnService.cs" />
     <Compile Include="CodeGeneration\Utils\CSharpTypeNameProvider.cs" />
     <Compile Include="CodeGeneration\Utils\TypeExtensions.cs" />
     <Compile Include="CodeGeneration\Utils\TypeNameProvider.cs" />
@@ -319,6 +344,15 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>PartsCreateViewTemplate.cs</LastGenOutput>
     </Content>
+    <Content Include="packages.config" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\IndexViewTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>IndexViewTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ListViewTemplate.cs</LastGenOutput>
+
     <Content Include="CodeGeneration\CodeGenerationTemplates\EditViewTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>EditViewTemplate.cs</LastGenOutput>
