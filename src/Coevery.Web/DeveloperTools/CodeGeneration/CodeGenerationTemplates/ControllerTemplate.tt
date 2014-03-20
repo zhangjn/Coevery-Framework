@@ -50,7 +50,13 @@ namespace <#=Namespace#>.Controllers {
 
 
         public ActionResult Edit(int id) {
-            return View();
+            var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
+
+            if (contentItem == null) {
+                return HttpNotFound();
+            }
+            dynamic model = Services.ContentManager.BuildEditor(contentItem);
+            return View((object)model);
         }
 
 

@@ -103,59 +103,29 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             
             #line default
             #line hidden
-            this.Write(@""");
-            Services.ContentManager.UpdateEditor(contentItem, this);
-			Services.ContentManager.Create(contentItem, VersionOptions.Draft);
-			Services.ContentManager.Publish(contentItem);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
-        }
-
-
-        public ActionResult Edit(int id) {
-            return View();
-        }
-
-
-        [HttpPost]
-        public ActionResult EditPost(int id, FormCollection collection) {
-            try {
-                // TODO: Add update logic here
-
-                return RedirectToAction(""Index"");
-            }
-            catch {
-                return View();
-            }
-        }
-
-
-        public ActionResult Delete(int id) {
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult DeletePost(int id, FormCollection collection) {
-            try {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(""Index"");
-            }
-            catch {
-                return View();
-            }
-        }
-
-        bool IUpdateModel.TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties, string[] excludeProperties) {
-            return TryUpdateModel(model, prefix, includeProperties, excludeProperties);
-        }
-
-        void IUpdateModel.AddModelError(string key, LocalizedString errorMessage) {
-            ModelState.AddModelError(key, errorMessage.ToString());
-        }
-
-    }
-}
-");
+            this.Write("\");\r\n            Services.ContentManager.UpdateEditor(contentItem, this);\r\n\t\t\tSer" +
+                    "vices.ContentManager.Create(contentItem, VersionOptions.Draft);\r\n\t\t\tServices.Con" +
+                    "tentManager.Publish(contentItem);\r\n            return new HttpStatusCodeResult(H" +
+                    "ttpStatusCode.OK);\r\n        }\r\n\r\n\r\n        public ActionResult Edit(int id) {\r\n " +
+                    "           var contentItem = Services.ContentManager.Get(id, VersionOptions.Late" +
+                    "st);\r\n\r\n            if (contentItem == null) {\r\n                return HttpNotFo" +
+                    "und();\r\n            }\r\n            dynamic model = Services.ContentManager.Build" +
+                    "Editor(contentItem);\r\n            return View((object)model);\r\n        }\r\n\r\n\r\n  " +
+                    "      [HttpPost]\r\n        public ActionResult EditPost(int id, FormCollection co" +
+                    "llection) {\r\n            try {\r\n                // TODO: Add update logic here\r\n" +
+                    "\r\n                return RedirectToAction(\"Index\");\r\n            }\r\n            " +
+                    "catch {\r\n                return View();\r\n            }\r\n        }\r\n\r\n\r\n        p" +
+                    "ublic ActionResult Delete(int id) {\r\n            return View();\r\n        }\r\n\r\n  " +
+                    "      [HttpPost]\r\n        public ActionResult DeletePost(int id, FormCollection " +
+                    "collection) {\r\n            try {\r\n                // TODO: Add delete logic here" +
+                    "\r\n\r\n                return RedirectToAction(\"Index\");\r\n            }\r\n          " +
+                    "  catch {\r\n                return View();\r\n            }\r\n        }\r\n\r\n        b" +
+                    "ool IUpdateModel.TryUpdateModel<TModel>(TModel model, string prefix, string[] in" +
+                    "cludeProperties, string[] excludeProperties) {\r\n            return TryUpdateMode" +
+                    "l(model, prefix, includeProperties, excludeProperties);\r\n        }\r\n\r\n        vo" +
+                    "id IUpdateModel.AddModelError(string key, LocalizedString errorMessage) {\r\n     " +
+                    "       ModelState.AddModelError(key, errorMessage.ToString());\r\n        }\r\n\r\n   " +
+                    " }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
