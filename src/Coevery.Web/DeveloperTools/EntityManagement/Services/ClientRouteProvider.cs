@@ -9,15 +9,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
 
         private void RegisterEntityRoutes(ClientRouteTableBuilder builder) {
 
-            builder.Describe("PublishConfirm")
-                .Configure(descriptor => { descriptor.Url = "/Entities/PublishConfirm"; })
-                .View(view =>
-                {
-                    view.TemplateUrl = "'" + ModuleBasePath + @"PublishConfirm'";
-                    view.Controller = "EntityListCtrl";
-                    view.AddDependencies(ToAbsoluteScriptUrl, "controllers/listcontroller");
-                });
-
             builder.Describe("EntityList")
                 .Configure(descriptor => { descriptor.Url = "/Entities"; })
                 .View(view => {
@@ -57,6 +48,17 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
                                           }]";
                     view.Controller = "EntityDetailCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, new[] {"controllers/detailcontroller"});
+                });
+
+            builder.Describe("EntityPublishConfirm")
+                .Configure(descriptor => { descriptor.Url = "/Entities/{Id:[0-9a-zA-Z]+}/PublishConfirm"; })
+                .View(view => {
+                    view.TemplateProvider = @"['$http', '$stateParams', function ($http, $stateParams) {
+                                                var url = '" + ModuleBasePath + @"PublishConfirm/' + $stateParams.Id; 
+                                                return $http.get(url).then(function(response) { return response.data; });
+                                          }]";
+                    view.Controller = "EntityPublishConfirmCtrl";
+                    view.AddDependencies(ToAbsoluteScriptUrl, "controllers/publishconfirmcontroller");
                 });
         }
 

@@ -36,7 +36,7 @@ define(['core/app/detourService', 'DeveloperTools/EntityManagement/Scripts/servi
                     //$http.get('EntityManagement/Admin/Publish/' + $stateParams.Id).then(function () {
                     //    logger.success("Publish the entity successful.");
                     //});
-                    $state.transitionTo('PublishConfirm', { EntityName: $stateParams.Id });
+                    $state.transitionTo('EntityPublishConfirm', { Id: $stateParams.Id });
                 };
             }]
     ]);

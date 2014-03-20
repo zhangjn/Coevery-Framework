@@ -58,7 +58,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 private string _ModuleNameField;
 
 /// <summary>
-/// Access the ModuleName parameter of the template.
+/// Access the ModuleId parameter of the template.
 /// </summary>
 private string ModuleName
 {
@@ -90,27 +90,27 @@ public virtual void Initialize()
     if ((this.Errors.HasErrors == false))
     {
 bool ModuleNameValueAcquired = false;
-if (this.Session.ContainsKey("ModuleName"))
+if (this.Session.ContainsKey("ModuleId"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["ModuleName"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["ModuleId"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
+        this.Error("The type \'System.String\' of the parameter \'ModuleId\' did not match the type of " +
                 "the data passed to the template.");
     }
     else
     {
-        this._ModuleNameField = ((string)(this.Session["ModuleName"]));
+        this._ModuleNameField = ((string)(this.Session["ModuleId"]));
         ModuleNameValueAcquired = true;
     }
 }
 if ((ModuleNameValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModuleName");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModuleId");
     if ((data != null))
     {
         if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
+            this.Error("The type \'System.String\' of the parameter \'ModuleId\' did not match the type of " +
                     "the data passed to the template.");
         }
         else

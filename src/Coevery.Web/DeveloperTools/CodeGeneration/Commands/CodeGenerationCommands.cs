@@ -155,7 +155,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
 
             var assemblyInfoTemplate = new ModuleAssemblyInfo();
             assemblyInfoTemplate.Session = new Dictionary<string, object>();
-            assemblyInfoTemplate.Session["ModuleName"] = moduleName;
+            assemblyInfoTemplate.Session["ModuleId"] = moduleName;
             assemblyInfoTemplate.Session["ModuleTypeLibGuid"] = csProject.ProjectGuid;
             assemblyInfoTemplate.Initialize();
             string templateText = assemblyInfoTemplate.TransformText();
@@ -222,7 +222,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
             }
 
             var controllerTemplate = new ControllerTemplate() {Session = new Dictionary<string, object>()};
-            controllerTemplate.Session["ModuleName"] = moduleName;
+            controllerTemplate.Session["ModuleId"] = moduleName;
             controllerTemplate.Session["ControllerName"] = controllerName;
             controllerTemplate.Initialize();
             string controllerText = controllerTemplate.TransformText();
@@ -275,7 +275,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
 
             var assemblyInfoTemplate = new ModuleAssemblyInfo();
             assemblyInfoTemplate.Session = new Dictionary<string, object>();
-            assemblyInfoTemplate.Session["ModuleName"] = moduleName;
+            assemblyInfoTemplate.Session["ModuleId"] = moduleName;
             assemblyInfoTemplate.Session["ModuleTypeLibGuid"] = csProject.ProjectGuid;
             assemblyInfoTemplate.Initialize();
             string templateText = assemblyInfoTemplate.TransformText();
@@ -284,7 +284,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
 
             var moduleMainfestTemplate = new ModuleManifest();
             moduleMainfestTemplate.Session = new Dictionary<string, object>();
-            moduleMainfestTemplate.Session["ModuleName"] = moduleName;
+            moduleMainfestTemplate.Session["ModuleId"] = moduleName;
             moduleMainfestTemplate.Initialize();
             templateText = moduleMainfestTemplate.TransformText();
             File.WriteAllText(modulePath + "Module.txt", templateText, System.Text.Encoding.UTF8);

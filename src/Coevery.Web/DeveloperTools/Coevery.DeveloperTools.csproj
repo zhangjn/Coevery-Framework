@@ -105,6 +105,7 @@
     <Content Include="EntityManagement\Scripts\controllers\fieldscontroller.js" />
     <Content Include="EntityManagement\Scripts\controllers\fillfieldinfocontroller.js" />
     <Content Include="EntityManagement\Scripts\controllers\listcontroller.js" />
+    <Content Include="EntityManagement\Scripts\controllers\publishconfirmcontroller.js" />
     <Content Include="EntityManagement\Scripts\services\entitydataservice.js" />
     <Content Include="EntityManagement\Scripts\services\fielddataservice.js" />
     <Content Include="FormDesigner\Module.txt" />
@@ -241,6 +242,7 @@
     <Compile Include="CodeGeneration\Services\DynamicAssemblyBuilder.cs" />
     <Compile Include="CodeGeneration\Services\DynamicDefinition.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicAssemblyBuilder.cs" />
+    <Compile Include="EntityManagement\ViewModels\PublishConfirmViewModel.cs" />
     <Compile Include="RelationshipManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicTypeGenerationEvents.cs" />
     <Compile Include="EntityManagement\Handlers\EntityMetadataPartHandler.cs" />

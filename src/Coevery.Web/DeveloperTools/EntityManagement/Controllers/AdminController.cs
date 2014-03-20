@@ -10,6 +10,8 @@ using Coevery.Core.Common.Services;
 using Coevery.Core.Fields.EntityRecords;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.EntityManagement.ViewModels;
+using Coevery.Environment.Extensions;
+using Coevery.Environment.Extensions.Models;
 using Coevery.Localization;
 using Coevery.Logging;
 using Coevery.UI.Notify;
@@ -22,6 +24,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         private readonly IContentMetadataService _contentMetadataService;
         private readonly ISettingService _settingService;
         private readonly IEntityRecordEditorEvents _entityRecordEditorEvents;
+        private readonly IExtensionManager _extensionManager;
 
         public AdminController(
             ICoeveryServices coeveryServices,
@@ -29,7 +32,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             IContentDefinitionService contentDefinitionService,
             IContentDefinitionEditorEvents contentDefinitionEditorEvents,
             IContentMetadataService contentMetadataService,
-            IEntityRecordEditorEvents entityRecordEditorEvents) {
+            IEntityRecordEditorEvents entityRecordEditorEvents, 
+            IExtensionManager extensionManager) {
             Services = coeveryServices;
             _settingService = settingService;
             _contentDefinitionService = contentDefinitionService;
@@ -37,6 +41,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
             _contentMetadataService = contentMetadataService;
             _entityRecordEditorEvents = entityRecordEditorEvents;
+            _extensionManager = extensionManager;
         }
 
         public ICoeveryServices Services { get; private set; }
@@ -75,22 +80,16 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         }
 
         [HttpGet]
-        public ActionResult PublishConfirm(string id)
-        {
+        public ActionResult PublishConfirm(string id) {
             var entity = _contentMetadataService.GetEntity(id);
-
-            var items = new SelectListItem
-            {
-                Value = "sample",
-                Text = "sample"
-            };
-            ViewData["Modules"] = items;
-
-            return View();
+            var model = new PublishConfirmViewModel();
+            model.Modules = _extensionManager.AvailableExtensions().Where(d => d.Location == "~/Modules"
+                && d.Id != "Coevery.Setup");
+            return View(model);
         }
 
         [HttpPost]
-        public ActionResult PublishConfirm(string id, FormCollection formCollection) {
+        public ActionResult PublishConfirm(string id, PublishConfirmViewModel model) {
             var entity = _contentMetadataService.GetEntity(id);
             Services.ContentManager.Publish(entity.ContentItem);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
