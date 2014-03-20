@@ -30,14 +30,14 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "t.Require(\"jqGrid\");\r\n}\r\n\r\n<div class=\"row-fluid\">\r\n    <table id=\"");
             
             #line 17 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName.ToLower()));
             
             #line default
             #line hidden
             this.Write("Grid\"></table>\r\n    <section id=\"");
             
             #line 18 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName.ToLower()));
             
             #line default
             #line hidden
@@ -45,7 +45,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "/javascript\">\r\n        jQuery(\"#");
             
             #line 23 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName.ToLower()));
             
             #line default
             #line hidden
@@ -59,7 +59,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("/");
             
             #line 24 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
             
             #line default
             #line hidden
@@ -67,7 +67,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "");
             
             #line 27 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(String.Join(",", ModelDefinition)));
+            this.Write(this.ToStringHelper.ToStringWithCulture(String.Join(",", GridDefinition)));
             
             #line default
             #line hidden
@@ -75,7 +75,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "          pager: \'#");
             
             #line 31 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName.ToLower()));
             
             #line default
             #line hidden
@@ -103,16 +103,16 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         
         #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
 
-private string _ViewNameField;
+private string _ModuleNameField;
 
 /// <summary>
-/// Access the ViewName parameter of the template.
+/// Access the ModuleName parameter of the template.
 /// </summary>
-private string ViewName
+private string ModuleName
 {
     get
     {
-        return this._ViewNameField;
+        return this._ModuleNameField;
     }
 }
 
@@ -129,16 +129,16 @@ private string Namespace
     }
 }
 
-private object[] _ModelDefinitionField;
+private object[] _GridDefinitionField;
 
 /// <summary>
-/// Access the ModelDefinition parameter of the template.
+/// Access the GridDefinition parameter of the template.
 /// </summary>
-private object[] ModelDefinition
+private object[] GridDefinition
 {
     get
     {
-        return this._ModelDefinitionField;
+        return this._GridDefinitionField;
     }
 }
 
@@ -150,33 +150,33 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool ViewNameValueAcquired = false;
-if (this.Session.ContainsKey("ViewName"))
+bool ModuleNameValueAcquired = false;
+if (this.Session.ContainsKey("ModuleName"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["ViewName"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["ModuleName"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'ViewName\' did not match the type of th" +
-                "e data passed to the template.");
+        this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
+                "the data passed to the template.");
     }
     else
     {
-        this._ViewNameField = ((string)(this.Session["ViewName"]));
-        ViewNameValueAcquired = true;
+        this._ModuleNameField = ((string)(this.Session["ModuleName"]));
+        ModuleNameValueAcquired = true;
     }
 }
-if ((ViewNameValueAcquired == false))
+if ((ModuleNameValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ViewName");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModuleName");
     if ((data != null))
     {
         if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'ViewName\' did not match the type of th" +
-                    "e data passed to the template.");
+            this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
+                    "the data passed to the template.");
         }
         else
         {
-            this._ViewNameField = ((string)(data));
+            this._ModuleNameField = ((string)(data));
         }
     }
 }
@@ -210,33 +210,33 @@ if ((NamespaceValueAcquired == false))
         }
     }
 }
-bool ModelDefinitionValueAcquired = false;
-if (this.Session.ContainsKey("ModelDefinition"))
+bool GridDefinitionValueAcquired = false;
+if (this.Session.ContainsKey("GridDefinition"))
 {
-    if ((typeof(object[]).IsAssignableFrom(this.Session["ModelDefinition"].GetType()) == false))
+    if ((typeof(object[]).IsAssignableFrom(this.Session["GridDefinition"].GetType()) == false))
     {
-        this.Error("The type \'System.Object[]\' of the parameter \'ModelDefinition\' did not match the t" +
-                "ype of the data passed to the template.");
+        this.Error("The type \'System.Object[]\' of the parameter \'GridDefinition\' did not match the ty" +
+                "pe of the data passed to the template.");
     }
     else
     {
-        this._ModelDefinitionField = ((object[])(this.Session["ModelDefinition"]));
-        ModelDefinitionValueAcquired = true;
+        this._GridDefinitionField = ((object[])(this.Session["GridDefinition"]));
+        GridDefinitionValueAcquired = true;
     }
 }
-if ((ModelDefinitionValueAcquired == false))
+if ((GridDefinitionValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModelDefinition");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("GridDefinition");
     if ((data != null))
     {
         if ((typeof(object[]).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.Object[]\' of the parameter \'ModelDefinition\' did not match the t" +
-                    "ype of the data passed to the template.");
+            this.Error("The type \'System.Object[]\' of the parameter \'GridDefinition\' did not match the ty" +
+                    "pe of the data passed to the template.");
         }
         else
         {
-            this._ModelDefinitionField = ((object[])(data));
+            this._GridDefinitionField = ((object[])(data));
         }
     }
 }

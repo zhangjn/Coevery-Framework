@@ -182,11 +182,11 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
 
             var gridDefinition = (Object[])_gridColumn.Get(modelDefinition.Name, query.Id);
 
-            string partsListViewFilePath = Path.Combine(partsViewPath, string.Format("EditView-{0}.cshtml", modelDefinition.Name));
+            string partsListViewFilePath = Path.Combine(partsViewPath, string.Format("ListView-{0}.cshtml", modelDefinition.Name));
             var partsListViewTemplate = new ListViewTemplate() { Session = new Dictionary<string, object>() };
-            partsListViewTemplate.Session["ModelDefinition"] = gridDefinition;
+            partsListViewTemplate.Session["GridDefinition"] = gridDefinition;
             partsListViewTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            partsListViewTemplate.Session["ViewName"] = modelDefinition.Name;
+            partsListViewTemplate.Session["ModuleName"] = modelDefinition.Name;
             partsListViewTemplate.Initialize();
             AddFile<Content>(csProjFile, partsListViewFilePath, partsListViewTemplate.TransformText());
 

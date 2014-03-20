@@ -10,7 +10,7 @@ using <#=Namespace#>.Models;
 namespace <#=Namespace#>.Controllers 
 {
     public class <#=ControllerName#>ApiController : ApiController {
-        public IEnumerable<<#=ControllerName#>PartRecord> GetAllLeads() {
+        public IEnumerable<<#=ControllerName#>PartRecord> GetAll<#=ControllerName#>s() {
             var <#=ControllerName#>s = new List<<#=ControllerName#>PartRecord> {
                 new <#=ControllerName#>PartRecord {Id = 1, Subject = "Long-term Sitefinity partner", Description = "", CompanyName = ""},
                 new <#=ControllerName#>PartRecord {Id = 2, Subject = "Web Part Needed", Description = "I need a w", CompanyName = ""},
