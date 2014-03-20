@@ -26,5 +26,7 @@ namespace Coevery.Core.Entities.Models {
         public IList<FieldMetadataRecord> FieldMetadataRecords {
             get { return Record.FieldMetadataRecords; }
         }
+
+        public string ModuleId { get; set; }
     }
 }

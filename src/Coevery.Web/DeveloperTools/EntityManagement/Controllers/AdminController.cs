@@ -91,6 +91,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         [HttpPost]
         public ActionResult PublishConfirm(string id, PublishConfirmViewModel model) {
             var entity = _contentMetadataService.GetEntity(id);
+            entity.ModuleId = model.ModuleId;
             Services.ContentManager.Publish(entity.ContentItem);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
