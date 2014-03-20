@@ -74,10 +74,6 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             CheckDirectories(moduleModelsPath);
 
             string partClassFilePath = Path.Combine(moduleModelsPath, modelDefinition.Name + "Part.cs");
-            if (File.Exists(partClassFilePath)) {
-                //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
-                return;
-            }
             var partTemplate = new ContentPartTemplate() {Session = new Dictionary<string, object>()};
             partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             partTemplate.Session["ModelDefinition"] = modelDefinition;
@@ -85,10 +81,6 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             AddFile<CodeFile>(csProjFile, partClassFilePath, partTemplate.TransformText());
 
             string recordClassFilePath = Path.Combine(moduleModelsPath, modelDefinition.Name + "PartRecord.cs");
-            if (File.Exists(recordClassFilePath)) {
-                //Context.Output.WriteLine(T("Controller {0} already exists in target Module {1}.", controllerName, moduleName));
-                return;
-            }
             var recordTemplate = new ContentPartRecordTemplate() {Session = new Dictionary<string, object>()};
             recordTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             recordTemplate.Session["ModelDefinition"] = modelDefinition;
