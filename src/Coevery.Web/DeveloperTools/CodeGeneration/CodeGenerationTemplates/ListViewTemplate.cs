@@ -30,14 +30,14 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "t.Require(\"jqGrid\");\r\n}\r\n\r\n<div class=\"row-fluid\">\r\n    <table id=\"");
             
             #line 17 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName.ToLower()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
             
             #line default
             #line hidden
             this.Write("Grid\"></table>\r\n    <section id=\"");
             
             #line 18 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName.ToLower()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
             
             #line default
             #line hidden
@@ -45,7 +45,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "/javascript\">\r\n        jQuery(\"#");
             
             #line 23 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName.ToLower()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
             
             #line default
             #line hidden
@@ -59,12 +59,11 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("/");
             
             #line 24 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName));
             
             #line default
             #line hidden
-            this.Write("Api\")\',\r\n            datatype: \"json\",\r\n            colModel: [\r\n                " +
-                    "");
+            this.Write("Api\")\',\r\n            datatype: \"json\",\r\n            colModel: [\r\n");
             
             #line 27 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(String.Join(",", GridDefinition)));
@@ -75,7 +74,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "          pager: \'#");
             
             #line 31 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName.ToLower()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
             
             #line default
             #line hidden
@@ -103,16 +102,16 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         
         #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
 
-private string _ModuleNameField;
+private string _ViewNameField;
 
 /// <summary>
-/// Access the ModuleName parameter of the template.
+/// Access the ViewName parameter of the template.
 /// </summary>
-private string ModuleName
+private string ViewName
 {
     get
     {
-        return this._ModuleNameField;
+        return this._ViewNameField;
     }
 }
 
@@ -150,33 +149,33 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool ModuleNameValueAcquired = false;
-if (this.Session.ContainsKey("ModuleName"))
+bool ViewNameValueAcquired = false;
+if (this.Session.ContainsKey("ViewName"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["ModuleName"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["ViewName"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
-                "the data passed to the template.");
+        this.Error("The type \'System.String\' of the parameter \'ViewName\' did not match the type of th" +
+                "e data passed to the template.");
     }
     else
     {
-        this._ModuleNameField = ((string)(this.Session["ModuleName"]));
-        ModuleNameValueAcquired = true;
+        this._ViewNameField = ((string)(this.Session["ViewName"]));
+        ViewNameValueAcquired = true;
     }
 }
-if ((ModuleNameValueAcquired == false))
+if ((ViewNameValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModuleName");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ViewName");
     if ((data != null))
     {
         if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
-                    "the data passed to the template.");
+            this.Error("The type \'System.String\' of the parameter \'ViewName\' did not match the type of th" +
+                    "e data passed to the template.");
         }
         else
         {
-            this._ModuleNameField = ((string)(data));
+            this._ViewNameField = ((string)(data));
         }
     }
 }

@@ -2,7 +2,7 @@
 <#@ assembly name="System.Core" #>
 <#@ parameter type="System.String" name="ViewName" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.Object[]" name="ModelDefinition" #>
+<#@ parameter type="System.Object[]" name="GridDefinition" #>
 
 
 <#@ output extension=".txt" #>
@@ -24,7 +24,7 @@
             url: '@Href("~/api/<#=Namespace#>/<#=ViewName#>Api")',
             datatype: "json",
             colModel: [
-                <#=String.Join(",", ModelDefinition)#>
+<#=String.Join(",", GridDefinition)#>
             ],
             rowNum: 10,
             rowList: [10, 20, 30],
