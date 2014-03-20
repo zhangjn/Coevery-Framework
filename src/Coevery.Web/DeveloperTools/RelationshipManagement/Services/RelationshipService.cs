@@ -24,7 +24,6 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
 
         private readonly IContentDefinitionExtension _contentDefinitionExtension;
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IDynamicAssemblyBuilder _dynamicAssemblyBuilder;
         private readonly ISchemaUpdateService _schemaUpdateService;
         private readonly IContentManager _contentManager;
         private readonly IContentMetadataService _contentMetadataService;
@@ -35,7 +34,6 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
             IRepository<ManyToManyRelationshipRecord> manyToManyRepository,
             IContentDefinitionExtension contentDefinitionExtension,
             IContentDefinitionManager contentDefinitionManager,
-            IDynamicAssemblyBuilder dynamicAssemblyBuilder,
             ISchemaUpdateService schemaUpdateService,
             IContentManager contentManager,
             IContentMetadataService contentMetadataService) {
@@ -43,7 +41,6 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
             _oneToManyRepository = oneToManyRepository;
             _manyToManyRepository = manyToManyRepository;
             _contentDefinitionManager = contentDefinitionManager;
-            _dynamicAssemblyBuilder = dynamicAssemblyBuilder;
             _schemaUpdateService = schemaUpdateService;
             _contentManager = contentManager;
             _contentMetadataService = contentMetadataService;
@@ -315,8 +312,6 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
 
             _contentDefinitionManager.DeletePartDefinition(record.Relationship.Name + primaryName.ToPartName());
             _contentDefinitionManager.DeletePartDefinition(record.Relationship.Name + relatedName.ToPartName());
-
-            _dynamicAssemblyBuilder.Build();
         }
 
         /// <summary>
@@ -459,7 +454,6 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
 
             _contentDefinitionManager.AlterTypeDefinition(manyToMany.PrimaryEntity, typeBuilder => typeBuilder.WithPart(primaryName.ToPartName()));
             _contentDefinitionManager.AlterTypeDefinition(manyToMany.RelatedEntity, typeBuilder => typeBuilder.WithPart(relatedName.ToPartName()));
-            _dynamicAssemblyBuilder.Build();
         }
 
         private RelationshipRecord CreateRelation(RelationshipRecord relationship) {

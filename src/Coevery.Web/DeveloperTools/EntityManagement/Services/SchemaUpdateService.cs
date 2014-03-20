@@ -109,7 +109,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
                         action(context);
                     }
                 });
-            GenerationDynmicAssembly();
         }
 
         public void DropTable(string tableName) {
@@ -119,7 +118,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
                 return;
             }
             _schemaBuilder.DropTable(formatedTableName);
-            GenerationDynmicAssembly();
         }
 
         public void CreateCustomTable(string tableName, Action<CreateTableCommand> table) {
@@ -128,7 +126,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
                 return;
             }
             _schemaBuilder.CreateTable(tableName, table);
-            GenerationDynmicAssembly();
         }
 
         public void DropCustomTable(string tableName) {
@@ -153,7 +150,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             Action<ColumnCommand> columnAction = x => x.WithLength(length);
             _schemaBuilder.AlterTable(formatedTableName,
                 table => table.AddColumn(columnName, dbType, columnAction));
-            GenerationDynmicAssembly();
         }
 
         public void AlterColumn(string tableName, string columnName, string columnType, int? length = null) {
@@ -170,7 +166,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             Action<ColumnCommand> columnAction = x => x.WithType(dbType).WithLength(length);
             _schemaBuilder.AlterTable(formatedTableName,
                 table => table.AlterColumn(columnName, columnAction));
-            GenerationDynmicAssembly();
         }
 
         public void DropColumn(string tableName, string columnName) {
@@ -180,16 +175,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
                 return;
             }
             _schemaBuilder.AlterTable(formatedTableName, table => table.DropColumn(columnName));
-            GenerationDynmicAssembly();
-        }
-
-        public void GenerationDynmicAssembly() {
-            try {
-                _dynamicAssemblyBuilder.Build();
-            }
-            catch (Exception ex) {
-                throw ex;
-            }
         }
     }
 }

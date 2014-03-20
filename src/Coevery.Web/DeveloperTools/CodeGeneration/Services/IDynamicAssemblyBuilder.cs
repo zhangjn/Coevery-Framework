@@ -2,7 +2,7 @@
 
 namespace Coevery.DeveloperTools.CodeGeneration.Services {
     public interface IDynamicAssemblyBuilder : IDependency {
-        bool Build();
+        bool Build(string moduleId);
         Type GetFieldType(string fieldNameType);
     }
 }
