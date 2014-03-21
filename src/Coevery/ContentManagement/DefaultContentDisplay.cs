@@ -76,7 +76,7 @@ namespace Coevery.ContentManagement {
             ((IShape)itemShape).Metadata.Alternates.Add(actualShapeType + "__" + content.ContentItem.ContentType);
 
             var context = new BuildEditorContext(itemShape, content, displayType, groupId, _shapeFactory);
-            BindPlacement(context, null, stereotype);
+            BindPlacement(context, displayType, stereotype);
 
             _handlers.Value.Invoke(handler => handler.BuildEditor(context), Logger);
 
@@ -104,7 +104,7 @@ namespace Coevery.ContentManagement {
             ((IShape)itemShape).Metadata.Alternates.Add(actualShapeType + "__" + content.ContentItem.ContentType);
 
             var context = new UpdateEditorContext(itemShape, content, displayType, updater, groupInfoId, _shapeFactory, shapeTable);
-            BindPlacement(context, null, stereotype);
+            BindPlacement(context, displayType, stereotype);
 
             _handlers.Value.Invoke(handler => handler.UpdateEditor(context), Logger);
             
