@@ -185,7 +185,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             var partsListViewTemplate = new ListViewTemplate() { Session = new Dictionary<string, object>() };
             partsListViewTemplate.Session["GridDefinition"] = gridDefinition;
             partsListViewTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            partsListViewTemplate.Session["ModuleName"] = modelDefinition.Name;
+            partsListViewTemplate.Session["ViewName"] = modelDefinition.Name;
             partsListViewTemplate.Initialize();
             AddFile<Content>(csProjFile, partsListViewFilePath, partsListViewTemplate.TransformText());
 
