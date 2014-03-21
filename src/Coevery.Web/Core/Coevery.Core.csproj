@@ -362,7 +362,6 @@
     <Compile Include="Projections\Services\IQueryService.cs" />
     <Compile Include="Projections\Services\ISortCriteriaProvider.cs" />
     <Compile Include="Projections\Services\ISortService.cs" />
-    <Compile Include="Projections\Services\JavascriptLocalizationResourceProvider.cs" />
     <Compile Include="Projections\Services\LayoutProvider.cs" />
     <Compile Include="Projections\Services\ProjectionManager.cs" />
     <Compile Include="Projections\Services\ProjectionService.cs" />
@@ -1185,9 +1184,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Projections\Views\Parts\ListView.Views.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Projections\Views\Projection.JavascriptLocalizationResource.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Projections\Views\TreeGrid.cshtml" />
