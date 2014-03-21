@@ -1,0 +1,14 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.String" name="EntityName" #>
+using Coevery.ContentManagement.Handlers;
+using Coevery.Data;
+using <#=Namespace#>.Models;
+
+namespace <#=Namespace#>.Handlers {
+    public class <#=EntityName#>PartHandler : ContentHandler {
+        public <#=EntityName#>PartHandler(IRepository<<#=EntityName#>PartRecord> repository) {
+            Filters.Add(StorageFilter.For(repository));
+        }
+    }
+}

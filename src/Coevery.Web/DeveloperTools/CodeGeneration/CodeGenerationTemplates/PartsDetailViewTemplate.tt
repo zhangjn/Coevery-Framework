@@ -1,6 +1,6 @@
 ﻿<#@ template debug="false" language="C#" #>
 <#@ parameter type="System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>" name="SectionList" #>
-<div class = "form-structure">
+<div class="form-structure">
 <# foreach (var layoutSection in SectionList) { #>
     <fieldset>
 		<legend><#= layoutSection.SectionTitle #></legend>

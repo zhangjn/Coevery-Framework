@@ -1,0 +1,5 @@
+﻿<Placement>
+  <Place Parts_CreateView="Content:1" />
+  <Place Parts_EditView="Content:1" />
+  <Place Parts_DetailView="Content:1" />
+</Placement>

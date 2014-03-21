@@ -28,7 +28,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("@using (Html.BeginFormAntiForgeryPost(Url.Action(\"Create\", \"");
             
             #line 4 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ModuleName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
@@ -108,16 +108,16 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         
         #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
 
-private string _ModuleNameField;
+private string _EntityNameField;
 
 /// <summary>
-/// Access the ModuleName parameter of the template.
+/// Access the EntityName parameter of the template.
 /// </summary>
-private string ModuleName
+private string EntityName
 {
     get
     {
-        return this._ModuleNameField;
+        return this._EntityNameField;
     }
 }
 
@@ -142,33 +142,33 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
-bool ModuleNameValueAcquired = false;
-if (this.Session.ContainsKey("ModuleName"))
+bool EntityNameValueAcquired = false;
+if (this.Session.ContainsKey("EntityName"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["ModuleName"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["EntityName"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
+        this.Error("The type \'System.String\' of the parameter \'EntityName\' did not match the type of " +
                 "the data passed to the template.");
     }
     else
     {
-        this._ModuleNameField = ((string)(this.Session["ModuleName"]));
-        ModuleNameValueAcquired = true;
+        this._EntityNameField = ((string)(this.Session["EntityName"]));
+        EntityNameValueAcquired = true;
     }
 }
-if ((ModuleNameValueAcquired == false))
+if ((EntityNameValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModuleName");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("EntityName");
     if ((data != null))
     {
         if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'ModuleName\' did not match the type of " +
+            this.Error("The type \'System.String\' of the parameter \'EntityName\' did not match the type of " +
                     "the data passed to the template.");
         }
         else
         {
-            this._ModuleNameField = ((string)(data));
+            this._EntityNameField = ((string)(data));
         }
     }
 }

@@ -25,7 +25,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("<div class = \"form-structure\">\r\n");
+            this.Write("<div class=\"form-structure\">\r\n");
             
             #line 4 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  foreach (var layoutSection in SectionList) { 

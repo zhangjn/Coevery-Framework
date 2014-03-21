@@ -15,9 +15,9 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+    #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\HandlerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public partial class PartsEditViewTemplate : PartsEditViewTemplateBase
+    public partial class HandlerTemplate : HandlerTemplateBase
     {
 #line hidden
         /// <summary>
@@ -25,88 +25,60 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("@using (Html.BeginFormAntiForgeryPost(Url.Action(\"Edit\", \"");
+            this.Write("using Coevery.ContentManagement.Handlers;\r\nusing Coevery.Data;\r\nusing ");
             
-            #line 4 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+            #line 6 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\HandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write(".Models;\r\n\r\nnamespace ");
+            
+            #line 8 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\HandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write(".Handlers {\r\n    public class ");
+            
+            #line 9 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\HandlerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
-            this.Write("\"),\r\n    FormMethod.Post, new {@class = \"form-structure\"})) {\r\n");
+            this.Write("PartHandler : ContentHandler {\r\n        public ");
             
-            #line 6 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
- foreach (var layoutSection in SectionList) { 
-            
-            #line default
-            #line hidden
-            this.Write("    <fieldset>\r\n\t\t<legend>");
-            
-            #line 8 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(layoutSection.SectionTitle));
+            #line 10 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\HandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
-            this.Write("</legend>\r\n");
+            this.Write("PartHandler(IRepository<");
             
-            #line 9 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
- foreach (var row in layoutSection.Rows) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t<div class=\"data-row\">\r\n");
-            
-            #line 11 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
- foreach (var column in row.Columns) { 
+            #line 10 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\HandlerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
-            this.Write("\t\t\t<div class=\"data-column\">\r\n");
-            
-            #line 13 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
- if (column.Field != null) { 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t\t@Display.DisplayField(part: Model.ContentPart, fieldName: \"");
-            
-            #line 14 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(column.Field.FieldName));
-            
-            #line default
-            #line hidden
-            this.Write("\")\r\n");
-            
-            #line 15 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t\t</div>\r\n");
-            
-            #line 17 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\t\t</div>\r\n");
-            
-            #line 19 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\t</fieldset>\r\n");
-            
-            #line 21 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\t<input type=\"submit\" value=\"@T(\"Submit\")\" />\r\n}");
+            this.Write("PartRecord> repository) {\r\n            Filters.Add(StorageFilter.For(repository))" +
+                    ";\r\n        }\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+        #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\HandlerTemplate.tt"
+
+private string _NamespaceField;
+
+/// <summary>
+/// Access the Namespace parameter of the template.
+/// </summary>
+private string Namespace
+{
+    get
+    {
+        return this._NamespaceField;
+    }
+}
 
 private string _EntityNameField;
 
@@ -121,19 +93,6 @@ private string EntityName
     }
 }
 
-private global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section> _SectionListField;
-
-/// <summary>
-/// Access the SectionList parameter of the template.
-/// </summary>
-private global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section> SectionList
-{
-    get
-    {
-        return this._SectionListField;
-    }
-}
-
 
 /// <summary>
 /// Initialize the template
@@ -142,6 +101,36 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
+bool NamespaceValueAcquired = false;
+if (this.Session.ContainsKey("Namespace"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["Namespace"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                "he data passed to the template.");
+    }
+    else
+    {
+        this._NamespaceField = ((string)(this.Session["Namespace"]));
+        NamespaceValueAcquired = true;
+    }
+}
+if ((NamespaceValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("Namespace");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'Namespace\' did not match the type of t" +
+                    "he data passed to the template.");
+        }
+        else
+        {
+            this._NamespaceField = ((string)(data));
+        }
+    }
+}
 bool EntityNameValueAcquired = false;
 if (this.Session.ContainsKey("EntityName"))
 {
@@ -172,38 +161,6 @@ if ((EntityNameValueAcquired == false))
         }
     }
 }
-bool SectionListValueAcquired = false;
-if (this.Session.ContainsKey("SectionList"))
-{
-    if ((typeof(global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>).IsAssignableFrom(this.Session["SectionList"].GetType()) == false))
-    {
-        this.Error("The type \'System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Mo" +
-                "dels.Section>\' of the parameter \'SectionList\' did not match the type of the data" +
-                " passed to the template.");
-    }
-    else
-    {
-        this._SectionListField = ((global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>)(this.Session["SectionList"]));
-        SectionListValueAcquired = true;
-    }
-}
-if ((SectionListValueAcquired == false))
-{
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("SectionList");
-    if ((data != null))
-    {
-        if ((typeof(global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>).IsAssignableFrom(data.GetType()) == false))
-        {
-            this.Error("The type \'System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Mo" +
-                    "dels.Section>\' of the parameter \'SectionList\' did not match the type of the data" +
-                    " passed to the template.");
-        }
-        else
-        {
-            this._SectionListField = ((global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>)(data));
-        }
-    }
-}
 
 
     }
@@ -222,7 +179,7 @@ if ((SectionListValueAcquired == false))
     /// Base class for this transformation
     /// </summary>
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
-    public class PartsEditViewTemplateBase
+    public class HandlerTemplateBase
     {
         #region Fields
         private global::System.Text.StringBuilder generationEnvironmentField;

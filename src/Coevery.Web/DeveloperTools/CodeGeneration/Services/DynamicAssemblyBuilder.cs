@@ -75,6 +75,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
                 AddModelClassFile(csProjFile, definition);
                 AddControllerFile(csProjFile, definition);
                 AddDriverFile(csProjFile, definition);
+                AddHandlerFile(csProjFile, definition);
                 AddViewFile(csProjFile, definition);
             }
             csProjFile.Save();
@@ -136,6 +137,18 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             AddFile<CodeFile>(csProjFile, recordClassFilePath, recordTemplate.TransformText());
         }
 
+        private void AddHandlerFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
+            string handlersPath = Path.Combine(csProjFile.ProjectDirectory, "Handlers");
+            CheckDirectories(handlersPath);
+
+            string handlerFilePath = Path.Combine(handlersPath, string.Format("{0}PartHandler.cs", modelDefinition.Name));
+            var handlerTemplate = new HandlerTemplate {Session = new Dictionary<string, object>()};
+            handlerTemplate.Session["EntityName"] = modelDefinition.Name;
+            handlerTemplate.Session["Namespace"] = csProjFile.RootNamespace;
+            handlerTemplate.Initialize();
+            AddFile<CodeFile>(csProjFile, handlerFilePath, handlerTemplate.TransformText());
+        }
+
         private void AddViewFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
             string viewsPath = Path.Combine(csProjFile.ProjectDirectory, "Views");
             string controllerViewPath = Path.Combine(viewsPath, modelDefinition.Name);
@@ -169,8 +182,8 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
                 : Enumerable.Empty<Section>();
 
             string partsCreateViewFilePath = Path.Combine(partsViewPath, string.Format("CreateView-{0}.cshtml", modelDefinition.Name));
-            var partsCreateViewTemplate = new PartsCreateViewTemplate() {Session = new Dictionary<string, object>()};
-            partsCreateViewTemplate.Session["ModuleName"] = modelDefinition.Name;
+            var partsCreateViewTemplate = new PartsCreateViewTemplate {Session = new Dictionary<string, object>()};
+            partsCreateViewTemplate.Session["EntityName"] = modelDefinition.Name;
             partsCreateViewTemplate.Session["SectionList"] = sectionList;
             partsCreateViewTemplate.Initialize();
             AddFile<Content>(csProjFile, partsCreateViewFilePath, partsCreateViewTemplate.TransformText());
@@ -191,15 +204,15 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
 
             // Parts/EditView-{{EntityName}}.cshtml
             string partsEditViewFilePath = Path.Combine(partsViewPath, string.Format("EditView-{0}.cshtml", modelDefinition.Name));
-            var partsEditViewTemplate = new PartsEditViewTemplate() {Session = new Dictionary<string, object>()};
-            partsEditViewTemplate.Session["ModuleName"] = modelDefinition.Name;
+            var partsEditViewTemplate = new PartsEditViewTemplate {Session = new Dictionary<string, object>()};
+            partsEditViewTemplate.Session["EntityName"] = modelDefinition.Name;
             partsEditViewTemplate.Session["SectionList"] = sectionList;
             partsEditViewTemplate.Initialize();
             AddFile<Content>(csProjFile, partsEditViewFilePath, partsEditViewTemplate.TransformText());
 
             // Parts/DetailView-{{EntityName}}.cshtml
             string partsDetailViewFilePath = Path.Combine(partsViewPath, string.Format("DetailView-{0}.cshtml", modelDefinition.Name));
-            var partsDetailViewTemplate = new PartsDetailViewTemplate() {Session = new Dictionary<string, object>()};
+            var partsDetailViewTemplate = new PartsDetailViewTemplate {Session = new Dictionary<string, object>()};
             partsDetailViewTemplate.Session["SectionList"] = sectionList;
             partsDetailViewTemplate.Initialize();
             AddFile<Content>(csProjFile, partsDetailViewFilePath, partsDetailViewTemplate.TransformText());

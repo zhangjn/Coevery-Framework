@@ -168,6 +168,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ControllerTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\HandlerTemplate.cs">
+      <DependentUpon>HandlerTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="CodeGeneration\CodeGenerationTemplates\DriverTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -372,6 +377,10 @@
     <Content Include="CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>DriverTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\HandlerTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>HandlerTemplate.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 ﻿<#@ template debug="false" language="C#" #>
-<#@ parameter type="System.String" name="ModuleName" #>
+<#@ parameter type="System.String" name="EntityName" #>
 <#@ parameter type="System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>" name="SectionList" #>
-@using (Html.BeginFormAntiForgeryPost(Url.Action("Edit", "<#=ModuleName #>"),
+@using (Html.BeginFormAntiForgeryPost(Url.Action("Edit", "<#=EntityName #>"),
     FormMethod.Post, new {@class = "form-structure"})) {
 <# foreach (var layoutSection in SectionList) { #>
     <fieldset>
