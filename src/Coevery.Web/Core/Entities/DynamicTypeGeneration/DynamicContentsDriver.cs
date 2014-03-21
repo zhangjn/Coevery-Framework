@@ -15,14 +15,14 @@ namespace Coevery.Core.Entities.DynamicTypeGeneration {
                 );
         }
 
-        protected override DriverResult Editor(TContent part, dynamic shapeHelper) {
+        protected override DriverResult Editor(TContent part, string displayType, dynamic shapeHelper) {
             var results = new List<DriverResult> {ContentShape("Content_SaveButton", saveButton => saveButton)};
 
             return Combined(results.ToArray());
         }
 
-        protected override DriverResult Editor(TContent part, IUpdateModel updater, dynamic shapeHelper) {
-            return Editor(part, updater);
+        protected override DriverResult Editor(TContent part, IUpdateModel updater, string displayType, dynamic shapeHelper) {
+            return Editor(part, displayType, shapeHelper);
         }
     }
 }

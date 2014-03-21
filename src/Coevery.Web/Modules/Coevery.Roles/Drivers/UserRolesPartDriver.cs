@@ -43,7 +43,7 @@ namespace Coevery.Roles.Drivers {
 
         public Localizer T { get; set; }
 
-        protected override DriverResult Editor(UserRolesPart userRolesPart, dynamic shapeHelper) {
+        protected override DriverResult Editor(UserRolesPart userRolesPart, string displayType, dynamic shapeHelper) {
             // don't show editor without apply roles permission
             if (!_authorizationService.TryCheckAccess(StandardPermissions.SiteOwner, _authenticationService.GetAuthenticatedUser(), userRolesPart))
                 return null;
@@ -63,7 +63,7 @@ namespace Coevery.Roles.Drivers {
                     });
         }
 
-        protected override DriverResult Editor(UserRolesPart userRolesPart, IUpdateModel updater, dynamic shapeHelper) {
+        protected override DriverResult Editor(UserRolesPart userRolesPart, IUpdateModel updater, string displayType, dynamic shapeHelper) {
             // don't apply editor without apply roles permission
             if (!_authorizationService.TryCheckAccess(StandardPermissions.SiteOwner, _authenticationService.GetAuthenticatedUser(), userRolesPart))
                 return null;

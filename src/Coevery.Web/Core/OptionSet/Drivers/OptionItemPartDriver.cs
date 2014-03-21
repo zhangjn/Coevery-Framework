@@ -65,12 +65,12 @@ namespace Coevery.Core.OptionSet.Drivers {
             });
         }
 
-        protected override DriverResult Editor(OptionItemPart part, dynamic shapeHelper) {
+        protected override DriverResult Editor(OptionItemPart part, string displayType, dynamic shapeHelper) {
             return ContentShape("Parts_Taxonomies_Term_Fields",
                 () => shapeHelper.EditorTemplate(TemplateName: "Parts/Taxonomies.Term.Fields", Model: part, Prefix: Prefix));
         }
 
-        protected override DriverResult Editor(OptionItemPart termPart, IUpdateModel updater, dynamic shapeHelper) {
+        protected override DriverResult Editor(OptionItemPart termPart, IUpdateModel updater, string displayType, dynamic shapeHelper) {
             if (updater.TryUpdateModel(termPart, Prefix, null, null)) {
                 var existing = _optionSetService.GetTermByName(termPart.OptionSetId, termPart.Name);
                 if (existing != null && existing.Record != termPart.Record && existing.OptionSetId == termPart.OptionSetId) {
@@ -78,7 +78,7 @@ namespace Coevery.Core.OptionSet.Drivers {
                 }
             }
 
-            return Editor(termPart, shapeHelper);
+            return Editor(termPart, displayType, shapeHelper);
         }
 
         protected override void Exporting(OptionItemPart part, ExportContentContext context) {

@@ -19,7 +19,7 @@ namespace Coevery.Core.Projections.Drivers {
             _formManager = formManager;
         }
 
-        protected override DriverResult Editor(QueryPart part, IUpdateModel updater, dynamic shapeHelper) {
+        protected override DriverResult Editor(QueryPart part, IUpdateModel updater, string displayType, dynamic shapeHelper) {
             if(updater == null) {
                 return null;
             }

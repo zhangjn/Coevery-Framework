@@ -217,7 +217,7 @@ namespace Coevery.Core.Projections.Drivers {
                 }));
         }
 
-        protected override DriverResult Editor(ProjectionPart part, dynamic shapeHelper) {
+        protected override DriverResult Editor(ProjectionPart part, string displayType, dynamic shapeHelper) {
             return ContentShape("Parts_ProjectionPart_Edit",
                                 () => {
 
@@ -265,7 +265,7 @@ namespace Coevery.Core.Projections.Drivers {
             return String.IsNullOrWhiteSpace(l.Description) ? descriptor.Display(new LayoutContext {State = FormParametersHelper.ToDynamic(l.State)}).Text : l.Description;
         }
 
-        protected override DriverResult Editor(ProjectionPart part, IUpdateModel updater, dynamic shapeHelper) {
+        protected override DriverResult Editor(ProjectionPart part, IUpdateModel updater, string displayType, dynamic shapeHelper) {
             var model = new ProjectionPartEditViewModel();
 
             if (updater.TryUpdateModel(model, Prefix, null, null)) {
@@ -286,7 +286,7 @@ namespace Coevery.Core.Projections.Drivers {
                 }
             }
 
-            return Editor(part, shapeHelper);
+            return Editor(part, displayType, shapeHelper);
         }
 
         protected override void Importing(ProjectionPart part, ImportContentContext context) {

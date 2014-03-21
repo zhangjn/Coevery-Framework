@@ -45,7 +45,7 @@ namespace Coevery.Core.Relationships.DynamicTypeGeneration {
             return part.PartDefinition.Name;
         }
 
-        protected override DriverResult Editor(TPrimaryPart part, dynamic shapeHelper) {
+        protected override DriverResult Editor(TPrimaryPart part, string displayType, dynamic shapeHelper) {
             return ContentShape("Parts_Relationship_Edit",
                 () => shapeHelper.EditorTemplate(
                     TemplateName: TemplateName,
@@ -53,7 +53,7 @@ namespace Coevery.Core.Relationships.DynamicTypeGeneration {
                     Prefix: GetPrefix(part)));
         }
 
-        protected override DriverResult Editor(TPrimaryPart part, IUpdateModel updater, dynamic shapeHelper) {
+        protected override DriverResult Editor(TPrimaryPart part, IUpdateModel updater, string displayType, dynamic shapeHelper) {
             var model = new EditRelationshipViewModel();
             updater.TryUpdateModel(model, GetPrefix(part), null, null);
 
@@ -61,7 +61,7 @@ namespace Coevery.Core.Relationships.DynamicTypeGeneration {
                 _primaryService.UpdateForContentItem(part.ContentItem, model.SelectedIds, _isPrimary, _contentLinkRepository);
             }
 
-            return Editor(part, shapeHelper);
+            return Editor(part, displayType, shapeHelper);
         }
 
         private IEnumerable<ContentItemRecord> GetLinks(TPrimaryPart part) {

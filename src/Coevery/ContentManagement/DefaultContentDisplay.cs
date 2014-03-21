@@ -61,7 +61,7 @@ namespace Coevery.ContentManagement {
             return context.Shape;
         }
 
-        public dynamic BuildEditor(IContent content, string groupId) {
+        public dynamic BuildEditor(IContent content, string displayType, string groupId) {
             var contentTypeDefinition = content.ContentItem.TypeDefinition;
             string stereotype;
             if (!contentTypeDefinition.Settings.TryGetValue("Stereotype", out stereotype))
@@ -74,8 +74,8 @@ namespace Coevery.ContentManagement {
 
             // adding an alternate for [Stereotype]_Edit__[ContentType] e.g. Content-Menu.Edit
             ((IShape)itemShape).Metadata.Alternates.Add(actualShapeType + "__" + content.ContentItem.ContentType);
-            
-            var context = new BuildEditorContext(itemShape, content, groupId, _shapeFactory);
+
+            var context = new BuildEditorContext(itemShape, content, displayType, groupId, _shapeFactory);
             BindPlacement(context, null, stereotype);
 
             _handlers.Value.Invoke(handler => handler.BuildEditor(context), Logger);
@@ -84,7 +84,7 @@ namespace Coevery.ContentManagement {
             return context.Shape;
         }
 
-        public dynamic UpdateEditor(IContent content, IUpdateModel updater, string groupInfoId) {
+        public dynamic UpdateEditor(IContent content, IUpdateModel updater, string displayType, string groupInfoId) {
             var contentTypeDefinition = content.ContentItem.TypeDefinition;
             string stereotype;
             if (!contentTypeDefinition.Settings.TryGetValue("Stereotype", out stereotype))
@@ -103,7 +103,7 @@ namespace Coevery.ContentManagement {
             // adding an alternate for [Stereotype]_Edit__[ContentType] e.g. Content-Menu.Edit
             ((IShape)itemShape).Metadata.Alternates.Add(actualShapeType + "__" + content.ContentItem.ContentType);
 
-            var context = new UpdateEditorContext(itemShape, content, updater, groupInfoId, _shapeFactory, shapeTable);
+            var context = new UpdateEditorContext(itemShape, content, displayType, updater, groupInfoId, _shapeFactory, shapeTable);
             BindPlacement(context, null, stereotype);
 
             _handlers.Value.Invoke(handler => handler.UpdateEditor(context), Logger);

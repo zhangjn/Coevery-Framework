@@ -25,7 +25,7 @@ namespace Coevery.Core.OptionSet.Drivers {
             });
         }
 
-        protected override DriverResult Editor(OptionSetPart part, IUpdateModel updater, dynamic shapeHelper) {
+        protected override DriverResult Editor(OptionSetPart part, IUpdateModel updater, string displayType, dynamic shapeHelper) {
             var existing = _optionSetService.GetOptionSetByName(part.Name);
 
             if (existing != null && existing.Record != part.Record) {

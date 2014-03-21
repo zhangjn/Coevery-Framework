@@ -26,7 +26,7 @@ namespace Coevery.Core.Projections.Drivers {
 
         protected override string Prefix { get { return "NavigationQueryPart"; } }
 
-        protected override DriverResult Editor(NavigationQueryPart part, dynamic shapeHelper) {
+        protected override DriverResult Editor(NavigationQueryPart part, string displayType, dynamic shapeHelper) {
             return ContentShape("Parts_NavigationQueryPart_Edit", () => {
 
                 var model = new NavigationQueryPartEditViewModel {
@@ -40,7 +40,7 @@ namespace Coevery.Core.Projections.Drivers {
             });
         }
 
-        protected override DriverResult Editor(NavigationQueryPart part, IUpdateModel updater, dynamic shapeHelper) {
+        protected override DriverResult Editor(NavigationQueryPart part, IUpdateModel updater, string displayType, dynamic shapeHelper) {
             var model = new NavigationQueryPartEditViewModel();
 
             if (updater.TryUpdateModel(model, Prefix, null, null)) {
@@ -49,7 +49,7 @@ namespace Coevery.Core.Projections.Drivers {
                 part.Record.QueryPartRecord = _queryRepository.Get(Int32.Parse(model.QueryRecordId));
             }
 
-            return Editor(part, shapeHelper);
+            return Editor(part, displayType, shapeHelper);
         }
 
         protected override void Importing(NavigationQueryPart part, ImportContentContext context) {

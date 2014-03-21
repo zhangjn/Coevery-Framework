@@ -34,7 +34,7 @@ namespace Coevery.Core.Fields {
             dynamic itemShape = shapeFactory.Create("Content", Arguments.Empty(), () => new ZoneHolding(() => shapeFactory.Create("ContentZone", Arguments.Empty())));
             itemShape.ContentItem = part.ContentItem;
 
-            var context = new BuildEditorContext(itemShape, part, string.Empty, shapeFactory);
+            var context = new BuildEditorContext(itemShape, part, "", string.Empty, shapeFactory);
             context.FindPlacement = (partShapeType, differentiator, defaultLocation) => new PlacementInfo {Location = "Content"};
 
             var field = part.Fields.FirstOrDefault(f => f.Name == fieldName);

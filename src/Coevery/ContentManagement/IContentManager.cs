@@ -113,24 +113,26 @@ namespace Coevery.ContentManagement {
         /// Builds the editor shape of the specified content item
         /// </summary>
         /// <param name="content">The content item to use</param>
+        /// <param name="displayType">The display type (e.g. Summary, Detail) to use</param>
         /// <param name="groupId">Id of the editor group (stored in the content item's metadata)</param>
         /// <returns>The editor shape</returns>
-        dynamic BuildEditor(IContent content, string groupId = "");
+        dynamic BuildEditor(IContent content, string displayType = "", string groupId = "");
 
         /// <summary>
         /// Updates the content item and its editor shape with new data through an IUpdateModel
         /// </summary>
         /// <param name="content">The content item to update</param>
         /// <param name="updater">The updater to use for updating</param>
+        /// <param name="displayType">The display type (e.g. Summary, Detail) to use</param>
         /// <param name="groupId">Id of the editor group (stored in the content item's metadata)</param>
         /// <returns>The updated editor shape</returns>
-        dynamic UpdateEditor(IContent content, IUpdateModel updater, string groupId = "");
+        dynamic UpdateEditor(IContent content, IUpdateModel updater, string displayType = "", string groupId = "");
     }
 
     public interface IContentDisplay : IDependency {
         dynamic BuildDisplay(IContent content, string displayType = "", string groupId = "");
-        dynamic BuildEditor(IContent content, string groupId = "");
-        dynamic UpdateEditor(IContent content, IUpdateModel updater, string groupId = "");
+        dynamic BuildEditor(IContent content, string displayType = "", string groupId = "");
+        dynamic UpdateEditor(IContent content, IUpdateModel updater, string displayType = "", string groupId = "");
     }
 
     public class VersionOptions {

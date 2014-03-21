@@ -40,7 +40,7 @@ namespace Coevery.ContentManagement.Drivers {
                 return null;
             }
 
-            DriverResult result = Editor(part, context.New);
+            DriverResult result = Editor(part, context.DisplayType, context.New);
             
             if (result != null) {
                 result.ContentPart = part;
@@ -57,7 +57,7 @@ namespace Coevery.ContentManagement.Drivers {
             }
 
             // checking if the editor needs to be updated (e.g. if it was not hidden)
-            var editor = Editor(part, context.New) as ContentShapeResult;
+            var editor = Editor(part, context.DisplayType, context.New) as ContentShapeResult;
 
             if(editor != null) {
                 ShapeDescriptor descriptor;
@@ -78,7 +78,7 @@ namespace Coevery.ContentManagement.Drivers {
                 }
             }
 
-            DriverResult result = Editor(part, context.Updater, context.New);
+            DriverResult result = Editor(part, context.Updater, context.DisplayType, context.New);
 
             if (result != null) {
                 result.ContentPart = part;
@@ -114,8 +114,8 @@ namespace Coevery.ContentManagement.Drivers {
         protected virtual void GetContentItemMetadata(TContent context, ContentItemMetadata metadata) {}
 
         protected virtual DriverResult Display(TContent part, string displayType, dynamic shapeHelper) { return null; }
-        protected virtual DriverResult Editor(TContent part, dynamic shapeHelper) { return null; }
-        protected virtual DriverResult Editor(TContent part, IUpdateModel updater, dynamic shapeHelper) { return null; }
+        protected virtual DriverResult Editor(TContent part, string displayType, dynamic shapeHelper) { return null; }
+        protected virtual DriverResult Editor(TContent part, IUpdateModel updater, string displayType, dynamic shapeHelper) { return null; }
 
         protected virtual void Importing(TContent part, ImportContentContext context) {}
         protected virtual void Imported(TContent part, ImportContentContext context) {}

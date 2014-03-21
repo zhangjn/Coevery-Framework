@@ -90,12 +90,12 @@ namespace Coevery.Tests.ContentManagement.Handlers.Coordinators {
                 //return ContentPartTemplate(viewModel).Location("TopMeta");
             }
 
-            protected override DriverResult Editor(StubPart part, dynamic shapeHelper) {
+            protected override DriverResult Editor(StubPart part, string displayType, dynamic shapeHelper) {
                 var viewModel = new StubViewModel { Foo = string.Join(",", part.Foo) };
                 return new ContentTemplateResult(viewModel, null, Prefix).Location("last", "10");
             }
 
-            protected override DriverResult Editor(StubPart part, IUpdateModel updater, dynamic shapeHelper) {
+            protected override DriverResult Editor(StubPart part, IUpdateModel updater, string displayType, dynamic shapeHelper) {
                 var viewModel = new StubViewModel { Foo = string.Join(",", part.Foo) };
                 updater.TryUpdateModel(viewModel, Prefix, null, null);
                 part.Foo = viewModel.Foo.Split(new[] { ',' }).Select(x => x.Trim()).ToArray();
