@@ -1,26 +1,29 @@
 ﻿<#@ template debug="false" language="C#" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.String" name="ControllerName" #>
-using System.Net;
+<#@ parameter type="System.String" name="EntityName" #>
 using System.Web.Mvc;
 using Coevery;
 using Coevery.ContentManagement;
+using Coevery.Data;
 using Coevery.Localization;
 using <#=Namespace#>.Models;
 
 namespace <#=Namespace#>.Controllers {
-    public class <#=ControllerName#>Controller : Controller , IUpdateModel{
-        public ICoeveryServices Services { get; set; }
-		public Localizer T { get; set; }
+    public class <#=EntityName#>Controller : Controller , IUpdateModel{
+        private readonly ITransactionManager _transactionManager;
 
-        public <#=ControllerName#>Controller (ICoeveryServices services) {
+        public <#=EntityName#>Controller (ICoeveryServices services, ITransactionManager transactionManager) {
             Services = services;
+            _transactionManager = transactionManager;
             T = NullLocalizer.Instance;
         }
 
+		public ICoeveryServices Services { get; set; }
+		public Localizer T { get; set; }
+
 		public ActionResult Index() {
-            var contentItem = Services.ContentManager.New("<#=ControllerName#>");
-            contentItem.Weld(new <#=ControllerName#>Part());
+            var contentItem = Services.ContentManager.New("<#=EntityName#>");
+            contentItem.Weld(new <#=EntityName#>Part());
             var model = Services.ContentManager.BuildDisplay(contentItem, "List");
             return View(model);
         }
@@ -30,39 +33,46 @@ namespace <#=Namespace#>.Controllers {
         }
 
         public ActionResult Create() {
-            var contentItem = Services.ContentManager.New("<#=ControllerName#>");
+            var contentItem = Services.ContentManager.New("<#=EntityName#>");
             var model = Services.ContentManager.BuildEditor(contentItem, "Create");
             return View(model);
         }
 
         [HttpPost, ActionName("Create")]
         public ActionResult CreatePost() {
-            var contentItem = Services.ContentManager.New("<#=ControllerName#>");
-            Services.ContentManager.UpdateEditor(contentItem, this);
-			Services.ContentManager.Create(contentItem, VersionOptions.Draft);
-			Services.ContentManager.Publish(contentItem);
-            return new HttpStatusCodeResult(HttpStatusCode.OK);
+            var contentItem = Services.ContentManager.New("<#=EntityName#>");
+            dynamic model = Services.ContentManager.UpdateEditor(contentItem, this, "Create");
+            if (!ModelState.IsValid) {
+                return View("Create", (object) model);
+            }
+            Services.ContentManager.Create(contentItem, VersionOptions.Draft);
+            Services.ContentManager.Publish(contentItem);
+            return RedirectToAction("Edit", new { id = contentItem.Id });
         }
 
         public ActionResult Edit(int id) {
             var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
-
             if (contentItem == null) {
                 return HttpNotFound();
             }
+
             dynamic model = Services.ContentManager.BuildEditor(contentItem, "Edit");
             return View((object)model);
         }
 
         [HttpPost, ActionName("Edit")]
         public ActionResult EditPost(int id, FormCollection collection) {
-            var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
-
+			var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
             if (contentItem == null) {
                 return HttpNotFound();
             }
+
             dynamic model = Services.ContentManager.UpdateEditor(contentItem, this, "Edit");
-            return View((object) model);
+            if (!ModelState.IsValid) {
+                _transactionManager.Cancel();
+                return View("Edit", (object) model);
+            }
+            return RedirectToAction("Edit", new {id});
         }
 
         public ActionResult Delete(int id) {

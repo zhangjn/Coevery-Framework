@@ -81,38 +81,38 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             csProjFile.Save();
         }
 
-        private void AddControllerFile(CsProjFile csProjFile, DynamicDefinition controllerDefinition) {
+        private void AddControllerFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
 
             string moduleControllersPath = Path.Combine(csProjFile.ProjectDirectory, "Controllers");
             CheckDirectories(moduleControllersPath);
 
             // Controller
-            string controllerClassFilePath = Path.Combine(moduleControllersPath, string.Format("{0}Controller.cs", controllerDefinition.Name));
+            string controllerClassFilePath = Path.Combine(moduleControllersPath, string.Format("{0}Controller.cs", modelDefinition.Name));
             var partTemplate = new ControllerTemplate() { Session = new Dictionary<string, object>() };
             partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            partTemplate.Session["ControllerName"] = controllerDefinition.Name;
+            partTemplate.Session["EntityName"] = modelDefinition.Name;
             partTemplate.Initialize();
             AddFile<CodeFile>(csProjFile, controllerClassFilePath, partTemplate.TransformText());
 
             // Api controller
-            string apiControllerClassFilePath = Path.Combine(moduleControllersPath, string.Format("{0}ApiController.cs", controllerDefinition.Name));
+            string apiControllerClassFilePath = Path.Combine(moduleControllersPath, string.Format("{0}ApiController.cs", modelDefinition.Name));
             var apiControllerTemplate = new ApiControllerTemplate() {Session = new Dictionary<string, object>()};
             apiControllerTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            apiControllerTemplate.Session["ControllerName"] = controllerDefinition.Name;
+            apiControllerTemplate.Session["ControllerName"] = modelDefinition.Name;
             apiControllerTemplate.Initialize();
             AddFile<CodeFile>(csProjFile, apiControllerClassFilePath, apiControllerTemplate.TransformText());
 
         }
 
-        private void AddDriverFile(CsProjFile csProjFile, DynamicDefinition driverDefinition) {
+        private void AddDriverFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
             string moduleDriversPath = Path.Combine(csProjFile.ProjectDirectory, "Drivers");
 
             CheckDirectories(moduleDriversPath);
 
-            string partClassFilePath = Path.Combine(moduleDriversPath, driverDefinition.Name + "PartDriver.cs");
+            string partClassFilePath = Path.Combine(moduleDriversPath, modelDefinition.Name + "PartDriver.cs");
             var partTemplate = new DriverTemplate() {Session = new Dictionary<string, object>()};
             partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            partTemplate.Session["DriverName"] = driverDefinition.Name;
+            partTemplate.Session["EntityName"] = modelDefinition.Name;
             partTemplate.Initialize();
 
             AddFile<CodeFile>(csProjFile, partClassFilePath, partTemplate.TransformText());

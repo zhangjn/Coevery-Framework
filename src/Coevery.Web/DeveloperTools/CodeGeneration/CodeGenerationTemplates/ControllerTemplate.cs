@@ -25,8 +25,8 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System.Net;\r\nusing System.Web.Mvc;\r\nusing Coevery;\r\nusing Coevery.ContentMa" +
-                    "nagement;\r\nusing Coevery.Localization;\r\nusing ");
+            this.Write("using System.Web.Mvc;\r\nusing Coevery;\r\nusing Coevery.ContentManagement;\r\nusing Co" +
+                    "every.Data;\r\nusing Coevery.Localization;\r\nusing ");
             
             #line 9 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
@@ -43,31 +43,39 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write(".Controllers {\r\n    public class ");
             
             #line 12 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
-            this.Write("Controller : Controller , IUpdateModel{\r\n        public ICoeveryServices Services" +
-                    " { get; set; }\r\n\t\tpublic Localizer T { get; set; }\r\n\r\n        public ");
+            this.Write("Controller : Controller , IUpdateModel{\r\n        private readonly ITransactionMan" +
+                    "ager _transactionManager;\r\n\r\n        public ");
             
-            #line 16 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 15 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
-            this.Write("Controller (ICoeveryServices services) {\r\n            Services = services;\r\n     " +
-                    "       T = NullLocalizer.Instance;\r\n        }\r\n\r\n\t\tpublic ActionResult Index() {" +
-                    "\r\n            var contentItem = Services.ContentManager.New(\"");
+            this.Write(@"Controller (ICoeveryServices services, ITransactionManager transactionManager) {
+            Services = services;
+            _transactionManager = transactionManager;
+            T = NullLocalizer.Instance;
+        }
+
+		public ICoeveryServices Services { get; set; }
+		public Localizer T { get; set; }
+
+		public ActionResult Index() {
+            var contentItem = Services.ContentManager.New(""");
             
-            #line 22 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 25 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
             this.Write("\");\r\n            contentItem.Weld(new ");
             
-            #line 23 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 26 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
@@ -83,8 +91,8 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public ActionResult Create() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 33 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 36 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
@@ -97,35 +105,39 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public ActionResult CreatePost() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 40 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 43 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
-            this.Write("\");\r\n            Services.ContentManager.UpdateEditor(contentItem, this);\r\n\t\t\tSer" +
-                    "vices.ContentManager.Create(contentItem, VersionOptions.Draft);\r\n\t\t\tServices.Con" +
-                    "tentManager.Publish(contentItem);\r\n            return new HttpStatusCodeResult(H" +
-                    "ttpStatusCode.OK);\r\n        }\r\n\r\n        public ActionResult Edit(int id) {\r\n   " +
-                    "         var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest" +
-                    ");\r\n\r\n            if (contentItem == null) {\r\n                return HttpNotFoun" +
-                    "d();\r\n            }\r\n            dynamic model = Services.ContentManager.BuildEd" +
-                    "itor(contentItem, \"Edit\");\r\n            return View((object)model);\r\n        }\r\n" +
-                    "\r\n        [HttpPost, ActionName(\"Edit\")]\r\n        public ActionResult EditPost(i" +
-                    "nt id, FormCollection collection) {\r\n            var contentItem = Services.Cont" +
-                    "entManager.Get(id, VersionOptions.Latest);\r\n\r\n            if (contentItem == nul" +
-                    "l) {\r\n                return HttpNotFound();\r\n            }\r\n            dynamic" +
-                    " model = Services.ContentManager.UpdateEditor(contentItem, this, \"Edit\");\r\n     " +
-                    "       return View((object) model);\r\n        }\r\n\r\n        public ActionResult De" +
-                    "lete(int id) {\r\n            return View();\r\n        }\r\n\r\n        [HttpPost]\r\n   " +
-                    "     public ActionResult DeletePost(int id, FormCollection collection) {\r\n      " +
-                    "      try {\r\n                // TODO: Add delete logic here\r\n\r\n                r" +
-                    "eturn RedirectToAction(\"Index\");\r\n            }\r\n            catch {\r\n          " +
-                    "      return View();\r\n            }\r\n        }\r\n\r\n        bool IUpdateModel.TryU" +
-                    "pdateModel<TModel>(TModel model, string prefix, string[] includeProperties, stri" +
-                    "ng[] excludeProperties) {\r\n            return TryUpdateModel(model, prefix, incl" +
-                    "udeProperties, excludeProperties);\r\n        }\r\n\r\n        void IUpdateModel.AddMo" +
-                    "delError(string key, LocalizedString errorMessage) {\r\n            ModelState.Add" +
-                    "ModelError(key, errorMessage.ToString());\r\n        }\r\n    }\r\n}\r\n");
+            this.Write("\");\r\n            dynamic model = Services.ContentManager.UpdateEditor(contentItem" +
+                    ", this, \"Create\");\r\n            if (!ModelState.IsValid) {\r\n                retu" +
+                    "rn View(\"Create\", (object) model);\r\n            }\r\n            Services.ContentM" +
+                    "anager.Create(contentItem, VersionOptions.Draft);\r\n            Services.ContentM" +
+                    "anager.Publish(contentItem);\r\n            return RedirectToAction(\"Edit\", new { " +
+                    "id = contentItem.Id });\r\n        }\r\n\r\n        public ActionResult Edit(int id) {" +
+                    "\r\n            var contentItem = Services.ContentManager.Get(id, VersionOptions.L" +
+                    "atest);\r\n            if (contentItem == null) {\r\n                return HttpNotF" +
+                    "ound();\r\n            }\r\n\r\n            dynamic model = Services.ContentManager.Bu" +
+                    "ildEditor(contentItem, \"Edit\");\r\n            return View((object)model);\r\n      " +
+                    "  }\r\n\r\n        [HttpPost, ActionName(\"Edit\")]\r\n        public ActionResult EditP" +
+                    "ost(int id, FormCollection collection) {\r\n\t\t\tvar contentItem = Services.ContentM" +
+                    "anager.Get(id, VersionOptions.Latest);\r\n            if (contentItem == null) {\r\n" +
+                    "                return HttpNotFound();\r\n            }\r\n\r\n            dynamic mod" +
+                    "el = Services.ContentManager.UpdateEditor(contentItem, this, \"Edit\");\r\n         " +
+                    "   if (!ModelState.IsValid) {\r\n                _transactionManager.Cancel();\r\n  " +
+                    "              return View(\"Edit\", (object) model);\r\n            }\r\n            r" +
+                    "eturn RedirectToAction(\"Edit\", new {id});\r\n        }\r\n\r\n        public ActionRes" +
+                    "ult Delete(int id) {\r\n            return View();\r\n        }\r\n\r\n        [HttpPost" +
+                    "]\r\n        public ActionResult DeletePost(int id, FormCollection collection) {\r\n" +
+                    "            try {\r\n                // TODO: Add delete logic here\r\n\r\n           " +
+                    "     return RedirectToAction(\"Index\");\r\n            }\r\n            catch {\r\n    " +
+                    "            return View();\r\n            }\r\n        }\r\n\r\n        bool IUpdateMode" +
+                    "l.TryUpdateModel<TModel>(TModel model, string prefix, string[] includeProperties" +
+                    ", string[] excludeProperties) {\r\n            return TryUpdateModel(model, prefix" +
+                    ", includeProperties, excludeProperties);\r\n        }\r\n\r\n        void IUpdateModel" +
+                    ".AddModelError(string key, LocalizedString errorMessage) {\r\n            ModelSta" +
+                    "te.AddModelError(key, errorMessage.ToString());\r\n        }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -144,16 +156,16 @@ private string Namespace
     }
 }
 
-private string _ControllerNameField;
+private string _EntityNameField;
 
 /// <summary>
-/// Access the ControllerName parameter of the template.
+/// Access the EntityName parameter of the template.
 /// </summary>
-private string ControllerName
+private string EntityName
 {
     get
     {
-        return this._ControllerNameField;
+        return this._EntityNameField;
     }
 }
 
@@ -195,33 +207,33 @@ if ((NamespaceValueAcquired == false))
         }
     }
 }
-bool ControllerNameValueAcquired = false;
-if (this.Session.ContainsKey("ControllerName"))
+bool EntityNameValueAcquired = false;
+if (this.Session.ContainsKey("EntityName"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["ControllerName"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["EntityName"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'ControllerName\' did not match the type" +
-                " of the data passed to the template.");
+        this.Error("The type \'System.String\' of the parameter \'EntityName\' did not match the type of " +
+                "the data passed to the template.");
     }
     else
     {
-        this._ControllerNameField = ((string)(this.Session["ControllerName"]));
-        ControllerNameValueAcquired = true;
+        this._EntityNameField = ((string)(this.Session["EntityName"]));
+        EntityNameValueAcquired = true;
     }
 }
-if ((ControllerNameValueAcquired == false))
+if ((EntityNameValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ControllerName");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("EntityName");
     if ((data != null))
     {
         if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'ControllerName\' did not match the type" +
-                    " of the data passed to the template.");
+            this.Error("The type \'System.String\' of the parameter \'EntityName\' did not match the type of " +
+                    "the data passed to the template.");
         }
         else
         {
-            this._ControllerNameField = ((string)(data));
+            this._EntityNameField = ((string)(data));
         }
     }
 }

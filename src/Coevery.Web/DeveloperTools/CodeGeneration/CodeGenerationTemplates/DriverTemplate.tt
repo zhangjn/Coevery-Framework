@@ -1,12 +1,13 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.String" name="DriverName" #>
+<#@ parameter type="System.String" name="EntityName" #>
+using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using <#=Namespace#>.Models;
 
 namespace <#=Namespace#>.Drivers {
-    public class <#=DriverName#>PartDriver : ContentPartDriver<<#=DriverName#>Part> {
-        protected override DriverResult Display(<#=DriverName#>Part part, string displayType, dynamic shapeHelper) {
+    public class <#=EntityName#>PartDriver : ContentPartDriver<<#=EntityName#>Part> {
+        protected override DriverResult Display(<#=EntityName#>Part part, string displayType, dynamic shapeHelper) {
             if (displayType == "List") {
                 return Combined(
                     ContentShape("Parts_ListView",
@@ -16,7 +17,7 @@ namespace <#=Namespace#>.Drivers {
             return null;
         }
 
-        protected override DriverResult Editor(<#=DriverName#>Part part, string displayType, dynamic shapeHelper) {
+        protected override DriverResult Editor(<#=EntityName#>Part part, string displayType, dynamic shapeHelper) {
             if (displayType == "Create") {
                 return Combined(
                     ContentShape("Parts_CreateView", () => shapeHelper.Parts_CreateView())
@@ -29,6 +30,10 @@ namespace <#=Namespace#>.Drivers {
                     );
             }
             return null;
+        }
+
+        protected override DriverResult Editor(<#=EntityName#>Part part, IUpdateModel updater, string displayType, dynamic shapeHelper) {
+            return Editor(part, displayType, shapeHelper);
         }
     }
 }

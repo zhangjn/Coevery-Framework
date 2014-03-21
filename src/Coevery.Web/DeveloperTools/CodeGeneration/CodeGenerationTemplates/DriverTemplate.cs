@@ -25,38 +25,39 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using Coevery.ContentManagement.Drivers;\r\nusing ");
+            this.Write("using Coevery.ContentManagement;\r\nusing Coevery.ContentManagement.Drivers;\r\nusing" +
+                    " ");
             
-            #line 5 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            #line 6 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Models;\r\n\r\nnamespace ");
             
-            #line 7 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            #line 8 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Drivers {\r\n    public class ");
             
-            #line 8 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DriverName));
+            #line 9 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
             this.Write("PartDriver : ContentPartDriver<");
             
-            #line 8 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DriverName));
+            #line 9 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
             this.Write("Part> {\r\n        protected override DriverResult Display(");
             
-            #line 9 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DriverName));
+            #line 10 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
@@ -72,8 +73,8 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 
         protected override DriverResult Editor(");
             
-            #line 19 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(DriverName));
+            #line 20 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
@@ -91,8 +92,16 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             }
             return null;
         }
-    }
-}");
+
+        protected override DriverResult Editor(");
+            
+            #line 35 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
+            
+            #line default
+            #line hidden
+            this.Write("Part part, IUpdateModel updater, string displayType, dynamic shapeHelper) {\r\n    " +
+                    "        return Editor(part, displayType, shapeHelper);\r\n        }\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -111,16 +120,16 @@ private string Namespace
     }
 }
 
-private string _DriverNameField;
+private string _EntityNameField;
 
 /// <summary>
-/// Access the DriverName parameter of the template.
+/// Access the EntityName parameter of the template.
 /// </summary>
-private string DriverName
+private string EntityName
 {
     get
     {
-        return this._DriverNameField;
+        return this._EntityNameField;
     }
 }
 
@@ -162,33 +171,33 @@ if ((NamespaceValueAcquired == false))
         }
     }
 }
-bool DriverNameValueAcquired = false;
-if (this.Session.ContainsKey("DriverName"))
+bool EntityNameValueAcquired = false;
+if (this.Session.ContainsKey("EntityName"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["DriverName"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["EntityName"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'DriverName\' did not match the type of " +
+        this.Error("The type \'System.String\' of the parameter \'EntityName\' did not match the type of " +
                 "the data passed to the template.");
     }
     else
     {
-        this._DriverNameField = ((string)(this.Session["DriverName"]));
-        DriverNameValueAcquired = true;
+        this._EntityNameField = ((string)(this.Session["EntityName"]));
+        EntityNameValueAcquired = true;
     }
 }
-if ((DriverNameValueAcquired == false))
+if ((EntityNameValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("DriverName");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("EntityName");
     if ((data != null))
     {
         if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'DriverName\' did not match the type of " +
+            this.Error("The type \'System.String\' of the parameter \'EntityName\' did not match the type of " +
                     "the data passed to the template.");
         }
         else
         {
-            this._DriverNameField = ((string)(data));
+            this._EntityNameField = ((string)(data));
         }
     }
 }
