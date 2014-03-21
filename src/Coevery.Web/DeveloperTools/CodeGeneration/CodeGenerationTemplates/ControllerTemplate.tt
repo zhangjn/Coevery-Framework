@@ -9,6 +9,7 @@ using Coevery.Localization;
 using <#=Namespace#>.Models;
 
 namespace <#=Namespace#>.Controllers {
+	[Themed]
     public class <#=EntityName#>Controller : Controller , IUpdateModel{
         private readonly ITransactionManager _transactionManager;
 
