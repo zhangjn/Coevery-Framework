@@ -68,12 +68,19 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                         () => shapeHelper.Parts_ListView())
                     );
             }
+
+			if (displayType == ""Detail"") {
+                return Combined(
+                    ContentShape(""Parts_DetailView"",
+                        () => shapeHelper.Parts_DetailView())
+                    );
+            }
             return null;
         }
 
         protected override DriverResult Editor(");
             
-            #line 20 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            #line 27 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
@@ -95,7 +102,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 
         protected override DriverResult Editor(");
             
-            #line 35 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            #line 42 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default

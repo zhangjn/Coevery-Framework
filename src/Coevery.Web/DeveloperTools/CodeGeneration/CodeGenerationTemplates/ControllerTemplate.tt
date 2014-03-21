@@ -28,8 +28,14 @@ namespace <#=Namespace#>.Controllers {
             return View(model);
         }
 
-        public ActionResult Details(int id) {
-            return View();
+        public ActionResult Detail(int id) {
+            var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
+            if (contentItem == null) {
+                return HttpNotFound();
+            }
+
+            dynamic model = Services.ContentManager.BuildDisplay(contentItem, "Detail");
+            return View((object) model);
         }
 
         public ActionResult Create() {

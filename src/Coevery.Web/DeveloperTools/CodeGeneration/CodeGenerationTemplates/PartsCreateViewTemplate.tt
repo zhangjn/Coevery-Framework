@@ -11,7 +11,7 @@
 <# foreach (var column in row.Columns) { #>
 			<div class="data-column">
 <# if (column.Field != null) { #>
-				@Display.DisplayField(part: Model.ContentPart, fieldName: "<#= column.Field.FieldName #>")
+				@Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "<#= column.Field.FieldName #>")
 <# } #>
 			</div>
 <# } #>

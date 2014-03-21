@@ -14,6 +14,13 @@ namespace <#=Namespace#>.Drivers {
                         () => shapeHelper.Parts_ListView())
                     );
             }
+
+			if (displayType == "Detail") {
+                return Combined(
+                    ContentShape("Parts_DetailView",
+                        () => shapeHelper.Parts_DetailView())
+                    );
+            }
             return null;
         }
 

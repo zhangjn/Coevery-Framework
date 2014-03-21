@@ -84,14 +84,20 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             return View(model);
         }
 
-        public ActionResult Details(int id) {
-            return View();
+        public ActionResult Detail(int id) {
+            var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
+            if (contentItem == null) {
+                return HttpNotFound();
+            }
+
+            dynamic model = Services.ContentManager.BuildDisplay(contentItem, ""Detail"");
+            return View((object) model);
         }
 
         public ActionResult Create() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 36 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 42 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
@@ -105,7 +111,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public ActionResult CreatePost() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 43 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 49 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default

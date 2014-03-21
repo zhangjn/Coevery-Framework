@@ -67,7 +67,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t@Display.DisplayField(part: Model.ContentPart, fieldName: \"");
+            this.Write("\t\t\t\t@Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: \"");
             
             #line 14 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(column.Field.FieldName));
