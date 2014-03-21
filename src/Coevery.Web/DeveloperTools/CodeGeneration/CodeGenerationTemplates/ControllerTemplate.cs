@@ -26,31 +26,31 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public virtual string TransformText()
         {
             this.Write("using System.Net;\r\nusing System.Web.Mvc;\r\nusing Coevery;\r\nusing Coevery.ContentMa" +
-                    "nagement;\r\nusing Coevery.Localization;\r\nusing Coevery.Themes;\r\nusing ");
+                    "nagement;\r\nusing Coevery.Localization;\r\nusing ");
             
-            #line 11 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 9 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Models;\r\n\r\nnamespace ");
             
-            #line 13 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 11 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Controllers {\r\n    public class ");
             
-            #line 14 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 12 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
             #line hidden
             this.Write("Controller : Controller , IUpdateModel{\r\n        public ICoeveryServices Services" +
-                    " { get; set; }\r\n\t\tpublic Localizer T { get; set; }\r\n\r\n\r\n        public ");
+                    " { get; set; }\r\n\t\tpublic Localizer T { get; set; }\r\n\r\n        public ");
             
-            #line 19 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 16 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
@@ -59,14 +59,14 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "       T = NullLocalizer.Instance;\r\n        }\r\n\r\n\t\tpublic ActionResult Index() {" +
                     "\r\n            var contentItem = Services.ContentManager.New(\"");
             
-            #line 25 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 22 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
             #line hidden
             this.Write("\");\r\n            contentItem.Weld(new ");
             
-            #line 26 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 23 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
@@ -76,7 +76,6 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             return View(model);
         }
 
-
         public ActionResult Details(int id) {
             return View();
         }
@@ -84,13 +83,13 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public ActionResult Create() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 37 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 33 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
             #line hidden
             this.Write(@""");
-            var model = Services.ContentManager.BuildEditor(contentItem);
+            var model = Services.ContentManager.BuildEditor(contentItem, ""Create"");
             return View(model);
         }
 
@@ -98,7 +97,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public ActionResult CreatePost() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 44 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 40 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
             
             #line default
@@ -106,26 +105,27 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("\");\r\n            Services.ContentManager.UpdateEditor(contentItem, this);\r\n\t\t\tSer" +
                     "vices.ContentManager.Create(contentItem, VersionOptions.Draft);\r\n\t\t\tServices.Con" +
                     "tentManager.Publish(contentItem);\r\n            return new HttpStatusCodeResult(H" +
-                    "ttpStatusCode.OK);\r\n        }\r\n\r\n\r\n        public ActionResult Edit(int id) {\r\n " +
-                    "           var contentItem = Services.ContentManager.Get(id, VersionOptions.Late" +
-                    "st);\r\n\r\n            if (contentItem == null) {\r\n                return HttpNotFo" +
-                    "und();\r\n            }\r\n            dynamic model = Services.ContentManager.Build" +
-                    "Editor(contentItem);\r\n            return View((object)model);\r\n        }\r\n\r\n\r\n  " +
-                    "      [HttpPost]\r\n        public ActionResult EditPost(int id, FormCollection co" +
-                    "llection) {\r\n            try {\r\n                // TODO: Add update logic here\r\n" +
-                    "\r\n                return RedirectToAction(\"Index\");\r\n            }\r\n            " +
-                    "catch {\r\n                return View();\r\n            }\r\n        }\r\n\r\n\r\n        p" +
-                    "ublic ActionResult Delete(int id) {\r\n            return View();\r\n        }\r\n\r\n  " +
-                    "      [HttpPost]\r\n        public ActionResult DeletePost(int id, FormCollection " +
-                    "collection) {\r\n            try {\r\n                // TODO: Add delete logic here" +
-                    "\r\n\r\n                return RedirectToAction(\"Index\");\r\n            }\r\n          " +
-                    "  catch {\r\n                return View();\r\n            }\r\n        }\r\n\r\n        b" +
-                    "ool IUpdateModel.TryUpdateModel<TModel>(TModel model, string prefix, string[] in" +
-                    "cludeProperties, string[] excludeProperties) {\r\n            return TryUpdateMode" +
-                    "l(model, prefix, includeProperties, excludeProperties);\r\n        }\r\n\r\n        vo" +
-                    "id IUpdateModel.AddModelError(string key, LocalizedString errorMessage) {\r\n     " +
-                    "       ModelState.AddModelError(key, errorMessage.ToString());\r\n        }\r\n\r\n   " +
-                    " }\r\n}\r\n");
+                    "ttpStatusCode.OK);\r\n        }\r\n\r\n        public ActionResult Edit(int id) {\r\n   " +
+                    "         var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest" +
+                    ");\r\n\r\n            if (contentItem == null) {\r\n                return HttpNotFoun" +
+                    "d();\r\n            }\r\n            dynamic model = Services.ContentManager.BuildEd" +
+                    "itor(contentItem, \"Edit\");\r\n            return View((object)model);\r\n        }\r\n" +
+                    "\r\n        [HttpPost, ActionName(\"Edit\")]\r\n        public ActionResult EditPost(i" +
+                    "nt id, FormCollection collection) {\r\n            var contentItem = Services.Cont" +
+                    "entManager.Get(id, VersionOptions.Latest);\r\n\r\n            if (contentItem == nul" +
+                    "l) {\r\n                return HttpNotFound();\r\n            }\r\n            dynamic" +
+                    " model = Services.ContentManager.UpdateEditor(contentItem, this, \"Edit\");\r\n     " +
+                    "       return View((object) model);\r\n        }\r\n\r\n        public ActionResult De" +
+                    "lete(int id) {\r\n            return View();\r\n        }\r\n\r\n        [HttpPost]\r\n   " +
+                    "     public ActionResult DeletePost(int id, FormCollection collection) {\r\n      " +
+                    "      try {\r\n                // TODO: Add delete logic here\r\n\r\n                r" +
+                    "eturn RedirectToAction(\"Index\");\r\n            }\r\n            catch {\r\n          " +
+                    "      return View();\r\n            }\r\n        }\r\n\r\n        bool IUpdateModel.TryU" +
+                    "pdateModel<TModel>(TModel model, string prefix, string[] includeProperties, stri" +
+                    "ng[] excludeProperties) {\r\n            return TryUpdateModel(model, prefix, incl" +
+                    "udeProperties, excludeProperties);\r\n        }\r\n\r\n        void IUpdateModel.AddMo" +
+                    "delError(string key, LocalizedString errorMessage) {\r\n            ModelState.Add" +
+                    "ModelError(key, errorMessage.ToString());\r\n        }\r\n    }\r\n}\r\n");
             return this.GenerationEnvironment.ToString();
         }
         

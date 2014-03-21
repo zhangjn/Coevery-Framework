@@ -15,7 +15,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+    #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class DriverTemplate : DriverTemplateBase
     {
@@ -25,37 +25,37 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nusing Coevery.ContentManagement.Drivers;\r\nusing ");
+            this.Write("using Coevery.ContentManagement.Drivers;\r\nusing ");
             
-            #line 7 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            #line 5 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Models;\r\n\r\nnamespace ");
             
-            #line 9 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            #line 7 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Drivers {\r\n    public class ");
             
-            #line 10 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            #line 8 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DriverName));
             
             #line default
             #line hidden
             this.Write("PartDriver : ContentPartDriver<");
             
-            #line 10 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            #line 8 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DriverName));
             
             #line default
             #line hidden
             this.Write("Part> {\r\n        protected override DriverResult Display(");
             
-            #line 11 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            #line 9 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DriverName));
             
             #line default
@@ -72,23 +72,31 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 
         protected override DriverResult Editor(");
             
-            #line 21 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+            #line 19 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(DriverName));
             
             #line default
             #line hidden
-            this.Write(@"Part part, dynamic shapeHelper) {
-            return Combined(
-                ContentShape(""Parts_CreateView_Actions"", actions => actions),
-                ContentShape(""Parts_CreateView"", () => shapeHelper.Parts_CreateView())
-                );
+            this.Write(@"Part part, string displayType, dynamic shapeHelper) {
+            if (displayType == ""Create"") {
+                return Combined(
+                    ContentShape(""Parts_CreateView"", () => shapeHelper.Parts_CreateView())
+                    );
+            }
+
+            if (displayType == ""Edit"") {
+                return Combined(
+                    ContentShape(""Parts_EditView"", () => shapeHelper.Parts_CreateView())
+                    );
+            }
+            return null;
         }
     }
 }");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
+        #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt"
 
 private string _NamespaceField;
 

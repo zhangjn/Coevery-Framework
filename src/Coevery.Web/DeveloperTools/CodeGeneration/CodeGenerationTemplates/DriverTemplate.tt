@@ -1,8 +1,6 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="DriverName" #>
-<#@ output extension=".txt" #>
-
 using Coevery.ContentManagement.Drivers;
 using <#=Namespace#>.Models;
 
@@ -18,11 +16,19 @@ namespace <#=Namespace#>.Drivers {
             return null;
         }
 
-        protected override DriverResult Editor(<#=DriverName#>Part part, dynamic shapeHelper) {
-            return Combined(
-                ContentShape("Parts_CreateView_Actions", actions => actions),
-                ContentShape("Parts_CreateView", () => shapeHelper.Parts_CreateView())
-                );
+        protected override DriverResult Editor(<#=DriverName#>Part part, string displayType, dynamic shapeHelper) {
+            if (displayType == "Create") {
+                return Combined(
+                    ContentShape("Parts_CreateView", () => shapeHelper.Parts_CreateView())
+                    );
+            }
+
+            if (displayType == "Edit") {
+                return Combined(
+                    ContentShape("Parts_EditView", () => shapeHelper.Parts_CreateView())
+                    );
+            }
+            return null;
         }
     }
 }

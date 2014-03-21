@@ -1,5 +1,4 @@
 ﻿<#@ template debug="false" language="C#" #>
-<#@ output extension=".txt" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="ControllerName" #>
 using System.Net;
@@ -7,14 +6,12 @@ using System.Web.Mvc;
 using Coevery;
 using Coevery.ContentManagement;
 using Coevery.Localization;
-using Coevery.Themes;
 using <#=Namespace#>.Models;
 
 namespace <#=Namespace#>.Controllers {
     public class <#=ControllerName#>Controller : Controller , IUpdateModel{
         public ICoeveryServices Services { get; set; }
 		public Localizer T { get; set; }
-
 
         public <#=ControllerName#>Controller (ICoeveryServices services) {
             Services = services;
@@ -28,14 +25,13 @@ namespace <#=Namespace#>.Controllers {
             return View(model);
         }
 
-
         public ActionResult Details(int id) {
             return View();
         }
 
         public ActionResult Create() {
             var contentItem = Services.ContentManager.New("<#=ControllerName#>");
-            var model = Services.ContentManager.BuildEditor(contentItem);
+            var model = Services.ContentManager.BuildEditor(contentItem, "Create");
             return View(model);
         }
 
@@ -48,30 +44,26 @@ namespace <#=Namespace#>.Controllers {
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
-
         public ActionResult Edit(int id) {
             var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
 
             if (contentItem == null) {
                 return HttpNotFound();
             }
-            dynamic model = Services.ContentManager.BuildEditor(contentItem);
+            dynamic model = Services.ContentManager.BuildEditor(contentItem, "Edit");
             return View((object)model);
         }
 
-
-        [HttpPost]
+        [HttpPost, ActionName("Edit")]
         public ActionResult EditPost(int id, FormCollection collection) {
-            try {
-                // TODO: Add update logic here
+            var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
 
-                return RedirectToAction("Index");
+            if (contentItem == null) {
+                return HttpNotFound();
             }
-            catch {
-                return View();
-            }
+            dynamic model = Services.ContentManager.UpdateEditor(contentItem, this, "Edit");
+            return View((object) model);
         }
-
 
         public ActionResult Delete(int id) {
             return View();
@@ -96,6 +88,5 @@ namespace <#=Namespace#>.Controllers {
         void IUpdateModel.AddModelError(string key, LocalizedString errorMessage) {
             ModelState.AddModelError(key, errorMessage.ToString());
         }
-
     }
 }
