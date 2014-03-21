@@ -1,0 +1,75 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Coevery.Core.Projections.Descriptors.Property" #>
+<#@ import namespace="Coevery.Core.Projections.Models" #>
+<#@ import namespace="Coevery.ContentManagement" #>
+<#@ import namespace="Coevery.Core.Projections.Services" #>
+<#@ parameter type="Coevery.ContentManagement.IContentManager" name="ContentManager" #>
+<#@ parameter type="Coevery.Core.Projections.Services.IProjectionManager" name="ProjectionManager" #>
+<#@ parameter type="Coevery.Localization.Localizer" name="T" #>
+<#@ output extension=".txt" #>
+<#+
+    private IEnumerable<GridColumn> GetColumns(string entityTypeName) {
+        var listViewPart = ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")
+            .Where(v => v.IsDefault && v.ItemContentType == entityTypeName).List().FirstOrDefault();
+
+        var keyColumn = new GridColumn();
+        keyColumn.Name = "Id";
+        keyColumn.Label = "Id";
+        keyColumn.Hidden = true;
+        keyColumn.IsKey = true;
+
+        IEnumerable<FieldDescriptor> properties = Enumerable.Empty<FieldDescriptor>();
+        LayoutRecord layoutRecord = null;
+
+        #region Load Properties
+
+        var projectionPart = listViewPart.As<ProjectionPart>();
+        if (projectionPart != null) {
+            var queryPartRecord = projectionPart.Record.QueryPartRecord;
+            if (queryPartRecord.Layouts.Any())
+                layoutRecord = queryPartRecord.Layouts[0];
+        }
+
+        if (layoutRecord != null) {
+            var allFielDescriptors = ProjectionManager.DescribeProperties().ToList();
+            properties = layoutRecord.Properties.OrderBy(p => p.Position)
+                .Select(p => allFielDescriptors.SelectMany(x => x.Descriptors)
+                    .Select(d => new FieldDescriptor {Descriptor = d, Property = p}).FirstOrDefault(x => x.Descriptor.Category == p.Category && x.Descriptor.Type == p.Type)).ToList();
+        }
+
+        #endregion
+
+
+        var columns = new List<GridColumn> {keyColumn};
+
+        foreach (var property in properties.Select(x => x.Property)) {
+            var column = new GridColumn();
+            var filedName = property.GetFieldName();
+            column.Name = filedName;
+            column.Label = T(property.Description).Text;
+            if (property.LinkToContent) {}
+            //column["sortable"] = false;
+            columns.Add(column);
+        }
+
+        return columns;
+    }
+
+    class GridColumn {
+        public string Name { get; set; }
+		public string Label { get; set; }
+		public bool Hidden { get; set; }
+		public bool IsKey { get; set; }
+    }
+
+	class FieldDescriptor
+    {
+        public PropertyDescriptor Descriptor { get; set; }
+        public PropertyRecord Property { get; set; }
+    }
+
+#>

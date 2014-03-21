@@ -1,12 +1,12 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ assembly name="System.Core" #>
+<#@ include file="ListViewCommon.ttinclude" #>
+<#@ import namespace="Newtonsoft.Json" #>
+<#@ import namespace="Newtonsoft.Json.Linq" #>
+<#@ parameter type="System.String" name="EntityTypeName" #>
 <#@ parameter type="System.String" name="ViewName" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.Object[]" name="GridDefinition" #>
-
-
 <#@ output extension=".txt" #>
-
 @{
     Style.Require("jqGrid");
     Style.Require("jqGridCustom");
@@ -23,9 +23,7 @@
         jQuery("#<#=ViewName.ToLower()#>Grid").jqGrid({
             url: '@Href("~/api/<#=Namespace#>/<#=ViewName#>Api")',
             datatype: "json",
-            colModel: [
-<#=String.Join(",", GridDefinition)#>
-            ],
+            colModel: <#=GetGridColumnJSONString()#>,
             rowNum: 10,
             rowList: [10, 20, 30],
             pager: '#<#=ViewName.ToLower()#>GridPager',
@@ -47,3 +45,23 @@
         });
     </script>
 }
+
+
+<#+
+
+    private string GetGridColumnJSONString() {
+        var jsonColumns = new JArray();
+        var columns = GetColumns(EntityTypeName);
+        foreach (var gridColumn in columns) {
+            var column = new JObject();
+            column["name"] = gridColumn.Name;
+            column["label"] = gridColumn.Label;
+            if (gridColumn.Hidden)
+                column["hidden"] = true;
+            if (gridColumn.IsKey)
+                column["key"] = true;
+            jsonColumns.Add(column);
+        }
+        return JsonConvert.SerializeObject(jsonColumns);
+    }
+#>

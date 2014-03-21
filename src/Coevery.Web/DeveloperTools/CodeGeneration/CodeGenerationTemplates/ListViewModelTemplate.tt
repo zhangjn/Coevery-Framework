@@ -1,0 +1,28 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ include file="ListViewCommon.ttinclude" #>
+<#@ output extension=".txt" #>
+<#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Services" #>
+<#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Utils" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition" name="ModelDefinition" #>
+namespace <#=Namespace#>.ViewModels {
+    public sealed class <#=ModelDefinition.Name#>ListViewModel {
+		public int Id { get; set; }
+<#foreach (var field in GetFields()) { #>
+		public <#= field.Type.GetFriendlyName() #> <#=field.Name #>{ get; set; }
+<# } #>
+    }
+}
+<#+
+
+    private IEnumerable<DynamicFieldDefinition> GetFields() {
+        var columns = GetColumns(ModelDefinition.Name);
+        foreach (var col in columns) {
+            var field = ModelDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            if (field != null) {
+                yield return field;
+            }
+        }
+    }
+
+#>

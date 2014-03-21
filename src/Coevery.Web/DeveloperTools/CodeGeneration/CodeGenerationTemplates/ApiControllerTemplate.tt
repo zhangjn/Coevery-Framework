@@ -1,20 +1,50 @@
 ﻿<#@ template debug="false" language="C#" #>
 <#@ output extension=".txt" #>
+<#@ include file="ListViewCommon.ttinclude" #>
+<#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Services" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.String" name="ControllerName" #>
-
+<#@ parameter type="Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition" name="ModelDefinition" #>
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
+using Coevery.ContentManagement;
 using <#=Namespace#>.Models;
+using <#=Namespace#>.ViewModels;
 
 namespace <#=Namespace#>.Controllers 
 {
-    public class <#=ControllerName#>ApiController : ApiController {
+    public class <#=ModelDefinition.Name#>ApiController : ApiController {
+		private readonly IContentManager _contentManager;
 
-	private readonly IRepository<<#=ControllerName#>PartRecord> _repository; 
+        public <#=ModelDefinition.Name#>ApiController(IContentManager contentManager) {
+            _contentManager = contentManager;
+        }
 
-        public IEnumerable<<#=ControllerName#>PartRecord> GetAll<#=ControllerName#>s() {
-            return _repository.Table.ToList();
+        public IEnumerable<<#=ModelDefinition.Name#>ListViewModel> GetAll() {
+			var records = _contentManager.Query<LeadPart, LeadPartRecord>()
+				.WithQueryHints(new QueryHints().ExpandRecords<LeadPartRecord>())
+				.List()
+				.Select(item => new <#=ModelDefinition.Name#>ListViewModel{
+					Id = item.Record.Id,
+<# foreach (var field in GetFields()) {#>
+					<#=field.Name#> = item.Record.<#=field.Name#>,
+<#}#>
+				});
+            return records;
         }
     }
 }
+
+<#+
+
+    private IEnumerable<DynamicFieldDefinition> GetFields() {
+        var columns = GetColumns(ModelDefinition.Name);
+        foreach (var col in columns) {
+            var field = ModelDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            if (field != null) {
+                yield return field;
+            }
+        }
+    }
+
+#>

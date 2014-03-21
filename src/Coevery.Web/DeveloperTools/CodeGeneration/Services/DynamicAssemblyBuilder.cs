@@ -9,8 +9,10 @@ using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData;
 using Coevery.Core.Common.Extensions;
 using Coevery.Core.Projections.Models;
+using Coevery.Core.Projections.Services;
 using Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates;
 using Coevery.DeveloperTools.FormDesigner.Models;
+using Coevery.Localization;
 using FubuCore;
 using FubuCsProjFile;
 using Newtonsoft.Json;
@@ -20,21 +22,23 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
         private readonly IEnumerable<IContentFieldDriver> _contentFieldDrivers;
         private readonly IContentDefinitionExtension _contentDefinitionExtension;
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IGridColumn _gridColumn;
+        private readonly IProjectionManager _projectionManager;
 
         public DynamicAssemblyBuilder(
             IEnumerable<IContentFieldDriver> contentFieldDrivers,
             IContentDefinitionExtension contentDefinitionExtension,
             IContentDefinitionManager contentDefinitionManager,
-            ICoeveryServices coeveryServices,
-            IGridColumn gridColumn) {
+            ICoeveryServices coeveryServices, 
+            IProjectionManager projectionManager) {
             Services = coeveryServices;
+            _projectionManager = projectionManager;
             _contentFieldDrivers = contentFieldDrivers;
             _contentDefinitionManager = contentDefinitionManager;
             _contentDefinitionExtension = contentDefinitionExtension;
-            _gridColumn = gridColumn;
+            T = NullLocalizer.Instance;
         }
 
+        public Localizer T { get; set; }
         public ICoeveryServices Services { get; private set; }
 
         public Type GetFieldType(string fieldNameType) {
@@ -97,8 +101,11 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             // Api controller
             string apiControllerClassFilePath = Path.Combine(moduleControllersPath, string.Format("{0}ApiController.cs", modelDefinition.Name));
             var apiControllerTemplate = new ApiControllerTemplate() {Session = new Dictionary<string, object>()};
+            apiControllerTemplate.Session["ModelDefinition"] = modelDefinition;
             apiControllerTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            apiControllerTemplate.Session["ControllerName"] = modelDefinition.Name;
+            apiControllerTemplate.Session["ContentManager"] = Services.ContentManager;
+            apiControllerTemplate.Session["ProjectionManager"] = _projectionManager;
+            apiControllerTemplate.Session["T"] = T;
             apiControllerTemplate.Initialize();
             AddFile<CodeFile>(csProjFile, apiControllerClassFilePath, apiControllerTemplate.TransformText());
 
@@ -153,7 +160,8 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             string viewsPath = Path.Combine(csProjFile.ProjectDirectory, "Views");
             string controllerViewPath = Path.Combine(viewsPath, modelDefinition.Name);
             string partsViewPath = Path.Combine(viewsPath, "Parts");
-            CheckDirectories(viewsPath, controllerViewPath, partsViewPath);
+            string viewModelsPath = Path.Combine(csProjFile.ProjectDirectory, "ViewModels");
+            CheckDirectories(viewsPath, controllerViewPath, partsViewPath, viewModelsPath);
 
             // {{EntityName}}/Create.cshtml
             string createViewFilePath = Path.Combine(controllerViewPath, "Create.cshtml");
@@ -189,18 +197,27 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             AddFile<Content>(csProjFile, partsCreateViewFilePath, partsCreateViewTemplate.TransformText());
 
             // Parts/ListView-{{EntityName}}.cshtml
-            var query = Services.ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")
-                .Where(v => v.IsDefault).List().ToList().FirstOrDefault();
-
-            var gridDefinition = (Object[])_gridColumn.Get(modelDefinition.Name, query.Id);
-
             string partsListViewFilePath = Path.Combine(partsViewPath, string.Format("ListView-{0}.cshtml", modelDefinition.Name));
             var partsListViewTemplate = new ListViewTemplate() { Session = new Dictionary<string, object>() };
-            partsListViewTemplate.Session["GridDefinition"] = gridDefinition;
+            partsListViewTemplate.Session["EntityTypeName"] = modelDefinition.Name;
             partsListViewTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             partsListViewTemplate.Session["ViewName"] = modelDefinition.Name;
+            partsListViewTemplate.Session["ContentManager"] = Services.ContentManager;
+            partsListViewTemplate.Session["ProjectionManager"] = _projectionManager;
+            partsListViewTemplate.Session["T"] = T;
             partsListViewTemplate.Initialize();
             AddFile<Content>(csProjFile, partsListViewFilePath, partsListViewTemplate.TransformText());
+
+            //ViewModels/{EntityName}ListViewModel.cs
+            string listViewModelFilePath = Path.Combine(viewModelsPath, string.Format("{0}ListViewModel.cs", modelDefinition.Name));
+            var listViewModelTemplate = new ListViewModelTemplate() { Session = new Dictionary<string, object>() };
+            listViewModelTemplate.Session["ModelDefinition"] = modelDefinition;
+            listViewModelTemplate.Session["Namespace"] = csProjFile.RootNamespace;
+            listViewModelTemplate.Session["ContentManager"] = Services.ContentManager;
+            listViewModelTemplate.Session["ProjectionManager"] = _projectionManager;
+            listViewModelTemplate.Session["T"] = T;
+            listViewModelTemplate.Initialize();
+            AddFile<CodeFile>(csProjFile, listViewModelFilePath, listViewModelTemplate.TransformText());
 
             // Parts/EditView-{{EntityName}}.cshtml
             string partsEditViewFilePath = Path.Combine(partsViewPath, string.Format("EditView-{0}.cshtml", modelDefinition.Name));

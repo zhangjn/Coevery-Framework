@@ -173,6 +173,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\ListViewModelTemplate.cs">
+      <DependentUpon>ListViewModelTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="CodeGeneration\CodeGenerationTemplates\DriverTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -262,7 +267,6 @@
     </None>
     <Compile Include="CodeGeneration\Commands\CodeGenerationCommands.cs" />
     <Compile Include="CodeGeneration\Services\CodeGenerationCommandInterpreter.cs" />
-    <Compile Include="CodeGeneration\Services\GridColumnService.cs" />
     <Compile Include="CodeGeneration\Utils\CSharpTypeNameProvider.cs" />
     <Compile Include="CodeGeneration\Utils\TypeExtensions.cs" />
     <Compile Include="CodeGeneration\Utils\TypeNameProvider.cs" />
@@ -382,6 +386,11 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>HandlerTemplate.cs</LastGenOutput>
     </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ListViewModelTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>ListViewModelTemplate.cs</LastGenOutput>
+    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ListViewCommon.ttinclude" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EntityManagement\Scripts\Web.config" />

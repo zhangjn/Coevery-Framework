@@ -9,13 +9,21 @@
 // ------------------------------------------------------------------------------
 namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
+    using System.Linq;
+    using System.Text;
+    using System.Collections.Generic;
+    using Coevery.Core.Projections.Descriptors.Property;
+    using Coevery.Core.Projections.Models;
+    using Coevery.ContentManagement;
+    using Coevery.Core.Projections.Services;
+    using Coevery.DeveloperTools.CodeGeneration.Services;
     using System;
     
     /// <summary>
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class ApiControllerTemplate : ApiControllerTemplateBase
     {
@@ -25,862 +33,218 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nusing System.Collections.Generic;\r\nusing System.Web.Http;\r\nusing ");
+            this.Write("\r\n");
+            this.Write("using System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Web.Http;\r\nus" +
+                    "ing Coevery.ContentManagement;\r\nusing ");
             
-            #line 8 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 11 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(".Models;\r\n\r\nnamespace ");
+            this.Write(".Models;\r\nusing ");
             
-            #line 10 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 12 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write(".ViewModels;\r\n\r\nnamespace ");
+            
+            #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Controllers \r\n{\r\n    public class ");
             
-            #line 12 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 16 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
-            this.Write("ApiController : ApiController {\r\n        public IEnumerable<");
+            this.Write("ApiController : ApiController {\r\n\t\tprivate readonly IContentManager _contentManag" +
+                    "er;\r\n\r\n        public ");
             
-            #line 13 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 19 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
-            this.Write("PartRecord> GetAllLeads() {\r\n            var ");
+            this.Write("ApiController(IContentManager contentManager) {\r\n            _contentManager = co" +
+                    "ntentManager;\r\n        }\r\n\r\n        public IEnumerable<");
             
-            #line 14 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 23 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
-            this.Write("s = new List<");
+            this.Write("ListViewModel> GetAll() {\r\n\t\t\tvar records = _contentManager.Query<LeadPart, LeadP" +
+                    "artRecord>()\r\n\t\t\t\t.WithQueryHints(new QueryHints().ExpandRecords<LeadPartRecord>" +
+                    "())\r\n\t\t\t\t.List()\r\n\t\t\t\t.Select(item => new ");
             
-            #line 14 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 27 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
-            this.Write("PartRecord> {\r\n                new ");
+            this.Write("ListViewModel{\r\n\t\t\t\t\tId = item.Record.Id,\r\n");
             
-            #line 15 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 29 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+ foreach (var field in GetFields()) {
             
             #line default
             #line hidden
-            this.Write("PartRecord {Id = 1, Subject = \"Long-term Sitefinity partner\", Description = \"\", C" +
-                    "ompanyName = \"\"},\r\n                new ");
+            this.Write("\t\t\t\t\t");
             
-            #line 16 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 30 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
             
             #line default
             #line hidden
-            this.Write("PartRecord {Id = 2, Subject = \"Web Part Needed\", Description = \"I need a w\", Comp" +
-                    "anyName = \"\"},\r\n                new ");
+            this.Write(" = item.Record.");
             
-            #line 17 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 30 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
             
             #line default
             #line hidden
-            this.Write("PartRecord {Id = 3, Subject = \"DNN convert\", Description = \"\", CompanyName = \"\"}," +
-                    "\r\n                new ");
+            this.Write(",\r\n");
             
-            #line 18 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
+            #line 31 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+}
             
             #line default
             #line hidden
-            this.Write("PartRecord {Id = 4, Subject = \"Magento Specialist\", Description = \"\", CompanyName" +
-                    " = \"DiBowebsites\"},\r\n                new ");
-            
-            #line 19 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 5, Subject = \"Significant Amount of Custom DNN Module Creation \"" +
-                    ", Description = \"Message: \", CompanyName = \"\"},\r\n                new ");
-            
-            #line 20 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 6, Subject = \"Costs to copy the air b\'n\'b site \", Description = " +
-                    "\"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 21 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 7, Subject = \"build a bilingual (Chinese & English) website\", De" +
-                    "scription = \"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 22 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 8, Subject = \"need to offshore some small projects\", Description" +
-                    " = \"客户说有很多小项目需\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 23 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 9, Subject = \"Fixing the issues for New Site\", Description = \"Me" +
-                    "ssage: \", CompanyName = \"BagsandFashion\"},\r\n                new ");
-            
-            #line 24 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 10, Subject = \"Senior developer in advanced C#\", Description = \"" +
-                    "\", CompanyName = \"matogen.com\"},\r\n                new ");
-            
-            #line 25 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 11, Subject = \"Nop Theme\", Description = \"\", CompanyName = \"\"},\r" +
-                    "\n                new ");
-            
-            #line 26 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 12, Subject = \"Job posting website\", Description = \"I need .ne\"," +
-                    " CompanyName = \"\"},\r\n                new ");
-            
-            #line 27 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 13, Subject = \"Quotation for a control library\", Description = \"" +
-                    "\", CompanyName = \"西门子\"},\r\n                new ");
-            
-            #line 28 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 14, Subject = \"Two Full Time Silverlight Engineers \", Descriptio" +
-                    "n = \"I have see\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 29 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 15, Subject = \"Calendar Carousel on Drupal Website\", Description" +
-                    " = \"\", CompanyName = \"webconcept.de\"},\r\n                new ");
-            
-            #line 30 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 16, Subject = \"new payment gateway implementation\", Description " +
-                    "= \"客户的需求是实现一个\", CompanyName = \"agent database\"},\r\n                new ");
-            
-            #line 31 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 17, Subject = \"Orchard CMS Maintanece\", Description = \"Message: " +
-                    "\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 32 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 18, Subject = \"nopcommerce template\", Description = \"I would li\"" +
-                    ", CompanyName = \"\"},\r\n                new ");
-            
-            #line 33 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 19, Subject = \"Technical Partner to Outsource\", Description = \"M" +
-                    "essage: \", CompanyName = \"\"},\r\n                new ");
-            
-            #line 34 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 20, Subject = \"a simple nopCommerce plugin\", Description = \"\", C" +
-                    "ompanyName = \"\"},\r\n                new ");
-            
-            #line 35 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 21, Subject = \"get Nopcommerce 2.40 to play uploaded videos\", De" +
-                    "scription = \"留言I need h\", CompanyName = \"http://www.mywaycigs.com/\"},\r\n         " +
-                    "       new ");
-            
-            #line 36 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 22, Subject = \"Mobile Project Development\", Description = \"Skype" +
-                    "上找到我们\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 37 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 23, Subject = \"Sedunia Payment Management\", Description = \"\", Co" +
-                    "mpanyName = \"GoQuo\"},\r\n                new ");
-            
-            #line 38 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 24, Subject = \"duplicating registration page on DNN website\", De" +
-                    "scription = \"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 39 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 25, Subject = \"Joomla membership site \", Description = \"\", Compa" +
-                    "nyName = \"\"},\r\n                new ");
-            
-            #line 40 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 26, Subject = \"Building a websited with Sitefinity\", Description" +
-                    " = \"Nick是一个公司的\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 41 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 27, Subject = \"Nopcommerce intergration with xero\", Description " +
-                    "= \"\", CompanyName = \"Akrom\"},\r\n                new ");
-            
-            #line 42 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 28, Subject = \"PSD conversion into Sitefinity\", Description = \"M" +
-                    "essage: \", CompanyName = \"\"},\r\n                new ");
-            
-            #line 43 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 29, Subject = \"Changes to Prestashop template\", Description = \"\"" +
-                    ", CompanyName = \"ellelocks\"},\r\n                new ");
-            
-            #line 44 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 30, Subject = \"looking to outsource various projects \", Descript" +
-                    "ion = \"\", CompanyName = \"Kitesystems\"},\r\n                new ");
-            
-            #line 45 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 31, Subject = \"WPAchievements plugin\", Description = \"\", Company" +
-                    "Name = \"\"},\r\n                new ");
-            
-            #line 46 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 32, Subject = \"Offshore Partnership\", Description = \"\", CompanyN" +
-                    "ame = \"\"},\r\n                new ");
-            
-            #line 47 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 33, Subject = \"DNN Developer\", Description = \"\", CompanyName = \"" +
-                    "\"},\r\n                new ");
-            
-            #line 48 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 34, Subject = \"dedicated programer from China\", Description = \"\"" +
-                    ", CompanyName = \"BBsecurities\"},\r\n                new ");
-            
-            #line 49 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 35, Subject = \"Implementing skins for a GUI & Web designer \", De" +
-                    "scription = \"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 50 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 36, Subject = \"网站改版升级项目\", Description = \"\", CompanyName = \"\"},\r\n" +
-                    "                new ");
-            
-            #line 51 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 37, Subject = \"FME Would-be Partner\", Description = \"\", CompanyN" +
-                    "ame = \"\"},\r\n                new ");
-            
-            #line 52 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 38, Subject = \"Good Developer on Long Term Basis\", Description =" +
-                    " \"德国客户\", CompanyName = \"www.server-ware.com\"},\r\n                new ");
-            
-            #line 53 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 39, Subject = \"试用CRM\", Description = \"\", CompanyName = \"\"},\r\n   " +
-                    "             new ");
-            
-            #line 54 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 40, Subject = \"汽车养护公司管理系统\", Description = \"客户是做汽车行业的，\", CompanyN" +
-                    "ame = \"国宾汽车养护\"},\r\n                new ");
-            
-            #line 55 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 41, Subject = \"WP Error\", Description = \"\", CompanyName = \"\"},\r\n" +
-                    "                new ");
-            
-            #line 56 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 42, Subject = \"developing NOP commerce plugins\", Description = \"" +
-                    "\", CompanyName = \"luminet.si\"},\r\n                new ");
-            
-            #line 57 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 43, Subject = \"Assistance with nopcommerce development\", Descrip" +
-                    "tion = \"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 58 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 44, Subject = \"A solution for sharing and saving documents to cl" +
-                    "ient files\", Description = \"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 59 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 45, Subject = \"Building a website for a ski resort\", Description" +
-                    " = \"判断潜力小且一直没有\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 60 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 46, Subject = \"website development services \", Description = \"\"," +
-                    " CompanyName = \"\"},\r\n                new ");
-            
-            #line 61 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 47, Subject = \"Customized Mega Menu for Your Website\", Descripti" +
-                    "on = \"Message: \", CompanyName = \"Network Fiscale\"},\r\n                new ");
-            
-            #line 62 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 48, Subject = \"百度轻应用\", Description = \"\", CompanyName = \"\"},\r\n   " +
-                    "             new ");
-            
-            #line 63 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 49, Subject = \"Wordpress plugins for responsive web sites\", Desc" +
-                    "ription = \"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 64 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 50, Subject = \"custom nopCommerce skins\", Description = \"\", Comp" +
-                    "anyName = \"\"},\r\n                new ");
-            
-            #line 65 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 51, Subject = \"Annual Costs for 10 devs/testers\", Description = " +
-                    "\"Message: \", CompanyName = \"\"},\r\n                new ");
-            
-            #line 66 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 52, Subject = \"Web application of tracking quotations\", Descript" +
-                    "ion = \"\", CompanyName = \"chobble.com\"},\r\n                new ");
-            
-            #line 67 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 53, Subject = \"Customization to the blog feature\", Description =" +
-                    " \"\", CompanyName = \"sitesee.net\"},\r\n                new ");
-            
-            #line 68 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 54, Subject = \"C++ developer for image segmentation project\", De" +
-                    "scription = \"Charles Li\", CompanyName = \"Poikos\"},\r\n                new ");
-            
-            #line 69 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 55, Subject = \"Cloud Storage System\", Description = \"Message: \"," +
-                    " CompanyName = \"\"},\r\n                new ");
-            
-            #line 70 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 56, Subject = \"New Shopify Store\", Description = \"\", CompanyName" +
-                    " = \"\"},\r\n                new ");
-            
-            #line 71 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 57, Subject = \"UI piece\", Description = \"\", CompanyName = \"\"},\r\n" +
-                    "                new ");
-            
-            #line 72 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 58, Subject = \"Web site with PHP scripts\", Description = \"\", Com" +
-                    "panyName = \"Telematcia\"},\r\n                new ");
-            
-            #line 73 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 59, Subject = \"Hotel Booking Site with NopCommerce\", Description" +
-                    " = \"Message: \", CompanyName = \"\"},\r\n                new ");
-            
-            #line 74 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 60, Subject = \"support Prestashop developer\", Description = \"\", " +
-                    "CompanyName = \"\"},\r\n                new ");
-            
-            #line 75 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 61, Subject = \"Upgrading Magento website\", Description = \"\", Com" +
-                    "panyName = \"\"},\r\n                new ");
-            
-            #line 76 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 62, Subject = \"China Pay\", Description = \"\", CompanyName = \"\"},\r" +
-                    "\n                new ");
-            
-            #line 77 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 63, Subject = \"need .Net developer to complete the website\", Des" +
-                    "cription = \"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 78 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 64, Subject = \"PhoneGap App for Free Inner Oracle Cards\", Descri" +
-                    "ption = \"做一个纸牌类的游戏，\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 79 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 65, Subject = \"integrating N2CMS with your existing application\"" +
-                    ", Description = \"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 80 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 66, Subject = \"Amazon Express Checkout plugin for NopCommerce 2." +
-                    "4\", Description = \"\", CompanyName = \"inspiredagency.co.uk\"},\r\n                ne" +
-                    "w ");
-            
-            #line 81 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 67, Subject = \"Tryon Function\", Description = \"\", CompanyName = " +
-                    "\"\"},\r\n                new ");
-            
-            #line 82 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 68, Subject = \"Legacy program rewritten\", Description = \"I had a" +
-                    " pr\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 83 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 69, Subject = \"Year Make Model auto parts\", Description = \"\", Co" +
-                    "mpanyName = \"\"},\r\n                new ");
-            
-            #line 84 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 70, Subject = \" long term partnership and first project\", Descri" +
-                    "ption = \"\", CompanyName = \"The Small Axe\"},\r\n                new ");
-            
-            #line 85 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 71, Subject = \"某产权交易中心交易流程管理系统\", Description = \"客户是一家软件开发公\", Com" +
-                    "panyName = \"重庆莱基科技有限公司\"},\r\n                new ");
-            
-            #line 86 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 72, Subject = \"Joomla Extension\", Description = \"\", CompanyName " +
-                    "= \"\"},\r\n                new ");
-            
-            #line 87 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 73, Subject = \"Opencart 1.5.5.1 default theme customization\", De" +
-                    "scription = \"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 88 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 74, Subject = \"Sitefinity Reskin 3.7 CMS\", Description = \"Messag" +
-                    "e: W\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 89 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 75, Subject = \"Site Cleaned up and Finish\", Description = \"Messa" +
-                    "ge: \", CompanyName = \"\"},\r\n                new ");
-            
-            #line 90 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 76, Subject = \"Looking for an ASP.NET developer\", Description = " +
-                    "\"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 91 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 77, Subject = \"Wordpress Page\", Description = \"\", CompanyName = " +
-                    "\"\"},\r\n                new ");
-            
-            #line 92 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 78, Subject = \"hanges on an OC extension\", Description = \"\", Com" +
-                    "panyName = \"\"},\r\n                new ");
-            
-            #line 93 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 79, Subject = \"Long Term Relationship \", Description = \"Hi there" +
-                    ", \", CompanyName = \"TheBestAupair \"},\r\n                new ");
-            
-            #line 94 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 80, Subject = \"HTML5 questionnaire \", Description = \"\", CompanyN" +
-                    "ame = \"\"},\r\n                new ");
-            
-            #line 95 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 81, Subject = \"AX2012 and Nopcommerce integration \", Description" +
-                    " = \"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 96 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 82, Subject = \"Uber-like System\", Description = \"\", CompanyName " +
-                    "= \"\"},\r\n                new ");
-            
-            #line 97 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 83, Subject = \"Webgage Modification on DNN\", Description = \"Mess" +
-                    "age: \", CompanyName = \"\"},\r\n                new ");
-            
-            #line 98 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 84, Subject = \"an external URL \", Description = \"\", CompanyName " +
-                    "= \"\"},\r\n                new ");
-            
-            #line 99 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 85, Subject = \"nopCommerce customization\", Description = \"\", Com" +
-                    "panyName = \"\"},\r\n                new ");
-            
-            #line 100 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 86, Subject = \"OpenCV\", Description = \"Message: I\", CompanyName " +
-                    "= \"\"},\r\n                new ");
-            
-            #line 101 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 87, Subject = \"developing a shopping cart like namecheap.com\", D" +
-                    "escription = \"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 102 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 88, Subject = \"Year Make Model\", Description = \"\", CompanyName =" +
-                    " \"个人\"},\r\n                new ");
-            
-            #line 103 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 89, Subject = \"Please contact me\", Description = \"Message: P\", C" +
-                    "ompanyName = \"\"},\r\n                new ");
-            
-            #line 104 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 90, Subject = \".NET MVC 4.5 - JSON Bootstrap. \", Description = \"" +
-                    "\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 105 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 91, Subject = \"Theme implementation for the WordPress Site\", Des" +
-                    "cription = \"\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 106 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 92, Subject = \"Holiday Portal with DNN\", Description = \"Message:" +
-                    " H\", CompanyName = \"\"},\r\n                new ");
-            
-            #line 107 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 93, Subject = \"Building up a Similar Site\", Description = \"Messa" +
-                    "ge: \", CompanyName = \"\"},\r\n                new ");
-            
-            #line 108 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 94, Subject = \"nopCommerce Project\", Description = \"\", CompanyNa" +
-                    "me = \"ADC Software\"},\r\n                new ");
-            
-            #line 109 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 95, Subject = \"Total Costs for a Joomla Website Production\", Des" +
-                    "cription = \"Message: \", CompanyName = \"\"},\r\n                new ");
-            
-            #line 110 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 96, Subject = \"WordPress Plugin\", Description = \"\", CompanyName " +
-                    "= \"\"},\r\n                new ");
-            
-            #line 111 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 97, Subject = \"nopCommerce SSL\", Description = \"\", CompanyName =" +
-                    " \"\"},\r\n                new ");
-            
-            #line 112 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 98, Subject = \"卖场的化妆品的手机APP\", Description = \"打电话来的许先生在为\", Compan" +
-                    "yName = \"\"},\r\n                new ");
-            
-            #line 113 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 99, Subject = \"B2B Website\", Description = \"Message: \", CompanyN" +
-                    "ame = \"\"},\r\n                new ");
-            
-            #line 114 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("PartRecord {Id = 100, Subject = \"Free Trial First\", Description = \"Message: p\", C" +
-                    "ompanyName = \"\"}\r\n            };\r\n\r\n            return ");
-            
-            #line 117 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ControllerName));
-            
-            #line default
-            #line hidden
-            this.Write("s;\r\n        }\r\n    }\r\n}");
+            this.Write("\t\t\t\t});\r\n            return records;\r\n        }\r\n    }\r\n}\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+        #line 38 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+
+
+    private IEnumerable<DynamicFieldDefinition> GetFields() {
+        var columns = GetColumns(ModelDefinition.Name);
+        foreach (var col in columns) {
+            var field = ModelDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            if (field != null) {
+                yield return field;
+            }
+        }
+    }
+
+
+        
+        #line default
+        #line hidden
+        
+        #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewCommon.ttinclude"
+
+    private IEnumerable<GridColumn> GetColumns(string entityTypeName) {
+        var listViewPart = ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")
+            .Where(v => v.IsDefault && v.ItemContentType == entityTypeName).List().FirstOrDefault();
+
+        var keyColumn = new GridColumn();
+        keyColumn.Name = "Id";
+        keyColumn.Label = "Id";
+        keyColumn.Hidden = true;
+        keyColumn.IsKey = true;
+
+        IEnumerable<FieldDescriptor> properties = Enumerable.Empty<FieldDescriptor>();
+        LayoutRecord layoutRecord = null;
+
+        #region Load Properties
+
+        var projectionPart = listViewPart.As<ProjectionPart>();
+        if (projectionPart != null) {
+            var queryPartRecord = projectionPart.Record.QueryPartRecord;
+            if (queryPartRecord.Layouts.Any())
+                layoutRecord = queryPartRecord.Layouts[0];
+        }
+
+        if (layoutRecord != null) {
+            var allFielDescriptors = ProjectionManager.DescribeProperties().ToList();
+            properties = layoutRecord.Properties.OrderBy(p => p.Position)
+                .Select(p => allFielDescriptors.SelectMany(x => x.Descriptors)
+                    .Select(d => new FieldDescriptor {Descriptor = d, Property = p}).FirstOrDefault(x => x.Descriptor.Category == p.Category && x.Descriptor.Type == p.Type)).ToList();
+        }
+
+        #endregion
+
+
+        var columns = new List<GridColumn> {keyColumn};
+
+        foreach (var property in properties.Select(x => x.Property)) {
+            var column = new GridColumn();
+            var filedName = property.GetFieldName();
+            column.Name = filedName;
+            column.Label = T(property.Description).Text;
+            if (property.LinkToContent) {}
+            //column["sortable"] = false;
+            columns.Add(column);
+        }
+
+        return columns;
+    }
+
+    class GridColumn {
+        public string Name { get; set; }
+		public string Label { get; set; }
+		public bool Hidden { get; set; }
+		public bool IsKey { get; set; }
+    }
+
+	class FieldDescriptor
+    {
+        public PropertyDescriptor Descriptor { get; set; }
+        public PropertyRecord Property { get; set; }
+    }
+
+
+        
+        #line default
+        #line hidden
+        
+        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+
+private global::Coevery.ContentManagement.IContentManager _ContentManagerField;
+
+/// <summary>
+/// Access the ContentManager parameter of the template.
+/// </summary>
+private global::Coevery.ContentManagement.IContentManager ContentManager
+{
+    get
+    {
+        return this._ContentManagerField;
+    }
+}
+
+private global::Coevery.Core.Projections.Services.IProjectionManager _ProjectionManagerField;
+
+/// <summary>
+/// Access the ProjectionManager parameter of the template.
+/// </summary>
+private global::Coevery.Core.Projections.Services.IProjectionManager ProjectionManager
+{
+    get
+    {
+        return this._ProjectionManagerField;
+    }
+}
+
+private global::Coevery.Localization.Localizer _TField;
+
+/// <summary>
+/// Access the T parameter of the template.
+/// </summary>
+private global::Coevery.Localization.Localizer T
+{
+    get
+    {
+        return this._TField;
+    }
+}
 
 private string _NamespaceField;
 
@@ -895,16 +259,16 @@ private string Namespace
     }
 }
 
-private string _ControllerNameField;
+private global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition _ModelDefinitionField;
 
 /// <summary>
-/// Access the ControllerName parameter of the template.
+/// Access the ModelDefinition parameter of the template.
 /// </summary>
-private string ControllerName
+private global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition ModelDefinition
 {
     get
     {
-        return this._ControllerNameField;
+        return this._ModelDefinitionField;
     }
 }
 
@@ -916,6 +280,96 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
+bool ContentManagerValueAcquired = false;
+if (this.Session.ContainsKey("ContentManager"))
+{
+    if ((typeof(global::Coevery.ContentManagement.IContentManager).IsAssignableFrom(this.Session["ContentManager"].GetType()) == false))
+    {
+        this.Error("The type \'Coevery.ContentManagement.IContentManager\' of the parameter \'ContentMan" +
+                "ager\' did not match the type of the data passed to the template.");
+    }
+    else
+    {
+        this._ContentManagerField = ((global::Coevery.ContentManagement.IContentManager)(this.Session["ContentManager"]));
+        ContentManagerValueAcquired = true;
+    }
+}
+if ((ContentManagerValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ContentManager");
+    if ((data != null))
+    {
+        if ((typeof(global::Coevery.ContentManagement.IContentManager).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'Coevery.ContentManagement.IContentManager\' of the parameter \'ContentMan" +
+                    "ager\' did not match the type of the data passed to the template.");
+        }
+        else
+        {
+            this._ContentManagerField = ((global::Coevery.ContentManagement.IContentManager)(data));
+        }
+    }
+}
+bool ProjectionManagerValueAcquired = false;
+if (this.Session.ContainsKey("ProjectionManager"))
+{
+    if ((typeof(global::Coevery.Core.Projections.Services.IProjectionManager).IsAssignableFrom(this.Session["ProjectionManager"].GetType()) == false))
+    {
+        this.Error("The type \'Coevery.Core.Projections.Services.IProjectionManager\' of the parameter " +
+                "\'ProjectionManager\' did not match the type of the data passed to the template.");
+    }
+    else
+    {
+        this._ProjectionManagerField = ((global::Coevery.Core.Projections.Services.IProjectionManager)(this.Session["ProjectionManager"]));
+        ProjectionManagerValueAcquired = true;
+    }
+}
+if ((ProjectionManagerValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ProjectionManager");
+    if ((data != null))
+    {
+        if ((typeof(global::Coevery.Core.Projections.Services.IProjectionManager).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'Coevery.Core.Projections.Services.IProjectionManager\' of the parameter " +
+                    "\'ProjectionManager\' did not match the type of the data passed to the template.");
+        }
+        else
+        {
+            this._ProjectionManagerField = ((global::Coevery.Core.Projections.Services.IProjectionManager)(data));
+        }
+    }
+}
+bool TValueAcquired = false;
+if (this.Session.ContainsKey("T"))
+{
+    if ((typeof(global::Coevery.Localization.Localizer).IsAssignableFrom(this.Session["T"].GetType()) == false))
+    {
+        this.Error("The type \'Coevery.Localization.Localizer\' of the parameter \'T\' did not match the " +
+                "type of the data passed to the template.");
+    }
+    else
+    {
+        this._TField = ((global::Coevery.Localization.Localizer)(this.Session["T"]));
+        TValueAcquired = true;
+    }
+}
+if ((TValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("T");
+    if ((data != null))
+    {
+        if ((typeof(global::Coevery.Localization.Localizer).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'Coevery.Localization.Localizer\' of the parameter \'T\' did not match the " +
+                    "type of the data passed to the template.");
+        }
+        else
+        {
+            this._TField = ((global::Coevery.Localization.Localizer)(data));
+        }
+    }
+}
 bool NamespaceValueAcquired = false;
 if (this.Session.ContainsKey("Namespace"))
 {
@@ -946,33 +400,35 @@ if ((NamespaceValueAcquired == false))
         }
     }
 }
-bool ControllerNameValueAcquired = false;
-if (this.Session.ContainsKey("ControllerName"))
+bool ModelDefinitionValueAcquired = false;
+if (this.Session.ContainsKey("ModelDefinition"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["ControllerName"].GetType()) == false))
+    if ((typeof(global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition).IsAssignableFrom(this.Session["ModelDefinition"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'ControllerName\' did not match the type" +
-                " of the data passed to the template.");
+        this.Error("The type \'Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition\' of th" +
+                "e parameter \'ModelDefinition\' did not match the type of the data passed to the t" +
+                "emplate.");
     }
     else
     {
-        this._ControllerNameField = ((string)(this.Session["ControllerName"]));
-        ControllerNameValueAcquired = true;
+        this._ModelDefinitionField = ((global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition)(this.Session["ModelDefinition"]));
+        ModelDefinitionValueAcquired = true;
     }
 }
-if ((ControllerNameValueAcquired == false))
+if ((ModelDefinitionValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ControllerName");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModelDefinition");
     if ((data != null))
     {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'ControllerName\' did not match the type" +
-                    " of the data passed to the template.");
+            this.Error("The type \'Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition\' of th" +
+                    "e parameter \'ModelDefinition\' did not match the type of the data passed to the t" +
+                    "emplate.");
         }
         else
         {
-            this._ControllerNameField = ((string)(data));
+            this._ModelDefinitionField = ((global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition)(data));
         }
     }
 }
