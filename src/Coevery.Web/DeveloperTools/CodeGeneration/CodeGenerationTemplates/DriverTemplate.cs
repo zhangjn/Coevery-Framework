@@ -86,7 +86,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 
             if (displayType == ""Edit"") {
                 return Combined(
-                    ContentShape(""Parts_EditView"", () => shapeHelper.Parts_CreateView())
+                    ContentShape(""Parts_EditView"", () => shapeHelper.Parts_EditView())
                     );
             }
             return null;
