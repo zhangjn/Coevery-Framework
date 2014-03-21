@@ -52,7 +52,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         private readonly IDynamicAssemblyBuilder _dynamicAssemblyBuilder;
         private readonly ISessionFactoryHolder _sessionFactoryHolder;
 
-        private const string TableFormat = "Coevery_DynamicTypes_{0}PartRecord";
+        private const string TableFormat = "{0}PartRecord";
 
         public SchemaUpdateService(
             IDynamicAssemblyBuilder dynamicAssemblyBuilder,

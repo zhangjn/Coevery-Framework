@@ -57,43 +57,45 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "\n    <Reference Include=\"System.Web.Mvc, Version=5.1.0.0, Culture=neutral, Publi" +
                     "cKeyToken=31bf3856ad364e35, processorArchitecture=MSIL\">\r\n      <SpecificVersion" +
                     ">False</SpecificVersion>\r\n      <HintPath>..\\..\\..\\..\\lib\\aspnetmvc\\System.Web.M" +
-                    "vc.dll</HintPath>\r\n    </Reference>\r\n    <Reference Include=\"System.Web\" />\r\n   " +
-                    " <Reference Include=\"System.Web.Extensions\" />\r\n    <Reference Include=\"System.W" +
-                    "eb.Abstractions\" />\r\n    <Reference Include=\"System.Web.Routing\" />\r\n    <Refere" +
-                    "nce Include=\"System.Xml\" />\r\n    <Reference Include=\"System.Configuration\" />\r\n " +
-                    "   <Reference Include=\"System.Xml.Linq\" />\r\n  </ItemGroup>\r\n  <PropertyGroup>\r\n " +
-                    "   <VisualStudioVersion Condition=\"\'$(VisualStudioVersion)\' == \'\'\">10.0</VisualS" +
-                    "tudioVersion>\r\n    <VSToolsPath Condition=\"\'$(VSToolsPath)\' == \'\'\">$(MSBuildExte" +
-                    "nsionsPath32)\\Microsoft\\VisualStudio\\v$(VisualStudioVersion)</VSToolsPath>\r\n  </" +
-                    "PropertyGroup>\r\n  <Import Project=\"$(MSBuildBinPath)\\Microsoft.CSharp.targets\" /" +
-                    ">\r\n  <Import Project=\"$(VSToolsPath)\\WebApplications\\Microsoft.WebApplication.ta" +
-                    "rgets\" Condition=\"\'$(VSToolsPath)\' != \'\'\" />\r\n  <Import Project=\"$(MSBuildExtens" +
-                    "ionsPath32)\\Microsoft\\VisualStudio\\v10.0\\WebApplications\\Microsoft.WebApplicatio" +
-                    "n.targets\" Condition=\"false\" />\r\n  <!-- To modify your build process, add your t" +
-                    "ask inside one of the targets below and uncomment it. \r\n       Other similar ext" +
-                    "ension points exist, see Microsoft.Common.targets.\r\n  <Target Name=\"BeforeBuild\"" +
-                    ">\r\n  </Target> -->\r\n  <Target Name=\"AfterBuild\" DependsOnTargets=\"AfterBuildComp" +
-                    "iler\">\r\n    <PropertyGroup>\r\n      <AreasManifestDir>$(ProjectDir)\\..\\Manifests<" +
-                    "/AreasManifestDir>\r\n    </PropertyGroup>\r\n    <!-- If this is an area child proj" +
-                    "ect, uncomment the following line:\r\n    <CreateAreaManifest AreaName=\"$(Assembly" +
-                    "Name)\" AreaType=\"Child\" AreaPath=\"$(ProjectDir)\" ManifestPath=\"$(AreasManifestDi" +
-                    "r)\" ContentFiles=\"@(Content)\" />\r\n    -->\r\n    <!-- If this is an area parent pr" +
-                    "oject, uncomment the following lines:\r\n    <CreateAreaManifest AreaName=\"$(Assem" +
-                    "blyName)\" AreaType=\"Parent\" AreaPath=\"$(ProjectDir)\" ManifestPath=\"$(AreasManife" +
-                    "stDir)\" ContentFiles=\"@(Content)\" />\r\n    <CopyAreaManifests ManifestPath=\"$(Are" +
-                    "asManifestDir)\" CrossCopy=\"false\" RenameViews=\"true\" />\r\n    -->\r\n  </Target>\r\n " +
-                    " <Target Name=\"AfterBuildCompiler\" Condition=\"\'$(MvcBuildViews)\'==\'true\'\">\r\n    " +
-                    "<AspNetCompiler VirtualPath=\"temp\" PhysicalPath=\"$(ProjectDir)\\..\\$(ProjectName)" +
-                    "\" />\r\n  </Target>\r\n  <ProjectExtensions>\r\n    <VisualStudio>\r\n      <FlavorPrope" +
-                    "rties GUID=\"{349c5851-65df-11da-9384-00065b846f21}\">\r\n        <WebProjectPropert" +
-                    "ies>\r\n          <UseIIS>False</UseIIS>\r\n          <AutoAssignPort>True</AutoAssi" +
-                    "gnPort>\r\n          <DevelopmentServerPort>45979</DevelopmentServerPort>\r\n       " +
-                    "   <DevelopmentServerVPath>/</DevelopmentServerVPath>\r\n          <IISUrl>\r\n     " +
-                    "     </IISUrl>\r\n          <NTLMAuthentication>False</NTLMAuthentication>\r\n      " +
-                    "    <UseCustomServer>True</UseCustomServer>\r\n          <CustomServerUrl>http://c" +
-                    "oevery.codeplex.com</CustomServerUrl>\r\n          <SaveServerSettingsInUserFile>F" +
-                    "alse</SaveServerSettingsInUserFile>\r\n        </WebProjectProperties>\r\n      </Fl" +
-                    "avorProperties>\r\n    </VisualStudio>\r\n  </ProjectExtensions>\r\n</Project>");
+                    "vc.dll</HintPath>\r\n    </Reference>\r\n    <Reference Include=\"System.Web.Http\">\r\n" +
+                    "      <HintPath>..\\..\\lib\\aspnetwebapi\\System.Web.Http.dll</HintPath>\r\n    </Ref" +
+                    "erence>\r\n    <Reference Include=\"System.Web\" />\r\n    <Reference Include=\"System." +
+                    "Web.Extensions\" />\r\n    <Reference Include=\"System.Web.Abstractions\" />\r\n    <Re" +
+                    "ference Include=\"System.Web.Routing\" />\r\n    <Reference Include=\"System.Xml\" />\r" +
+                    "\n    <Reference Include=\"System.Configuration\" />\r\n    <Reference Include=\"Syste" +
+                    "m.Xml.Linq\" />\r\n  </ItemGroup>\r\n  <PropertyGroup>\r\n    <VisualStudioVersion Cond" +
+                    "ition=\"\'$(VisualStudioVersion)\' == \'\'\">10.0</VisualStudioVersion>\r\n    <VSToolsP" +
+                    "ath Condition=\"\'$(VSToolsPath)\' == \'\'\">$(MSBuildExtensionsPath32)\\Microsoft\\Visu" +
+                    "alStudio\\v$(VisualStudioVersion)</VSToolsPath>\r\n  </PropertyGroup>\r\n  <Import Pr" +
+                    "oject=\"$(MSBuildBinPath)\\Microsoft.CSharp.targets\" />\r\n  <Import Project=\"$(VSTo" +
+                    "olsPath)\\WebApplications\\Microsoft.WebApplication.targets\" Condition=\"\'$(VSTools" +
+                    "Path)\' != \'\'\" />\r\n  <Import Project=\"$(MSBuildExtensionsPath32)\\Microsoft\\Visual" +
+                    "Studio\\v10.0\\WebApplications\\Microsoft.WebApplication.targets\" Condition=\"false\"" +
+                    " />\r\n  <!-- To modify your build process, add your task inside one of the target" +
+                    "s below and uncomment it. \r\n       Other similar extension points exist, see Mic" +
+                    "rosoft.Common.targets.\r\n  <Target Name=\"BeforeBuild\">\r\n  </Target> -->\r\n  <Targe" +
+                    "t Name=\"AfterBuild\" DependsOnTargets=\"AfterBuildCompiler\">\r\n    <PropertyGroup>\r" +
+                    "\n      <AreasManifestDir>$(ProjectDir)\\..\\Manifests</AreasManifestDir>\r\n    </Pr" +
+                    "opertyGroup>\r\n    <!-- If this is an area child project, uncomment the following" +
+                    " line:\r\n    <CreateAreaManifest AreaName=\"$(AssemblyName)\" AreaType=\"Child\" Area" +
+                    "Path=\"$(ProjectDir)\" ManifestPath=\"$(AreasManifestDir)\" ContentFiles=\"@(Content)" +
+                    "\" />\r\n    -->\r\n    <!-- If this is an area parent project, uncomment the followi" +
+                    "ng lines:\r\n    <CreateAreaManifest AreaName=\"$(AssemblyName)\" AreaType=\"Parent\" " +
+                    "AreaPath=\"$(ProjectDir)\" ManifestPath=\"$(AreasManifestDir)\" ContentFiles=\"@(Cont" +
+                    "ent)\" />\r\n    <CopyAreaManifests ManifestPath=\"$(AreasManifestDir)\" CrossCopy=\"f" +
+                    "alse\" RenameViews=\"true\" />\r\n    -->\r\n  </Target>\r\n  <Target Name=\"AfterBuildCom" +
+                    "piler\" Condition=\"\'$(MvcBuildViews)\'==\'true\'\">\r\n    <AspNetCompiler VirtualPath=" +
+                    "\"temp\" PhysicalPath=\"$(ProjectDir)\\..\\$(ProjectName)\" />\r\n  </Target>\r\n  <Projec" +
+                    "tExtensions>\r\n    <VisualStudio>\r\n      <FlavorProperties GUID=\"{349c5851-65df-1" +
+                    "1da-9384-00065b846f21}\">\r\n        <WebProjectProperties>\r\n          <UseIIS>Fals" +
+                    "e</UseIIS>\r\n          <AutoAssignPort>True</AutoAssignPort>\r\n          <Developm" +
+                    "entServerPort>45979</DevelopmentServerPort>\r\n          <DevelopmentServerVPath>/" +
+                    "</DevelopmentServerVPath>\r\n          <IISUrl>\r\n          </IISUrl>\r\n          <N" +
+                    "TLMAuthentication>False</NTLMAuthentication>\r\n          <UseCustomServer>True</U" +
+                    "seCustomServer>\r\n          <CustomServerUrl>http://coevery.codeplex.com</CustomS" +
+                    "erverUrl>\r\n          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUs" +
+                    "erFile>\r\n        </WebProjectProperties>\r\n      </FlavorProperties>\r\n    </Visua" +
+                    "lStudio>\r\n  </ProjectExtensions>\r\n</Project>");
             return this.GenerationEnvironment.ToString();
         }
     }
