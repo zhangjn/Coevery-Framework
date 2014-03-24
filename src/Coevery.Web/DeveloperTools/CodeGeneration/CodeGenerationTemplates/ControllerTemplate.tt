@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Coevery;
 using Coevery.ContentManagement;
 using Coevery.Data;
+using Coevery.Themes;
 using Coevery.Localization;
 using <#=Namespace#>.Models;
 
