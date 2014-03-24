@@ -1,0 +1,38 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.String" name="AssemblyName" #>
+<#@ parameter type="System.String" name="EntityName" #>
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+using System.Web.Routing;
+using Coevery.Environment.ShellBuilders.Models;
+using Coevery.Mvc.Routes;
+
+namespace <#=Namespace#> {
+    public class Routes : IRouteProvider {
+        public IEnumerable<RouteDescriptor> GetRoutes() {
+
+            yield return new RouteDescriptor {
+                Route = new Route(
+                    "<#=EntityName#>/{action}",
+                    new RouteValueDictionary {
+                        {"area", "<#=AssemblyName#>"},
+                        {"controller", "<#=EntityName#>"},
+                        {"action", "Index"}
+                    },
+                    new RouteValueDictionary(),
+                    new RouteValueDictionary {{"area", "<#=AssemblyName#>"}},
+                    new MvcRouteHandler())
+            };
+        }
+
+        public void GetRoutes(ICollection<RouteDescriptor> routes) {
+            foreach (RouteDescriptor route in GetRoutes()) {
+                routes.Add(route);
+            }
+        }
+    }
+}

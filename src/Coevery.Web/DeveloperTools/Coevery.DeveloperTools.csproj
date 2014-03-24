@@ -248,6 +248,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModuleTestsCsProj.tt</DependentUpon>
     </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\RouteTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RouteTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="CodeGeneration\CodeGenerationTemplates\ThemeManifest.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -391,6 +396,10 @@
       <LastGenOutput>ListViewModelTemplate.cs</LastGenOutput>
     </Content>
     <Content Include="CodeGeneration\CodeGenerationTemplates\ListViewCommon.ttinclude" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>RouteTemplate.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="EntityManagement\Scripts\Web.config" />

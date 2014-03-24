@@ -21,8 +21,8 @@ namespace <#=Namespace#>.Controllers
         }
 
         public IEnumerable<<#=ModelDefinition.Name#>ListViewModel> GetAll() {
-			var records = _contentManager.Query<LeadPart, LeadPartRecord>()
-				.WithQueryHints(new QueryHints().ExpandRecords<LeadPartRecord>())
+			var records = _contentManager.Query<<#=ModelDefinition.Name#>Part, <#=ModelDefinition.Name#>PartRecord>()
+				.WithQueryHints(new QueryHints().ExpandRecords<<#=ModelDefinition.Name#>PartRecord>())
 				.List()
 				.Select(item => new <#=ModelDefinition.Name#>ListViewModel{
 					Id = item.Record.Id,

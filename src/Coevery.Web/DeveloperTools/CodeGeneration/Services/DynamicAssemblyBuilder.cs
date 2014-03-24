@@ -81,8 +81,23 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
                 AddDriverFile(csProjFile, definition);
                 AddHandlerFile(csProjFile, definition);
                 AddViewFile(csProjFile, definition);
+                AddRoute(csProjFile,definition);
             }
             csProjFile.Save();
+        }
+
+        private void AddRoute(CsProjFile csProjFile, DynamicDefinition modelDefinition)
+        {
+            string routePath = csProjFile.ProjectDirectory;
+
+            // Route
+            string controllerClassFilePath = Path.Combine(routePath, string.Format("Route.cs"));
+            var partTemplate = new RouteTemplate() { Session = new Dictionary<string, object>() };
+            partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
+            partTemplate.Session["AssemblyName"] = csProjFile.AssemblyName;
+            partTemplate.Session["EntityName"] = modelDefinition.Name;
+            partTemplate.Initialize();
+            AddFile<CodeFile>(csProjFile, controllerClassFilePath, partTemplate.TransformText());
         }
 
         private void AddControllerFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {

@@ -23,7 +23,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class ApiControllerTemplate : ApiControllerTemplateBase
     {
@@ -37,28 +37,28 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("using System.Collections.Generic;\r\nusing System.Linq;\r\nusing System.Web.Http;\r\nus" +
                     "ing Coevery.ContentManagement;\r\nusing ");
             
-            #line 11 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 11 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Models;\r\nusing ");
             
-            #line 12 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 12 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".ViewModels;\r\n\r\nnamespace ");
             
-            #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 14 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Controllers \r\n{\r\n    public class ");
             
-            #line 16 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 16 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
@@ -66,7 +66,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("ApiController : ApiController {\r\n\t\tprivate readonly IContentManager _contentManag" +
                     "er;\r\n\r\n        public ");
             
-            #line 19 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 19 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
@@ -74,44 +74,63 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("ApiController(IContentManager contentManager) {\r\n            _contentManager = co" +
                     "ntentManager;\r\n        }\r\n\r\n        public IEnumerable<");
             
-            #line 23 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 23 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
-            this.Write("ListViewModel> GetAll() {\r\n\t\t\tvar records = _contentManager.Query<LeadPart, LeadP" +
-                    "artRecord>()\r\n\t\t\t\t.WithQueryHints(new QueryHints().ExpandRecords<LeadPartRecord>" +
-                    "())\r\n\t\t\t\t.List()\r\n\t\t\t\t.Select(item => new ");
+            this.Write("ListViewModel> GetAll() {\r\n\t\t\tvar records = _contentManager.Query<");
             
-            #line 27 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 24 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Part, ");
+            
+            #line 24 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
+            
+            #line default
+            #line hidden
+            this.Write("PartRecord>()\r\n\t\t\t\t.WithQueryHints(new QueryHints().ExpandRecords<");
+            
+            #line 25 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
+            
+            #line default
+            #line hidden
+            this.Write("PartRecord>())\r\n\t\t\t\t.List()\r\n\t\t\t\t.Select(item => new ");
+            
+            #line 27 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
             this.Write("ListViewModel{\r\n\t\t\t\t\tId = item.Record.Id,\r\n");
             
-            #line 29 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 29 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
  foreach (var field in GetFields()) {
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t");
             
-            #line 30 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 30 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
             
             #line default
             #line hidden
             this.Write(" = item.Record.");
             
-            #line 30 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 30 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 31 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+            #line 31 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
 }
             
             #line default
@@ -120,7 +139,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 38 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+        #line 38 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
 
 
     private IEnumerable<DynamicFieldDefinition> GetFields() {
@@ -138,7 +157,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         #line default
         #line hidden
         
-        #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewCommon.ttinclude"
+        #line 14 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewCommon.ttinclude"
 
     private IEnumerable<GridColumn> GetColumns(string entityTypeName) {
         var listViewPart = ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")
@@ -205,7 +224,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         #line default
         #line hidden
         
-        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
+        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt"
 
 private global::Coevery.ContentManagement.IContentManager _ContentManagerField;
 
