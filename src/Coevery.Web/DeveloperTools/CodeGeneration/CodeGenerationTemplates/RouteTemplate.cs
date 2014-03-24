@@ -25,11 +25,10 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\nusing System;\r\nusing System.Collections.Generic;\r\nusing System.Linq;\r\nusing Sys" +
-                    "tem.Web.Mvc;\r\nusing System.Web.Routing;\r\nusing Coevery.Environment.ShellBuilders" +
-                    ".Models;\r\nusing Coevery.Mvc.Routes;\r\n\r\nnamespace ");
+            this.Write("\r\n\r\nusing System.Collections.Generic;\r\nusing System.Web.Mvc;\r\nusing System.Web.Ro" +
+                    "uting;\r\nusing Coevery.Mvc.Routes;\r\n\r\nnamespace ");
             
-            #line 14 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            #line 12 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
@@ -38,7 +37,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "escriptor> GetRoutes() {\r\n\r\n            yield return new RouteDescriptor {\r\n    " +
                     "            Route = new Route(\r\n                    \"");
             
-            #line 20 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            #line 18 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
@@ -46,14 +45,14 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("/{action}\",\r\n                    new RouteValueDictionary {\r\n                    " +
                     "    {\"area\", \"");
             
-            #line 22 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            #line 20 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(AssemblyName));
             
             #line default
             #line hidden
             this.Write("\"},\r\n                        {\"controller\", \"");
             
-            #line 23 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            #line 21 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
@@ -62,7 +61,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "             new RouteValueDictionary(),\r\n                    new RouteValueDict" +
                     "ionary {{\"area\", \"");
             
-            #line 27 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            #line 25 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(AssemblyName));
             
             #line default
