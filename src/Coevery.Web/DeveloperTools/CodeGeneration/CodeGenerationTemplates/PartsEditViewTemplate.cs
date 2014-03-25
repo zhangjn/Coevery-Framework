@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
+    using System.Linq;
     using System;
     
     /// <summary>
@@ -25,84 +26,105 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("@using (Html.BeginFormAntiForgeryPost(Url.Action(\"Edit\", \"");
+            this.Write("@{\r\n    var id = Guid.NewGuid().ToString();\r\n}\r\n<div class=\"row-fluid edit-mode\">" +
+                    "\r\n\t@using (Html.BeginFormAntiForgeryPost(Url.Action(\"Edit\", \"");
             
-            #line 4 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+            #line 9 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
-            this.Write("\"),\r\n    FormMethod.Post, new {@class = \"form-structure\"})) {\r\n");
+            this.Write("\"),\r\n\t\tFormMethod.Post, new {@class = \"form-horizontal\", id = id})) {\r\n");
             
-            #line 6 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+            #line 11 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
  foreach (var layoutSection in SectionList) { 
             
             #line default
             #line hidden
-            this.Write("    <fieldset>\r\n\t\t<legend>");
             
-            #line 8 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+            #line 12 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+ var widths = layoutSection.SectionColumnsWidth.Split(':').ToArray(); 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t<fieldset>\r\n\t\t\t<legend>");
+            
+            #line 14 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(layoutSection.SectionTitle));
             
             #line default
             #line hidden
             this.Write("</legend>\r\n");
             
-            #line 9 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+            #line 15 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
  foreach (var row in layoutSection.Rows) { 
             
             #line default
             #line hidden
-            this.Write("\t\t<div class=\"data-row\">\r\n");
             
-            #line 11 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+            #line 16 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+ int i = 0; 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t<div class=\"data-row clearfix\">\r\n");
+            
+            #line 18 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
  foreach (var column in row.Columns) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t<div class=\"data-column\">\r\n");
+            this.Write("\t\t\t\t<div class=\"span");
             
-            #line 13 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+            #line 19 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(widths[i++]));
+            
+            #line default
+            #line hidden
+            this.Write("\">\r\n");
+            
+            #line 20 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
  if (column.Field != null) { 
             
             #line default
             #line hidden
-            this.Write("\t\t\t\t@Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: \"");
+            this.Write("\t\t\t\t\t@Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: \"");
             
-            #line 14 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+            #line 21 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(column.Field.FieldName));
             
             #line default
             #line hidden
             this.Write("\")\r\n");
             
-            #line 15 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+            #line 22 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t</div>\r\n");
+            
+            #line 24 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t</div>\r\n");
             
-            #line 17 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+            #line 26 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t\t</div>\r\n");
+            this.Write("\t\t</fieldset>\r\n");
             
-            #line 19 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
+            #line 28 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("\t</fieldset>\r\n");
-            
-            #line 21 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt"
- } 
-            
-            #line default
-            #line hidden
-            this.Write("\t<input type=\"submit\" value=\"@T(\"Submit\")\" />\r\n}");
+            this.Write("\t\t<input type=\"submit\" value=\"@T(\"Submit\")\" />\r\n\t}\r\n</div>\r\n\r\n@using (Script.Foot" +
+                    "()) {\r\n    <script>\r\n        $(\'#@id\').validate();\r\n    </script>\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         

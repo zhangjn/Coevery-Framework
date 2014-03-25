@@ -1,4 +1,9 @@
-﻿@if (Model.Actions != null) {
-    @Display(Model.Actions)
-}
-@Display(Model.Content)
+﻿<header id="page-title" class="ng-scope">
+    <h1 class="pull-left">Lead <span>view a Lead</span></h1>
+</header>
+<section id="main-content">
+    @if (Model.Actions != null) {
+        @Display(Model.Actions)
+    }
+    @Display(Model.Content)
+</section>

@@ -1,13 +1,16 @@
 ﻿<#@ template debug="false" language="C#" #>
 <#@ parameter type="System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>" name="SectionList" #>
-<div class="form-structure">
+<#@ import namespace="System.Linq" #>
+<div class="row-fluid view-mode">
 <# foreach (var layoutSection in SectionList) { #>
-    <fieldset>
-		<legend><#= layoutSection.SectionTitle #></legend>
+<# var widths = layoutSection.SectionColumnsWidth.Split(':').ToArray(); #>
+    <section>
+        <header><h5><#= layoutSection.SectionTitle #></h5></header>
 <# foreach (var row in layoutSection.Rows) { #>
-		<div class="data-row">
+<# int i = 0; #>
+		<div class="data-row clearfix">
 <# foreach (var column in row.Columns) { #>
-			<div class="data-column">
+			<div class="span<#=widths[i++]#>">
 <# if (column.Field != null) { #>
 				@Display.DisplayField(part: Model.ContentPart, fieldName: "<#= column.Field.FieldName #>")
 <# } #>
@@ -15,6 +18,6 @@
 <# } #>
 		</div>
 <# } #>
-	</fieldset>
+	</section>
 <# } #>
 </div>
