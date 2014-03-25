@@ -107,23 +107,14 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
 
             // Controller
             string controllerClassFilePath = Path.Combine(moduleControllersPath, string.Format("{0}Controller.cs", modelDefinition.Name));
-            var partTemplate = new ControllerTemplate() { Session = new Dictionary<string, object>() };
-            partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            partTemplate.Session["EntityName"] = modelDefinition.Name;
-            partTemplate.Initialize();
-            AddFile<CodeFile>(csProjFile, controllerClassFilePath, partTemplate.TransformText());
-
-            // Api controller
-            string apiControllerClassFilePath = Path.Combine(moduleControllersPath, string.Format("{0}ApiController.cs", modelDefinition.Name));
-            var apiControllerTemplate = new ApiControllerTemplate() {Session = new Dictionary<string, object>()};
-            apiControllerTemplate.Session["ModelDefinition"] = modelDefinition;
-            apiControllerTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            apiControllerTemplate.Session["ContentManager"] = Services.ContentManager;
-            apiControllerTemplate.Session["ProjectionManager"] = _projectionManager;
-            apiControllerTemplate.Session["T"] = T;
-            apiControllerTemplate.Initialize();
-            AddFile<CodeFile>(csProjFile, apiControllerClassFilePath, apiControllerTemplate.TransformText());
-
+            var controllerTemplate = new ControllerTemplate() { Session = new Dictionary<string, object>() };
+            controllerTemplate.Session["ModelDefinition"] = modelDefinition;
+            controllerTemplate.Session["Namespace"] = csProjFile.RootNamespace;
+            controllerTemplate.Session["ContentManager"] = Services.ContentManager;
+            controllerTemplate.Session["ProjectionManager"] = _projectionManager;
+            controllerTemplate.Session["T"] = T;
+            controllerTemplate.Initialize();
+            AddFile<CodeFile>(csProjFile, controllerClassFilePath, controllerTemplate.TransformText());
         }
 
         private void AddDriverFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {

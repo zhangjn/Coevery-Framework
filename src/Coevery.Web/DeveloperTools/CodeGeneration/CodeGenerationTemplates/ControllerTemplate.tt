@@ -1,6 +1,9 @@
 ﻿<#@ template debug="false" language="C#" #>
+<#@ include file="ListViewCommon.ttinclude" #>
+<#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Services" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.String" name="EntityName" #>
+<#@ parameter type="Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition" name="ModelDefinition" #>
+using System.Linq;
 using System.Web.Mvc;
 using Coevery;
 using Coevery.ContentManagement;
@@ -8,13 +11,14 @@ using Coevery.Data;
 using Coevery.Themes;
 using Coevery.Localization;
 using <#=Namespace#>.Models;
+using <#=Namespace#>.ViewModels;
 
 namespace <#=Namespace#>.Controllers {
 	[Themed]
-    public class <#=EntityName#>Controller : Controller , IUpdateModel{
+    public class <#=ModelDefinition.Name#>Controller : Controller , IUpdateModel{
         private readonly ITransactionManager _transactionManager;
 
-        public <#=EntityName#>Controller (ICoeveryServices services, ITransactionManager transactionManager) {
+        public <#=ModelDefinition.Name#>Controller (ICoeveryServices services, ITransactionManager transactionManager) {
             Services = services;
             _transactionManager = transactionManager;
             T = NullLocalizer.Instance;
@@ -24,11 +28,32 @@ namespace <#=Namespace#>.Controllers {
 		public Localizer T { get; set; }
 
 		public ActionResult Index() {
-            var contentItem = Services.ContentManager.New("<#=EntityName#>");
-            contentItem.Weld(new <#=EntityName#>Part());
+            var contentItem = Services.ContentManager.New("<#=ModelDefinition.Name#>");
+            contentItem.Weld(new <#=ModelDefinition.Name#>Part());
             var model = Services.ContentManager.BuildDisplay(contentItem, "List");
             return View(model);
         }
+
+		public ActionResult GetAll(int page = 1, int pageSize = 10, string sortBy = null, string sortOrder = "asc") {
+	        var query = Services.ContentManager.Query<<#=ModelDefinition.Name#>Part, <#=ModelDefinition.Name#>PartRecord>();
+	        var totalRecords = query.Count();
+	        var records = query
+	            .OrderBy(sortBy, sortOrder)
+	            .Slice((page - 1)*pageSize, pageSize)
+	            .Select(item => new <#=ModelDefinition.Name#>ListViewModel{
+					Id = item.Record.Id,
+<# foreach (var field in GetFields()) {#>
+					<#=field.Name#> = item.Record.<#=field.Name#>,
+<#}#>
+				}).ToList();
+	        var result = new {
+	            page,
+	            totalPages = totalRecords/pageSize,
+	            totalRecords,
+	            rows = records
+	        };
+	        return Json(result, JsonRequestBehavior.AllowGet);
+	    }
 
         public ActionResult Detail(int id) {
             var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
@@ -41,14 +66,14 @@ namespace <#=Namespace#>.Controllers {
         }
 
         public ActionResult Create() {
-            var contentItem = Services.ContentManager.New("<#=EntityName#>");
+            var contentItem = Services.ContentManager.New("<#=ModelDefinition.Name#>");
             var model = Services.ContentManager.BuildEditor(contentItem, "Create");
             return View(model);
         }
 
         [HttpPost, ActionName("Create")]
         public ActionResult CreatePost() {
-            var contentItem = Services.ContentManager.New("<#=EntityName#>");
+            var contentItem = Services.ContentManager.New("<#=ModelDefinition.Name#>");
             dynamic model = Services.ContentManager.UpdateEditor(contentItem, this, "Create");
             if (!ModelState.IsValid) {
                 return View("Create", (object) model);
@@ -108,3 +133,17 @@ namespace <#=Namespace#>.Controllers {
         }
     }
 }
+
+<#+
+
+    private IEnumerable<DynamicFieldDefinition> GetFields() {
+        var columns = GetColumns(ModelDefinition.Name);
+        foreach (var col in columns) {
+            var field = ModelDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            if (field != null) {
+                yield return field;
+            }
+        }
+    }
+
+#>

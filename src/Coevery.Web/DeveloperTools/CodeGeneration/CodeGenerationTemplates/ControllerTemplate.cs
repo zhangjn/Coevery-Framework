@@ -9,6 +9,14 @@
 // ------------------------------------------------------------------------------
 namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
+    using System.Linq;
+    using System.Text;
+    using System.Collections.Generic;
+    using Coevery.Core.Projections.Descriptors.Property;
+    using Coevery.Core.Projections.Models;
+    using Coevery.ContentManagement;
+    using Coevery.Core.Projections.Services;
+    using Coevery.DeveloperTools.CodeGeneration.Services;
     using System;
     
     /// <summary>
@@ -25,33 +33,42 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("using System.Web.Mvc;\r\nusing Coevery;\r\nusing Coevery.ContentManagement;\r\nusing Co" +
-                    "every.Data;\r\nusing Coevery.Themes;\r\nusing Coevery.Localization;\r\nusing ");
+            this.Write("\r\n");
+            this.Write("using System.Linq;\r\nusing System.Web.Mvc;\r\nusing Coevery;\r\nusing Coevery.ContentM" +
+                    "anagement;\r\nusing Coevery.Data;\r\nusing Coevery.Themes;\r\nusing Coevery.Localizati" +
+                    "on;\r\nusing ");
             
-            #line 10 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 13 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(".Models;\r\n\r\nnamespace ");
+            this.Write(".Models;\r\nusing ");
             
-            #line 12 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write(".ViewModels;\r\n\r\nnamespace ");
+            
+            #line 16 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Controllers {\r\n\t[Themed]\r\n    public class ");
             
-            #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
+            #line 18 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
             this.Write("Controller : Controller , IUpdateModel{\r\n        private readonly ITransactionMan" +
                     "ager _transactionManager;\r\n\r\n        public ");
             
-            #line 17 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
+            #line 21 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
@@ -67,15 +84,15 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 		public ActionResult Index() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 27 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
+            #line 31 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
             this.Write("\");\r\n            contentItem.Weld(new ");
             
-            #line 28 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
+            #line 32 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
@@ -83,6 +100,68 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             var model = Services.ContentManager.BuildDisplay(contentItem, ""List"");
             return View(model);
         }
+
+		public ActionResult GetAll(int page = 1, int pageSize = 10, string sortBy = null, string sortOrder = ""asc"") {
+	        var query = Services.ContentManager.Query<");
+            
+            #line 38 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
+            
+            #line default
+            #line hidden
+            this.Write("Part, ");
+            
+            #line 38 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
+            
+            #line default
+            #line hidden
+            this.Write("PartRecord>();\r\n\t        var totalRecords = query.Count();\r\n\t        var records " +
+                    "= query\r\n\t            .OrderBy(sortBy, sortOrder)\r\n\t            .Slice((page - 1" +
+                    ")*pageSize, pageSize)\r\n\t            .Select(item => new ");
+            
+            #line 43 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
+            
+            #line default
+            #line hidden
+            this.Write("ListViewModel{\r\n\t\t\t\t\tId = item.Record.Id,\r\n");
+            
+            #line 45 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+ foreach (var field in GetFields()) {
+            
+            #line default
+            #line hidden
+            this.Write("\t\t\t\t\t");
+            
+            #line 46 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
+            
+            #line default
+            #line hidden
+            this.Write(" = item.Record.");
+            
+            #line 46 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
+            
+            #line default
+            #line hidden
+            this.Write(",\r\n");
+            
+            #line 47 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+}
+            
+            #line default
+            #line hidden
+            this.Write(@"				}).ToList();
+	        var result = new {
+	            page,
+	            totalPages = totalRecords/pageSize,
+	            totalRecords,
+	            rows = records
+	        };
+	        return Json(result, JsonRequestBehavior.AllowGet);
+	    }
 
         public ActionResult Detail(int id) {
             var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
@@ -97,8 +176,8 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public ActionResult Create() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 44 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
+            #line 69 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
@@ -111,8 +190,8 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public ActionResult CreatePost() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 51 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
+            #line 76 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
@@ -143,11 +222,135 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     ", string[] excludeProperties) {\r\n            return TryUpdateModel(model, prefix" +
                     ", includeProperties, excludeProperties);\r\n        }\r\n\r\n        void IUpdateModel" +
                     ".AddModelError(string key, LocalizedString errorMessage) {\r\n            ModelSta" +
-                    "te.AddModelError(key, errorMessage.ToString());\r\n        }\r\n    }\r\n}\r\n");
+                    "te.AddModelError(key, errorMessage.ToString());\r\n        }\r\n    }\r\n}\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
+        #line 137 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+
+
+    private IEnumerable<DynamicFieldDefinition> GetFields() {
+        var columns = GetColumns(ModelDefinition.Name);
+        foreach (var col in columns) {
+            var field = ModelDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            if (field != null) {
+                yield return field;
+            }
+        }
+    }
+
+
+        
+        #line default
+        #line hidden
+        
+        #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewCommon.ttinclude"
+
+    private IEnumerable<GridColumn> GetColumns(string entityTypeName) {
+        var listViewPart = ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")
+            .Where(v => v.IsDefault && v.ItemContentType == entityTypeName).List().FirstOrDefault();
+
+        var keyColumn = new GridColumn();
+        keyColumn.Name = "Id";
+        keyColumn.Label = "Id";
+        keyColumn.Hidden = true;
+        keyColumn.IsKey = true;
+
+        IEnumerable<FieldDescriptor> properties = Enumerable.Empty<FieldDescriptor>();
+        LayoutRecord layoutRecord = null;
+
+        #region Load Properties
+
+        var projectionPart = listViewPart.As<ProjectionPart>();
+        if (projectionPart != null) {
+            var queryPartRecord = projectionPart.Record.QueryPartRecord;
+            if (queryPartRecord.Layouts.Any())
+                layoutRecord = queryPartRecord.Layouts[0];
+        }
+
+        if (layoutRecord != null) {
+            var allFielDescriptors = ProjectionManager.DescribeProperties().ToList();
+            properties = layoutRecord.Properties.OrderBy(p => p.Position)
+                .Select(p => allFielDescriptors.SelectMany(x => x.Descriptors)
+                    .Select(d => new FieldDescriptor {Descriptor = d, Property = p}).FirstOrDefault(x => x.Descriptor.Category == p.Category && x.Descriptor.Type == p.Type)).ToList();
+        }
+
+        #endregion
+
+
+        var columns = new List<GridColumn> {keyColumn};
+
+        foreach (var property in properties.Select(x => x.Property)) {
+            var column = new GridColumn();
+            var filedName = property.GetFieldName();
+            column.Name = filedName;
+            column.Label = T(property.Description).Text;
+            if (property.LinkToContent) {}
+            //column["sortable"] = false;
+            columns.Add(column);
+        }
+
+        return columns;
+    }
+
+    class GridColumn {
+        public string Name { get; set; }
+		public string Label { get; set; }
+		public bool Hidden { get; set; }
+		public bool IsKey { get; set; }
+    }
+
+	class FieldDescriptor
+    {
+        public PropertyDescriptor Descriptor { get; set; }
+        public PropertyRecord Property { get; set; }
+    }
+
+
+        
+        #line default
+        #line hidden
+        
         #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+
+private global::Coevery.ContentManagement.IContentManager _ContentManagerField;
+
+/// <summary>
+/// Access the ContentManager parameter of the template.
+/// </summary>
+private global::Coevery.ContentManagement.IContentManager ContentManager
+{
+    get
+    {
+        return this._ContentManagerField;
+    }
+}
+
+private global::Coevery.Core.Projections.Services.IProjectionManager _ProjectionManagerField;
+
+/// <summary>
+/// Access the ProjectionManager parameter of the template.
+/// </summary>
+private global::Coevery.Core.Projections.Services.IProjectionManager ProjectionManager
+{
+    get
+    {
+        return this._ProjectionManagerField;
+    }
+}
+
+private global::Coevery.Localization.Localizer _TField;
+
+/// <summary>
+/// Access the T parameter of the template.
+/// </summary>
+private global::Coevery.Localization.Localizer T
+{
+    get
+    {
+        return this._TField;
+    }
+}
 
 private string _NamespaceField;
 
@@ -162,16 +365,16 @@ private string Namespace
     }
 }
 
-private string _EntityNameField;
+private global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition _ModelDefinitionField;
 
 /// <summary>
-/// Access the EntityName parameter of the template.
+/// Access the ModelDefinition parameter of the template.
 /// </summary>
-private string EntityName
+private global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition ModelDefinition
 {
     get
     {
-        return this._EntityNameField;
+        return this._ModelDefinitionField;
     }
 }
 
@@ -183,6 +386,96 @@ public virtual void Initialize()
 {
     if ((this.Errors.HasErrors == false))
     {
+bool ContentManagerValueAcquired = false;
+if (this.Session.ContainsKey("ContentManager"))
+{
+    if ((typeof(global::Coevery.ContentManagement.IContentManager).IsAssignableFrom(this.Session["ContentManager"].GetType()) == false))
+    {
+        this.Error("The type \'Coevery.ContentManagement.IContentManager\' of the parameter \'ContentMan" +
+                "ager\' did not match the type of the data passed to the template.");
+    }
+    else
+    {
+        this._ContentManagerField = ((global::Coevery.ContentManagement.IContentManager)(this.Session["ContentManager"]));
+        ContentManagerValueAcquired = true;
+    }
+}
+if ((ContentManagerValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ContentManager");
+    if ((data != null))
+    {
+        if ((typeof(global::Coevery.ContentManagement.IContentManager).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'Coevery.ContentManagement.IContentManager\' of the parameter \'ContentMan" +
+                    "ager\' did not match the type of the data passed to the template.");
+        }
+        else
+        {
+            this._ContentManagerField = ((global::Coevery.ContentManagement.IContentManager)(data));
+        }
+    }
+}
+bool ProjectionManagerValueAcquired = false;
+if (this.Session.ContainsKey("ProjectionManager"))
+{
+    if ((typeof(global::Coevery.Core.Projections.Services.IProjectionManager).IsAssignableFrom(this.Session["ProjectionManager"].GetType()) == false))
+    {
+        this.Error("The type \'Coevery.Core.Projections.Services.IProjectionManager\' of the parameter " +
+                "\'ProjectionManager\' did not match the type of the data passed to the template.");
+    }
+    else
+    {
+        this._ProjectionManagerField = ((global::Coevery.Core.Projections.Services.IProjectionManager)(this.Session["ProjectionManager"]));
+        ProjectionManagerValueAcquired = true;
+    }
+}
+if ((ProjectionManagerValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ProjectionManager");
+    if ((data != null))
+    {
+        if ((typeof(global::Coevery.Core.Projections.Services.IProjectionManager).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'Coevery.Core.Projections.Services.IProjectionManager\' of the parameter " +
+                    "\'ProjectionManager\' did not match the type of the data passed to the template.");
+        }
+        else
+        {
+            this._ProjectionManagerField = ((global::Coevery.Core.Projections.Services.IProjectionManager)(data));
+        }
+    }
+}
+bool TValueAcquired = false;
+if (this.Session.ContainsKey("T"))
+{
+    if ((typeof(global::Coevery.Localization.Localizer).IsAssignableFrom(this.Session["T"].GetType()) == false))
+    {
+        this.Error("The type \'Coevery.Localization.Localizer\' of the parameter \'T\' did not match the " +
+                "type of the data passed to the template.");
+    }
+    else
+    {
+        this._TField = ((global::Coevery.Localization.Localizer)(this.Session["T"]));
+        TValueAcquired = true;
+    }
+}
+if ((TValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("T");
+    if ((data != null))
+    {
+        if ((typeof(global::Coevery.Localization.Localizer).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'Coevery.Localization.Localizer\' of the parameter \'T\' did not match the " +
+                    "type of the data passed to the template.");
+        }
+        else
+        {
+            this._TField = ((global::Coevery.Localization.Localizer)(data));
+        }
+    }
+}
 bool NamespaceValueAcquired = false;
 if (this.Session.ContainsKey("Namespace"))
 {
@@ -213,33 +506,35 @@ if ((NamespaceValueAcquired == false))
         }
     }
 }
-bool EntityNameValueAcquired = false;
-if (this.Session.ContainsKey("EntityName"))
+bool ModelDefinitionValueAcquired = false;
+if (this.Session.ContainsKey("ModelDefinition"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["EntityName"].GetType()) == false))
+    if ((typeof(global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition).IsAssignableFrom(this.Session["ModelDefinition"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'EntityName\' did not match the type of " +
-                "the data passed to the template.");
+        this.Error("The type \'Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition\' of th" +
+                "e parameter \'ModelDefinition\' did not match the type of the data passed to the t" +
+                "emplate.");
     }
     else
     {
-        this._EntityNameField = ((string)(this.Session["EntityName"]));
-        EntityNameValueAcquired = true;
+        this._ModelDefinitionField = ((global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition)(this.Session["ModelDefinition"]));
+        ModelDefinitionValueAcquired = true;
     }
 }
-if ((EntityNameValueAcquired == false))
+if ((ModelDefinitionValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("EntityName");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModelDefinition");
     if ((data != null))
     {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'EntityName\' did not match the type of " +
-                    "the data passed to the template.");
+            this.Error("The type \'Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition\' of th" +
+                    "e parameter \'ModelDefinition\' did not match the type of the data passed to the t" +
+                    "emplate.");
         }
         else
         {
-            this._EntityNameField = ((string)(data));
+            this._ModelDefinitionField = ((global::Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition)(data));
         }
     }
 }

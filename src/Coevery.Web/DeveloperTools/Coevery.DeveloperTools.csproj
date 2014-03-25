@@ -148,11 +148,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ApiControllerTemplate.tt</DependentUpon>
-    </Compile>
     <Compile Include="CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -258,10 +253,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ThemeManifest.tt</DependentUpon>
     </Compile>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\ApiControllerTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ApiControllerTemplate.cs</LastGenOutput>
-    </Content>
     <None Include="CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ContentPartTemplate.cs</LastGenOutput>

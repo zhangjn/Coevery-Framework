@@ -58,7 +58,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             
             #line default
             #line hidden
-            this.Write("Grid\").jqGrid({\r\n            url: \'@Href(\"~/api/");
+            this.Write("Grid\").jqGrid({\r\n            url: \'@Href(\"~/");
             
             #line 24 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
@@ -68,11 +68,11 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("/");
             
             #line 24 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName));
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityTypeName));
             
             #line default
             #line hidden
-            this.Write("Api\")\',\r\n            datatype: \"json\",\r\n            colModel: ");
+            this.Write("/GetAll\")\',\r\n            datatype: \"json\",\r\n            colModel: ");
             
             #line 26 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetGridColumnJSONString()));
@@ -121,6 +121,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         foreach (var gridColumn in columns) {
             var column = new JObject();
             column["name"] = gridColumn.Name;
+			column["index"] = gridColumn.Name;
             column["label"] = gridColumn.Label;
             if (gridColumn.Hidden)
                 column["hidden"] = true;

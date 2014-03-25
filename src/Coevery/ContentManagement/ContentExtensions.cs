@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using NHibernate.Criterion;
+using System.Linq.Expressions;
 using Coevery.ContentManagement.Records;
 
 namespace Coevery.ContentManagement {
@@ -140,6 +140,29 @@ namespace Coevery.ContentManagement {
 
         public static IEnumerable<T> Slice<T>(this IContentQuery<T> query, int count) where T : IContent {
             return query.Slice(0, count);
+        }
+
+        public static IContentQuery<TPart, TRecord> OrderBy<TPart, TRecord>(this IContentQuery<TPart, TRecord> query, string sortBy = null, string sortOrder = "asc")
+            where TPart : IContent
+            where TRecord : ContentPartRecord {
+
+            var type = typeof (TRecord);
+            if (string.IsNullOrEmpty(sortBy)) {
+                return query;
+            }
+            var property = type.GetProperty(sortBy);
+            if (property == null) {
+                return query;
+            }
+            var parameter = Expression.Parameter(type, "p");
+            var propertyAccess = Expression.MakeMemberAccess(parameter, property);
+            var orderByExp = Expression.Lambda(propertyAccess, parameter);
+
+            var instance = Expression.Convert(Expression.Constant(query), typeof(IContentQuery<TPart, TRecord>));
+            var methodName = ((string.IsNullOrEmpty(sortOrder) ? "asc" : sortOrder.ToLower()) == "asc") ?
+                "OrderBy" : "OrderByDescending";
+            var call = Expression.Call(instance, methodName, new Type[] { property.PropertyType }, orderByExp);
+            return (IContentQuery<TPart, TRecord>) Expression.Lambda(call).Compile().DynamicInvoke();
         }
     }
 

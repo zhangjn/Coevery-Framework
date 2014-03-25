@@ -21,7 +21,7 @@
 @using (Script.Foot()) {
     <script type="text/javascript">
         jQuery("#<#=ViewName.ToLower()#>Grid").jqGrid({
-            url: '@Href("~/api/<#=Namespace#>/<#=ViewName#>Api")',
+            url: '@Href("~/<#=Namespace#>/<#=EntityTypeName#>/GetAll")',
             datatype: "json",
             colModel: <#=GetGridColumnJSONString()#>,
             rowNum: 10,
@@ -55,6 +55,7 @@
         foreach (var gridColumn in columns) {
             var column = new JObject();
             column["name"] = gridColumn.Name;
+			column["index"] = gridColumn.Name;
             column["label"] = gridColumn.Label;
             if (gridColumn.Hidden)
                 column["hidden"] = true;
