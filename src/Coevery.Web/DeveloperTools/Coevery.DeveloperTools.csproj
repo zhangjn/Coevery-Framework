@@ -75,6 +75,7 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\aspnetwebapi\System.Web.Http.dll</HintPath>
@@ -127,6 +128,13 @@
     <Content Include="ListViewDesigner\Scripts\controllers\detailcontroller.js" />
     <Content Include="ListViewDesigner\Scripts\controllers\listcontroller.js" />
     <Content Include="ListViewDesigner\Scripts\services\projectiondataservice.js" />
+    <Content Include="Perspectives\Module.txt" />
+    <Content Include="Perspectives\Scripts\controllers\detailcontroller.js" />
+    <Content Include="Perspectives\Scripts\controllers\editcontroller.js" />
+    <Content Include="Perspectives\Scripts\controllers\listcontroller.js" />
+    <Content Include="Perspectives\Scripts\controllers\navigationitemeditcontroller.js" />
+    <Content Include="Perspectives\Scripts\services\navigationdataservice.js" />
+    <Content Include="Perspectives\Scripts\services\perspectivedataservice.js" />
     <Content Include="RelationshipManagement\Module.txt" />
     <Content Include="RelationshipManagement\Scripts\controllers\editmanytomanycontroller.js" />
     <Content Include="RelationshipManagement\Scripts\controllers\editonetomanycontroller.js" />
@@ -283,6 +291,34 @@
     <Compile Include="CodeGeneration\Services\DynamicDefinition.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicAssemblyBuilder.cs" />
     <Compile Include="EntityManagement\ViewModels\PublishConfirmViewModel.cs" />
+    <Compile Include="Perspectives\Controllers\NavigationController.cs" />
+    <Compile Include="Perspectives\Controllers\PerspectiveController.cs" />
+    <Compile Include="Perspectives\Controllers\AdminController.cs" />
+    <Compile Include="Perspectives\Drivers\ModuleMenuItemPartDriver.cs" />
+    <Compile Include="Perspectives\Drivers\PerspectiveDriver.cs" />
+    <Compile Include="Perspectives\Extensions\PerspectiveExtensions.cs" />
+    <Compile Include="Perspectives\Extensions\StringExtensions.cs" />
+    <Compile Include="Perspectives\FrontMenu\FrontMenu.cs" />
+    <Compile Include="Perspectives\FrontMenu\FrontMenuFilter.cs" />
+    <Compile Include="Perspectives\Handlers\ModuleMenuItemPartHandler.cs" />
+    <Compile Include="Perspectives\Handlers\PerspectiveEntityEventsHandler.cs" />
+    <Compile Include="Perspectives\Handlers\PerspectivePartHandler.cs" />
+    <Compile Include="Perspectives\Migrations.cs" />
+    <Compile Include="Perspectives\Models\PerspectivePart.cs" />
+    <Compile Include="Perspectives\Models\PerspectivePartRecord.cs" />
+    <Compile Include="Perspectives\Services\ClientRouteProvider.cs" />
+    <Compile Include="Perspectives\Services\ContentDefinitionService.cs" />
+    <Compile Include="Perspectives\Services\IContentDefinitionService.cs" />
+    <Compile Include="Perspectives\Services\PositionManageService.cs" />
+    <Compile Include="Perspectives\Services\SystemAdminMenu.cs" />
+    <Compile Include="Perspectives\Settings\PlacementSettings.cs" />
+    <Compile Include="Perspectives\ViewModels\CreatePartViewModel.cs" />
+    <Compile Include="Perspectives\ViewModels\EditFieldViewModel.cs" />
+    <Compile Include="Perspectives\ViewModels\EditPartFieldViewModel.cs" />
+    <Compile Include="Perspectives\ViewModels\EditPartViewModel.cs" />
+    <Compile Include="Perspectives\ViewModels\EditTypePartViewModel.cs" />
+    <Compile Include="Perspectives\ViewModels\EditTypeViewModel.cs" />
+    <Compile Include="Perspectives\ViewModels\PerspectiveViewModel.cs" />
     <Compile Include="RelationshipManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicTypeGenerationEvents.cs" />
     <Compile Include="EntityManagement\Handlers\EntityMetadataPartHandler.cs" />
@@ -400,6 +436,21 @@
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>RouteTemplate.cs</LastGenOutput>
     </Content>
+    <Content Include="Perspectives\Placement.info" />
+    <Content Include="Perspectives\Scripts\Web.config" />
+    <Content Include="Perspectives\Styles\Web.config" />
+    <Content Include="Perspectives\Views\EditorTemplates\Parts.MenuItem.Edit.cshtml" />
+    <Content Include="Perspectives\Views\EditorTemplates\Parts.ModuleMenuItem.Edit.cshtml" />
+    <Content Include="Perspectives\Views\Admin\Create.cshtml" />
+    <Content Include="Perspectives\Views\Admin\Detail.cshtml" />
+    <Content Include="Perspectives\Views\Admin\Edit.cshtml" />
+    <Content Include="Perspectives\Views\Admin\List.cshtml" />
+    <Content Include="Perspectives\Views\Admin\NavigationItem.cshtml" />
+    <Content Include="Perspectives\Views\Admin\SelectIconClass.cshtml" />
+    <Content Include="Perspectives\Views\Web.config" />
+    <Content Include="Perspectives\Views\Parts\DynamicEntity.Layout.Create.cshtml" />
+    <Content Include="Perspectives\Views\Parts\DynamicEntity.Layout.cshtml" />
+    <Content Include="Perspectives\Views\Parts\DynamicEntity.Layout.Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EntityManagement\Scripts\Web.config" />
@@ -469,6 +520,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
