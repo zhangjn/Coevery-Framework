@@ -28,4 +28,6 @@
     @Html.ValidationMessageFor(m => m.Value)
 </div>
 
-@Display(New.BootstrapDatePickerLocalization())
+@using (Script.Foot()) {
+    @Display(New.BootstrapDatePickerLocalization())
+}

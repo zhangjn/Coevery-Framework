@@ -17,17 +17,14 @@
     Style.Include("bootstrap/bootstrap.min.css");
     Style.Include("bootstrap/bootstrap-responsive.min.css");
     Style.Require("jQueryUI_Coevery");
-    Style.Include("uniform/css/uniform.default.css");
     Style.Include("fonts/icomoon/style.css");
     Style.Include("login.css");
-
-    Script.Require("require");
+    
     Script.Require("jQuery");
     Script.Require("jQueryUI");
-    Script.Include("uniform/jquery.uniform.js");
-    Script.Include("js/libs/bootstrap.js");
+    Script.Include("bootstrap/bootstrap.js");
     Script.Require("jQueryValidate");
-    Script.Include("js/libs/jquery.placeholder.min.js");
+    Script.Include("js/jquery.placeholder.min.js");
     Script.Include("js/login.js");
 }
 <!DOCTYPE html>
@@ -91,7 +88,7 @@
                             </div>
                         </div>
                         <div class="control-group">
-                            <label class="checkbox" style="padding-left: 0px;">
+                            <label class="checkbox">
                                 <input id="remember-me" name="rememberMe" type="checkbox" class="uniform" value="true" /><input name="rememberMe" type="hidden" value="false" />
                                 Remember me
                             </label>

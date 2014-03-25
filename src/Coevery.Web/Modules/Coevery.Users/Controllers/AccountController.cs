@@ -43,7 +43,7 @@ namespace Coevery.Users.Controllers {
         public ILogger Logger { get; set; }
         public Localizer T { get; set; }
 
-        [AlwaysAccessible]
+        [AlwaysAccessible, Themed(false)]
         public ActionResult AccessDenied() {
             var returnUrl = Request.QueryString["ReturnUrl"];
             var currentUser = _authenticationService.GetAuthenticatedUser();
@@ -63,7 +63,7 @@ namespace Coevery.Users.Controllers {
             return View();
         }
 
-        [AlwaysAccessible]
+        [AlwaysAccessible, Themed(false)]
         public ActionResult LogOn() {
             if (_authenticationService.GetAuthenticatedUser() != null)
                 return Redirect("~/");
@@ -73,7 +73,7 @@ namespace Coevery.Users.Controllers {
         }
 
         [HttpPost]
-        [AlwaysAccessible]
+        [AlwaysAccessible, Themed(false)]
         [ValidateInput(false)]
         [SuppressMessage("Microsoft.Design", "CA1054:UriParametersShouldNotBeStrings",
             Justification = "Needs to take same parameter type as Controller.Redirect()")]

@@ -41,9 +41,6 @@
         // Initialize Bootstrap Popovers
         $.fn.popover && $('[rel="popover"]').popover();
 
-        // Style checkboxes and radios
-        $.fn.uniform && $(':radio.uniform, :checkbox.uniform').uniform();
-
         // IE Placeholder
         $.fn.placeholder && $('[placeholder]').placeholder();
 
@@ -59,7 +56,14 @@
             .on('mouseout tr', '.ui-jqgrid-btable tr', function (e) {
                 $(this).find('.row-actions').addClass('hide');
             });
+        
+        // Initialize DateTime Picker
+        if ($.fn.datetimepicker) {
+            $('[data-co-datetime-picker="date"]').datetimepicker({ pickTime: false });
+            $('[data-co-datetime-picker="datetime"]').datetimepicker({ pickSeconds: false });
+        }
 
+        // Custom validate methods
         $.validator.addMethod("phonenumber", function (value) {
             if (value) {
                 return (/^\d{8,12}|(((\(\d{3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7})$/.test(value));
