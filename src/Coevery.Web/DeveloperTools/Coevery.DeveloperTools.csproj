@@ -310,7 +310,7 @@
     <Compile Include="Perspectives\Services\ContentDefinitionService.cs" />
     <Compile Include="Perspectives\Services\IContentDefinitionService.cs" />
     <Compile Include="Perspectives\Services\PositionManageService.cs" />
-    <Compile Include="Perspectives\Services\SystemAdminMenu.cs" />
+    <Compile Include="Perspectives\Services\AdminMenu.cs" />
     <Compile Include="Perspectives\Settings\PlacementSettings.cs" />
     <Compile Include="Perspectives\ViewModels\CreatePartViewModel.cs" />
     <Compile Include="Perspectives\ViewModels\EditFieldViewModel.cs" />

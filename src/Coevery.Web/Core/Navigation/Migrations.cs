@@ -44,29 +44,6 @@ namespace Coevery.Core.Navigation {
                 .WithSetting("Stereotype", "MenuItem") // because we declare a new stereotype, the Shape MenuItem_Edit is needed
                 );
 
-            SchemaBuilder.CreateTable("MenuWidgetPartRecord", table => table
-                .ContentPartRecord()
-                .Column<int>("StartLevel")
-                .Column<int>("Levels")
-                .Column<bool>("Breadcrumb")
-                .Column<bool>("AddHomePage")
-                .Column<bool>("AddCurrentPage")
-                .Column<int>("Menu_id")
-                );
-
-            ContentDefinitionManager.AlterTypeDefinition("MenuWidget", cfg => cfg
-                .WithPart("MenuWidgetPart")
-                .WithSetting("Stereotype", "Widget")
-                );
-
-            SchemaBuilder.CreateTable("AdminMenuPartRecord",
-                table => table
-                    .ContentPartRecord()
-                    .Column<string>("AdminMenuText")
-                    .Column<string>("AdminMenuPosition")
-                    .Column<bool>("OnAdminMenu")
-                );
-
             ContentDefinitionManager.AlterTypeDefinition("HtmlMenuItem", cfg => cfg
                 .WithPart("MenuPart")
                 .DisplayedAs("Html Menu Item")
@@ -75,25 +52,7 @@ namespace Coevery.Core.Navigation {
                 .WithSetting("Stereotype", "MenuItem")
                 );
 
-            ContentDefinitionManager.AlterPartDefinition("AdminMenuPart", builder => { });
-
-            SchemaBuilder.CreateTable("ShapeMenuItemPartRecord",
-                table => table.ContentPartRecord()
-                    .Column<string>("ShapeType")
-                );
-
-            ContentDefinitionManager.AlterTypeDefinition("ShapeMenuItem",
-                cfg => cfg
-                    .WithPart("ShapeMenuItemPart")
-                    .WithPart("MenuPart")
-                    .DisplayedAs("Shape Link")
-                    .WithSetting("Description", "Injects menu items from a Shape")
-                    .WithSetting("Stereotype", "MenuItem")
-                );
-
             ContentDefinitionManager.AlterPartDefinition("MenuPart", builder => { });
-
-            ContentDefinitionManager.AlterPartDefinition("AdminMenuPart", builder => { });
 
             ContentDefinitionManager.AlterTypeDefinition("Menu", cfg => cfg
                 .WithPart("PerspectivePart")

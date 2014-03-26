@@ -170,44 +170,25 @@
     <Compile Include="Forms\Shapes\PropertyItemsBehavior.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Navigation\Commands\MenuCommands.cs" />
-    <Compile Include="Navigation\Controllers\AdminController.cs" />
-    <Compile Include="Navigation\Drivers\AdminMenuPartDriver.cs" />
     <Compile Include="Navigation\Drivers\MenuItemPartDriver.cs" />
     <Compile Include="Navigation\Drivers\MenuPartDriver.cs" />
-    <Compile Include="Navigation\Drivers\MenuWidgetPartDriver.cs" />
-    <Compile Include="Navigation\Drivers\ShapeMenuItemPartDriver.cs" />
-    <Compile Include="Navigation\Handlers\AdminMenuPartHandler.cs" />
     <Compile Include="Navigation\Handlers\MenuHandler.cs" />
     <Compile Include="Navigation\Handlers\MenuItemPartHandler.cs" />
     <Compile Include="Navigation\Handlers\MenuPartHandler.cs" />
-    <Compile Include="Navigation\Handlers\MenuWidgetPartHandler.cs" />
-    <Compile Include="Navigation\Handlers\ShapeMenuItemPartHandler.cs" />
     <Compile Include="Navigation\Migrations.cs" />
-    <Compile Include="Navigation\Models\AdminMenuPart.cs" />
-    <Compile Include="Navigation\Models\AdminMenuPartRecord.cs" />
     <Compile Include="Navigation\Models\MenuItemPart.cs" />
     <Compile Include="Navigation\Models\MenuItemPartRecord.cs" />
     <Compile Include="Navigation\Models\MenuPart.cs" />
     <Compile Include="Navigation\Models\MenuPartRecord.cs" />
-    <Compile Include="Navigation\Models\MenuWidgetPart.cs" />
-    <Compile Include="Navigation\Models\MenuWidgetPartRecord.cs" />
-    <Compile Include="Navigation\Models\ShapeMenuItemPart.cs" />
-    <Compile Include="Navigation\Models\ShapeMenuItemPartRecord.cs" />
     <Compile Include="Navigation\Permissions.cs" />
-    <Compile Include="Navigation\Services\AdminMenuNavigationProvider.cs" />
     <Compile Include="Navigation\Services\DefaultMenuManager.cs" />
     <Compile Include="Navigation\Services\DefaultMenuProvider.cs" />
     <Compile Include="Navigation\Services\IMenuManager.cs" />
     <Compile Include="Navigation\Services\IMenuService.cs" />
     <Compile Include="Navigation\Services\MainMenuService.cs" />
     <Compile Include="Navigation\Services\NavigationManager.cs" />
-    <Compile Include="Navigation\Settings\AdminMenuPartTypeSettings.cs" />
-    <Compile Include="Navigation\ViewModels\CreateMenuItemViewModel.cs" />
     <Compile Include="Navigation\ViewModels\MenuItemEntry.cs" />
     <Compile Include="Navigation\ViewModels\MenuPartViewModel.cs" />
-    <Compile Include="Navigation\ViewModels\MenuWidgetViewModel.cs" />
-    <Compile Include="Navigation\ViewModels\NavigationManagementViewModel.cs" />
     <Compile Include="Navigation\ViewModels\PositionTreeModel.cs" />
     <Compile Include="Projections\PropertyEditors\IContentFieldFormatter.cs" />
     <Compile Include="Projections\Providers\Properties\IContentFieldValueProvider.cs" />
@@ -1281,21 +1262,13 @@
     <Content Include="Navigation\Placement.info" />
     <Content Include="Navigation\Scripts\Web.config" />
     <Content Include="Navigation\Styles\Web.config" />
-    <Content Include="Navigation\Views\Admin\CreateMenuItem.cshtml" />
-    <Content Include="Navigation\Views\Admin\Index.cshtml" />
     <Content Include="Navigation\Views\Content-Menu.Edit.cshtml" />
-    <Content Include="Navigation\Views\DefinitionTemplates\AdminMenuPartTypeSettings.cshtml" />
     <Content Include="Navigation\Views\EditorTemplates\Parts.MenuItem.Edit.cshtml" />
-    <Content Include="Navigation\Views\EditorTemplates\Parts.MenuWidget.Edit.cshtml" />
-    <Content Include="Navigation\Views\EditorTemplates\Parts.Navigation.AdminMenu.Edit.cshtml" />
     <Content Include="Navigation\Views\EditorTemplates\Parts.Navigation.Menu.Edit.cshtml" />
-    <Content Include="Navigation\Views\EditorTemplates\Parts.ShapeMenuItemPart.Edit.cshtml" />
     <Content Include="Navigation\Views\Menu.DeleteButton.cshtml" />
     <Content Include="Navigation\Views\Menu.Edit.cshtml" />
     <Content Include="Navigation\Views\MenuItem.Edit.cshtml" />
     <Content Include="Navigation\Views\MenuItemLink-HtmlMenuItem.cshtml" />
-    <Content Include="Navigation\Views\MenuItemLink-ShapeMenuItem.cshtml" />
-    <Content Include="Navigation\Views\Parts.MenuWidget.cshtml" />
     <Content Include="Navigation\Views\Web.config" />
   </ItemGroup>
   <PropertyGroup>

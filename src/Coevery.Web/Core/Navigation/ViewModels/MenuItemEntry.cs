@@ -1,5 +1,4 @@
-﻿using Coevery.UI.Navigation;
-using Coevery.ContentManagement;
+﻿using Coevery.ContentManagement;
 
 namespace Coevery.Core.Navigation.ViewModels {
     public class MenuItemEntry {
