@@ -11,7 +11,6 @@ namespace Coevery.DeveloperTools.Perspectives.Handlers {
 
         public ModuleMenuItemPartHandler(IContentManager contentManager, IRepository<ModuleMenuItemPartRecord> repository) {
             _contentManager = contentManager;
-            Filters.Add(new ActivatingFilter<ModuleMenuItemPart>("ModuleMenuItem"));
             Filters.Add(StorageFilter.For(repository));
 
             //OnLoading<ModuleMenuItemPart>((context, part) => part..Loader(p => contentManager.Get(part.Record.ContentTypeRecored.Id)));
@@ -34,10 +33,6 @@ namespace Coevery.DeveloperTools.Perspectives.Handlers {
 
                 // context.Metadata.DisplayRouteValues = _contentManager.GetItemMetadata(moduleMenuItemPart.Content).DisplayRouteValues;
             }
-        }
-
-        protected override void Loading(LoadContentContext context) {
-            base.Loading(context);
         }
     }
 }
