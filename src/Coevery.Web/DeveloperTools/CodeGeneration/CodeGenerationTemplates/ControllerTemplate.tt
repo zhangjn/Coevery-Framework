@@ -4,6 +4,8 @@
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition" name="ModelDefinition" #>
 using System.Linq;
+using System.Collections.Generic;
+using System.Net;
 using System.Web.Mvc;
 using Coevery;
 using Coevery.ContentManagement;
@@ -34,7 +36,8 @@ namespace <#=Namespace#>.Controllers {
             return View(model);
         }
 
-		public ActionResult GetAll(int page = 1, int pageSize = 10, string sortBy = null, string sortOrder = "asc") {
+		[HttpPost]
+		public ActionResult List(int page = 1, int pageSize = 10, string sortBy = null, string sortOrder = "asc") {
 	        var query = Services.ContentManager.Query<<#=ModelDefinition.Name#>Part, <#=ModelDefinition.Name#>PartRecord>();
 	        var totalRecords = query.Count();
 	        var records = query
@@ -52,7 +55,7 @@ namespace <#=Namespace#>.Controllers {
 	            totalRecords,
 	            rows = records
 	        };
-	        return Json(result, JsonRequestBehavior.AllowGet);
+	        return Json(result);
 	    }
 
         public ActionResult Detail(int id) {
@@ -113,14 +116,16 @@ namespace <#=Namespace#>.Controllers {
         }
 
         [HttpPost]
-        public ActionResult DeletePost(int id, FormCollection collection) {
+        public ActionResult Delete(List<int> selectedIds){
             try {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                var items = Services.ContentManager.Query().ForContentItems(selectedIds).List();
+                foreach (var item in items) {
+                    Services.ContentManager.Remove(item);
+                }
+                return new HttpStatusCodeResult(HttpStatusCode.OK, T("Delete succeeded").Text);
             }
             catch {
-                return View();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, T("Delete failed").Text);
             }
         }
 

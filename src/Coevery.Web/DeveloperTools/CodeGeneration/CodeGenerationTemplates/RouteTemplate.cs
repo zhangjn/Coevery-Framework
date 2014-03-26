@@ -15,7 +15,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class RouteTemplate : RouteTemplateBase
     {
@@ -28,40 +28,36 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("\r\n\r\nusing System.Collections.Generic;\r\nusing System.Web.Mvc;\r\nusing System.Web.Ro" +
                     "uting;\r\nusing Coevery.Mvc.Routes;\r\n\r\nnamespace ");
             
-            #line 12 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            #line 12 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(" {\r\n    public class Routes : IRouteProvider {\r\n        public IEnumerable<RouteD" +
-                    "escriptor> GetRoutes() {\r\n\r\n            yield return new RouteDescriptor {\r\n    " +
-                    "            Route = new Route(\r\n                    \"");
+            this.Write(@" {
+    public class Routes : IRouteProvider {
+        public IEnumerable<RouteDescriptor> GetRoutes() {
+
+            yield return new RouteDescriptor {
+				Priority = -19,
+                Route = new Route(
+                    ""{controller}/{action}/{id}"",
+                    new RouteValueDictionary {
+                        {""area"", """);
             
-            #line 18 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
-            
-            #line default
-            #line hidden
-            this.Write("/{action}\",\r\n                    new RouteValueDictionary {\r\n                    " +
-                    "    {\"area\", \"");
-            
-            #line 20 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            #line 21 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(AssemblyName));
             
             #line default
             #line hidden
-            this.Write("\"},\r\n                        {\"controller\", \"");
+            this.Write(@"""},
+                        {""controller"", ""Lead""},
+                        {""action"", ""Index""},
+                        {""id"", """"}
+                    },
+                    new RouteValueDictionary(),
+                    new RouteValueDictionary {{""area"", """);
             
-            #line 21 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
-            
-            #line default
-            #line hidden
-            this.Write("\"},\r\n                        {\"action\", \"Index\"}\r\n                    },\r\n       " +
-                    "             new RouteValueDictionary(),\r\n                    new RouteValueDict" +
-                    "ionary {{\"area\", \"");
-            
-            #line 25 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            #line 27 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(AssemblyName));
             
             #line default
@@ -81,7 +77,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
 
 private string _NamespaceField;
 

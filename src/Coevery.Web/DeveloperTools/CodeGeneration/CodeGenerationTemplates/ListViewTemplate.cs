@@ -35,46 +35,91 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public virtual string TransformText()
         {
             this.Write("\r\n");
-            this.Write("@{\r\n    Style.Require(\"jqGrid\");\r\n    Style.Require(\"jqGridCustom\");\r\n    Script." +
-                    "Require(\"jqGrid\");\r\n}\r\n\r\n<div class=\"row-fluid\">\r\n    <table id=\"");
+            this.Write(@"@{
+    Style.Require(""jqGrid"");
+    Style.Require(""jqGridCustom"");
+    Script.Require(""jqGrid"");
+	Script.Require(""jqGrid_i18n"");
+}
+
+<div class=""row-fluid"">
+    <button id=""btnAdd"" class=""btn btn-primary"" type=""button""><i class=""icon-plus""></i> Add</button>
+    <button id=""btnEdit"" class=""btn btn-primary"" type=""button""><i class=""icon-edit""></i> Edit</button>
+    <button id=""btnDelete"" class=""btn btn-warning"" type=""button""><i class=""icon-trash""></i> Delete</button>
+    <button id=""btnRefresh"" class=""btn"" type=""button"">Refresh</button>
+</div>
+
+<div class=""row-fluid"">
+    <table id=""");
             
-            #line 17 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            #line 25 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
             
             #line default
             #line hidden
             this.Write("Grid\"></table>\r\n    <section id=\"");
             
-            #line 18 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            #line 26 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
             
             #line default
             #line hidden
-            this.Write("GridPager\"></section>\r\n</div>\r\n\r\n@using (Script.Foot()) {\r\n    <script type=\"text" +
-                    "/javascript\">\r\n        jQuery(\"#");
+            this.Write("GridPager\"></section>\r\n</div>\r\n@Html.AntiForgeryToken()\r\n\r\n@using (Script.Foot())" +
+                    " {\r\n    <script type=\"text/javascript\">\r\n\t\tfunction updateButtonStatus() {\r\n    " +
+                    "        var selectedRowIds = $(\'#");
             
-            #line 23 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            #line 33 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
             
             #line default
             #line hidden
-            this.Write("Grid\").jqGrid({\r\n            url: \'@Href(\"~/");
+            this.Write(@"Grid').jqGrid('getGridParam', 'selarrrow');
+            $(""#btnEdit"").toggle(selectedRowIds.length == 1);
+            $(""#btnDelete"").toggle(selectedRowIds.length > 0);
+        }
+
+        $.extend(jQuery.jgrid.defaults, {
+            prmNames: {
+                page: 'page',
+                rows: 'pageSize',
+                sort: 'sortBy',
+                order: 'sortOrder'
+            }
+        });
+        $('#");
             
-            #line 24 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            #line 46 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
+            
+            #line default
+            #line hidden
+            this.Write("Grid\').jqGrid({\r\n            url: \'@Href(\"~/");
+            
+            #line 47 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write("/");
             
-            #line 24 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            #line 47 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityTypeName));
             
             #line default
             #line hidden
-            this.Write("/GetAll\")\',\r\n            datatype: \"json\",\r\n            colModel: ");
+            this.Write(@"/List"")',
+            datatype: 'json',
+			mtype: 'POST',
+            postData: {
+                __RequestVerificationToken: function () {
+                var magicToken = $(""input[name=__RequestVerificationToken]"").first();
+                if (!magicToken) { return null; } // no sense in continuing if form POSTS will fail
+                return magicToken.val();
+                }
+            },
+            colModel: ");
             
-            #line 26 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            #line 57 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(GetGridColumnJSONString()));
             
             #line default
@@ -82,7 +127,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write(",\r\n            rowNum: 10,\r\n            rowList: [10, 20, 30],\r\n            pager" +
                     ": \'#");
             
-            #line 29 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            #line 60 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
             
             #line default
@@ -90,29 +135,120 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write(@"GridPager',
             viewrecords: true,
             height: '100%',
-            pagerpos: ""right"",
-            recordpos: ""left"",
+            pagerpos: 'right',
+            recordpos: 'left',
             sortable: true,
             headertitles: true,
             multiselect: true,
             multiboxonly: true,
             autowidth: true,
             jsonReader: {
-                page: ""page"",
-                total: ""totalPages"",
-                records: ""totalRecords"",
+                page: 'page',
+                total: 'totalPages',
+                records: 'totalRecords',
                 repeatitems: false
+            },
+            onSelectRow: function() {
+                updateButtonStatus();
+            },
+            gridComplete: function() {
+                updateButtonStatus();
             }
         });
-    </script>
-}
+        $('#btnAdd').click(function() {
+            window.location.href = '@Href(""~/");
+            
+            #line 84 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write("/");
+            
+            #line 84 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityTypeName));
+            
+            #line default
+            #line hidden
+            this.Write("/Create\")\';\r\n        });\r\n        $(\'#btnEdit\').click(function() {\r\n            v" +
+                    "ar selectedRowIds = $(\'#");
+            
+            #line 87 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
+            
+            #line default
+            #line hidden
+            this.Write("Grid\').jqGrid(\'getGridParam\', \'selarrrow\');\r\n            if (selectedRowIds.lengt" +
+                    "h == 0) return;\r\n            window.location.href = \'@Href(\"~/");
+            
+            #line 89 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write("/");
+            
+            #line 89 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityTypeName));
+            
+            #line default
+            #line hidden
+            this.Write("/Edit/\")\' + selectedRowIds[0];\r\n        });\r\n        $(\'#btnDelete\').click(functi" +
+                    "on () {\r\n            var selectedIds = $(\'#");
+            
+            #line 92 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
+            
+            #line default
+            #line hidden
+            this.Write(@"Grid').jqGrid('getGridParam', 'selarrrow');
+		    if (selectedIds.length == 0) return;
+		    var magicToken = $(""input[name=__RequestVerificationToken]"").first();
+		    if (!magicToken) {
+		        return;
+		    } // no sense in continuing if form POSTS will fail
+		    var confirm = window.confirm($.jgrid.del.msg);
+		    if (!confirm) return;
 
-
-");
+			$.ajax({
+		            url: '@Href(""~/");
+            
+            #line 102 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
+            
+            #line default
+            #line hidden
+            this.Write("/");
+            
+            #line 102 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityTypeName));
+            
+            #line default
+            #line hidden
+            this.Write("/Delete\")\',\r\n\t\t            data: { selectedIds: selectedIds, __RequestVerificatio" +
+                    "nToken: magicToken.val() },\r\n\t\t            type: \"POST\",\r\n\t\t            traditio" +
+                    "nal: true\r\n\t\t        })\r\n\t\t        .done(function(response) {\r\n\t\t            $(\'" +
+                    "#");
+            
+            #line 108 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
+            
+            #line default
+            #line hidden
+            this.Write("Grid\').trigger(\'reloadGrid\');\r\n\t\t        })\r\n\t\t        .fail(function(jqXHR, text" +
+                    "Status, errorThrown) {\r\n\t\t            alert(textStatus);\r\n\t\t        });\r\n       " +
+                    " });\r\n        $(\'#btnRefresh\').click(function () {\r\n            $(\'#");
+            
+            #line 115 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(ViewName.ToLower()));
+            
+            #line default
+            #line hidden
+            this.Write("Grid\').trigger(\'reloadGrid\');\r\n        });\r\n    </script>\r\n}\r\n\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 50 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
+        #line 121 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt"
 
 
     private string GetGridColumnJSONString() {

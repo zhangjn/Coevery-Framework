@@ -14,12 +14,14 @@ namespace <#=Namespace#> {
         public IEnumerable<RouteDescriptor> GetRoutes() {
 
             yield return new RouteDescriptor {
+				Priority = -19,
                 Route = new Route(
-                    "<#=EntityName#>/{action}",
+                    "{controller}/{action}/{id}",
                     new RouteValueDictionary {
                         {"area", "<#=AssemblyName#>"},
-                        {"controller", "<#=EntityName#>"},
-                        {"action", "Index"}
+                        {"controller", "Lead"},
+                        {"action", "Index"},
+                        {"id", ""}
                     },
                     new RouteValueDictionary(),
                     new RouteValueDictionary {{"area", "<#=AssemblyName#>"}},
