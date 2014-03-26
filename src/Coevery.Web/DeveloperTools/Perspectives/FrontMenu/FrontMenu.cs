@@ -5,7 +5,6 @@ using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.Core.Common;
 using Coevery.Core.Common.Extensions;
-using Coevery.Core.Common.Models;
 using Coevery.Core.Navigation.Models;
 using Coevery.Core.Navigation.Services;
 using Coevery.Core.Navigation.ViewModels;

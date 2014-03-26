@@ -1,8 +1,8 @@
 ﻿using Coevery.ContentManagement;
 using Coevery.Core.Common.Extensions;
-using Coevery.Core.Common.Models;
 using Coevery.Core.Entities.Events;
 using Coevery.Core.Navigation.Models;
+using Coevery.DeveloperTools.Perspectives.Models;
 
 namespace Coevery.DeveloperTools.Perspectives.Handlers {
     public class PerspectiveEntityEventsHandler : IEntityEvents {

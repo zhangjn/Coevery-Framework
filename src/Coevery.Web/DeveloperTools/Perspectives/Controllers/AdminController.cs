@@ -5,14 +5,9 @@ using System.Net;
 using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
-using Coevery.Core.Common.Extensions;
-using Coevery.Core.Common.ViewModels;
 using Coevery.Core.Navigation;
 using Coevery.Core.Navigation.Models;
-using Coevery.Core.Settings.Metadata.Records;
-using Coevery.Data;
 using Coevery.DeveloperTools.Perspectives.Models;
-using Coevery.DeveloperTools.Perspectives.Services;
 using Coevery.DeveloperTools.Perspectives.ViewModels;
 using Coevery.Localization;
 using Coevery.Logging;
@@ -21,28 +16,16 @@ using Coevery.Utility;
 
 namespace Coevery.DeveloperTools.Perspectives.Controllers {
     public class AdminController : Controller, IUpdateModel {
-        private readonly IContentDefinitionService _contentDefinitionService;
-        private readonly IRepository<ContentTypeDefinitionRecord> _contentTypeDefinitionRepository;
         private readonly IContentManager _contentManager;
-        private readonly IContentDefinitionExtension _contentDefinitionExtension;
         private readonly INavigationManager _navigationManager;
-        private readonly IPositionManageService _positionManager;
 
         public AdminController(
             ICoeveryServices coeveryServices,
-            IContentDefinitionService contentDefinitionService,
-            IContentDefinitionExtension contentDefinitionExtension,
-            IRepository<ContentTypeDefinitionRecord> contentTypeDefinitionRepository,
-            IPositionManageService positionManager,
             IContentManager contentManager,
             INavigationManager navigationManager) {
             Services = coeveryServices;
-            _contentDefinitionExtension = contentDefinitionExtension;
-            _contentDefinitionService = contentDefinitionService;
-            _contentTypeDefinitionRepository = contentTypeDefinitionRepository;
             _contentManager = contentManager;
             _navigationManager = navigationManager;
-            _positionManager = positionManager;
             T = NullLocalizer.Instance;
         }
 
@@ -57,7 +40,6 @@ namespace Coevery.DeveloperTools.Perspectives.Controllers {
                 Handler = string.Empty
             });
         }
-
 
         public ActionResult Create() {
             PerspectiveViewModel model = new PerspectiveViewModel();
@@ -81,7 +63,6 @@ namespace Coevery.DeveloperTools.Perspectives.Controllers {
             _contentManager.Publish(contentItem);
             return Json(new {id = contentItem.Id});
         }
-
 
         public ActionResult Edit(int id) {
             var contentItem = _contentManager.Get(id, VersionOptions.Latest);
@@ -122,11 +103,11 @@ namespace Coevery.DeveloperTools.Perspectives.Controllers {
         }
 
         public ActionResult EditNavigationItem(int id, string type) {
-
             var menuPart = Services.ContentManager.Get<MenuPart>(id);
 
-            if (menuPart == null)
+            if (menuPart == null) {
                 return HttpNotFound();
+            }
 
             try {
                 var model = Services.ContentManager.BuildEditor(menuPart, "Detail");
@@ -142,20 +123,20 @@ namespace Coevery.DeveloperTools.Perspectives.Controllers {
         }
 
         [HttpPost, ActionName("EditNavigationItem")]
-        public ActionResult EditNavigationItemPOST(int id)
-        {
-            if (!Services.Authorizer.Authorize(Permissions.ManageMainMenu, T("Couldn't manage the main menu")))
+        public ActionResult EditNavigationItemPOST(int id) {
+            if (!Services.Authorizer.Authorize(Permissions.ManageMainMenu, T("Couldn't manage the main menu"))) {
                 return new HttpUnauthorizedResult();
+            }
 
             var menuPart = Services.ContentManager.Get<MenuPart>(id);
 
-            if (menuPart == null)
+            if (menuPart == null) {
                 return HttpNotFound();
+            }
 
             var model = Services.ContentManager.UpdateEditor(menuPart, this);
 
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid) {
                 Services.TransactionManager.Cancel();
                 return View("NavigationItem", model);
             }
@@ -164,20 +145,23 @@ namespace Coevery.DeveloperTools.Perspectives.Controllers {
         }
 
         public ActionResult CreateNavigationItem(int id, string type) {
-            if (!Services.Authorizer.Authorize(Permissions.ManageMainMenu, T("Couldn't manage the main menu")))
+            if (!Services.Authorizer.Authorize(Permissions.ManageMainMenu, T("Couldn't manage the main menu"))) {
                 return new HttpUnauthorizedResult();
+            }
 
             // create a new temporary menu item
             var menuPart = Services.ContentManager.New<MenuPart>(type);
 
-            if (menuPart == null)
+            if (menuPart == null) {
                 return HttpNotFound();
+            }
 
             // load the menu
             var menu = Services.ContentManager.Get(id);
 
-            if (menu == null)
+            if (menu == null) {
                 return HttpNotFound();
+            }
 
             try {
                 // filter the content items for this specific menu
@@ -198,20 +182,22 @@ namespace Coevery.DeveloperTools.Perspectives.Controllers {
 
         [HttpPost, ActionName("CreateNavigationItem")]
         public ActionResult CreateNavigationItemPOST(int id, string type) {
-
-            if (!Services.Authorizer.Authorize(Permissions.ManageMainMenu, T("Couldn't manage the main menu")))
+            if (!Services.Authorizer.Authorize(Permissions.ManageMainMenu, T("Couldn't manage the main menu"))) {
                 return new HttpUnauthorizedResult();
+            }
 
             var menuPart = Services.ContentManager.New<MenuPart>(type);
 
-            if (menuPart == null)
+            if (menuPart == null) {
                 return HttpNotFound();
+            }
 
             // load the menu
             var menu = Services.ContentManager.Get(id);
 
-            if (menu == null)
+            if (menu == null) {
                 return HttpNotFound();
+            }
 
             var model = Services.ContentManager.UpdateEditor(menuPart, this);
 
@@ -235,6 +221,5 @@ namespace Coevery.DeveloperTools.Perspectives.Controllers {
         void IUpdateModel.AddModelError(string key, LocalizedString errorMessage) {
             ModelState.AddModelError(key, errorMessage.ToString());
         }
-
     }
 }

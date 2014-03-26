@@ -1,7 +1,7 @@
 ﻿using Coevery.ContentManagement;
 using Coevery.Core.Settings.Metadata.Records;
 
-namespace Coevery.Core.Common.Models {
+namespace Coevery.DeveloperTools.Perspectives.Models {
     public class ModuleMenuItemPart : ContentPart<ModuleMenuItemPartRecord> {
         public ContentTypeDefinitionRecord ContentTypeDefinitionRecord {
             get { return Record.ContentTypeDefinitionRecord; }

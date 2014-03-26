@@ -2,12 +2,12 @@
 using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
-using Coevery.Core.Common.Models;
-using Coevery.Core.Common.ViewModels;
 using Coevery.Core.Navigation;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data;
+using Coevery.DeveloperTools.Perspectives.Models;
 using Coevery.DeveloperTools.Perspectives.Services;
+using Coevery.DeveloperTools.Perspectives.ViewModels;
 using Coevery.Localization;
 using Coevery.Security;
 using JetBrains.Annotations;

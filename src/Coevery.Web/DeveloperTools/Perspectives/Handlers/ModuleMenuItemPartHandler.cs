@@ -1,7 +1,7 @@
 ﻿using Coevery.ContentManagement;
 using Coevery.ContentManagement.Handlers;
-using Coevery.Core.Common.Models;
 using Coevery.Data;
+using Coevery.DeveloperTools.Perspectives.Models;
 using JetBrains.Annotations;
 
 namespace Coevery.DeveloperTools.Perspectives.Handlers {

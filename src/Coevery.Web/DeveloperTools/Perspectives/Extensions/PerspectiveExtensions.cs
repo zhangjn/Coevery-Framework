@@ -5,8 +5,7 @@ using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.DeveloperTools.Perspectives.Settings;
 
-namespace Coevery.DeveloperTools.Perspectives.Extensions
-{
+namespace Coevery.DeveloperTools.Perspectives.Extensions {
     public enum PlacementType {
         Display,
         Editor
@@ -21,7 +20,7 @@ namespace Coevery.DeveloperTools.Perspectives.Extensions
             var placementSettings = GetPlacement(builder.Build(), placementType).ToList();
 
             placementSettings = placementSettings.Where(x => x.ShapeType != shapeType && x.Differentiator != differentiator).ToList();
-            
+
             var placement = serializer.Serialize(placementSettings.ToArray());
 
             return builder.WithSetting("ContentTypeSettings.Placement." + placementType, placement);
@@ -62,7 +61,7 @@ namespace Coevery.DeveloperTools.Perspectives.Extensions
             var serializer = new JavaScriptSerializer();
             var placementSettings = GetPlacement(builder, placementType).ToList();
 
-            placementSettings = placementSettings.Where(x => !x.IsSameAs(new PlacementSettings { ShapeType = shapeType, Differentiator = differentiator })).ToList();
+            placementSettings = placementSettings.Where(x => !x.IsSameAs(new PlacementSettings {ShapeType = shapeType, Differentiator = differentiator})).ToList();
 
             placementSettings.Add(new PlacementSettings {
                 ShapeType = shapeType,
@@ -92,8 +91,6 @@ namespace Coevery.DeveloperTools.Perspectives.Extensions
             currentSettings.TryGetValue("ContentTypeSettings.Placement." + placementType, out placement);
 
             return String.IsNullOrEmpty(placement) ? new PlacementSettings[0] : serializer.Deserialize<PlacementSettings[]>(placement);
-
         }
-
     }
 }

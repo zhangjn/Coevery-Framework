@@ -1,5 +1,4 @@
-﻿
-namespace Coevery.Core.Common.ViewModels {
+﻿namespace Coevery.DeveloperTools.Perspectives.ViewModels {
     public class GridRowSortSettingViewModel {
         public string Url { get; set; }
         public string Method { get; set; }

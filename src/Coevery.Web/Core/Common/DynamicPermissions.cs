@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
-using Coevery.Core.Common.Settings;
 using Coevery.Environment.Extensions.Models;
 using Coevery.Security.Permissions;
 
@@ -39,8 +38,7 @@ namespace Coevery.Core.Common {
 
         public IEnumerable<Permission> GetPermissions() {
             // manage rights only for Creatable types
-            var creatableTypes = _contentDefinitionManager.ListTypeDefinitions()
-                .Where(ctd => ctd.Settings.GetModel<ContentTypeSettings>().Creatable);
+            var creatableTypes = _contentDefinitionManager.ListTypeDefinitions();
 
             foreach (var typeDefinition in creatableTypes) {
                 foreach (var permissionTemplate in PermissionTemplates.Values) {

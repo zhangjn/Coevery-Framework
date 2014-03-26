@@ -304,6 +304,8 @@
     <Compile Include="Perspectives\Handlers\PerspectiveEntityEventsHandler.cs" />
     <Compile Include="Perspectives\Handlers\PerspectivePartHandler.cs" />
     <Compile Include="Perspectives\Migrations.cs" />
+    <Compile Include="Perspectives\Models\ModuleMenuItemPart.cs" />
+    <Compile Include="Perspectives\Models\ModuleMenuItemPartRecord.cs" />
     <Compile Include="Perspectives\Models\PerspectivePart.cs" />
     <Compile Include="Perspectives\Models\PerspectivePartRecord.cs" />
     <Compile Include="Perspectives\Services\ClientRouteProvider.cs" />
@@ -312,12 +314,13 @@
     <Compile Include="Perspectives\Services\PositionManageService.cs" />
     <Compile Include="Perspectives\Services\AdminMenu.cs" />
     <Compile Include="Perspectives\Settings\PlacementSettings.cs" />
-    <Compile Include="Perspectives\ViewModels\CreatePartViewModel.cs" />
     <Compile Include="Perspectives\ViewModels\EditFieldViewModel.cs" />
     <Compile Include="Perspectives\ViewModels\EditPartFieldViewModel.cs" />
     <Compile Include="Perspectives\ViewModels\EditPartViewModel.cs" />
     <Compile Include="Perspectives\ViewModels\EditTypePartViewModel.cs" />
     <Compile Include="Perspectives\ViewModels\EditTypeViewModel.cs" />
+    <Compile Include="Perspectives\ViewModels\GridRowSortSettingViewModel.cs" />
+    <Compile Include="Perspectives\ViewModels\ModuleMenuItemEditViewModel.cs" />
     <Compile Include="Perspectives\ViewModels\PerspectiveViewModel.cs" />
     <Compile Include="RelationshipManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicTypeGenerationEvents.cs" />
@@ -438,7 +441,6 @@
     </Content>
     <Content Include="Perspectives\Placement.info" />
     <Content Include="Perspectives\Scripts\Web.config" />
-    <Content Include="Perspectives\Styles\Web.config" />
     <Content Include="Perspectives\Views\EditorTemplates\Parts.MenuItem.Edit.cshtml" />
     <Content Include="Perspectives\Views\EditorTemplates\Parts.ModuleMenuItem.Edit.cshtml" />
     <Content Include="Perspectives\Views\Admin\Create.cshtml" />
