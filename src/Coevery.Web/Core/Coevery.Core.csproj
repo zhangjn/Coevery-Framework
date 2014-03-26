@@ -99,6 +99,7 @@
     <Compile Include="Common\Routes.cs" />
     <Compile Include="Common\Services\AutoLoadResourceFilter.cs" />
     <Compile Include="Common\Services\IAutoLoadResourceRegister.cs" />
+    <Compile Include="Common\Services\LayoutFilter.cs" />
     <Compile Include="Common\Services\NavigationManager.cs" />
     <Compile Include="Common\Services\SafeModeThemeSelector.cs" />
     <Compile Include="Common\Shapes\Localization\DateTimeLocalization.cs" />
