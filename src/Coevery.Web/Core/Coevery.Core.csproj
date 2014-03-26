@@ -875,12 +875,6 @@
     <Content Include="Fields\Styles\media-gallery-admin.css" />
     <Content Include="Forms\Module.txt" />
     <Content Include="Navigation\Module.txt" />
-    <Content Include="Navigation\Scripts\jquery.mjs.nestedSortable.js" />
-    <Content Include="Navigation\Scripts\navigation-admin.js" />
-    <Content Include="Navigation\Styles\images\menu.navigation.png" />
-    <Content Include="Navigation\Styles\images\move.gif" />
-    <Content Include="Navigation\Styles\menu.navigation-admin.css" />
-    <Content Include="Navigation\Styles\navigation-admin.css" />
     <Content Include="OptionSet\Module.txt" />
     <Content Include="Projections\Module.txt" />
     <Content Include="Projections\Styles\admin-projections.css" />
@@ -1260,8 +1254,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Navigation\Placement.info" />
-    <Content Include="Navigation\Scripts\Web.config" />
-    <Content Include="Navigation\Styles\Web.config" />
     <Content Include="Navigation\Views\Content-Menu.Edit.cshtml" />
     <Content Include="Navigation\Views\EditorTemplates\Parts.MenuItem.Edit.cshtml" />
     <Content Include="Navigation\Views\EditorTemplates\Parts.Navigation.Menu.Edit.cshtml" />
