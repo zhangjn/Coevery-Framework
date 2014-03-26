@@ -107,7 +107,6 @@
     <Content Include="EntityManagement\Scripts\controllers\fieldscontroller.js" />
     <Content Include="EntityManagement\Scripts\controllers\fillfieldinfocontroller.js" />
     <Content Include="EntityManagement\Scripts\controllers\listcontroller.js" />
-    <Content Include="EntityManagement\Scripts\controllers\publishconfirmcontroller.js" />
     <Content Include="EntityManagement\Scripts\services\entitydataservice.js" />
     <Content Include="EntityManagement\Scripts\services\fielddataservice.js" />
     <Content Include="FormDesigner\Module.txt" />
@@ -281,7 +280,6 @@
     <Compile Include="CodeGeneration\Services\DynamicAssemblyBuilder.cs" />
     <Compile Include="CodeGeneration\Services\DynamicDefinition.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicAssemblyBuilder.cs" />
-    <Compile Include="EntityManagement\ViewModels\PublishConfirmViewModel.cs" />
     <Compile Include="Perspectives\Controllers\NavigationController.cs" />
     <Compile Include="Perspectives\Controllers\PerspectiveController.cs" />
     <Compile Include="Perspectives\Controllers\AdminController.cs" />
@@ -378,9 +376,6 @@
     <Compile Include="RelationshipManagement\Services\IRelationshipService.cs" />
     <Compile Include="RelationshipManagement\Services\RelationshipService.cs" />
     <Compile Include="RelationshipManagement\Settings\ReferenceFieldEditorEvents.cs" />
-    <Content Include="EntityManagement\Views\Admin\PublishConfirm.cshtml">
-      <SubType>Code</SubType>
-    </Content>
     <Content Include="CodeGeneration\CodeGenerationTemplates\CreateViewTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>CreateViewTemplate.cs</LastGenOutput>

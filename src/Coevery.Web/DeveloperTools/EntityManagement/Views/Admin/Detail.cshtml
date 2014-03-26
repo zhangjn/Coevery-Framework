@@ -9,7 +9,7 @@
             <button type="button" class="btn btn-small" data-ng-click="edit()">
                 <i class="icon-edit"></i>&nbsp;Edit
             </button>
-            <button class="btn btn-small" data-ng-click="publish()">
+            <button class="btn btn-small" data-ng-click="publish()" data-cobusy="'publishEntity'">
                 Publish
             </button>
             <button type="button" class="btn btn-small" co-delete-button data-confirm-message="@T("You really want to delete this entity?")" delete-action="delete(@Model.Id)">
@@ -87,7 +87,7 @@
         </div>
     </div>
 </section>
-
+@Html.AntiForgeryToken()
 <script type="text/javascript">
     $(function () {
         $("#main-content").css("margin-top", $("#page-title").outerHeight(true));

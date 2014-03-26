@@ -4,6 +4,7 @@ using Autofac;
 using Autofac.Features.Metadata;
 using Coevery.ContentManagement;
 using Coevery.DeveloperTools.CodeGeneration.Commands;
+using Coevery.DeveloperTools.CodeGeneration.Services;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Moq;
 using NUnit.Framework;
@@ -29,8 +30,7 @@ namespace Coevery.Tests.Modules.CodeGeneration.Commands {
         private IContainer _container;
         private IExtensionManager _extensionManager;
         private ISchemaCommandGenerator _schemaCommandGenerator;
-        private IContentMetadataService _contentMetadataService;
-        private IContentManager _contentManager;
+        private IDynamicAssemblyBuilder _dynamicAssemblyBuilder;
 
         [SetUp]
         public void Init() {
@@ -59,20 +59,18 @@ namespace Coevery.Tests.Modules.CodeGeneration.Commands {
             builder.RegisterType<StubParallelCacheContext>().As<IParallelCacheContext>();
             builder.RegisterType<StubAsyncTokenProvider>().As<IAsyncTokenProvider>();
             builder.RegisterType<StubHostEnvironment>().As<IHostEnvironment>();
-            builder.RegisterInstance(new Mock<IContentManager>().Object);
-            builder.RegisterInstance(new Mock<IContentMetadataService>().Object);
+            builder.RegisterInstance(new Mock<IDynamicAssemblyBuilder>().Object);
 
             _container = builder.Build();
             _extensionManager = _container.Resolve<IExtensionManager>();
             _schemaCommandGenerator = _container.Resolve<ISchemaCommandGenerator>();
-            _contentMetadataService = _container.Resolve<IContentMetadataService>();
-            _contentManager = _container.Resolve<IContentManager>();
+            _dynamicAssemblyBuilder = _container.Resolve<IDynamicAssemblyBuilder>();
         }
 
         [Test]
         public void CreateDataMigrationTestNonExistentFeature() {
             CodeGenerationCommands codeGenerationCommands = new CodeGenerationCommands(_extensionManager,
-                _schemaCommandGenerator,_contentMetadataService,_contentManager);
+                _schemaCommandGenerator, _dynamicAssemblyBuilder);
 
             TextWriter textWriterOutput = new StringWriter();
             codeGenerationCommands.Context = new CommandContext { Output = textWriterOutput };

@@ -60,10 +60,24 @@ define(['core/app/detourService', 'DeveloperTools/EntityManagement/Scripts/servi
                     }).trigger('reloadGrid');
                 };
 
-                $scope.publish = function() {
-                    $http.get('EntityManagement/Admin/PublishConfirm/' + $scope.selectedItems[0]).then(function () {
+                $scope.publish = function () {
+                    var magicToken = $("input[name=__RequestVerificationToken]").first();
+                    if (magicToken.length == 0) {
+                        return;
+                    } // no sense in continuing if form POSTS will fail
+                    $http({
+                        url: 'EntityManagement/Admin/Publish',
+                        method: 'POST',
+                        data: 'id=' + $scope.selectedItems[0]  + '&__RequestVerificationToken=' + magicToken.val(),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        tracker: 'publishEntity'
+                    }).then(function (response) {
+                        logger.success('Publish succeeded.');
                         $scope.getAllMetadata();
                         $scope.selectedItems = [];
+                        return response;
+                    }, function (reason) {
+                        logger.error('Publish failed： ' + reason.data);
                     });
                 };
             }]

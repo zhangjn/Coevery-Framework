@@ -20,8 +20,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
     public class CodeGenerationCommands : DefaultCoeveryCommandHandler {
         private readonly IExtensionManager _extensionManager;
         private readonly ISchemaCommandGenerator _schemaCommandGenerator;
-        private readonly IContentMetadataService _contentMetadataService;
-        private readonly IContentManager _contentManager;
+        private readonly IDynamicAssemblyBuilder _dynamicAssemblyBuilder;
         private const string SolutionDirectoryModules = "E9C9F120-07BA-4DFB-B9C3-3AFB9D44C9D5";
         private const string SolutionDirectoryTests = "74E681ED-FECC-4034-B9BD-01B0BB1BDECA";
         private const string SolutionDirectoryThemes = "74492CBC-7201-417E-BC29-28B4C25A58B0";
@@ -42,11 +41,11 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
 
         public CodeGenerationCommands(
             IExtensionManager extensionManager,
-            ISchemaCommandGenerator schemaCommandGenerator, IContentMetadataService contentMetadataService, IContentManager contentManager) {
+            ISchemaCommandGenerator schemaCommandGenerator, 
+            IDynamicAssemblyBuilder dynamicAssemblyBuilder) {
             _extensionManager = extensionManager;
             _schemaCommandGenerator = schemaCommandGenerator;
-            _contentMetadataService = contentMetadataService;
-            _contentManager = contentManager;
+            _dynamicAssemblyBuilder = dynamicAssemblyBuilder;
 
             // Default is to include in the solution when generating modules / themes
             IncludeInSolution = true;
@@ -253,11 +252,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
                 return;
             }
 
-            var entities = _contentMetadataService.GetRawEntities();
-            foreach (var entity in entities) {
-                entity.ModuleId = moduleName;
-                _contentManager.Publish(entity.ContentItem);
-            }
+            _dynamicAssemblyBuilder.Build(moduleName);
 
             Context.Output.WriteLine(T("Code for Module {0} generated successfully", moduleName));
         }
@@ -408,7 +403,6 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
                 TouchSolution(output);
             }
         }
-
 
         private void AddToSolution(TextWriter output, CsProjFile csProject, string solutionFolderGuid) {
             var parentDirectory = Directory.GetParent(_WebRootProj).Parent;

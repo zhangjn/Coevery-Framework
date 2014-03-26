@@ -113,7 +113,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             postData: {
                 __RequestVerificationToken: function () {
                 var magicToken = $(""input[name=__RequestVerificationToken]"").first();
-                if (!magicToken) { return null; } // no sense in continuing if form POSTS will fail
+                if (magicToken.length == 0) { return null; } // no sense in continuing if form POSTS will fail
                 return magicToken.val();
                 }
             },
@@ -204,7 +204,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write(@"Grid').jqGrid('getGridParam', 'selarrrow');
 		    if (selectedIds.length == 0) return;
 		    var magicToken = $(""input[name=__RequestVerificationToken]"").first();
-		    if (!magicToken) {
+		    if (magicToken.length == 0) {
 		        return;
 		    } // no sense in continuing if form POSTS will fail
 		    var confirm = window.confirm($.jgrid.del.msg);

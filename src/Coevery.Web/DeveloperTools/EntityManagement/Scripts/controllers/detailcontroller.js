@@ -31,12 +31,24 @@ define(['core/app/detourService', 'DeveloperTools/EntityManagement/Scripts/servi
                 $scope.formDesigner = function () {
                     $state.transitionTo('FormDesigner', { EntityName: $stateParams.Id });
                 };
-                
-                $scope.publish = function () {
-                    //$http.get('EntityManagement/Admin/Publish/' + $stateParams.Id).then(function () {
-                    //    logger.success("Publish the entity successful.");
-                    //});
-                    $state.transitionTo('EntityPublishConfirm', { Id: $stateParams.Id });
+
+                $scope.publish = function() {
+                    var magicToken = $("input[name=__RequestVerificationToken]").first();
+                    if (magicToken.length == 0) {
+                        return;
+                    } // no sense in continuing if form POSTS will fail
+                    $http({
+                        url: 'EntityManagement/Admin/Publish',
+                        method: 'POST',
+                        data: 'id=' + $stateParams.Id + '&__RequestVerificationToken=' + magicToken.val(),
+                        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                        tracker: 'publishEntity'
+                    }).then(function(response) {
+                        logger.success('Publish succeeded.');
+                        return response;
+                    }, function(reason) {
+                        logger.error('Publish failed： ' + reason.data);
+                    });
                 };
             }]
     ]);

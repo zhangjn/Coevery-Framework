@@ -79,19 +79,9 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             });
         }
 
-        [HttpGet]
-        public ActionResult PublishConfirm(string id) {
-            var entity = _contentMetadataService.GetEntity(id);
-            var model = new PublishConfirmViewModel();
-            model.Modules = _extensionManager.AvailableExtensions().Where(d => d.Location == "~/Modules"
-                && d.Id != "Coevery.Setup");
-            return View(model);
-        }
-
         [HttpPost]
-        public ActionResult PublishConfirm(string id, PublishConfirmViewModel model) {
+        public ActionResult Publish(string id) {
             var entity = _contentMetadataService.GetEntity(id);
-            entity.ModuleId = model.ModuleId;
             Services.ContentManager.Publish(entity.ContentItem);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }

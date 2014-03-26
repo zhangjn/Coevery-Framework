@@ -49,17 +49,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
                     view.Controller = "EntityDetailCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, new[] {"controllers/detailcontroller"});
                 });
-
-            builder.Describe("EntityPublishConfirm")
-                .Configure(descriptor => { descriptor.Url = "/Entities/{Id:[0-9a-zA-Z]+}/PublishConfirm"; })
-                .View(view => {
-                    view.TemplateProvider = @"['$http', '$stateParams', function ($http, $stateParams) {
-                                                var url = '" + ModuleBasePath + @"PublishConfirm/' + $stateParams.Id; 
-                                                return $http.get(url).then(function(response) { return response.data; });
-                                          }]";
-                    view.Controller = "EntityPublishConfirmCtrl";
-                    view.AddDependencies(ToAbsoluteScriptUrl, "controllers/publishconfirmcontroller");
-                });
         }
 
         private void RegisterFieldRoutes(ClientRouteTableBuilder builder) {

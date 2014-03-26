@@ -23,7 +23,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
         private readonly ISchemaUpdateService _schemaUpdateService;
         private readonly IFieldEvents _fieldEvents;
         private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;
-        private readonly IDynamicAssemblyBuilder _dynamicAssemblyBuilder;
 
         public EntityMetadataPartHandler(
             IRepository<EntityMetadataRecord> entityMetadataRepository,
@@ -34,8 +33,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
             IEntityEvents entityEvents,
             ISchemaUpdateService schemaUpdateService,
             IFieldEvents fieldEvents,
-            IContentDefinitionEditorEvents contentDefinitionEditorEvents, 
-            IDynamicAssemblyBuilder dynamicAssemblyBuilder) {
+            IContentDefinitionEditorEvents contentDefinitionEditorEvents) {
             _fieldMetadataRepository = fieldMetadataRepository;
             _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager;
@@ -44,7 +42,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
             _schemaUpdateService = schemaUpdateService;
             _fieldEvents = fieldEvents;
             _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
-            _dynamicAssemblyBuilder = dynamicAssemblyBuilder;
 
             Filters.Add(StorageFilter.For(entityMetadataRepository));
             OnVersioning<EntityMetadataPart>(OnVersioning);
@@ -97,7 +94,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
                         fieldMetadataRecord.ContentFieldDefinitionRecord.Name, columnAction);
                 }
             });
-            _dynamicAssemblyBuilder.Build(part.ModuleId);
         }
 
         private void UpdateEntity(EntityMetadataPart previousEntity, EntityMetadataPart entity) {
@@ -146,7 +142,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
                 _schemaUpdateService.AlterColumn(entity.Name, fieldMetadataRecord.Name, fieldMetadataRecord.ContentFieldDefinitionRecord.Name, length);
             }
             _entityEvents.OnUpdating(entity.Name);
-            _dynamicAssemblyBuilder.Build(entity.ModuleId);
         }
 
         private int? GetMaxLength(string settings) {
