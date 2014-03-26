@@ -25,8 +25,12 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write(@"<header id=""page-title"" class=""ng-scope"">
-    <h1 class=""pull-left"">Lead <span>create a new Lead</span></h1>
+            this.Write(@"@{
+    string displayName = Model.ContentItem.TypeDefinition.DisplayName;
+    string description = string.Format(T(""create a new {0}"").Text, displayName);
+}
+<header id=""page-title"" class=""ng-scope"">
+    <h1 class=""pull-left"">@displayName <span>@description</span></h1>
 </header>
 <section id=""main-content"">
     @if (Model.Actions != null) {
