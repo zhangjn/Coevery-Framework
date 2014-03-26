@@ -4,10 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Web.Hosting;
 using Coevery.Commands;
+using Coevery.ContentManagement;
 using Coevery.Data.Migration.Generator;
 using Coevery.Data.Migration.Schema;
 using Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates;
 using Coevery.DeveloperTools.CodeGeneration.Services;
+using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.Environment.Extensions;
 using Coevery.Environment.Extensions.Models;
 using FubuCsProjFile;
@@ -18,6 +20,8 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
     public class CodeGenerationCommands : DefaultCoeveryCommandHandler {
         private readonly IExtensionManager _extensionManager;
         private readonly ISchemaCommandGenerator _schemaCommandGenerator;
+        private readonly IContentMetadataService _contentMetadataService;
+        private readonly IContentManager _contentManager;
         private const string SolutionDirectoryModules = "E9C9F120-07BA-4DFB-B9C3-3AFB9D44C9D5";
         private const string SolutionDirectoryTests = "74E681ED-FECC-4034-B9BD-01B0BB1BDECA";
         private const string SolutionDirectoryThemes = "74492CBC-7201-417E-BC29-28B4C25A58B0";
@@ -32,16 +36,17 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
             "", "Properties"
         };
 
-        private const string ModuleName = "CodeGeneration";
         private static readonly string _codeGenTemplatePath = HostingEnvironment.MapPath("~/DeveloperTools/CodeGeneration/CodeGenerationTemplates/");
         private static readonly string _WebRootProj = HostingEnvironment.MapPath("~/");
         private static readonly string _CoeveryThemesProj = HostingEnvironment.MapPath("~/Themes/Themes.csproj");
 
         public CodeGenerationCommands(
             IExtensionManager extensionManager,
-            ISchemaCommandGenerator schemaCommandGenerator) {
+            ISchemaCommandGenerator schemaCommandGenerator, IContentMetadataService contentMetadataService, IContentManager contentManager) {
             _extensionManager = extensionManager;
             _schemaCommandGenerator = schemaCommandGenerator;
+            _contentMetadataService = contentMetadataService;
+            _contentManager = contentManager;
 
             // Default is to include in the solution when generating modules / themes
             IncludeInSolution = true;
@@ -233,6 +238,28 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
             project.Save();
             Context.Output.WriteLine(T("Controller {0} created successfully in Module {1}", controllerName, moduleName));
             TouchSolution(Context.Output);
+        }
+
+        [CommandHelp("codegen generate <module-name>\r\n\t" + "Generate code for a module")]
+        [CommandName("codegen generate")]
+        public void GenerateCode(string moduleName) {
+            Context.Output.WriteLine(T("Generating code for Module {0}", moduleName));
+
+            ExtensionDescriptor extensionDescriptor = _extensionManager.AvailableExtensions().FirstOrDefault(extension => DefaultExtensionTypes.IsModule(extension.ExtensionType) &&
+                                                                                                                          string.Equals(moduleName, extension.Name, StringComparison.OrdinalIgnoreCase));
+
+            if (extensionDescriptor == null) {
+                Context.Output.WriteLine(T("Generate code failed: target Module {0} could not be found.", moduleName));
+                return;
+            }
+
+            var entities = _contentMetadataService.GetRawEntities();
+            foreach (var entity in entities) {
+                entity.ModuleId = moduleName;
+                _contentManager.Publish(entity.ContentItem);
+            }
+
+            Context.Output.WriteLine(T("Code for Module {0} generated successfully", moduleName));
         }
 
         private void IntegrateModule(string moduleName) {

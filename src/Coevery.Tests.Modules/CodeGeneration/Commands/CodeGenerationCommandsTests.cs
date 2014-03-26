@@ -2,7 +2,10 @@
 using System.IO;
 using Autofac;
 using Autofac.Features.Metadata;
+using Coevery.ContentManagement;
 using Coevery.DeveloperTools.CodeGeneration.Commands;
+using Coevery.DeveloperTools.EntityManagement.Services;
+using Moq;
 using NUnit.Framework;
 using Coevery.Caching;
 using Coevery.Commands;
@@ -26,6 +29,8 @@ namespace Coevery.Tests.Modules.CodeGeneration.Commands {
         private IContainer _container;
         private IExtensionManager _extensionManager;
         private ISchemaCommandGenerator _schemaCommandGenerator;
+        private IContentMetadataService _contentMetadataService;
+        private IContentManager _contentManager;
 
         [SetUp]
         public void Init() {
@@ -54,16 +59,20 @@ namespace Coevery.Tests.Modules.CodeGeneration.Commands {
             builder.RegisterType<StubParallelCacheContext>().As<IParallelCacheContext>();
             builder.RegisterType<StubAsyncTokenProvider>().As<IAsyncTokenProvider>();
             builder.RegisterType<StubHostEnvironment>().As<IHostEnvironment>();
+            builder.RegisterInstance(new Mock<IContentManager>().Object);
+            builder.RegisterInstance(new Mock<IContentMetadataService>().Object);
 
             _container = builder.Build();
             _extensionManager = _container.Resolve<IExtensionManager>();
             _schemaCommandGenerator = _container.Resolve<ISchemaCommandGenerator>();
+            _contentMetadataService = _container.Resolve<IContentMetadataService>();
+            _contentManager = _container.Resolve<IContentManager>();
         }
 
         [Test]
         public void CreateDataMigrationTestNonExistentFeature() {
             CodeGenerationCommands codeGenerationCommands = new CodeGenerationCommands(_extensionManager,
-                _schemaCommandGenerator);
+                _schemaCommandGenerator,_contentMetadataService,_contentManager);
 
             TextWriter textWriterOutput = new StringWriter();
             codeGenerationCommands.Context = new CommandContext { Output = textWriterOutput };
