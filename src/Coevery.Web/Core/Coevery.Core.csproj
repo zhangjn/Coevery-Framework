@@ -92,6 +92,7 @@
   <ItemGroup>
     <Compile Include="Common\ClientRouteShape.cs" />
     <Compile Include="Common\Controllers\HomeController.cs" />
+    <Compile Include="Common\DynamicPermissions.cs" />
     <Compile Include="Common\Extensions\IContentDefinitionExtension.cs" />
     <Compile Include="Common\Extensions\CoeveryStringExtension.cs" />
     <Compile Include="Common\Permissions.cs" />
@@ -163,6 +164,26 @@
     <Compile Include="Forms\Shapes\PropertyItemsBehavior.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Navigation\Drivers\MenuItemPartDriver.cs" />
+    <Compile Include="Navigation\Drivers\MenuPartDriver.cs" />
+    <Compile Include="Navigation\Handlers\MenuHandler.cs" />
+    <Compile Include="Navigation\Handlers\MenuItemPartHandler.cs" />
+    <Compile Include="Navigation\Handlers\MenuPartHandler.cs" />
+    <Compile Include="Navigation\Migrations.cs" />
+    <Compile Include="Navigation\Models\MenuItemPart.cs" />
+    <Compile Include="Navigation\Models\MenuItemPartRecord.cs" />
+    <Compile Include="Navigation\Models\MenuPart.cs" />
+    <Compile Include="Navigation\Models\MenuPartRecord.cs" />
+    <Compile Include="Navigation\Permissions.cs" />
+    <Compile Include="Navigation\Services\DefaultMenuManager.cs" />
+    <Compile Include="Navigation\Services\DefaultMenuProvider.cs" />
+    <Compile Include="Navigation\Services\IMenuManager.cs" />
+    <Compile Include="Navigation\Services\IMenuService.cs" />
+    <Compile Include="Navigation\Services\MainMenuService.cs" />
+    <Compile Include="Navigation\Services\NavigationManager.cs" />
+    <Compile Include="Navigation\ViewModels\MenuItemEntry.cs" />
+    <Compile Include="Navigation\ViewModels\MenuPartViewModel.cs" />
+    <Compile Include="Navigation\ViewModels\PositionTreeModel.cs" />
     <Compile Include="Projections\PropertyEditors\IContentFieldFormatter.cs" />
     <Compile Include="Projections\Providers\Properties\IContentFieldValueProvider.cs" />
     <Compile Include="Fields\Projections\NumericFieldFormatter.cs" />
@@ -847,6 +868,7 @@
     <Content Include="Fields\Styles\Images\move.gif" />
     <Content Include="Fields\Styles\media-gallery-admin.css" />
     <Content Include="Forms\Module.txt" />
+    <Content Include="Navigation\Module.txt" />
     <Content Include="OptionSet\Module.txt" />
     <Content Include="Projections\Module.txt" />
     <Content Include="Projections\Styles\admin-projections.css" />
@@ -1223,6 +1245,17 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\Placement.info" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Navigation\Placement.info" />
+    <Content Include="Navigation\Views\Content-Menu.Edit.cshtml" />
+    <Content Include="Navigation\Views\EditorTemplates\Parts.MenuItem.Edit.cshtml" />
+    <Content Include="Navigation\Views\EditorTemplates\Parts.Navigation.Menu.Edit.cshtml" />
+    <Content Include="Navigation\Views\Menu.DeleteButton.cshtml" />
+    <Content Include="Navigation\Views\Menu.Edit.cshtml" />
+    <Content Include="Navigation\Views\MenuItem.Edit.cshtml" />
+    <Content Include="Navigation\Views\MenuItemLink-HtmlMenuItem.cshtml" />
+    <Content Include="Navigation\Views\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
