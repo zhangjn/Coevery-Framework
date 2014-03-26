@@ -6,7 +6,7 @@
     var id = Guid.NewGuid().ToString();
 }
 <div class="row-fluid edit-mode">
-	@using (Html.BeginFormAntiForgeryPost(Url.Action("Edit", "<#=EntityName #>"),
+	@using (Html.BeginFormAntiForgeryPost(Url.Action("Edit", "<#=EntityName #>" , new { id = Model.ContentItem.Id}),
 		FormMethod.Post, new {@class = "form-horizontal", id = id})) {
 <# foreach (var layoutSection in SectionList) { #>
 <# var widths = layoutSection.SectionColumnsWidth.Split(':').ToArray(); #>
@@ -26,7 +26,13 @@
 <# } #>
 		</fieldset>
 <# } #>
-		<input type="submit" value="@T("Submit")" />
+		<div id="page-actions" class="clearfix">
+			<div btn-actions>
+				<button type="button" class="btn btn-small" onclick="history.back()">Back</button>
+				<button type="submit" class="btn btn-small btn-primary">Save</button>
+				<button type="submit" class="btn btn-small btn-primary" onclick="history.back()">Save & Back</button>
+			</div>
+		</div>
 	}
 </div>
 

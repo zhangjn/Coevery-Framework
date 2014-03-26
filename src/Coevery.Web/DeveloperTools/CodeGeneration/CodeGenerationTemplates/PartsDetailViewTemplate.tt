@@ -1,6 +1,10 @@
 ﻿<#@ template debug="false" language="C#" #>
 <#@ parameter type="System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>" name="SectionList" #>
+<#@ import namespace="Coevery.Core.Common.Extensions" #>
 <#@ import namespace="System.Linq" #>
+<#@ parameter type="System.String" name="EntityName" #>
+
+
 <div class="row-fluid view-mode">
 <# foreach (var layoutSection in SectionList) { #>
 <# var widths = layoutSection.SectionColumnsWidth.Split(':').ToArray(); #>
@@ -20,4 +24,12 @@
 <# } #>
 	</section>
 <# } #>
+	<div id="page-actions" class="clearfix">
+		<div btn-actions>
+			<button type="button" class="btn btn-small" onclick="history.back()">@T("Back")</button>
+			<button type="button" class="btn btn-small" onclick="location.href='@Url.Action("Edit","<#=EntityName#>",new {id = Model.ContentItem.Id})'">
+				<i class="icon-edit"></i>&nbsp;@T("Edit") 
+			</button>
+		</div>
+	</div>
 </div>

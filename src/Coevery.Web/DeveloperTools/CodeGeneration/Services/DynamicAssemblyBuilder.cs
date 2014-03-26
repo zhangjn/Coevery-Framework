@@ -179,9 +179,9 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             var editViewTemplate = new EditViewTemplate();
             AddFile<Content>(csProjFile, editViewFilePath, editViewTemplate.TransformText());
 
-            // {{EntityName}}/Create.cshtml
+            // {{EntityName}}/Index.cshtml
             string indexViewFilePath = Path.Combine(controllerViewPath, "Index.cshtml");
-            var indexViewTemplate = new CreateViewTemplate();
+            var indexViewTemplate = new IndexViewTemplate ();
             AddFile<Content>(csProjFile, indexViewFilePath, indexViewTemplate.TransformText());
 
             // {{EntityName}}/Detail.cshtml
@@ -236,6 +236,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             // Parts/DetailView-{{EntityName}}.cshtml
             string partsDetailViewFilePath = Path.Combine(partsViewPath, string.Format("DetailView-{0}.cshtml", modelDefinition.Name));
             var partsDetailViewTemplate = new PartsDetailViewTemplate {Session = new Dictionary<string, object>()};
+            partsDetailViewTemplate.Session["EntityName"] = modelDefinition.Name;
             partsDetailViewTemplate.Session["SectionList"] = sectionList;
             partsDetailViewTemplate.Initialize();
             AddFile<Content>(csProjFile, partsDetailViewFilePath, partsDetailViewTemplate.TransformText());

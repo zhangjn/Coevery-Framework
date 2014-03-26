@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
+    using Coevery.Core.Common.Extensions;
     using System.Linq;
     using System;
     
@@ -16,7 +17,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class PartsDetailViewTemplate : PartsDetailViewTemplateBase
     {
@@ -26,100 +27,111 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("<div class=\"row-fluid view-mode\">\r\n");
+            this.Write("\r\n\r\n<div class=\"row-fluid view-mode\">\r\n");
             
-            #line 5 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 9 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  foreach (var layoutSection in SectionList) { 
             
             #line default
             #line hidden
             
-            #line 6 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 10 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  var widths = layoutSection.SectionColumnsWidth.Split(':').ToArray(); 
             
             #line default
             #line hidden
             this.Write("    <section>\r\n        <header><h5>");
             
-            #line 8 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 12 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(layoutSection.SectionTitle));
             
             #line default
             #line hidden
             this.Write("</h5></header>\r\n");
             
-            #line 9 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 13 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  foreach (var row in layoutSection.Rows) { 
             
             #line default
             #line hidden
             
-            #line 10 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 14 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  int i = 0; 
             
             #line default
             #line hidden
             this.Write("\t\t<div class=\"data-row clearfix\">\r\n");
             
-            #line 12 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 16 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  foreach (var column in row.Columns) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t<div class=\"span");
             
-            #line 13 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 17 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(widths[i++]));
             
             #line default
             #line hidden
             this.Write("\">\r\n");
             
-            #line 14 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 18 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  if (column.Field != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t@Display.DisplayField(part: Model.ContentPart, fieldName: \"");
             
-            #line 15 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 19 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(column.Field.FieldName));
             
             #line default
             #line hidden
             this.Write("\")\r\n");
             
-            #line 16 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 20 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t</div>\r\n");
             
-            #line 18 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 22 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t</div>\r\n");
             
-            #line 20 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 24 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t</section>\r\n");
             
-            #line 22 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            #line 26 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("</div>");
+            this.Write("\t<div id=\"page-actions\" class=\"clearfix\">\r\n\t\t<div btn-actions>\r\n\t\t\t<button type=\"" +
+                    "button\" class=\"btn btn-small\" onclick=\"history.back()\">@T(\"Back\")</button>\r\n\t\t\t<" +
+                    "button type=\"button\" class=\"btn btn-small\" onclick=\"location.href=\'@Url.Action(\"" +
+                    "Edit\",\"");
+            
+            #line 30 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
+            
+            #line default
+            #line hidden
+            this.Write("\",new {id = Model.ContentItem.Id})\'\">\r\n\t\t\t\t<i class=\"icon-edit\"></i>&nbsp;@T(\"Edi" +
+                    "t\") \r\n\t\t\t</button>\r\n\t\t</div>\r\n\t</div>\r\n</div>");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
+        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt"
 
 private global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section> _SectionListField;
 
@@ -131,6 +143,19 @@ private global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesi
     get
     {
         return this._SectionListField;
+    }
+}
+
+private string _EntityNameField;
+
+/// <summary>
+/// Access the EntityName parameter of the template.
+/// </summary>
+private string EntityName
+{
+    get
+    {
+        return this._EntityNameField;
     }
 }
 
@@ -171,6 +196,36 @@ if ((SectionListValueAcquired == false))
         else
         {
             this._SectionListField = ((global::System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>)(data));
+        }
+    }
+}
+bool EntityNameValueAcquired = false;
+if (this.Session.ContainsKey("EntityName"))
+{
+    if ((typeof(string).IsAssignableFrom(this.Session["EntityName"].GetType()) == false))
+    {
+        this.Error("The type \'System.String\' of the parameter \'EntityName\' did not match the type of " +
+                "the data passed to the template.");
+    }
+    else
+    {
+        this._EntityNameField = ((string)(this.Session["EntityName"]));
+        EntityNameValueAcquired = true;
+    }
+}
+if ((EntityNameValueAcquired == false))
+{
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("EntityName");
+    if ((data != null))
+    {
+        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        {
+            this.Error("The type \'System.String\' of the parameter \'EntityName\' did not match the type of " +
+                    "the data passed to the template.");
+        }
+        else
+        {
+            this._EntityNameField = ((string)(data));
         }
     }
 }
