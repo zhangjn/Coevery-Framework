@@ -81,7 +81,7 @@ namespace Coevery.DeveloperTools.FormDesigner.Services {
             var section = new JObject();
             layout.Add(section);
             section["SectionColumns"] = 1;
-            section["SectionColumnsWidth"] = "6:6";
+            section["SectionColumnsWidth"] = "12";
             section["SectionTitle"] = T("General Information").Text;
             var rows = new JArray();
             section["Rows"] = rows;

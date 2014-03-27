@@ -772,14 +772,16 @@
                 replace: true,
                 restrict: 'A',
                 link: function (scope, element, attrs) {
-                    scope.$on('openSectionPropertiesDialog', function (event, currentSection) {
+                    scope.$on('openSectionPropertiesDialog', function(event, currentSection) {
+                        currentSection.columns == 1 && (currentSection.columnsWidth = '6:6');
                         scope.currentSection = currentSection;
                         scope.$apply();
                     });
                     element.find('.btn-primary').click(function () {
+                        var width = scope.currentSection.columns == 1 ? '12' : scope.currentSection.columnsWidth;
                         scope.currentSection.section.attr('section-columns', scope.currentSection.columns);
                         scope.currentSection.section.attr('section-title', scope.currentSection.title);
-                        scope.currentSection.section.attr('section-columns-width', scope.currentSection.columnsWidth);
+                        scope.currentSection.section.attr('section-columns-width', width);
                         $rootScope.$apply();
                         $('#sectionPropertiesDialog').modal('hide');
                     });
