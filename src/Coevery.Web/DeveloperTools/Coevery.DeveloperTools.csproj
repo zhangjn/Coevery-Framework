@@ -170,6 +170,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ControllerTemplate.tt</DependentUpon>
     </Compile>
+    <Compile Include="CodeGeneration\CodeGenerationTemplates\FrontMenuTemplate.cs">
+      <DependentUpon>FrontMenuTemplate.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="CodeGeneration\CodeGenerationTemplates\HandlerTemplate.cs">
       <DependentUpon>HandlerTemplate.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -439,6 +444,10 @@
     <Content Include="Perspectives\Views\Parts\DynamicEntity.Layout.Create.cshtml" />
     <Content Include="Perspectives\Views\Parts\DynamicEntity.Layout.cshtml" />
     <Content Include="Perspectives\Views\Parts\DynamicEntity.Layout.Edit.cshtml" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\FrontMenuTemplate.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>FrontMenuTemplate.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="EntityManagement\Scripts\Web.config" />

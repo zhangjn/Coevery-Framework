@@ -1,0 +1,27 @@
+﻿<#@ template debug="false" language="C#" #>
+<#@ import namespace="CodeGeneration.Services" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.Collections.Generic.IEnumerable<DynamicDefinition>" name="TypeDefinitions" #>
+using Coevery.Localization;
+using Coevery.UI.Navigation;
+
+namespace <#=Namespace#> {
+    public class FrontMenu : INavigationProvider {
+        public FrontMenu() {
+            T = NullLocalizer.Instance;
+        }
+
+        public Localizer T { get; set; }
+
+        public string MenuName {
+            get { return "FrontMenu"; }
+        }
+
+        public void GetNavigation(NavigationBuilder builder) {
+<# int i = 1; #>
+<# foreach (var definition in TypeDefinitions) { #>
+            builder.Add(T("<#=definition.Name#>"), "<#=i++#>", menu => menu.Url("<#=definition.Name#>").IdHint("<#=definition.Name#>"), new[] {"icon-<#=definition.Name#>"});
+<# } #>
+        }
+    }
+}

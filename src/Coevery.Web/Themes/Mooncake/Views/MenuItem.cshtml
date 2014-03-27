@@ -1,0 +1,37 @@
+﻿@{
+    MenuItem menu = Model.Item;
+    int level = Model.Level;
+    bool hasChildren = menu.Items.Any();
+    string idClass = "menu-id-" + menu.IdHint;
+    string levelClass = "menu-level-" + level;
+    string menuText = menu.Text.Text;
+}
+@using Coevery.UI.Navigation
+
+<li @if (menu.Selected && !hasChildren) {<text>class="active"</text>}>
+    <span>
+        @if (hasChildren) {
+            <span class="nav-title vertical-middle">@menuText</span>
+            <i class="@if (!menu.Selected) {
+                          <text>icos-play collapsed</text>
+                      }
+                      else {
+                          <text>icos-eject</text>
+                      }"
+               data-toggle="collapse" data-target=".@levelClass.@idClass"></i>
+        }
+        else {
+            <a href="@menu.Href" title="@menuText">
+                <i class="@string.Join(" ", menu.Classes) vertical-middle"></i>
+                <span class="nav-title vertical-middle">@menuText</span>
+            </a>
+        }
+    </span>
+    @if (hasChildren) {
+        <ul class="collapse @levelClass @idClass @if (menu.Selected) {<text>in</text>}">
+            @foreach (var childMenu in menu.Items) {
+                @Display.MenuItem(Item: childMenu, Level: level + 1)
+            }
+        </ul>
+    }
+</li>

@@ -1,1 +1,14 @@
-﻿<div data-ui-view="menulist"></div>
+﻿@{
+    var menus = Model.ItemList;
+}
+@using Coevery.UI.Navigation
+
+<nav id="navigation" class="no-perspective">
+    @if (menus.Count > 0) {
+        <ul class="menu-level-0">
+            @foreach (MenuItem menu in menus) {
+                @Display.MenuItem(Item: menu, Level: 1)
+            }
+        </ul>
+    }
+</nav>

@@ -83,7 +83,17 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
                 AddViewFile(csProjFile, definition);
                 AddRoute(csProjFile,definition);
             }
+            AddFrontMenuFile(csProjFile, typeDefinitions);
             csProjFile.Save();
+        }
+
+        private void AddFrontMenuFile(CsProjFile csProjFile, IEnumerable<DynamicDefinition> typeDefinitions) {
+            string frontMenuClassFilePath = Path.Combine(csProjFile.ProjectDirectory, "FrontMenu.cs");
+            var frontMenuTemplate = new FrontMenuTemplate { Session = new Dictionary<string, object>() };
+            frontMenuTemplate.Session["Namespace"] = csProjFile.RootNamespace;
+            frontMenuTemplate.Session["TypeDefinitions"] = typeDefinitions;
+            frontMenuTemplate.Initialize();
+            AddFile<CodeFile>(csProjFile, frontMenuClassFilePath, frontMenuTemplate.TransformText());
         }
 
         private void AddRoute(CsProjFile csProjFile, DynamicDefinition modelDefinition)

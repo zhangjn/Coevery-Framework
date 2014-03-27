@@ -4,10 +4,10 @@ using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
 using Coevery.Core.Common.Services;
+using Coevery.Core.Navigation.Services;
 using NUnit.Framework;
 using Coevery.ContentManagement;
 using Coevery.Data;
-using Coevery.Environment.Configuration;
 using Coevery.Localization;
 using Coevery.Security;
 using Coevery.Security.Permissions;
@@ -20,7 +20,7 @@ namespace Coevery.Tests.UI.Navigation {
     public class NavigationManagerTests {
         [Test]
         public void EmptyMenuIfNameDoesntMatch() {
-            var manager = new NavigationManager(new[] { new StubProvider() }, new IMenuProvider[] { }, new StubAuth(), new INavigationFilter[0], new UrlHelper(new RequestContext(new StubHttpContext("~/"), new RouteData())), new StubCoeveryServices(), new ShellSettings());
+            var manager = new NavigationManager(new[] { new StubProvider() }, new IMenuProvider[] { }, new StubAuth(), new INavigationFilter[0], new UrlHelper(new RequestContext(new StubHttpContext("~/"), new RouteData())), new StubCoeveryServices());
 
             var menuItems = manager.BuildMenu("primary");
             Assert.That(menuItems.Count(), Is.EqualTo(0));
@@ -37,7 +37,7 @@ namespace Coevery.Tests.UI.Navigation {
 
         [Test]
         public void NavigationManagerShouldUseProvidersToBuildNamedMenu() {
-            var manager = new NavigationManager(new[] { new StubProvider() }, new IMenuProvider[] { }, new StubAuth(), new INavigationFilter[0], new UrlHelper(new RequestContext(new StubHttpContext("~/"), new RouteData())), new StubCoeveryServices(), new ShellSettings());
+            var manager = new NavigationManager(new[] { new StubProvider() }, new IMenuProvider[] { }, new StubAuth(), new INavigationFilter[0], new UrlHelper(new RequestContext(new StubHttpContext("~/"), new RouteData())), new StubCoeveryServices());
 
             var menuItems = manager.BuildMenu("admin");
             Assert.That(menuItems.Count(), Is.EqualTo(2));
@@ -49,7 +49,7 @@ namespace Coevery.Tests.UI.Navigation {
 
         [Test]
         public void NavigationManagerShouldCatchProviderErrors() {
-            var manager = new NavigationManager(new[] { new BrokenProvider() }, new IMenuProvider[] { }, new StubAuth(), new INavigationFilter[0], new UrlHelper(new RequestContext(new StubHttpContext("~/"), new RouteData())), new StubCoeveryServices(), new ShellSettings());
+            var manager = new NavigationManager(new[] { new BrokenProvider() }, new IMenuProvider[] { }, new StubAuth(), new INavigationFilter[0], new UrlHelper(new RequestContext(new StubHttpContext("~/"), new RouteData())), new StubCoeveryServices());
 
             var menuItems = manager.BuildMenu("admin");
             Assert.That(menuItems.Count(), Is.EqualTo(0));
@@ -57,7 +57,7 @@ namespace Coevery.Tests.UI.Navigation {
 
         [Test]
         public void NavigationManagerShouldMergeAndOrderNavigation() {
-            var manager = new NavigationManager(new INavigationProvider[] { new StubProvider(), new Stub2Provider() }, new IMenuProvider[] { }, new StubAuth(), new INavigationFilter[0], new UrlHelper(new RequestContext(new StubHttpContext("~/"), new RouteData())), new StubCoeveryServices(), new ShellSettings());
+            var manager = new NavigationManager(new INavigationProvider[] { new StubProvider(), new Stub2Provider() }, new IMenuProvider[] { }, new StubAuth(), new INavigationFilter[0], new UrlHelper(new RequestContext(new StubHttpContext("~/"), new RouteData())), new StubCoeveryServices());
 
             var menuItems = manager.BuildMenu("admin");
             Assert.That(menuItems.Count(), Is.EqualTo(3));
