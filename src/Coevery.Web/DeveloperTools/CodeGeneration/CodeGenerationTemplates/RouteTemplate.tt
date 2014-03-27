@@ -1,6 +1,6 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.String" name="AssemblyName" #>
+<#@ parameter type="System.String" name="AreaName" #>
 <#@ parameter type="System.String" name="EntityName" #>
 
 
@@ -18,13 +18,13 @@ namespace <#=Namespace#> {
                 Route = new Route(
                     "{controller}/{action}/{id}",
                     new RouteValueDictionary {
-                        {"area", "<#=AssemblyName#>"},
-                        {"controller", "Lead"},
+                        {"area", "<#=AreaName#>"},
+                        {"controller", "<#=EntityName#>"},
                         {"action", "Index"},
                         {"id", ""}
                     },
                     new RouteValueDictionary(),
-                    new RouteValueDictionary {{"area", "<#=AssemblyName#>"}},
+                    new RouteValueDictionary {{"area", "<#=AreaName#>"}},
                     new MvcRouteHandler())
             };
         }

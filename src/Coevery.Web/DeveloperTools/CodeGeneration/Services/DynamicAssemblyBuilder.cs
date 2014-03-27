@@ -101,13 +101,13 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             string routePath = csProjFile.ProjectDirectory;
 
             // Route
-            string controllerClassFilePath = Path.Combine(routePath, string.Format("Route.cs"));
-            var partTemplate = new RouteTemplate() { Session = new Dictionary<string, object>() };
-            partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            partTemplate.Session["AssemblyName"] = csProjFile.AssemblyName;
-            partTemplate.Session["EntityName"] = modelDefinition.Name;
-            partTemplate.Initialize();
-            AddFile<CodeFile>(csProjFile, controllerClassFilePath, partTemplate.TransformText());
+            string routeFilePath = Path.Combine(routePath, "Route.cs");
+            var routeTemplate = new RouteTemplate() { Session = new Dictionary<string, object>() };
+            routeTemplate.Session["Namespace"] = csProjFile.RootNamespace;
+            routeTemplate.Session["AreaName"] = csProjFile.AssemblyName;
+            routeTemplate.Session["EntityName"] = modelDefinition.Name;
+            routeTemplate.Initialize();
+            AddFile<CodeFile>(csProjFile, routeFilePath, routeTemplate.TransformText());
         }
 
         private void AddControllerFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {

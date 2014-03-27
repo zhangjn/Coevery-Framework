@@ -15,7 +15,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class RouteTemplate : RouteTemplateBase
     {
@@ -28,7 +28,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("\r\n\r\nusing System.Collections.Generic;\r\nusing System.Web.Mvc;\r\nusing System.Web.Ro" +
                     "uting;\r\nusing Coevery.Mvc.Routes;\r\n\r\nnamespace ");
             
-            #line 12 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            #line 12 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
@@ -44,21 +44,24 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     new RouteValueDictionary {
                         {""area"", """);
             
-            #line 21 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(AssemblyName));
+            #line 21 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(AreaName));
             
             #line default
             #line hidden
-            this.Write(@"""},
-                        {""controller"", ""Lead""},
-                        {""action"", ""Index""},
-                        {""id"", """"}
-                    },
-                    new RouteValueDictionary(),
-                    new RouteValueDictionary {{""area"", """);
+            this.Write("\"},\r\n                        {\"controller\", \"");
             
-            #line 27 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(AssemblyName));
+            #line 22 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
+            
+            #line default
+            #line hidden
+            this.Write("\"},\r\n                        {\"action\", \"Index\"},\r\n                        {\"id\"," +
+                    " \"\"}\r\n                    },\r\n                    new RouteValueDictionary(),\r\n " +
+                    "                   new RouteValueDictionary {{\"area\", \"");
+            
+            #line 27 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(AreaName));
             
             #line default
             #line hidden
@@ -77,7 +80,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
 
 private string _NamespaceField;
 
@@ -92,16 +95,16 @@ private string Namespace
     }
 }
 
-private string _AssemblyNameField;
+private string _AreaNameField;
 
 /// <summary>
-/// Access the AssemblyName parameter of the template.
+/// Access the AreaName parameter of the template.
 /// </summary>
-private string AssemblyName
+private string AreaName
 {
     get
     {
-        return this._AssemblyNameField;
+        return this._AreaNameField;
     }
 }
 
@@ -156,33 +159,33 @@ if ((NamespaceValueAcquired == false))
         }
     }
 }
-bool AssemblyNameValueAcquired = false;
-if (this.Session.ContainsKey("AssemblyName"))
+bool AreaNameValueAcquired = false;
+if (this.Session.ContainsKey("AreaName"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["AssemblyName"].GetType()) == false))
+    if ((typeof(string).IsAssignableFrom(this.Session["AreaName"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'AssemblyName\' did not match the type o" +
-                "f the data passed to the template.");
+        this.Error("The type \'System.String\' of the parameter \'AreaName\' did not match the type of th" +
+                "e data passed to the template.");
     }
     else
     {
-        this._AssemblyNameField = ((string)(this.Session["AssemblyName"]));
-        AssemblyNameValueAcquired = true;
+        this._AreaNameField = ((string)(this.Session["AreaName"]));
+        AreaNameValueAcquired = true;
     }
 }
-if ((AssemblyNameValueAcquired == false))
+if ((AreaNameValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("AssemblyName");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("AreaName");
     if ((data != null))
     {
         if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'AssemblyName\' did not match the type o" +
-                    "f the data passed to the template.");
+            this.Error("The type \'System.String\' of the parameter \'AreaName\' did not match the type of th" +
+                    "e data passed to the template.");
         }
         else
         {
-            this._AssemblyNameField = ((string)(data));
+            this._AreaNameField = ((string)(data));
         }
     }
 }
