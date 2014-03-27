@@ -97,7 +97,7 @@ namespace <#=Namespace#>.Controllers {
         }
 
         [HttpPost, ActionName("Edit")]
-        public ActionResult EditPost(int id, FormCollection collection) {
+        public ActionResult EditPost(int id) {
 			var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
             if (contentItem == null) {
                 return HttpNotFound();

@@ -23,7 +23,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+    #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class ControllerTemplate : ControllerTemplateBase
     {
@@ -38,28 +38,28 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "ystem.Web.Mvc;\r\nusing Coevery;\r\nusing Coevery.ContentManagement;\r\nusing Coevery." +
                     "Data;\r\nusing Coevery.Themes;\r\nusing Coevery.Localization;\r\nusing ");
             
-            #line 15 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 15 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Models;\r\nusing ");
             
-            #line 16 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 16 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".ViewModels;\r\n\r\nnamespace ");
             
-            #line 18 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 18 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
             this.Write(".Controllers {\r\n\t[Themed]\r\n    public class ");
             
-            #line 20 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 20 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
@@ -67,7 +67,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("Controller : Controller , IUpdateModel{\r\n        private readonly ITransactionMan" +
                     "ager _transactionManager;\r\n\r\n        public ");
             
-            #line 23 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 23 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
@@ -84,14 +84,14 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 		public ActionResult Index() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 33 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 33 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
             this.Write("\");\r\n            contentItem.Weld(new ");
             
-            #line 34 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 34 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
@@ -105,14 +105,14 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 		public ActionResult List(int page = 1, int pageSize = 10, string sortBy = null, string sortOrder = ""asc"") {
 	        var query = Services.ContentManager.Query<");
             
-            #line 41 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 41 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
             this.Write("Part, ");
             
-            #line 41 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 41 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
@@ -121,35 +121,35 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "= query\r\n\t            .OrderBy(sortBy, sortOrder)\r\n\t            .Slice((page - 1" +
                     ")*pageSize, pageSize)\r\n\t            .Select(item => new ");
             
-            #line 46 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 46 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
             #line hidden
             this.Write("ListViewModel{\r\n\t\t\t\t\tId = item.Record.Id,\r\n");
             
-            #line 48 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 48 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
  foreach (var field in GetFields()) {
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t");
             
-            #line 49 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 49 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
             
             #line default
             #line hidden
             this.Write(" = item.Record.");
             
-            #line 49 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 49 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(field.Name));
             
             #line default
             #line hidden
             this.Write(",\r\n");
             
-            #line 50 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 50 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
 }
             
             #line default
@@ -177,7 +177,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public ActionResult Create() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 72 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 72 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
@@ -191,7 +191,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public ActionResult CreatePost() {
             var contentItem = Services.ContentManager.New(""");
             
-            #line 79 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+            #line 79 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(ModelDefinition.Name));
             
             #line default
@@ -207,31 +207,30 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     "ound();\r\n            }\r\n\r\n            dynamic model = Services.ContentManager.Bu" +
                     "ildEditor(contentItem, \"Edit\");\r\n            return View((object)model);\r\n      " +
                     "  }\r\n\r\n        [HttpPost, ActionName(\"Edit\")]\r\n        public ActionResult EditP" +
-                    "ost(int id, FormCollection collection) {\r\n\t\t\tvar contentItem = Services.ContentM" +
-                    "anager.Get(id, VersionOptions.Latest);\r\n            if (contentItem == null) {\r\n" +
-                    "                return HttpNotFound();\r\n            }\r\n\r\n            dynamic mod" +
-                    "el = Services.ContentManager.UpdateEditor(contentItem, this, \"Edit\");\r\n         " +
-                    "   if (!ModelState.IsValid) {\r\n                _transactionManager.Cancel();\r\n  " +
-                    "              return View(\"Edit\", (object) model);\r\n            }\r\n            r" +
-                    "eturn RedirectToAction(\"Edit\", new {id});\r\n        }\r\n\r\n        public ActionRes" +
-                    "ult Delete(int id) {\r\n            return View();\r\n        }\r\n\r\n        [HttpPost" +
-                    "]\r\n        public ActionResult Delete(List<int> selectedIds){\r\n            try {" +
-                    "\r\n                var items = Services.ContentManager.Query().ForContentItems(se" +
-                    "lectedIds).List();\r\n                foreach (var item in items) {\r\n             " +
-                    "       Services.ContentManager.Remove(item);\r\n                }\r\n               " +
-                    " return new HttpStatusCodeResult(HttpStatusCode.OK, T(\"Delete succeeded\").Text);" +
-                    "\r\n            }\r\n            catch {\r\n                return new HttpStatusCodeR" +
-                    "esult(HttpStatusCode.BadRequest, T(\"Delete failed\").Text);\r\n            }\r\n     " +
-                    "   }\r\n\r\n        bool IUpdateModel.TryUpdateModel<TModel>(TModel model, string pr" +
-                    "efix, string[] includeProperties, string[] excludeProperties) {\r\n            ret" +
-                    "urn TryUpdateModel(model, prefix, includeProperties, excludeProperties);\r\n      " +
-                    "  }\r\n\r\n        void IUpdateModel.AddModelError(string key, LocalizedString error" +
-                    "Message) {\r\n            ModelState.AddModelError(key, errorMessage.ToString());\r" +
-                    "\n        }\r\n    }\r\n}\r\n\r\n");
+                    "ost(int id) {\r\n\t\t\tvar contentItem = Services.ContentManager.Get(id, VersionOptio" +
+                    "ns.Latest);\r\n            if (contentItem == null) {\r\n                return Http" +
+                    "NotFound();\r\n            }\r\n\r\n            dynamic model = Services.ContentManage" +
+                    "r.UpdateEditor(contentItem, this, \"Edit\");\r\n            if (!ModelState.IsValid)" +
+                    " {\r\n                _transactionManager.Cancel();\r\n                return View(\"" +
+                    "Edit\", (object) model);\r\n            }\r\n            return RedirectToAction(\"Edi" +
+                    "t\", new {id});\r\n        }\r\n\r\n        public ActionResult Delete(int id) {\r\n     " +
+                    "       return View();\r\n        }\r\n\r\n        [HttpPost]\r\n        public ActionRes" +
+                    "ult Delete(List<int> selectedIds){\r\n            try {\r\n                var items" +
+                    " = Services.ContentManager.Query().ForContentItems(selectedIds).List();\r\n       " +
+                    "         foreach (var item in items) {\r\n                    Services.ContentMana" +
+                    "ger.Remove(item);\r\n                }\r\n                return new HttpStatusCodeR" +
+                    "esult(HttpStatusCode.OK, T(\"Delete succeeded\").Text);\r\n            }\r\n          " +
+                    "  catch {\r\n                return new HttpStatusCodeResult(HttpStatusCode.BadReq" +
+                    "uest, T(\"Delete failed\").Text);\r\n            }\r\n        }\r\n\r\n        bool IUpdat" +
+                    "eModel.TryUpdateModel<TModel>(TModel model, string prefix, string[] includePrope" +
+                    "rties, string[] excludeProperties) {\r\n            return TryUpdateModel(model, p" +
+                    "refix, includeProperties, excludeProperties);\r\n        }\r\n\r\n        void IUpdate" +
+                    "Model.AddModelError(string key, LocalizedString errorMessage) {\r\n            Mod" +
+                    "elState.AddModelError(key, errorMessage.ToString());\r\n        }\r\n    }\r\n}\r\n\r\n");
             return this.GenerationEnvironment.ToString();
         }
         
-        #line 142 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+        #line 142 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
 
 
     private IEnumerable<DynamicFieldDefinition> GetFields() {
@@ -249,7 +248,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         #line default
         #line hidden
         
-        #line 14 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewCommon.ttinclude"
+        #line 14 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ListViewCommon.ttinclude"
 
     private IEnumerable<GridColumn> GetColumns(string entityTypeName) {
         var listViewPart = ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")
@@ -316,7 +315,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         #line default
         #line hidden
         
-        #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
+        #line 1 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt"
 
 private global::Coevery.ContentManagement.IContentManager _ContentManagerField;
 
