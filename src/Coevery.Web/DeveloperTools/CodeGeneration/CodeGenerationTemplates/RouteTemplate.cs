@@ -9,6 +9,7 @@
 // ------------------------------------------------------------------------------
 namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 {
+    using Coevery.DeveloperTools.CodeGeneration.Services;
     using System;
     
     /// <summary>
@@ -28,31 +29,32 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
             this.Write("\r\n\r\nusing System.Collections.Generic;\r\nusing System.Web.Mvc;\r\nusing System.Web.Ro" +
                     "uting;\r\nusing Coevery.Mvc.Routes;\r\n\r\nnamespace ");
             
-            #line 12 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            #line 13 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Namespace));
             
             #line default
             #line hidden
-            this.Write(@" {
-    public class Routes : IRouteProvider {
-        public IEnumerable<RouteDescriptor> GetRoutes() {
-
-            yield return new RouteDescriptor {
-				Priority = -19,
-                Route = new Route(
-                    ""{controller}/{action}/{id}"",
-                    new RouteValueDictionary {
-                        {""area"", """);
+            this.Write(" {\r\n    public class Routes : IRouteProvider {\r\n        public IEnumerable<RouteD" +
+                    "escriptor> GetRoutes() {\r\n");
             
-            #line 21 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            #line 16 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+ foreach (var controllerName in ModelDefinition) { 
+            
+            #line default
+            #line hidden
+            this.Write("            yield return new RouteDescriptor {\r\n\t\t\t\tPriority = -19,\r\n            " +
+                    "    Route = new Route(\r\n                    \"{controller}/{action}/{id}\",\r\n     " +
+                    "               new RouteValueDictionary {\r\n                        {\"area\", \"");
+            
+            #line 22 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(AreaName));
             
             #line default
             #line hidden
             this.Write("\"},\r\n                        {\"controller\", \"");
             
-            #line 22 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
-            this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
+            #line 23 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            this.Write(this.ToStringHelper.ToStringWithCulture(controllerName.Name));
             
             #line default
             #line hidden
@@ -60,23 +62,21 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
                     " \"\"}\r\n                    },\r\n                    new RouteValueDictionary(),\r\n " +
                     "                   new RouteValueDictionary {{\"area\", \"");
             
-            #line 27 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+            #line 28 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(AreaName));
             
             #line default
             #line hidden
-            this.Write(@"""}},
-                    new MvcRouteHandler())
-            };
-        }
-
-        public void GetRoutes(ICollection<RouteDescriptor> routes) {
-            foreach (RouteDescriptor route in GetRoutes()) {
-                routes.Add(route);
-            }
-        }
-    }
-}");
+            this.Write("\"}},\r\n                    new MvcRouteHandler())\r\n            };\r\n");
+            
+            #line 31 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt"
+ } 
+            
+            #line default
+            #line hidden
+            this.Write("        }\r\n\t\t\r\n\r\n        public void GetRoutes(ICollection<RouteDescriptor> route" +
+                    "s) {\r\n            foreach (RouteDescriptor route in GetRoutes()) {\r\n            " +
+                    "    routes.Add(route);\r\n            }\r\n        }\r\n    }\r\n}");
             return this.GenerationEnvironment.ToString();
         }
         
@@ -108,16 +108,16 @@ private string AreaName
     }
 }
 
-private string _EntityNameField;
+private global::System.Collections.Generic.IEnumerable<DynamicDefinition> _ModelDefinitionField;
 
 /// <summary>
-/// Access the EntityName parameter of the template.
+/// Access the ModelDefinition parameter of the template.
 /// </summary>
-private string EntityName
+private global::System.Collections.Generic.IEnumerable<DynamicDefinition> ModelDefinition
 {
     get
     {
-        return this._EntityNameField;
+        return this._ModelDefinitionField;
     }
 }
 
@@ -189,33 +189,35 @@ if ((AreaNameValueAcquired == false))
         }
     }
 }
-bool EntityNameValueAcquired = false;
-if (this.Session.ContainsKey("EntityName"))
+bool ModelDefinitionValueAcquired = false;
+if (this.Session.ContainsKey("ModelDefinition"))
 {
-    if ((typeof(string).IsAssignableFrom(this.Session["EntityName"].GetType()) == false))
+    if ((typeof(global::System.Collections.Generic.IEnumerable<DynamicDefinition>).IsAssignableFrom(this.Session["ModelDefinition"].GetType()) == false))
     {
-        this.Error("The type \'System.String\' of the parameter \'EntityName\' did not match the type of " +
-                "the data passed to the template.");
+        this.Error("The type \'System.Collections.Generic.IEnumerable<DynamicDefinition>\' of the param" +
+                "eter \'ModelDefinition\' did not match the type of the data passed to the template" +
+                ".");
     }
     else
     {
-        this._EntityNameField = ((string)(this.Session["EntityName"]));
-        EntityNameValueAcquired = true;
+        this._ModelDefinitionField = ((global::System.Collections.Generic.IEnumerable<DynamicDefinition>)(this.Session["ModelDefinition"]));
+        ModelDefinitionValueAcquired = true;
     }
 }
-if ((EntityNameValueAcquired == false))
+if ((ModelDefinitionValueAcquired == false))
 {
-    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("EntityName");
+    object data = global::System.Runtime.Remoting.Messaging.CallContext.LogicalGetData("ModelDefinition");
     if ((data != null))
     {
-        if ((typeof(string).IsAssignableFrom(data.GetType()) == false))
+        if ((typeof(global::System.Collections.Generic.IEnumerable<DynamicDefinition>).IsAssignableFrom(data.GetType()) == false))
         {
-            this.Error("The type \'System.String\' of the parameter \'EntityName\' did not match the type of " +
-                    "the data passed to the template.");
+            this.Error("The type \'System.Collections.Generic.IEnumerable<DynamicDefinition>\' of the param" +
+                    "eter \'ModelDefinition\' did not match the type of the data passed to the template" +
+                    ".");
         }
         else
         {
-            this._EntityNameField = ((string)(data));
+            this._ModelDefinitionField = ((global::System.Collections.Generic.IEnumerable<DynamicDefinition>)(data));
         }
     }
 }

@@ -81,8 +81,10 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
                 AddDriverFile(csProjFile, definition);
                 AddHandlerFile(csProjFile, definition);
                 AddViewFile(csProjFile, definition);
-                AddRoute(csProjFile,definition);
             }
+
+            AddRoute(csProjFile, typeDefinitions);
+
             AddFrontMenuFile(csProjFile, typeDefinitions);
             csProjFile.Save();
         }
@@ -96,7 +98,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             AddFile<CodeFile>(csProjFile, frontMenuClassFilePath, frontMenuTemplate.TransformText());
         }
 
-        private void AddRoute(CsProjFile csProjFile, DynamicDefinition modelDefinition)
+        private void AddRoute(CsProjFile csProjFile, IEnumerable<DynamicDefinition> modelDefinition)
         {
             string routePath = csProjFile.ProjectDirectory;
 
@@ -105,7 +107,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             var routeTemplate = new RouteTemplate() { Session = new Dictionary<string, object>() };
             routeTemplate.Session["Namespace"] = csProjFile.RootNamespace;
             routeTemplate.Session["AreaName"] = csProjFile.AssemblyName;
-            routeTemplate.Session["EntityName"] = modelDefinition.Name;
+            routeTemplate.Session["ModelDefinition"] = modelDefinition;
             routeTemplate.Initialize();
             AddFile<CodeFile>(csProjFile, routeFilePath, routeTemplate.TransformText());
         }

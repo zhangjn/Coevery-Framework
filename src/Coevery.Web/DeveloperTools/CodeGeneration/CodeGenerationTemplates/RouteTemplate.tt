@@ -1,7 +1,8 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="AreaName" #>
-<#@ parameter type="System.String" name="EntityName" #>
+<#@ parameter type="System.Collections.Generic.IEnumerable<DynamicDefinition>" name="ModelDefinition" #>
+<#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Services" #>
 
 
 using System.Collections.Generic;
@@ -12,14 +13,14 @@ using Coevery.Mvc.Routes;
 namespace <#=Namespace#> {
     public class Routes : IRouteProvider {
         public IEnumerable<RouteDescriptor> GetRoutes() {
-
+<# foreach (var controllerName in ModelDefinition) { #>
             yield return new RouteDescriptor {
 				Priority = -19,
                 Route = new Route(
                     "{controller}/{action}/{id}",
                     new RouteValueDictionary {
                         {"area", "<#=AreaName#>"},
-                        {"controller", "<#=EntityName#>"},
+                        {"controller", "<#=controllerName.Name#>"},
                         {"action", "Index"},
                         {"id", ""}
                     },
@@ -27,7 +28,9 @@ namespace <#=Namespace#> {
                     new RouteValueDictionary {{"area", "<#=AreaName#>"}},
                     new MvcRouteHandler())
             };
+<# } #>
         }
+		
 
         public void GetRoutes(ICollection<RouteDescriptor> routes) {
             foreach (RouteDescriptor route in GetRoutes()) {
