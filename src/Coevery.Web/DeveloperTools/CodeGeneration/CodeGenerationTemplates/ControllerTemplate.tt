@@ -68,14 +68,15 @@ namespace <#=Namespace#>.Controllers {
             return View((object) model);
         }
 
-        public ActionResult Create() {
+        public ActionResult Create(string returnUrl) {
             var contentItem = Services.ContentManager.New("<#=ModelDefinition.Name#>");
             var model = Services.ContentManager.BuildEditor(contentItem, "Create");
+			ViewData["returnUrl"] = returnUrl;
             return View(model);
         }
 
         [HttpPost, ActionName("Create")]
-        public ActionResult CreatePost() {
+        public ActionResult CreatePost(string returnUrl) {
             var contentItem = Services.ContentManager.New("<#=ModelDefinition.Name#>");
             dynamic model = Services.ContentManager.UpdateEditor(contentItem, this, "Create");
             if (!ModelState.IsValid) {
@@ -83,21 +84,23 @@ namespace <#=Namespace#>.Controllers {
             }
             Services.ContentManager.Create(contentItem, VersionOptions.Draft);
             Services.ContentManager.Publish(contentItem);
-            return RedirectToAction("Edit", new { id = contentItem.Id });
+            return RedirectToAction("Edit", new { id = contentItem.Id , returnUrl = returnUrl });
         }
 
-        public ActionResult Edit(int id) {
+        public ActionResult Edit(int id, string returnUrl) {
             var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
             if (contentItem == null) {
                 return HttpNotFound();
             }
+
+			ViewData["returnUrl"] = returnUrl;
 
             dynamic model = Services.ContentManager.BuildEditor(contentItem, "Edit");
             return View((object)model);
         }
 
         [HttpPost, ActionName("Edit")]
-        public ActionResult EditPost(int id, FormCollection collection) {
+        public ActionResult EditPost(int id, string returnUrl, FormCollection collection) {
 			var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
             if (contentItem == null) {
                 return HttpNotFound();
@@ -108,7 +111,7 @@ namespace <#=Namespace#>.Controllers {
                 _transactionManager.Cancel();
                 return View("Edit", (object) model);
             }
-            return RedirectToAction("Edit", new {id});
+            return RedirectToAction("Edit", new {id, returnUrl=returnUrl});
         }
 
         public ActionResult Delete(int id) {

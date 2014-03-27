@@ -4,6 +4,9 @@
 <#@ import namespace="System.Linq" #>
 <#@ parameter type="System.String" name="EntityName" #>
 
+@{
+    var retUrl = ViewData["returnUrl"];
+}
 
 <div class="row-fluid view-mode">
 <# foreach (var layoutSection in SectionList) { #>
@@ -26,8 +29,8 @@
 <# } #>
 	<div id="page-actions" class="clearfix">
 		<div btn-actions>
-			<button type="button" class="btn btn-small" onclick="history.back()">@T("Back")</button>
-			<button type="button" class="btn btn-small" onclick="location.href='@Url.Action("Edit","<#=EntityName#>",new {id = Model.ContentItem.Id})'">
+			<button type="button" class="btn btn-small" onclick="location.href='@retUrl'">@T("Back")</button>
+			<button type="button" class="btn btn-small" onclick="location.href='@Url.Action("Edit","<#=EntityName#>",new {id = Model.ContentItem.Id, returnUrl = Request.RawUrl})'">
 				<i class="icon-edit"></i>&nbsp;@T("Edit") 
 			</button>
 		</div>

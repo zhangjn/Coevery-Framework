@@ -4,9 +4,11 @@
 <#@ import namespace="System.Linq" #>
 @{
     var id = Guid.NewGuid().ToString();
+
+	var retUrl = ViewData["returnUrl"];
 }
 <div class="row-fluid edit-mode">
-	@using (Html.BeginFormAntiForgeryPost(Url.Action("Edit", "<#=EntityName #>" , new { id = Model.ContentItem.Id}),
+	@using (Html.BeginFormAntiForgeryPost(Url.Action("Edit", "<#=EntityName #>" , new { id = Model.ContentItem.Id, returnUrl = retUrl }),
 		FormMethod.Post, new {@class = "form-horizontal", id = id})) {
 <# foreach (var layoutSection in SectionList) { #>
 <# var widths = layoutSection.SectionColumnsWidth.Split(':').ToArray(); #>
@@ -28,9 +30,9 @@
 <# } #>
 		<div id="page-actions" class="clearfix">
 			<div btn-actions>
-				<button type="button" class="btn btn-small" onclick="history.back()">Back</button>
+				<button type="button" class="btn btn-small" onclick="location.href='@retUrl'">Back</button>
 				<button type="submit" class="btn btn-small btn-primary">Save</button>
-				<button type="submit" class="btn btn-small btn-primary" onclick="history.back()">Save & Back</button>
+				<button type="submit" class="btn btn-small btn-primary" onclick="location.href='@retUrl">Save & Back</button>
 			</div>
 		</div>
 	}

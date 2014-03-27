@@ -26,108 +26,110 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("@{\r\n    var id = Guid.NewGuid().ToString();\r\n}\r\n<div class=\"row-fluid edit-mode\">" +
-                    "\r\n\t@using (Html.BeginFormAntiForgeryPost(Url.Action(\"Create\", \"");
+            this.Write("@{\r\n    var id = Guid.NewGuid().ToString();\r\n\r\n\tvar retUrl = ViewData[\"returnUrl\"" +
+                    "];\r\n}\r\n<div class=\"row-fluid edit-mode\">\r\n\t@using (Html.BeginFormAntiForgeryPost" +
+                    "(Url.Action(\"Create\", \"");
             
-            #line 9 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 11 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(EntityName));
             
             #line default
             #line hidden
-            this.Write("\"),\r\n\t\tFormMethod.Post, new {@class = \"form-horizontal\", id = id})) {\r\n");
+            this.Write("\", new {returnUrl = retUrl} ),\r\n\t\tFormMethod.Post, new {@class = \"form-horizontal" +
+                    "\", id = id})) {\r\n");
             
-            #line 11 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 13 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
  foreach (var layoutSection in SectionList) { 
             
             #line default
             #line hidden
             
-            #line 12 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 14 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
  var widths = layoutSection.SectionColumnsWidth.Split(':').ToArray(); 
             
             #line default
             #line hidden
             this.Write("\t\t<fieldset>\r\n\t\t\t<legend>");
             
-            #line 14 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 16 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(layoutSection.SectionTitle));
             
             #line default
             #line hidden
             this.Write("</legend>\r\n");
             
-            #line 15 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 17 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
  foreach (var row in layoutSection.Rows) { 
             
             #line default
             #line hidden
             
-            #line 16 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 18 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
  int i = 0; 
             
             #line default
             #line hidden
             this.Write("\t\t\t<div class=\"data-row clearfix\">\r\n");
             
-            #line 18 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 20 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
  foreach (var column in row.Columns) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t<div class=\"span");
             
-            #line 19 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 21 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(widths[i++]));
             
             #line default
             #line hidden
             this.Write("\">\r\n");
             
-            #line 20 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 22 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
  if (column.Field != null) { 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t\t@Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: \"");
             
-            #line 21 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 23 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(column.Field.FieldName));
             
             #line default
             #line hidden
             this.Write("\")\r\n");
             
-            #line 22 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 24 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t\t</div>\r\n");
             
-            #line 24 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 26 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t\t</div>\r\n");
             
-            #line 26 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 28 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write("\t\t</fieldset>\r\n");
             
-            #line 28 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
+            #line 30 "C:\Users\Lyrix\Desktop\Internship\coevery\Coevery Framework ZJN\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt"
  } 
             
             #line default
             #line hidden
             this.Write(@"		<div id=""page-actions"" class=""clearfix"">
 			<div btn-actions>
-				<button type=""button"" class=""btn btn-small"" onclick=""history.back()"">Back</button>
+				<button type=""button"" class=""btn btn-small"" onclick=""location.href='@retUrl'"">Back</button>
 				<button type=""submit"" class=""btn btn-small btn-primary"" >Save</button>
-				<button type=""submit"" class=""btn btn-small btn-primary"" onclick=""history.back()"">Save & Back</button>
+				<button type=""submit"" class=""btn btn-small btn-primary"" onclick=""location.href='@retUrl'"">Save & Back</button>
 			</div>
 		</div>
 
@@ -137,6 +139,11 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
 @using (Script.Foot()) {
     <script>
         $('#@id').validate();
+
+		function save() {
+            $('#@id').submit();
+            location.href = ""@retUrl"";
+        }
     </script>
 }");
             return this.GenerationEnvironment.ToString();

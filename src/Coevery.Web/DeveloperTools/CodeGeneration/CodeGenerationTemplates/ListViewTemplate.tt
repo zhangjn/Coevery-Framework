@@ -12,6 +12,8 @@
     Style.Require("jqGridCustom");
     Script.Require("jqGrid");
 	Script.Require("jqGrid_i18n");
+
+	var retUrl = Request.RawUrl;
 }
 
 <div class="row-fluid">
@@ -81,12 +83,12 @@
             }
         });
         $('#btnAdd').click(function() {
-            window.location.href = '@Href("~/<#=Namespace#>/<#=EntityTypeName#>/Create")';
+            window.location.href = '@Href("~/<#=Namespace#>/<#=EntityTypeName#>/Create", new { returnUrl = retUrl})';
         });
         $('#btnEdit').click(function() {
             var selectedRowIds = $('#<#=ViewName.ToLower()#>Grid').jqGrid('getGridParam', 'selarrrow');
             if (selectedRowIds.length == 0) return;
-            window.location.href = '@Href("~/<#=Namespace#>/<#=EntityTypeName#>/Edit/")' + selectedRowIds[0];
+            window.location.href = '@Href("~/<#=Namespace#>/<#=EntityTypeName#>/Edit/")' + selectedRowIds[0] + "?returnUrl=" + '@Url.Encode(retUrl)';
         });
         $('#btnDelete').click(function () {
             var selectedIds = $('#<#=ViewName.ToLower()#>Grid').jqGrid('getGridParam', 'selarrrow');
