@@ -2,16 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Web.Hosting;
-using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData;
 using Coevery.Core.Common.Extensions;
-using Coevery.Core.Projections.Models;
 using Coevery.Core.Projections.Services;
-using Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates;
 using Coevery.DeveloperTools.FormDesigner.Models;
 using Coevery.Localization;
 using FubuCore;
@@ -92,12 +88,14 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
         }
 
         private void AddFrontMenuFile(CsProjFile csProjFile, IEnumerable<DynamicDefinition> typeDefinitions) {
+
+            var frontMenuSession = new TextTemplatingSession();
+            frontMenuSession["Namespace"] = csProjFile.RootNamespace;
+            frontMenuSession["TypeDefinitions"] = typeDefinitions;
+
             string frontMenuClassFilePath = Path.Combine(csProjFile.ProjectDirectory, "FrontMenu.cs");
-            var frontMenuTemplate = new FrontMenuTemplate { Session = new Dictionary<string, object>() };
-            frontMenuTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            frontMenuTemplate.Session["TypeDefinitions"] = typeDefinitions;
-            frontMenuTemplate.Initialize();
-            AddFile<CodeFile>(csProjFile, frontMenuClassFilePath, frontMenuTemplate.TransformText());
+            string frontMenuTemplate = TemplateHelper.ProcessTemplate("FrontMenu.tt", frontMenuSession);
+            AddFile<CodeFile>(csProjFile, frontMenuClassFilePath, frontMenuTemplate);
         }
 
         private void AddRoute(CsProjFile csProjFile, IEnumerable<DynamicDefinition> modelDefinition)
@@ -105,13 +103,14 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             string routePath = csProjFile.ProjectDirectory;
 
             // Route
+            var routeSession = new TextTemplatingSession();
+            routeSession["Namespace"] = csProjFile.RootNamespace;
+            routeSession["AreaName"] = csProjFile.AssemblyName;
+            routeSession["ModelDefinition"] = modelDefinition;
+
             string routeFilePath = Path.Combine(routePath, "Route.cs");
-            var routeTemplate = new RouteTemplate() { Session = new Dictionary<string, object>() };
-            routeTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            routeTemplate.Session["AreaName"] = csProjFile.AssemblyName;
-            routeTemplate.Session["ModelDefinition"] = modelDefinition;
-            routeTemplate.Initialize();
-            AddFile<CodeFile>(csProjFile, routeFilePath, routeTemplate.TransformText());
+            string routeTemplate = TemplateHelper.ProcessTemplate("Route.tt", routeSession);
+            AddFile<CodeFile>(csProjFile, routeFilePath, routeTemplate);
         }
 
         private void AddControllerFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
@@ -120,44 +119,44 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             CheckDirectories(moduleControllersPath);
 
             // Controller
+            var controllerSession = new TextTemplatingSession();
+            controllerSession["ModelDefinition"] = modelDefinition;
+            controllerSession["Namespace"] = csProjFile.RootNamespace;
+            controllerSession["ContentManager"] = Services.ContentManager;
+            controllerSession["ProjectionManager"] = _projectionManager;
+            controllerSession["T"] = T;
+
             string controllerClassFilePath = Path.Combine(moduleControllersPath, string.Format("{0}Controller.cs", modelDefinition.Name));
-            var controllerTemplate = new ControllerTemplate() { Session = new Dictionary<string, object>() };
-            controllerTemplate.Session["ModelDefinition"] = modelDefinition;
-            controllerTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            controllerTemplate.Session["ContentManager"] = Services.ContentManager;
-            controllerTemplate.Session["ProjectionManager"] = _projectionManager;
-            controllerTemplate.Session["T"] = T;
-            controllerTemplate.Initialize();
-            AddFile<CodeFile>(csProjFile, controllerClassFilePath, controllerTemplate.TransformText());
+            string controllerTemplate = TemplateHelper.ProcessTemplate("Controller.tt", controllerSession);
+            AddFile<CodeFile>(csProjFile, controllerClassFilePath, controllerTemplate);
         }
 
         private void AddDriverFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
             string moduleDriversPath = Path.Combine(csProjFile.ProjectDirectory, "Drivers");
-
             CheckDirectories(moduleDriversPath);
 
-            string partClassFilePath = Path.Combine(moduleDriversPath, modelDefinition.Name + "PartDriver.cs");
-            var partTemplate = new DriverTemplate() {Session = new Dictionary<string, object>()};
-            partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            partTemplate.Session["EntityName"] = modelDefinition.Name;
-            partTemplate.Initialize();
+            var driverSession = new TextTemplatingSession();
+            driverSession["Namespace"] = csProjFile.RootNamespace;
+            driverSession["EntityName"] = modelDefinition.Name;
 
-            AddFile<CodeFile>(csProjFile, partClassFilePath, partTemplate.TransformText());
+            string partClassFilePath = Path.Combine(moduleDriversPath, modelDefinition.Name + "PartDriver.cs");
+            string driverTemplate = TemplateHelper.ProcessTemplate("Driver.tt", driverSession);
+            AddFile<CodeFile>(csProjFile, partClassFilePath, driverTemplate);
         }
 
         private void AddModelClassFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
             string moduleModelsPath = Path.Combine(csProjFile.ProjectDirectory, "Models");
             CheckDirectories(moduleModelsPath);
 
-            var session = new TextTemplatingSession();
-            session["Namespace"] = csProjFile.RootNamespace;
-            session["ModelDefinition"] = modelDefinition;
+            var modelClassSession = new TextTemplatingSession();
+            modelClassSession["Namespace"] = csProjFile.RootNamespace;
+            modelClassSession["ModelDefinition"] = modelDefinition;
 
             string partClassFilePath = Path.Combine(moduleModelsPath, modelDefinition.Name + "Part.cs");
-            string contentPart = ProcessTemplate("ContentPartTemplate.tt", session);
+            string contentPart = TemplateHelper.ProcessTemplate("ContentPart.tt", modelClassSession);
             AddFile<CodeFile>(csProjFile, partClassFilePath, contentPart);
 
-            string contentPartRecord = ProcessTemplate("ContentPartRecordTemplate.tt", session);
+            string contentPartRecord = TemplateHelper.ProcessTemplate("ContentPartRecord.tt", modelClassSession);
             string recordClassFilePath = Path.Combine(moduleModelsPath, modelDefinition.Name + "PartRecord.cs");
             AddFile<CodeFile>(csProjFile, recordClassFilePath, contentPartRecord);
         }
@@ -166,16 +165,18 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             string handlersPath = Path.Combine(csProjFile.ProjectDirectory, "Handlers");
             CheckDirectories(handlersPath);
 
+            var handlerSession = new TextTemplatingSession();
+            handlerSession["EntityName"] = modelDefinition.Name;
+            handlerSession["Namespace"] = csProjFile.RootNamespace;
+
             string handlerFilePath = Path.Combine(handlersPath, string.Format("{0}PartHandler.cs", modelDefinition.Name));
-            var handlerTemplate = new HandlerTemplate {Session = new Dictionary<string, object>()};
-            handlerTemplate.Session["EntityName"] = modelDefinition.Name;
-            handlerTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            handlerTemplate.Initialize();
-            AddFile<CodeFile>(csProjFile, handlerFilePath, handlerTemplate.TransformText());
+            string handlerPart = TemplateHelper.ProcessTemplate("Handler.tt", handlerSession);
+            AddFile<CodeFile>(csProjFile, handlerFilePath, handlerPart);
         }
 
         private void AddViewFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
             string viewsPath = Path.Combine(csProjFile.ProjectDirectory, "Views");
+
             string controllerViewPath = Path.Combine(viewsPath, modelDefinition.Name);
             string partsViewPath = Path.Combine(viewsPath, "Parts");
             string viewModelsPath = Path.Combine(csProjFile.ProjectDirectory, "ViewModels");
@@ -183,23 +184,24 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
 
             // {{EntityName}}/Create.cshtml
             string createViewFilePath = Path.Combine(controllerViewPath, "Create.cshtml");
-            var createViewTemplate = new CreateViewTemplate();
-            AddFile<Content>(csProjFile, createViewFilePath, createViewTemplate.TransformText());
+            string createViewTemplate = TemplateHelper.ProcessTemplate("CreateView.tt");
+            AddFile<Content>(csProjFile, createViewFilePath, createViewTemplate);
 
             // {{EntityName}}/Edit.cshtml
             string editViewFilePath = Path.Combine(controllerViewPath, "Edit.cshtml");
-            var editViewTemplate = new EditViewTemplate();
-            AddFile<Content>(csProjFile, editViewFilePath, editViewTemplate.TransformText());
+            string editViewTemplate = TemplateHelper.ProcessTemplate("EditView.tt");
+            AddFile<Content>(csProjFile, editViewFilePath, editViewTemplate);
 
             // {{EntityName}}/Index.cshtml
             string indexViewFilePath = Path.Combine(controllerViewPath, "Index.cshtml");
-            var indexViewTemplate = new IndexViewTemplate ();
-            AddFile<Content>(csProjFile, indexViewFilePath, indexViewTemplate.TransformText());
+            string indexViewTemplate = TemplateHelper.ProcessTemplate("IndexView.tt");
+            AddFile<Content>(csProjFile, indexViewFilePath, indexViewTemplate);
 
             // {{EntityName}}/Detail.cshtml
             string detailViewFilePath = Path.Combine(controllerViewPath, "Detail.cshtml");
-            var detailViewTemplate = new DetailViewTemplate();
-            AddFile<Content>(csProjFile, detailViewFilePath, detailViewTemplate.TransformText());
+            string detailViewTemplate = TemplateHelper.ProcessTemplate("DetailView.tt");
+            AddFile<Content>(csProjFile, detailViewFilePath, detailViewTemplate);
+
 
             // Parts/CreateView-{{EntityName}}.cshtml
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(modelDefinition.Name);
@@ -207,51 +209,56 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
                 ? JsonConvert.DeserializeObject<IList<Section>>(contentTypeDefinition.Settings["Layout"])
                 : Enumerable.Empty<Section>();
 
+            var partsCreateViewSession = new TextTemplatingSession();
+            partsCreateViewSession["EntityName"] = modelDefinition.Name;
+            partsCreateViewSession["SectionList"] = sectionList;
+
             string partsCreateViewFilePath = Path.Combine(partsViewPath, string.Format("CreateView-{0}.cshtml", modelDefinition.Name));
-            var partsCreateViewTemplate = new PartsCreateViewTemplate {Session = new Dictionary<string, object>()};
-            partsCreateViewTemplate.Session["EntityName"] = modelDefinition.Name;
-            partsCreateViewTemplate.Session["SectionList"] = sectionList;
-            partsCreateViewTemplate.Initialize();
-            AddFile<Content>(csProjFile, partsCreateViewFilePath, partsCreateViewTemplate.TransformText());
+            string partsCreateViewTemplate = TemplateHelper.ProcessTemplate("PartsCreateView.tt", partsCreateViewSession);
+            AddFile<Content>(csProjFile, partsCreateViewFilePath, partsCreateViewTemplate);
 
             // Parts/ListView-{{EntityName}}.cshtml
+            var partsListViewSession = new TextTemplatingSession();
+            partsListViewSession["EntityTypeName"] = modelDefinition.Name;
+            partsListViewSession["Namespace"] = csProjFile.RootNamespace;
+            partsListViewSession["ViewName"] = modelDefinition.Name;
+            partsListViewSession["ContentManager"] = Services.ContentManager;
+            partsListViewSession["ProjectionManager"] = _projectionManager;
+            partsListViewSession["T"] = T;
+
             string partsListViewFilePath = Path.Combine(partsViewPath, string.Format("ListView-{0}.cshtml", modelDefinition.Name));
-            var partsListViewTemplate = new ListViewTemplate() { Session = new Dictionary<string, object>() };
-            partsListViewTemplate.Session["EntityTypeName"] = modelDefinition.Name;
-            partsListViewTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            partsListViewTemplate.Session["ViewName"] = modelDefinition.Name;
-            partsListViewTemplate.Session["ContentManager"] = Services.ContentManager;
-            partsListViewTemplate.Session["ProjectionManager"] = _projectionManager;
-            partsListViewTemplate.Session["T"] = T;
-            partsListViewTemplate.Initialize();
-            AddFile<Content>(csProjFile, partsListViewFilePath, partsListViewTemplate.TransformText());
+            string partsListViewTemplate = TemplateHelper.ProcessTemplate("ListView.tt", partsListViewSession);
+            AddFile<Content>(csProjFile, partsListViewFilePath, partsListViewTemplate);
 
             //ViewModels/{EntityName}ListViewModel.cs
+            var listViewModelSession = new TextTemplatingSession();
+            listViewModelSession["ModelDefinition"] = modelDefinition;
+            listViewModelSession["Namespace"] = csProjFile.RootNamespace;
+            listViewModelSession["ContentManager"] = Services.ContentManager;
+            listViewModelSession["ProjectionManager"] = _projectionManager;
+            listViewModelSession["T"] = T;
+
             string listViewModelFilePath = Path.Combine(viewModelsPath, string.Format("{0}ListViewModel.cs", modelDefinition.Name));
-            var listViewModelTemplate = new ListViewModelTemplate() { Session = new Dictionary<string, object>() };
-            listViewModelTemplate.Session["ModelDefinition"] = modelDefinition;
-            listViewModelTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            listViewModelTemplate.Session["ContentManager"] = Services.ContentManager;
-            listViewModelTemplate.Session["ProjectionManager"] = _projectionManager;
-            listViewModelTemplate.Session["T"] = T;
-            listViewModelTemplate.Initialize();
-            AddFile<CodeFile>(csProjFile, listViewModelFilePath, listViewModelTemplate.TransformText());
+            string listViewModelTemplate = TemplateHelper.ProcessTemplate("ListViewModel.tt", listViewModelSession);
+            AddFile<CodeFile>(csProjFile, listViewModelFilePath, listViewModelTemplate);
 
             // Parts/EditView-{{EntityName}}.cshtml
+            var partsEditViewSession = new TextTemplatingSession();
+            partsEditViewSession["EntityName"] = modelDefinition.Name;
+            partsEditViewSession["SectionList"] = sectionList;
+
             string partsEditViewFilePath = Path.Combine(partsViewPath, string.Format("EditView-{0}.cshtml", modelDefinition.Name));
-            var partsEditViewTemplate = new PartsEditViewTemplate {Session = new Dictionary<string, object>()};
-            partsEditViewTemplate.Session["EntityName"] = modelDefinition.Name;
-            partsEditViewTemplate.Session["SectionList"] = sectionList;
-            partsEditViewTemplate.Initialize();
-            AddFile<Content>(csProjFile, partsEditViewFilePath, partsEditViewTemplate.TransformText());
+            string partsEditViewTemplate = TemplateHelper.ProcessTemplate("PartsEditView.tt", partsEditViewSession);
+            AddFile<Content>(csProjFile, partsEditViewFilePath, partsEditViewTemplate);
 
             // Parts/DetailView-{{EntityName}}.cshtml
+            var partsDetailViewSession = new TextTemplatingSession();
+            partsDetailViewSession["EntityName"] = modelDefinition.Name;
+            partsDetailViewSession["SectionList"] = sectionList;
+
             string partsDetailViewFilePath = Path.Combine(partsViewPath, string.Format("DetailView-{0}.cshtml", modelDefinition.Name));
-            var partsDetailViewTemplate = new PartsDetailViewTemplate {Session = new Dictionary<string, object>()};
-            partsDetailViewTemplate.Session["EntityName"] = modelDefinition.Name;
-            partsDetailViewTemplate.Session["SectionList"] = sectionList;
-            partsDetailViewTemplate.Initialize();
-            AddFile<Content>(csProjFile, partsDetailViewFilePath, partsDetailViewTemplate.TransformText());
+            string partsDetailViewTemplate = TemplateHelper.ProcessTemplate("PartsDetailView.tt", partsDetailViewSession);
+            AddFile<Content>(csProjFile, partsDetailViewFilePath, partsDetailViewTemplate);
         }
 
         private void AddFile<T>(CsProjFile csProjFile, string path, string text) where T : ProjectItem, new() {
@@ -266,22 +273,6 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
                     Directory.CreateDirectory(path);
                 }
             }
-        }
-
-        private string ProcessTemplate(string templateFileName, ITextTemplatingSession session) {
-            var codeGenTemplatePath = HostingEnvironment.MapPath("~/DeveloperTools/CodeGeneration/CodeGenerationTemplates/");
-            var templateFilePath = codeGenTemplatePath + templateFileName;
-            string input = File.ReadAllText(templateFilePath);
-            var host = new SimpleTextTemplatingHost();
-            host.TemplateFileValue = templateFilePath;
-
-            var sessionHost = (ITextTemplatingSessionHost) host;
-            sessionHost.Session = session;
-
-            //Transform the text template.
-            Engine engine = new Engine();
-            string output = engine.ProcessTemplate(input, host);
-            return output;
         }
     }
 }

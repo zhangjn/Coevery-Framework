@@ -7,13 +7,13 @@ using Coevery.Commands;
 using Coevery.ContentManagement;
 using Coevery.Data.Migration.Generator;
 using Coevery.Data.Migration.Schema;
-using Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates;
 using Coevery.DeveloperTools.CodeGeneration.Services;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.Environment.Extensions;
 using Coevery.Environment.Extensions.Models;
 using FubuCsProjFile;
 using FubuCsProjFile.MSBuild;
+using Microsoft.VisualStudio.TextTemplating;
 
 namespace Coevery.DeveloperTools.CodeGeneration.Commands {
 
@@ -94,11 +94,11 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
                     interpreter.Visit(command);
                     stringWriter.WriteLine();
                 }
-                var migrationTemplate = new DataMigration {Session = new Dictionary<string, object>()};
-                migrationTemplate.Session["FeatureName"] = featureName;
-                migrationTemplate.Session["Commands"] = stringWriter.ToString();
-                migrationTemplate.Initialize();
-                dataMigrationText = migrationTemplate.TransformText();
+
+                var migrationSession = new TextTemplatingSession();
+                migrationSession["FeatureName"] = featureName;
+                migrationSession["Commands"] = stringWriter.ToString();
+                dataMigrationText = TemplateHelper.ProcessTemplate("DataMigration.tt", migrationSession);
             }
             File.WriteAllText(dataMigrationFilePath, dataMigrationText);
 
@@ -151,18 +151,16 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
                 }
             }
 
-            var csprojTemplate = new ModuleTestsCsProj();
-            var csprojText = csprojTemplate.TransformText();
+            var csprojText = TemplateHelper.ProcessTemplate("ModuleTestsCsProj.tt");
             var project = MSBuildProject.Parse(projectName, csprojText);
             var csProject = new CsProjFile(testsPath + projectName + ".csproj", project);
             SetProjectGuid(csProject);
 
-            var assemblyInfoTemplate = new ModuleAssemblyInfo();
-            assemblyInfoTemplate.Session = new Dictionary<string, object>();
-            assemblyInfoTemplate.Session["ModuleId"] = moduleName;
-            assemblyInfoTemplate.Session["ModuleTypeLibGuid"] = csProject.ProjectGuid;
-            assemblyInfoTemplate.Initialize();
-            string templateText = assemblyInfoTemplate.TransformText();
+            var assemblyInfoTemplateSession = new TextTemplatingSession();
+            assemblyInfoTemplateSession["ModuleId"] = moduleName;
+            assemblyInfoTemplateSession["ModuleTypeLibGuid"] = csProject.ProjectGuid;
+            string templateText = TemplateHelper.ProcessTemplate("ModuleAssemblyInfo.tt", assemblyInfoTemplateSession);
+
             File.WriteAllText(propertiesPath + "\\AssemblyInfo.cs", templateText);
             content.Add(propertiesPath + "\\AssemblyInfo.cs");
 
@@ -225,11 +223,10 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
                 return;
             }
 
-            var controllerTemplate = new ControllerTemplate() {Session = new Dictionary<string, object>()};
-            controllerTemplate.Session["ModuleId"] = moduleName;
-            controllerTemplate.Session["ControllerName"] = controllerName;
-            controllerTemplate.Initialize();
-            string controllerText = controllerTemplate.TransformText();
+            var controllerTemplateSession = new TextTemplatingSession();
+            controllerTemplateSession["ModuleId"] = moduleName;
+            controllerTemplateSession["ControllerName"] = controllerName;
+            string controllerText = TemplateHelper.ProcessTemplate("Controller.tt", controllerTemplateSession);
             File.WriteAllText(controllerPath, controllerText);
 
             var project = CsProjFile.LoadFrom(moduleCsProjPath);
@@ -295,20 +292,16 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
             File.WriteAllText(modulePath + "Styles\\Web.config", File.ReadAllText(_codeGenTemplatePath + "StaticFilesWebConfig.txt"));
             content.Add(modulePath + "Styles\\Web.config");
 
-            var assemblyInfoTemplate = new ModuleAssemblyInfo();
-            assemblyInfoTemplate.Session = new Dictionary<string, object>();
-            assemblyInfoTemplate.Session["ModuleId"] = moduleName;
-            assemblyInfoTemplate.Session["ModuleTypeLibGuid"] = csProject.ProjectGuid;
-            assemblyInfoTemplate.Initialize();
-            string templateText = assemblyInfoTemplate.TransformText();
+            var assemblyInfoTemplateSession = new TextTemplatingSession();
+            assemblyInfoTemplateSession["ModuleId"] = moduleName;
+            assemblyInfoTemplateSession["ControllerName"] = csProject.ProjectGuid;
+            string templateText = TemplateHelper.ProcessTemplate("ModuleAssemblyInfo.tt", assemblyInfoTemplateSession);
             File.WriteAllText(propertiesPath + "\\AssemblyInfo.cs", templateText);
             content.Add(propertiesPath + "\\AssemblyInfo.cs");
 
-            var moduleMainfestTemplate = new ModuleManifest();
-            moduleMainfestTemplate.Session = new Dictionary<string, object>();
-            moduleMainfestTemplate.Session["ModuleId"] = moduleName;
-            moduleMainfestTemplate.Initialize();
-            templateText = moduleMainfestTemplate.TransformText();
+            var moduleMainfestTemplateSession = new TextTemplatingSession();
+            moduleMainfestTemplateSession["ModuleId"] = moduleName;
+            templateText = TemplateHelper.ProcessTemplate("ModuleManifest.tt", moduleMainfestTemplateSession);
             File.WriteAllText(modulePath + "Module.txt", templateText, System.Text.Encoding.UTF8);
             content.Add(modulePath + "Module.txt");
 
@@ -318,8 +311,8 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
         }
 
         private static CsProjFile CreateCsProject(string fileName, string projectName) {
-            var projectTemplate = new ModuleCsProj();
-            var projectText = projectTemplate.TransformText();
+            var projectText = TemplateHelper.ProcessTemplate("ModuleCsProj.tt");
+
             var project = MSBuildProject.Parse(projectName, projectText);
             var csProject = new CsProjFile(fileName, project);
             csProject.RootNamespace = projectName;
@@ -364,11 +357,10 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
             File.WriteAllText(themePath + "Content\\Web.config", File.ReadAllText(_codeGenTemplatePath + "StaticFilesWebConfig.txt"));
             createdFiles.Add(themePath + "Content\\Web.config");
 
-            var themeTemplate = new ThemeManifest() {Session = new Dictionary<string, object>()};
-            themeTemplate.Session["ThemeName"] = themeName;
-            themeTemplate.Session["BaseTheme"] = baseTheme;
-            themeTemplate.Initialize();
-            var templateText = themeTemplate.TransformText();
+            var themeTemplateSession = new TextTemplatingSession();
+            themeTemplateSession["ThemeName"] = themeName;
+            themeTemplateSession["BaseTheme"] = baseTheme;
+            var templateText = TemplateHelper.ProcessTemplate("ThemeManifest.tt", themeTemplateSession);
 
             File.WriteAllText(themePath + "Theme.txt", templateText);
             createdFiles.Add(themePath + "Theme.txt");
