@@ -277,7 +277,7 @@
     <Compile Include="RelationshipManagement\Settings\ReferenceFieldEditorEvents.cs" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\CreateView.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\PartsCreateView.tt" />
-    <Content Include="CodeGeneration\CodeGenerationTemplates\IndexViewTemplate.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\IndexView.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\ListView.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\EditView.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\PartsEditView.tt" />
@@ -287,7 +287,7 @@
     <Content Include="CodeGeneration\CodeGenerationTemplates\Handler.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\ListViewModel.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\ListViewCommon.ttinclude" />
-    <Content Include="CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\Route.tt" />
     <Content Include="Perspectives\Placement.info" />
     <Content Include="Perspectives\Scripts\Web.config" />
     <Content Include="Perspectives\Views\EditorTemplates\Parts.MenuItem.Edit.cshtml" />
