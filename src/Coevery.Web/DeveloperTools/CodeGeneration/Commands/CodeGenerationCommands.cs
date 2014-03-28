@@ -157,7 +157,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
             SetProjectGuid(csProject);
 
             var assemblyInfoTemplateSession = new TextTemplatingSession();
-            assemblyInfoTemplateSession["ModuleId"] = moduleName;
+            assemblyInfoTemplateSession["ModuleName"] = moduleName;
             assemblyInfoTemplateSession["ModuleTypeLibGuid"] = csProject.ProjectGuid;
             string templateText = TemplateHelper.ProcessTemplate("ModuleAssemblyInfo.tt", assemblyInfoTemplateSession);
 
@@ -293,14 +293,14 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
             content.Add(modulePath + "Styles\\Web.config");
 
             var assemblyInfoTemplateSession = new TextTemplatingSession();
-            assemblyInfoTemplateSession["ModuleId"] = moduleName;
-            assemblyInfoTemplateSession["ControllerName"] = csProject.ProjectGuid;
+            assemblyInfoTemplateSession["ModuleName"] = moduleName;
+            assemblyInfoTemplateSession["ModuleTypeLibGuid"] = csProject.ProjectGuid;
             string templateText = TemplateHelper.ProcessTemplate("ModuleAssemblyInfo.tt", assemblyInfoTemplateSession);
             File.WriteAllText(propertiesPath + "\\AssemblyInfo.cs", templateText);
             content.Add(propertiesPath + "\\AssemblyInfo.cs");
 
             var moduleMainfestTemplateSession = new TextTemplatingSession();
-            moduleMainfestTemplateSession["ModuleId"] = moduleName;
+            moduleMainfestTemplateSession["ModuleName"] = moduleName;
             templateText = TemplateHelper.ProcessTemplate("ModuleManifest.tt", moduleMainfestTemplateSession);
             File.WriteAllText(modulePath + "Module.txt", templateText, System.Text.Encoding.UTF8);
             content.Add(modulePath + "Module.txt");
