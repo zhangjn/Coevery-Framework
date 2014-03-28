@@ -5,6 +5,26 @@
     Style.Include("dropdowns.css");
 
     Script.Include("js/setup-systemadmin.js");
+
+    Script.Include("angular/angular.js", "angular/angular.min.js");
+    Script.Include("angular/i18n/angular-locale." + WorkContext.CurrentCulture + ".js");
+    Script.Include("angular/angular-resource.js", "angular/angular-resource.min.js");
+    Script.Include("angular/angular-route.js", "angular/angular-route.min.js");
+    Script.Include("angular/ui-utils/ui-utils.js", "angular/ui-utils/ui-utils.min.js");
+    Script.Include("angular/ui-router/angular-ui-router.js", "angular/ui-router/angular-ui-router.min.js");
+    Script.Include("angular/couchPotato/angular-couchPotato.js", "angular/couchPotato/angular-couchPotato.min.js");
+    Script.Include("angular/i18next/i18next-1.6.3.js", "angular/i18next/i18next-1.6.3.min.js");
+    Script.Include("angular/i18next/ng-i18next.js", "angular/i18next/ng-i18next.min.js");
+    Script.Include("angular/ui-bootstrap/ui-bootstrap-tpls-0.4.0.js");
+    Script.Include("angular/promise-tracker/promise-tracker.js");
+    Script.Include("angular/underscore/underscore.js", "angular/underscore/underscore.min.js");
+    Script.Include("angular/underscore/angular-underscore.js", "angular/underscore/angular-underscore.js");
     
-    //Style.Include("bootstrap-datetimepicker.min.css");
+    Script.Include("directives/common.js");
+    Script.Include("directives/formdesigner-directive.js");
+    Script.Include("directives/jqGrid-directive.js");
+    Script.Include("directives/wizard-directive.js");
+    Script.Include("directives/dependency-directive.js");
+    Script.Include("directives/picklist-directive.js");
+    Script.Include("directives/cobusy-directive.js");
 }

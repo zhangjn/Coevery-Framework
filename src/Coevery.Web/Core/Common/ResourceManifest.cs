@@ -14,41 +14,7 @@ namespace Coevery.Core.Common {
             manifest.DefineScript("require").SetUrl("require.min.js", "require.js").SetVersion("2.1.6");
             manifest.DefineScript("spin").SetUrl("spin.js", "spin.js").SetVersion("1.3.2");
 
-            RegisterAngular(manifest);
             RegisterJQuery(manifest);
-            RegisterDirective(manifest);
-        }
-
-        private void RegisterAngular(UI.Resources.ResourceManifest manifest) {
-            manifest.DefineScript("angular").SetUrl("angular/angular.min.js", "angular/angular.js").SetVersion("1.2.0-rc.2")
-                .SetCdn("//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js", "//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular.min.js", true);
-
-            var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures).Select(c => c.Name).ToArray();
-            manifest.DefineScript("angular_i18n").SetUrl("angular/i18n/angular-locale.js").SetCultures(cultures);
-
-            manifest.DefineScript("angularResource").SetUrl("angular/angular-resource.min.js", "angular/angular-resource.js").SetVersion("1.2.0-rc.2")
-                .SetCdn("//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-resource.min.js", "//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-resource.js", true);
-
-            manifest.DefineScript("angularRoute").SetUrl("angular/angular-route.min.js", "angular/angular-route.js").SetVersion("1.2.0-rc.2")
-                .SetCdn("//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-route.min.js", "//ajax.googleapis.com/ajax/libs/angularjs/1.2.0-rc.2/angular-route.js", true);
-
-            manifest.DefineScript("angular_UI_Router").SetUrl("angular/ui-router/angular-ui-router.min.js", "angular/ui-router/angular-ui-router.js").SetVersion("0.0.2").SetDependencies("angular");
-
-            manifest.DefineScript("angular_couchPotato").SetUrl("angular/couchPotato/angular-couchPotato.min.js", "angular/couchPotato/angular-couchPotato.js").SetVersion("0.0.4").SetDependencies("angular_UI_Router");
-
-            manifest.DefineScript("i18next").SetUrl("angular/i18next/i18next-1.6.3.min.js", "angular/i18next/i18next-1.6.3.js").SetVersion("1.6.3");
-
-            manifest.DefineScript("ng_i18next").SetUrl("angular/i18next/ng-i18next.min.js", "angular/i18next/ng-i18next.js").SetVersion("0.2.8");
-
-            manifest.DefineScript("ui_utils").SetUrl("angular/ui-utils/ui-utils.min.js", "angular/ui-utils/ui-utils.js").SetVersion("0.0.3").SetDependencies("angular");
-
-            manifest.DefineScript("ui_bootstrap").SetUrl("angular/ui-bootstrap/ui-bootstrap-tpls-0.4.0.js", "angular/ui-bootstrap/ui-bootstrap-tpls-0.4.0.js").SetVersion("0.4.0").SetDependencies("angular");
-
-            manifest.DefineScript("underscore").SetUrl("angular/underscore/underscore.min.js", "angular/underscore/underscore.js").SetVersion("1.5.1");
-
-            manifest.DefineScript("angularunderscore").SetUrl("angular/underscore/angular-underscore.js", "angular/underscore/angular-underscore.js").SetVersion("1.0.0").SetDependencies("angular");
-
-            manifest.DefineScript("promisetracker").SetUrl("angular/promise-tracker/promise-tracker.js", "angular/promise-tracker/promise-tracker.js").SetVersion("1.4.2").SetDependencies("angular");
         }
 
         private void RegisterJQuery(UI.Resources.ResourceManifest manifest) {
@@ -110,14 +76,6 @@ namespace Coevery.Core.Common {
 
             manifest.DefineStyle("Switchable").SetUrl("jQuery/jquery.switchable.css");
             manifest.DefineScript("Switchable").SetUrl("jQuery/jquery.switchable.js").SetDependencies("jQuery").SetDependencies("ShapesBase");
-        }
-
-        private void RegisterDirective(UI.Resources.ResourceManifest manifest) {
-            manifest.DefineScript("jqGrid-directive").SetUrl("directives/jqGrid-directive.js");
-            manifest.DefineScript("wizard-directive").SetUrl("directives/wizard-directive.js");
-            manifest.DefineScript("dependency-directive").SetUrl("directives/dependency-directive.js");
-            manifest.DefineScript("picklist-directive").SetUrl("directives/picklist-directive.js");
-            manifest.DefineScript("cobusy-directive").SetUrl("directives/cobusy-directive.js");
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿define([], function () {
+﻿(function () {
     //Place Indicator Helper
 
     function PlaceIndicator() {
@@ -1075,4 +1075,4 @@
                 }]
             };
         });
-});
+})();

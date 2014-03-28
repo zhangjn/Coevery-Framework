@@ -1,4 +1,4 @@
-﻿define(['core/directives/formdesigner-directive', 'core/directives/common'], function () {
+﻿define([], function () {
     'use strict';
 
     coevery.value('$anchorScroll', angular.noop);
