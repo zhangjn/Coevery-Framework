@@ -1,15 +1,13 @@
 require.config({
     paths: {
         core: 'Core/Common/Scripts',
-        app: 'Core/Common/Scripts/app/' + appPrefix() + 'app'
+        app: 'Themes/MooncakeAdmin/Scripts/app/' + appPrefix() + 'app'
     }
 });
 
 
-require(['app', 'core/app/logger'], function (app) {
+require(['app', 'core/app/logger'], function () {
     'use strict';
-    
-    var config = requirejs.s.contexts._.config;
     
     angular.element(document).ready(function() {
         angular.bootstrap(document, ['coevery', function($locationProvider) {

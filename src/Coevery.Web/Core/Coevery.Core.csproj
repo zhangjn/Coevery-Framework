@@ -465,11 +465,9 @@
     <Compile Include="Tokens\TokenDescriptor.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Common\Scripts\app\adminapp.js" />
     <Content Include="Common\Scripts\app\couchPotatoService.js" />
     <Content Include="Common\Scripts\app\detourService.js" />
     <Content Include="Common\Scripts\app\logger.js" />
-    <Content Include="Common\Scripts\app\main.js" />
     <Content Include="Common\Scripts\jQuery\jqGrid\i18n\grid.locale.ar.js" />
     <Content Include="Common\Scripts\jQuery\jqGrid\i18n\grid.locale.bg-BG.js" />
     <Content Include="Common\Scripts\jQuery\jqGrid\i18n\grid.locale.bg.js" />
@@ -658,9 +656,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\Views\Home\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Common\Views\ClientBootstrapScript.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Common\Scripts\jQuery\jquery.min.map" />

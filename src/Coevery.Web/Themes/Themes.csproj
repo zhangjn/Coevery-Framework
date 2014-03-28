@@ -333,6 +333,8 @@
     <Content Include="MooncakeAdmin\Scripts\angular\underscore\angular-underscore.js" />
     <Content Include="MooncakeAdmin\Scripts\angular\underscore\underscore.js" />
     <Content Include="MooncakeAdmin\Scripts\angular\underscore\underscore.min.js" />
+    <Content Include="MooncakeAdmin\Scripts\app\adminapp.js" />
+    <Content Include="MooncakeAdmin\Scripts\app\main.js" />
     <Content Include="MooncakeAdmin\Scripts\directives\cobusy-directive.js" />
     <Content Include="MooncakeAdmin\Scripts\directives\common.js" />
     <Content Include="MooncakeAdmin\Scripts\directives\dependency-directive.js" />
@@ -888,6 +890,7 @@
     <Content Include="MooncakeBase\Styles\fonts\icomoon\license.txt" />
     <Content Include="MooncakeBase\Styles\fonts\icomoon\style.css" />
     <Content Include="MooncakeBase\Styles\form.css" />
+    <Content Include="MooncakeBase\Styles\grid.css" />
     <Content Include="MooncakeBase\Styles\icons.css" />
     <Content Include="MooncakeBase\Styles\images\%402x\layout\content-bg-plain-gt1200.png" />
     <Content Include="MooncakeBase\Styles\images\%402x\layout\content-bg-plain.png" />
@@ -3800,6 +3803,10 @@
   <ItemGroup>
     <Content Include="MooncakeAdmin\Scripts\angular\underscore\underscore.min.js.map" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="MooncakeAdmin\Views\ClientBootstrapScript.cshtml" />
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
