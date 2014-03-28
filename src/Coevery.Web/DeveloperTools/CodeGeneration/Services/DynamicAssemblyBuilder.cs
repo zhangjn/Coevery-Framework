@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Web.Hosting;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
@@ -15,6 +16,7 @@ using Coevery.DeveloperTools.FormDesigner.Models;
 using Coevery.Localization;
 using FubuCore;
 using FubuCsProjFile;
+using Microsoft.VisualStudio.TextTemplating;
 using Newtonsoft.Json;
 
 namespace Coevery.DeveloperTools.CodeGeneration.Services {
@@ -147,19 +149,17 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             string moduleModelsPath = Path.Combine(csProjFile.ProjectDirectory, "Models");
             CheckDirectories(moduleModelsPath);
 
-            string partClassFilePath = Path.Combine(moduleModelsPath, modelDefinition.Name + "Part.cs");
-            var partTemplate = new ContentPartTemplate() {Session = new Dictionary<string, object>()};
-            partTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            partTemplate.Session["ModelDefinition"] = modelDefinition;
-            partTemplate.Initialize();
-            AddFile<CodeFile>(csProjFile, partClassFilePath, partTemplate.TransformText());
+            var session = new TextTemplatingSession();
+            session["Namespace"] = csProjFile.RootNamespace;
+            session["ModelDefinition"] = modelDefinition;
 
+            string partClassFilePath = Path.Combine(moduleModelsPath, modelDefinition.Name + "Part.cs");
+            string contentPart = ProcessTemplate("ContentPartTemplate.tt", session);
+            AddFile<CodeFile>(csProjFile, partClassFilePath, contentPart);
+
+            string contentPartRecord = ProcessTemplate("ContentPartRecordTemplate.tt", session);
             string recordClassFilePath = Path.Combine(moduleModelsPath, modelDefinition.Name + "PartRecord.cs");
-            var recordTemplate = new ContentPartRecordTemplate() {Session = new Dictionary<string, object>()};
-            recordTemplate.Session["Namespace"] = csProjFile.RootNamespace;
-            recordTemplate.Session["ModelDefinition"] = modelDefinition;
-            recordTemplate.Initialize();
-            AddFile<CodeFile>(csProjFile, recordClassFilePath, recordTemplate.TransformText());
+            AddFile<CodeFile>(csProjFile, recordClassFilePath, contentPartRecord);
         }
 
         private void AddHandlerFile(CsProjFile csProjFile, DynamicDefinition modelDefinition) {
@@ -266,6 +266,22 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
                     Directory.CreateDirectory(path);
                 }
             }
+        }
+
+        private string ProcessTemplate(string templateFileName, ITextTemplatingSession session) {
+            var codeGenTemplatePath = HostingEnvironment.MapPath("~/DeveloperTools/CodeGeneration/CodeGenerationTemplates/");
+            var templateFilePath = codeGenTemplatePath + templateFileName;
+            string input = File.ReadAllText(templateFilePath);
+            var host = new SimpleTextTemplatingHost();
+            host.TemplateFileValue = templateFilePath;
+
+            var sessionHost = (ITextTemplatingSessionHost) host;
+            sessionHost.Session = session;
+
+            //Transform the text template.
+            Engine engine = new Engine();
+            string output = engine.ProcessTemplate(input, host);
+            return output;
         }
     }
 }
