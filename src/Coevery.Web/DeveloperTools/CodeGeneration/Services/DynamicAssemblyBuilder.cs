@@ -84,7 +84,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
                 AddViewFile(csProjFile, definition);
             }
 
-            AddRoute(csProjFile, typeDefinitions);
+            AddRoute(csProjFile);
 
             AddFrontMenuFile(csProjFile, typeDefinitions);
             csProjFile.Save();
@@ -101,15 +101,13 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             AddFile<CodeFile>(csProjFile, frontMenuClassFilePath, frontMenuTemplate);
         }
 
-        private void AddRoute(CsProjFile csProjFile, IEnumerable<DynamicDefinition> modelDefinition)
-        {
+        private void AddRoute(CsProjFile csProjFile) {
             string routePath = csProjFile.ProjectDirectory;
 
             // Route
             var routeSession = new TextTemplatingSession();
             routeSession["Namespace"] = csProjFile.RootNamespace;
             routeSession["AreaName"] = csProjFile.AssemblyName;
-            routeSession["ModelDefinition"] = modelDefinition;
 
             string routeFilePath = Path.Combine(routePath, "Route.cs");
             string routeTemplate = _templateGenerator.ProcessTemplate("Route.tt", routeSession);
