@@ -57,10 +57,12 @@
     <Reference Include="Microsoft.VisualStudio.TextTemplating.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\t4\Microsoft.VisualStudio.TextTemplating.10.0.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\t4\Microsoft.VisualStudio.TextTemplating.Interfaces.10.0.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -167,8 +169,9 @@
     <None Include="CodeGeneration\CodeGenerationTemplates\ContentPartRecord.tt" />
     <Compile Include="CodeGeneration\Commands\CodeGenerationCommands.cs" />
     <Compile Include="CodeGeneration\Services\CodeGenerationCommandInterpreter.cs" />
+    <Compile Include="CodeGeneration\Services\ITemplateGenerator.cs" />
     <Compile Include="CodeGeneration\Services\SimpleTextTemplatingHost.cs" />
-    <Compile Include="CodeGeneration\Services\TemplateHelper.cs" />
+    <Compile Include="CodeGeneration\Services\DefaultTemplateGenerator.cs" />
     <Compile Include="CodeGeneration\Utils\CSharpTypeNameProvider.cs" />
     <Compile Include="CodeGeneration\Utils\TypeExtensions.cs" />
     <Compile Include="CodeGeneration\Utils\TypeNameProvider.cs" />

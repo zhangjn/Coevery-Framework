@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" language="C#" #>
+﻿<#@ template debug="false" language="C#" hostspecific="true"#>
 <#@ include file="ListViewCommon.ttinclude" #>
 <#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Services" #>
 <#@ parameter type="System.String" name="Namespace" #>

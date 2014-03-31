@@ -1,4 +1,6 @@
-﻿<#@ template debug="false" language="C#" #>
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="Coevery.DeveloperTools" #>
+<#@ assembly name="System.Core" #>
 <#@ parameter type="System.String" name="EntityName" #>
 <#@ parameter type="System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>" name="SectionList" #>
 <#@ import namespace="System.Linq" #>
