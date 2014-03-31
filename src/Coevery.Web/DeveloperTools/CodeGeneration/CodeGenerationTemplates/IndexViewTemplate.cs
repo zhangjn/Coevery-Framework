@@ -15,7 +15,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "F:\Shinetech\Coevery-Framework-V1\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\IndexViewTemplate.tt"
+    #line 1 "D:\Work\Coevery-Framework\src\Coevery.Web\DeveloperTools\CodeGeneration\CodeGenerationTemplates\IndexViewTemplate.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class IndexViewTemplate : IndexViewTemplateBase
     {
@@ -26,22 +26,17 @@ namespace Coevery.DeveloperTools.CodeGeneration.CodeGenerationTemplates
         public virtual string TransformText()
         {
             this.Write(@"@{
-    string displayName = Model.ContentItem.TypeDefinition.DisplayName;
+    Layout.Title = Model.ContentItem.TypeDefinition.DisplayName;
 }
-<header id=""page-title"" class=""ng-scope"">
-    <h1 class=""pull-left"">@displayName</h1>
-</header>
-<section id=""main-content"">
-    <div id=""page-actions"" class=""clearfix"">
-        <div class=""btn-toolbar pull-left"">
-            <button id=""btnAdd"" class=""btn btn-small btn-success"" type=""button""><i class=""icon-plus""></i>Add</button>
-            <button id=""btnEdit"" class=""btn btn-small btn-primary hide"" type=""button""><i class=""icon-edit""></i>Edit</button>
-            <button id=""btnDelete"" class=""btn btn-small btn-warning hide"" type=""button""><i class=""icon-trash""></i>Delete</button>
-            <button id=""btnRefresh"" class=""btn btn-small"" type=""button""><i class=""icon-refresh""></i>Refresh</button>
-        </div>
+<div id=""page-actions"" class=""clearfix"">
+    <div class=""btn-toolbar pull-left"">
+        <button id=""btnAdd"" class=""btn btn-small btn-success"" type=""button""><i class=""icon-plus""></i>&nbsp;Add</button>
+        <button id=""btnEdit"" class=""btn btn-small btn-primary hide"" type=""button""><i class=""icon-edit""></i>&nbsp;Edit</button>
+        <button id=""btnDelete"" class=""btn btn-small btn-warning hide"" type=""button""><i class=""icon-trash""></i>&nbsp;Delete</button>
+        <button id=""btnRefresh"" class=""btn btn-small"" type=""button""><i class=""icon-refresh""></i>&nbsp;Refresh</button>
     </div>
-    @Display(Model.Content)
-</section>
+</div>
+@Display(Model.Content)
 
 @if (Model.Footer != null) {
     <footer>

@@ -180,7 +180,17 @@
 
                 <div id="sidebar-separator"></div>
                 <section id="main" class="clearfix">
-                    @Zone(Model.Content)
+                    <header id="page-title" class="ng-scope">
+                        <h1 class="pull-left">@Model.Title @if (@Model.TitleDescription != null) {<text><span>@Model.TitleDescription</span></text>}</h1>
+                    </header>
+                    <section id="main-content">
+                        @if (Model.Messages != null) {
+                            <div id="messages">
+                                @Zone(Model.Messages)
+                            </div>
+                        }
+                        @Zone(Model.Content)
+                    </section>
                 </section>
             </div>
         </div>

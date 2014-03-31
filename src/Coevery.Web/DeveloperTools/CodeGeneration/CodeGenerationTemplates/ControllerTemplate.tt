@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 using Coevery;
+using Coevery.UI.Notify;
 using Coevery.ContentManagement;
 using Coevery.Data;
 using Coevery.Themes;
@@ -83,6 +84,7 @@ namespace <#=Namespace#>.Controllers {
             }
             Services.ContentManager.Create(contentItem, VersionOptions.Draft);
             Services.ContentManager.Publish(contentItem);
+            Services.Notifier.Information(T("<#=ModelDefinition.Name#> created"));
             return RedirectToAction("Edit", new { id = contentItem.Id });
         }
 
@@ -108,6 +110,7 @@ namespace <#=Namespace#>.Controllers {
                 _transactionManager.Cancel();
                 return View("Edit", (object) model);
             }
+            Services.Notifier.Information(T("<#=ModelDefinition.Name#> information updated"));
             return RedirectToAction("Edit", new {id});
         }
 
