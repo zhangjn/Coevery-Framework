@@ -101,18 +101,20 @@
     @Html.HiddenFor(m => m.OptionSetId)
 </div>
 
-<script type="text/javascript">
-    $(function() {
-        $(".groupValidationHelper input[type='radio'], .groupValidationHelper input[type='checkbox']").change(function () {
+@using (Script.Foot()) {
+    <script type="text/javascript">
+        $(function() {
+            $(".groupValidationHelper input[type='radio'], .groupValidationHelper input[type='checkbox']").change(function() {
+                if ($(".groupValidationHelper input:checked").length > 0) {
+                    $("#groupValidationPart").val("true");
+                } else {
+                    $("#groupValidationPart").val("");
+                }
+            });
+
             if ($(".groupValidationHelper input:checked").length > 0) {
                 $("#groupValidationPart").val("true");
-            } else {
-                $("#groupValidationPart").val("");
             }
         });
-        
-        if ($(".groupValidationHelper input:checked").length > 0) {
-            $("#groupValidationPart").val("true");
-        }
-    });
-</script>
+    </script>
+}

@@ -19,7 +19,7 @@
 <# int i = 0; #>
 			<div class="data-row clearfix">
 <# foreach (var column in row.Columns) { #>
-				<div class="span<#=widths[i++]#>">
+				<div class="span<#=widths[i++]#> control-group">
 <# if (column.Field != null) { #>
 					@Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "<#= column.Field.FieldName #>")
 <# } #>

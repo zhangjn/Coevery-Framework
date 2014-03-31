@@ -39,8 +39,4 @@
   <Place Fields_Currency_Edit="Fields:2.6" />
   <Place Fields_Currency="Fields:after" />
 
-  <!--Taxonomy-->
-  <Place Fields_TaxonomyField_Edit="Fields:2.6" />
-  <Place Fields_TaxonomyField="Fields:after" />
-
 </Placement>

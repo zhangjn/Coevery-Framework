@@ -91,12 +91,12 @@ namespace Coevery.Core.Common {
                     menu.Metadata.Alternates.Add("Menu__" + EncodeAlternateElement(menuName));
                 });
 
-            builder.Describe("MenuItem")
-                .OnDisplaying(displaying => {
-                    var menuItem = displaying.Shape;
-                    var menu = menuItem.Menu;
-                    menuItem.Metadata.Alternates.Add("MenuItem__" + EncodeAlternateElement(menu.MenuName));
-                });
+            //builder.Describe("MenuItem")
+            //    .OnDisplaying(displaying => {
+            //        var menuItem = displaying.Shape;
+            //        var menu = menuItem.Menu;
+            //        menuItem.Metadata.Alternates.Add("MenuItem__" + EncodeAlternateElement(menu.MenuName));
+            //    });
 
             builder.Describe("MenuItemLink")
                 .OnDisplaying(displaying => {
