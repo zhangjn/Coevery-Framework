@@ -413,6 +413,10 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
                 var projectReference = string.Format("EndProject\r\nProject(\"{{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}}\") = \"{0}\", \"{2}\", \"{{{1}}}\"\r\n", solutionProject.ProjectName, solutionProject.ProjectGuid, solutionProject.RelativePath);
                 var projectConfiguationPlatforms = string.Format("GlobalSection(ProjectConfigurationPlatforms) = postSolution\r\n\t\t{{{0}}}.Debug|Any CPU.ActiveCfg = Debug|Any CPU\r\n\t\t{{{0}}}.Debug|Any CPU.Build.0 = Debug|Any CPU\r\n\t\t{{{0}}}.Release|Any CPU.ActiveCfg = Release|Any CPU\r\n\t\t{{{0}}}.Release|Any CPU.Build.0 = Release|Any CPU\r\n", solutionProject.ProjectGuid);
                 var solutionText = File.ReadAllText(solutionPath);
+                if (solution.Projects.All(x => x.ProjectGuid.ToString() != "909562F5-C68D-434E-B2BB-AA0843ED7698")) {
+                    var modulesReference = string.Format("EndProject\r\nProject(\"{{2150E333-8FDC-42A3-9474-1A3956D46DE8}}\") = \"Modules\", \"Modules\", \"{{E9C9F120-07BA-4DFB-B9C3-3AFB9D44C9D5}}\"\r\n");
+                    solutionText = solutionText.Insert(solutionText.LastIndexOf("EndProject\r\n"), modulesReference);
+                }
                 solutionText = solutionText.Insert(solutionText.LastIndexOf("EndProject\r\n"), projectReference).Replace("GlobalSection(ProjectConfigurationPlatforms) = postSolution\r\n", projectConfiguationPlatforms);
                 solutionText = solutionText.Insert(solutionText.LastIndexOf("EndGlobalSection"), "\t{" + solutionProject.ProjectGuid + "} = {" + solutionFolderGuid + "}\r\n\t");
                 File.WriteAllText(solutionPath, solutionText);
