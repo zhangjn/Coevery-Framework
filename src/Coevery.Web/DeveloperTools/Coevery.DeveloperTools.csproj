@@ -280,8 +280,8 @@
     <Compile Include="RelationshipManagement\Settings\ReferenceFieldEditorEvents.cs" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\CreateView.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\PartsCreateView.tt" />
-    <Content Include="CodeGeneration\CodeGenerationTemplates\IndexView.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\ListView.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\PartsListView.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\EditView.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\PartsEditView.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\DetailView.tt" />
@@ -327,7 +327,9 @@
     <Content Include="CodeGeneration\CodeGenerationTemplates\Controller.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\DataMigration.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.tt" />
-    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleCsProj.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleCsProj.tt">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\Placement.info" />

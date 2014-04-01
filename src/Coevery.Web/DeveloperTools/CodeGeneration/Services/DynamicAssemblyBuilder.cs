@@ -196,16 +196,15 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             string editViewTemplate = _templateGenerator.ProcessTemplate("EditView.tt");
             AddFile<Content>(csProjFile, editViewFilePath, editViewTemplate);
 
-            // {{EntityName}}/Index.cshtml
-            string indexViewFilePath = Path.Combine(controllerViewPath, "Index.cshtml");
-            string indexViewTemplate = _templateGenerator.ProcessTemplate("IndexView.tt");
-            AddFile<Content>(csProjFile, indexViewFilePath, indexViewTemplate);
+            // {{EntityName}}/List.cshtml
+            string listViewFilePath = Path.Combine(controllerViewPath, "List.cshtml");
+            string listViewTemplate = _templateGenerator.ProcessTemplate("ListView.tt");
+            AddFile<Content>(csProjFile, listViewFilePath, listViewTemplate);
 
             // {{EntityName}}/Detail.cshtml
             string detailViewFilePath = Path.Combine(controllerViewPath, "Detail.cshtml");
             string detailViewTemplate = _templateGenerator.ProcessTemplate("DetailView.tt");
             AddFile<Content>(csProjFile, detailViewFilePath, detailViewTemplate);
-
 
             // Parts/CreateView-{{EntityName}}.cshtml
             var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(modelDefinition.Name);
@@ -231,7 +230,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             partsListViewSession["T"] = T;
 
             string partsListViewFilePath = Path.Combine(partsViewPath, string.Format("ListView-{0}.cshtml", modelDefinition.Name));
-            string partsListViewTemplate = _templateGenerator.ProcessTemplate("ListView.tt", partsListViewSession);
+            string partsListViewTemplate = _templateGenerator.ProcessTemplate("PartsListView.tt", partsListViewSession);
             AddFile<Content>(csProjFile, partsListViewFilePath, partsListViewTemplate);
 
             //ViewModels/{EntityName}ListViewModel.cs

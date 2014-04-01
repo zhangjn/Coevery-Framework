@@ -31,10 +31,14 @@ namespace <#=Namespace#>.Controllers {
 		public Localizer T { get; set; }
 
 		public ActionResult Index() {
+            return List();
+        }
+
+		public ActionResult List() {
             var contentItem = Services.ContentManager.New("<#=ModelDefinition.Name#>");
             contentItem.Weld(new <#=ModelDefinition.Name#>Part());
             var model = Services.ContentManager.BuildDisplay(contentItem, "List");
-            return View(model);
+            return View("List", model);
         }
 
 		[HttpPost]

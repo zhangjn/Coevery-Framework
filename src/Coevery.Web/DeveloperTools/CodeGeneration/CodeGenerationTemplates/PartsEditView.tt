@@ -4,6 +4,7 @@
 <#@ parameter type="System.String" name="EntityName" #>
 <#@ parameter type="System.Collections.Generic.IList<Coevery.DeveloperTools.FormDesigner.Models.Section>" name="SectionList" #>
 <#@ import namespace="System.Linq" #>
+@using Coevery.Utility.Extensions
 @{
     var id = Guid.NewGuid().ToString();
 }
@@ -28,13 +29,15 @@
 <# } #>
 		</fieldset>
 <# } #>
-		<div id="page-actions" class="clearfix">
-			<div btn-actions>
-				<button type="button" class="btn btn-small" onclick="history.back()">Back</button>
-				<button type="submit" class="btn btn-small btn-primary">Save</button>
-				<button type="submit" class="btn btn-small btn-primary" onclick="history.back()">Save & Back</button>
-			</div>
-		</div>
+		<div class="form-actions">
+			<button type="submit" class="btn btn-small btn-primary">Save changes</button>
+			@{
+			    var returnUrl = Request.QueryString["returnUrl"];
+			}
+			@if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl)) {
+			    <a class="btn btn-small"  href="@returnUrl">@T("Cancel")</a>
+			}
+        </div>
 	}
 </div>
 

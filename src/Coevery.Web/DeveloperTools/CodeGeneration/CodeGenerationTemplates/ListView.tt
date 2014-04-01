@@ -1,133 +1,20 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
-<#@ assembly name="System.Core" #>
-<#@ assembly name="Newtonsoft.Json" #>
-<#@ include file="ListViewCommon.ttinclude" #>
-<#@ import namespace="Newtonsoft.Json" #>
-<#@ import namespace="Newtonsoft.Json.Linq" #>
-<#@ parameter type="System.String" name="EntityTypeName" #>
-<#@ parameter type="System.String" name="ViewName" #>
-<#@ parameter type="System.String" name="Namespace" #>
-<#@ output extension=".txt" #>
+@using Coevery.Utility.Extensions;
 @{
-    Style.Require("jqGrid");
-    Style.Require("jqGridCustom");
-    Script.Require("jqGrid");
-	Script.Require("jqGrid_i18n");
+    Layout.Title = Model.ContentItem.TypeDefinition.DisplayName;
 }
-
-<div class="row-fluid">
-    <table id="<#=ViewName.ToLower()#>Grid"></table>
-    <section id="<#=ViewName.ToLower()#>GridPager"></section>
+<div id="page-actions" class="clearfix">
+    <div class="btn-toolbar pull-left">
+		<a class="btn btn-small btn-success" href="@Url.Action("Create", new{returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString()})"><i class="icon-plus"></i>&nbsp;Add</a>
+        <button id="btnEdit" class="btn btn-small btn-primary hide" type="button"><i class="icon-edit"></i>&nbsp;Edit</button>
+        <button id="btnDelete" class="btn btn-small btn-warning hide" type="button"><i class="icon-trash"></i>&nbsp;Delete</button>
+        <button id="btnRefresh" class="btn btn-small" type="button"><i class="icon-refresh"></i>&nbsp;Refresh</button>
+    </div>
 </div>
-@Html.AntiForgeryToken()
+@Display(Model.Content)
 
-@using (Script.Foot()) {
-    <script type="text/javascript">
-		function updateButtonStatus() {
-            var selectedRowIds = $('#<#=ViewName.ToLower()#>Grid').jqGrid('getGridParam', 'selarrrow');
-            $("#btnEdit").toggle(selectedRowIds.length == 1);
-            $("#btnDelete").toggle(selectedRowIds.length > 0);
-        }
-
-        $.extend(jQuery.jgrid.defaults, {
-            prmNames: {
-                page: 'page',
-                rows: 'pageSize',
-                sort: 'sortBy',
-                order: 'sortOrder'
-            }
-        });
-        $('#<#=ViewName.ToLower()#>Grid').jqGrid({
-            url: '@Href("~/<#=Namespace#>/<#=EntityTypeName#>/List")',
-            datatype: 'json',
-			mtype: 'POST',
-            postData: {
-                __RequestVerificationToken: function () {
-                var magicToken = $("input[name=__RequestVerificationToken]").first();
-                if (magicToken.length == 0) { return null; } // no sense in continuing if form POSTS will fail
-                return magicToken.val();
-                }
-            },
-            colModel: <#=GetGridColumnJSONString()#>,
-            rowNum: 10,
-            rowList: [10, 20, 30],
-            pager: '#<#=ViewName.ToLower()#>GridPager',
-            viewrecords: true,
-            height: '100%',
-            pagerpos: 'right',
-            recordpos: 'left',
-            sortable: true,
-            headertitles: true,
-            multiselect: true,
-            multiboxonly: true,
-            autowidth: true,
-            jsonReader: {
-                page: 'page',
-                total: 'totalPages',
-                records: 'totalRecords',
-                repeatitems: false
-            },
-            onSelectRow: function() {
-                updateButtonStatus();
-            },
-            gridComplete: function() {
-                updateButtonStatus();
-            }
-        });
-        $('#btnAdd').click(function() {
-            window.location.href = '@Href("~/<#=Namespace#>/<#=EntityTypeName#>/Create")';
-        });
-        $('#btnEdit').click(function() {
-            var selectedRowIds = $('#<#=ViewName.ToLower()#>Grid').jqGrid('getGridParam', 'selarrrow');
-            if (selectedRowIds.length == 0) return;
-            window.location.href = '@Href("~/<#=Namespace#>/<#=EntityTypeName#>/Edit/")' + selectedRowIds[0];
-        });
-        $('#btnDelete').click(function () {
-            var selectedIds = $('#<#=ViewName.ToLower()#>Grid').jqGrid('getGridParam', 'selarrrow');
-		    if (selectedIds.length == 0) return;
-		    var magicToken = $("input[name=__RequestVerificationToken]").first();
-		    if (magicToken.length == 0) {
-		        return;
-		    } // no sense in continuing if form POSTS will fail
-		    var confirm = window.confirm($.jgrid.del.msg);
-		    if (!confirm) return;
-
-			$.ajax({
-		            url: '@Href("~/<#=Namespace#>/<#=EntityTypeName#>/Delete")',
-		            data: { selectedIds: selectedIds, __RequestVerificationToken: magicToken.val() },
-		            type: "POST",
-		            traditional: true
-		        })
-		        .done(function(response) {
-		            $('#<#=ViewName.ToLower()#>Grid').trigger('reloadGrid');
-		        })
-		        .fail(function(jqXHR, textStatus, errorThrown) {
-		            alert(textStatus);
-		        });
-        });
-        $('#btnRefresh').click(function () {
-            $('#<#=ViewName.ToLower()#>Grid').trigger('reloadGrid');
-        });
-    </script>
+@if (Model.Footer != null) {
+    <footer>
+        @Display(Model.Footer)
+    </footer>
 }
-
-
-<#+
-
-    private string GetGridColumnJSONString() {
-        var jsonColumns = new JArray();
-        var columns = GetColumns(EntityTypeName);
-        foreach (var gridColumn in columns) {
-            var column = new JObject();
-            column["name"] = gridColumn.Name;
-			column["index"] = gridColumn.Name;
-            column["label"] = gridColumn.Label;
-            if (gridColumn.Hidden)
-                column["hidden"] = true;
-            if (gridColumn.IsKey)
-                column["key"] = true;
-            jsonColumns.Add(column);
-        }
-        return JsonConvert.SerializeObject(jsonColumns);
-    }
-#>
