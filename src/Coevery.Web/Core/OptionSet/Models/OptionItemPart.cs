@@ -24,8 +24,8 @@ namespace Coevery.Core.OptionSet.Models {
             set { Record.Weight = value; }
         }
 
-        public static IEnumerable<OptionItemPart> Sort(IEnumerable<OptionItemPart> terms) {
-            var list = terms.ToList();
+        public static IEnumerable<OptionItemPart> Sort(IEnumerable<OptionItemPart> items) {
+            var list = items.OrderBy(i => i.Weight).ToList();
             return list;
         }
     }

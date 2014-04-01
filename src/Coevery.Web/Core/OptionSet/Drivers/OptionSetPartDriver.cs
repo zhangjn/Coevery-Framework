@@ -35,17 +35,5 @@ namespace Coevery.Core.OptionSet.Drivers {
             // nothing to display for this part
             return null;
         }
-
-        protected override void Exporting(OptionSetPart part, ExportContentContext context) {
-            if (part.IsInternal) {
-                context.Exclude = true;
-            }
-
-            context.Element(part.PartDefinition.Name).SetAttributeValue("TermTypeName", part.TermTypeName);
-        }
-
-        protected override void Importing(OptionSetPart part, ImportContentContext context) {
-            part.TermTypeName = context.Attribute(part.PartDefinition.Name, "TermTypeName");
-        }
     }
 }

@@ -214,7 +214,7 @@
     <Compile Include="Fields\Settings\UrlFieldEditorEvents.cs" />
     <Compile Include="Fields\Settings\UrlFieldSettings.cs" />
     <Compile Include="OptionSet\Controllers\OptionItemController.cs" />
-    <Compile Include="OptionSet\Drivers\OptionItemContainerPart.cs" />
+    <Compile Include="OptionSet\Drivers\OptionItemContainerPartDriver.cs" />
     <Compile Include="OptionSet\Drivers\OptionItemPartDriver.cs" />
     <Compile Include="OptionSet\Drivers\OptionSetFieldDriver.cs" />
     <Compile Include="OptionSet\Drivers\OptionSetPartDriver.cs" />
@@ -229,7 +229,7 @@
     <Compile Include="OptionSet\Models\OptionItemContentItemPart.cs" />
     <Compile Include="OptionSet\Models\OptionItemPart.cs" />
     <Compile Include="OptionSet\Models\OptionItemPartRecord.cs" />
-    <Compile Include="OptionSet\Models\OptionItemsPart.cs" />
+    <Compile Include="OptionSet\Models\OptionItemContainerPart.cs" />
     <Compile Include="OptionSet\Models\OptionSetPart.cs" />
     <Compile Include="OptionSet\Models\OptionSetPartRecord.cs" />
     <Compile Include="OptionSet\Permissions.cs" />

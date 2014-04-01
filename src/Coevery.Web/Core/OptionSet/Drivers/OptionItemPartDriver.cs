@@ -72,9 +72,9 @@ namespace Coevery.Core.OptionSet.Drivers {
 
         protected override DriverResult Editor(OptionItemPart termPart, IUpdateModel updater, string displayType, dynamic shapeHelper) {
             if (updater.TryUpdateModel(termPart, Prefix, null, null)) {
-                var existing = _optionSetService.GetTermByName(termPart.OptionSetId, termPart.Name);
+                var existing = _optionSetService.GetOptionItemByName(termPart.OptionSetId, termPart.Name);
                 if (existing != null && existing.Record != termPart.Record && existing.OptionSetId == termPart.OptionSetId) {
-                    updater.AddModelError("Name", T("The term {0} already exists at this level", termPart.Name));
+                    updater.AddModelError("Name", T("The option item {0} already exists", termPart.Name));
                 }
             }
 

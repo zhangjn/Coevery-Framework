@@ -70,8 +70,6 @@ namespace Coevery.Core.OptionSet.Services {
             foreach (var term in GetOptionItems(taxonomy.Id)) {
                 DeleteOptionItem(term);
             }
-
-            _contentDefinitionManager.DeleteTypeDefinition(taxonomy.TermTypeName);
         }
 
         public string GenerateTermTypeName(string taxonomyName) {
@@ -84,8 +82,8 @@ namespace Coevery.Core.OptionSet.Services {
             return name;
         }
 
-        public OptionItemPart NewTerm(OptionSetPart optionSet) {
-            var optionItem = _contentManager.New<OptionItemPart>(optionSet.TermTypeName);
+        public OptionItemPart NewOptionItem(OptionSetPart optionSet) {
+            var optionItem = _contentManager.New<OptionItemPart>("OptionItem");
             optionItem.OptionSetId = optionSet.Id;
 
             return optionItem;
@@ -111,7 +109,7 @@ namespace Coevery.Core.OptionSet.Services {
                 : _optionItemContentItemRepository.Fetch(x => x.OptionItemContainerPartRecord.Id == contentItemId && x.Field == field).Select(t => GetOptionItem(t.OptionItemRecord.Id));
         }
 
-        public OptionItemPart GetTermByName(int optionSetId, string name) {
+        public OptionItemPart GetOptionItemByName(int optionSetId, string name) {
             return _contentManager
                 .Query<OptionItemPart, OptionItemPartRecord>()
                 .Where(t => t.OptionSetId == optionSetId && t.Name == name)
@@ -119,14 +117,14 @@ namespace Coevery.Core.OptionSet.Services {
                 .FirstOrDefault();
         }
 
-        public bool CreateTerm(OptionItemPart termPart) {
-            if (GetTermByName(termPart.OptionSetId, termPart.Name) == null) {
+        public bool CreateOptionItem(OptionItemPart termPart) {
+            if (GetOptionItemByName(termPart.OptionSetId, termPart.Name) == null) {
                 _authorizationService.CheckAccess(Permissions.CreateTerm, _services.WorkContext.CurrentUser, null);
 
                 _contentManager.Create(termPart);
                 return true;
             }
-            _notifier.Warning(T("The term {0} already exists in this taxonomy", termPart.Name));
+            _notifier.Warning(T("The option item {0} already exists in this ", termPart.Name));
             return false;
         }
 
@@ -154,26 +152,27 @@ namespace Coevery.Core.OptionSet.Services {
             }
         }
 
-        public void UpdateTerms(ContentItem contentItem, IEnumerable<OptionItemPart> terms, string field) {
-            var termsPart = contentItem.As<OptionItemContainerPart>();
+        public void UpdateSelectedItems(ContentItem contentItem, IEnumerable<OptionItemPart> items, string field) {
+            var containerPart = contentItem.As<OptionItemContainerPart>();
 
             // removing current terms for specific field
-            var fieldIndexes = termsPart.OptionItems
+            var fieldIndexes = containerPart.OptionItems
                 .Where(t => t.Field == field)
                 .Select((t, i) => i)
                 .OrderByDescending(i => i)
                 .ToList();
 
             foreach (var x in fieldIndexes) {
-                termsPart.OptionItems.RemoveAt(x);
+                containerPart.OptionItems.RemoveAt(x);
             }
 
             // adding new terms list
-            foreach (var term in terms) {
-                termsPart.OptionItems.Add(
+            foreach (var item in items) {
+                containerPart.OptionItems.Add(
                     new OptionItemContentItem {
-                        OptionItemContainerPartRecord = termsPart.Record,
-                        OptionItemRecord = term.Record, Field = field
+                        OptionItemContainerPartRecord = containerPart.Record,
+                        OptionItemRecord = item.Record,
+                        Field = field
                     });
             }
         }

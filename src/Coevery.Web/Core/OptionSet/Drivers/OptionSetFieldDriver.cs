@@ -90,7 +90,7 @@ namespace Coevery.Core.OptionSet.Drivers {
             if (updater.TryUpdateModel(viewModel, GetPrefix(field, part), null, null)) {
                 var checkedTerms = viewModel.OptionItems
                     .Where(t => (t.IsChecked || t.Id == viewModel.SingleTermId))
-                    .Select(t => GetOrCreateTerm(t, viewModel.OptionSetId, field))
+                    .Select(t => GetOrCreateOptionSet(t, viewModel.OptionSetId, field))
                     .Where(t => t != null).ToList();
 
                 field.Value = string.Join(",", checkedTerms.Select(x => x.Id.ToString()).ToArray());
@@ -106,7 +106,7 @@ namespace Coevery.Core.OptionSet.Drivers {
                         updater.AddModelError(GetPrefix(field, part), T("The field {0} is mandatory.", T(field.DisplayName)));
                     }
                     else {
-                        _optionSetService.UpdateTerms(part.ContentItem, checkedTerms, field.Name);
+                        _optionSetService.UpdateSelectedItems(part.ContentItem, checkedTerms, field.Name);
                     }
                 }
             }
@@ -136,28 +136,29 @@ namespace Coevery.Core.OptionSet.Drivers {
                 .Where(contentItem => contentItem != null)
                 .ToList();
 
-            _optionSetService.UpdateTerms(part.ContentItem, terms.Select(x => x.As<OptionItemPart>()), field.Name);
+            _optionSetService.UpdateSelectedItems(part.ContentItem, terms.Select(x => x.As<OptionItemPart>()), field.Name);
         }
 
-        private OptionItemPart GetOrCreateTerm(OptionItemEntry entry, int taxonomyId, OptionSetField field) {
-            var term = entry.Id > 0 ? _optionSetService.GetOptionItem(entry.Id) : default(OptionItemPart);
+        private OptionItemPart GetOrCreateOptionSet(OptionItemEntry entry, int optionSetId, OptionSetField field)
+        {
+            var optionItem = entry.Id > 0 ? _optionSetService.GetOptionItem(entry.Id) : default(OptionItemPart);
 
-            if (term == null) {
+            if (optionItem == null) {
                 if (!Services.Authorizer.Authorize(Permissions.CreateTerm)) {
                     Services.Notifier.Error(T("You're not allowed to create new terms for this taxonomy"));
                     return null;
                 }
 
-                var taxonomy = _optionSetService.GetOptionSet(taxonomyId);
-                term = _optionSetService.NewTerm(taxonomy);
-                term.Name = entry.Name.Trim();
-                term.Selectable = true;
+                var optionSet = _optionSetService.GetOptionSet(optionSetId);
+                optionItem = _optionSetService.NewOptionItem(optionSet);
+                optionItem.Name = entry.Name.Trim();
+                optionItem.Selectable = true;
 
-                Services.ContentManager.Create(term, VersionOptions.Published);
-                Services.Notifier.Information(T("The {0} term has been created.", term.Name));
+                Services.ContentManager.Create(optionItem, VersionOptions.Published);
+                Services.Notifier.Information(T("The {0} option item has been created.", optionItem.Name));
             }
 
-            return term;
+            return optionItem;
         }
 
         protected override void Describe(DescribeMembersContext context) {

@@ -12,15 +12,15 @@ namespace Coevery.Core.OptionSet.Services {
 
         IEnumerable<OptionItemPart> GetOptionItems(int optionSetId);
         OptionItemPart GetOptionItem(int id);
-        OptionItemPart GetTermByName(int taxonomyId, string name);
+        OptionItemPart GetOptionItemByName(int optionSetId, string name);
         void DeleteOptionItem(OptionItemPart optionItemPart);
 
         string GenerateTermTypeName(string taxonomyName);
-        OptionItemPart NewTerm(OptionSetPart taxonomy);
-        bool CreateTerm(OptionItemPart termPart);
+        OptionItemPart NewOptionItem(OptionSetPart taxonomy);
+        bool CreateOptionItem(OptionItemPart termPart);
         bool EditOptionItem(OptionItemEntry newItem);
         IEnumerable<OptionItemPart> GetOptionItemsForContentItem(int contentItemId, string field = null);
-        void UpdateTerms(ContentItem contentItem, IEnumerable<OptionItemPart> optionItems, string field);
+        void UpdateSelectedItems(ContentItem contentItem, IEnumerable<OptionItemPart> optionItems, string field);
         IEnumerable<IContent> GetContentItems(OptionItemPart term, int skip = 0, int count = 0, string fieldName = null);
     }
 }

@@ -5,16 +5,14 @@ using Coevery.ContentManagement.Utilities;
 namespace Coevery.Core.OptionSet.Models {
     public class OptionSetPart : ContentPart<OptionSetPartRecord> {
         internal LazyField<IEnumerable<OptionItemPart>> OptionItemsField = new LazyField<IEnumerable<OptionItemPart>>();
-        public IEnumerable<OptionItemPart> OptionItems { get { return OptionItemsField.Value; } }
+
+        public IEnumerable<OptionItemPart> OptionItems {
+            get { return OptionItemsField.Value; }
+        }
 
         public string Name {
             get { return Record.Name; }
             set { Record.Name = value; }
-        }
-
-        public string TermTypeName {
-            get { return Record.TermTypeName; }
-            set { Record.TermTypeName = value; }
         }
 
         public bool IsInternal {

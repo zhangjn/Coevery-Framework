@@ -48,7 +48,7 @@ namespace Coevery.Core.OptionSet.Controllers {
             itemPart.Name = optionItem.Name;
             itemPart.Selectable = optionItem.Selectable;
             itemPart.Weight = optionItem.Weight;
-            return _optionSetService.CreateTerm(itemPart)
+            return _optionSetService.CreateOptionItem(itemPart)
                 ? Request.CreateResponse(HttpStatusCode.OK)
                 : Request.CreateResponse(HttpStatusCode.Conflict, T("The term {0} already exists in this optionset", itemPart.Name));
         }
