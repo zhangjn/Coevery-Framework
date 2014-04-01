@@ -1,10 +1,9 @@
 ﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="Coevery.DeveloperTools" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="AreaName" #>
-<#@ parameter type="System.Collections.Generic.IEnumerable<DynamicDefinition>" name="ModelDefinition" #>
 <#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Services" #>
-
-
+<#@ parameter type="System.Collections.Generic.IEnumerable<DynamicDefinition>" name="ModelDefinition" #>
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;

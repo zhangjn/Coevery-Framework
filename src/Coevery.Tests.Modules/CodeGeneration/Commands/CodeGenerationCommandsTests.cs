@@ -31,6 +31,7 @@ namespace Coevery.Tests.Modules.CodeGeneration.Commands {
         private IExtensionManager _extensionManager;
         private ISchemaCommandGenerator _schemaCommandGenerator;
         private IDynamicAssemblyBuilder _dynamicAssemblyBuilder;
+        private ITemplateGenerator _templateGenerator;
 
         [SetUp]
         public void Init() {
@@ -60,17 +61,20 @@ namespace Coevery.Tests.Modules.CodeGeneration.Commands {
             builder.RegisterType<StubAsyncTokenProvider>().As<IAsyncTokenProvider>();
             builder.RegisterType<StubHostEnvironment>().As<IHostEnvironment>();
             builder.RegisterInstance(new Mock<IDynamicAssemblyBuilder>().Object);
+            builder.RegisterType<DefaultAssemblyLoader>().As<IAssemblyLoader>();
+            builder.RegisterType<DefaultTemplateGenerator>().As<ITemplateGenerator>();
 
             _container = builder.Build();
             _extensionManager = _container.Resolve<IExtensionManager>();
             _schemaCommandGenerator = _container.Resolve<ISchemaCommandGenerator>();
             _dynamicAssemblyBuilder = _container.Resolve<IDynamicAssemblyBuilder>();
+            _templateGenerator = _container.Resolve<ITemplateGenerator>();
         }
 
         [Test]
         public void CreateDataMigrationTestNonExistentFeature() {
             CodeGenerationCommands codeGenerationCommands = new CodeGenerationCommands(_extensionManager,
-                _schemaCommandGenerator, _dynamicAssemblyBuilder);
+                _schemaCommandGenerator, _dynamicAssemblyBuilder, _templateGenerator);
 
             TextWriter textWriterOutput = new StringWriter();
             codeGenerationCommands.Context = new CommandContext { Output = textWriterOutput };

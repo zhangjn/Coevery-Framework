@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
+using Coevery.Environment;
 using Microsoft.VisualStudio.TextTemplating;
 
 namespace Coevery.DeveloperTools.CodeGeneration.Services
@@ -12,7 +13,9 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services
     [Serializable]
     public class SimpleTextTemplatingHost : ITextTemplatingEngineHost, ITextTemplatingSessionHost
     {
-        ITextTemplatingSession session = new TextTemplatingSession();
+        private ITextTemplatingSession _session = new TextTemplatingSession();
+        private readonly IAssemblyLoader _assemblyLoader;
+
 
         //the path and file name of the text template that is being processed
         //---------------------------------------------------------------------
@@ -90,6 +93,12 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services
                 };
             }
         }
+
+        public SimpleTextTemplatingHost(IAssemblyLoader assemblyLoader)
+        {
+            _assemblyLoader = assemblyLoader;
+        }
+
         //The engine calls this method based on the optional include directive
         //if the user has specified it in the text template.
         //This method can be called 0, 1, or more times.
@@ -146,8 +155,10 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services
         //assembly directive if the user has specified it in the text template.
         //This method can be called 0, 1, or more times.
         //---------------------------------------------------------------------
-        public string ResolveAssemblyReference(string assemblyReference)
-        {
+        public string ResolveAssemblyReference(string assemblyReference) {
+            var assembly = _assemblyLoader.Load(assemblyReference);
+            if (assembly != null)
+                return assembly.Location;
             //If the argument is the fully qualified path of an existing file,
             //then we are done. (This does not do any work.)
             //----------------------------------------------------------------
@@ -297,18 +308,18 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services
 
         public ITextTemplatingSession CreateSession()
         {
-            return session;
+            return _session;
         }
 
         public ITextTemplatingSession Session
         {
             get
             {
-                return session;
+                return _session;
             }
             set
             {
-                session = value;
+                _session = value;
             }
         }
     }

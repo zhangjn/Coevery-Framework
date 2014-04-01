@@ -57,10 +57,12 @@
     <Reference Include="Microsoft.VisualStudio.TextTemplating.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\t4\Microsoft.VisualStudio.TextTemplating.10.0.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.TextTemplating.Interfaces.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\lib\t4\Microsoft.VisualStudio.TextTemplating.Interfaces.10.0.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -163,127 +165,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ContentPartRecordTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ContentPartTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\ControllerTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ControllerTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\FrontMenuTemplate.cs">
-      <DependentUpon>FrontMenuTemplate.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\HandlerTemplate.cs">
-      <DependentUpon>HandlerTemplate.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\ListViewModelTemplate.cs">
-      <DependentUpon>ListViewModelTemplate.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\DriverTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DriverTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.cs">
-      <DependentUpon>PartsDetailViewTemplate.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\DetailViewTemplate.cs">
-      <DependentUpon>DetailViewTemplate.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.cs">
-      <DependentUpon>PartsEditViewTemplate.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\EditViewTemplate.cs">
-      <DependentUpon>EditViewTemplate.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.cs">
-      <DependentUpon>PartsCreateViewTemplate.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\CreateViewTemplate.cs">
-      <DependentUpon>CreateViewTemplate.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\DataMigration.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DataMigration.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\IndexViewTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IndexViewTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\ListViewTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ListViewTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModuleAssemblyInfo.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\ModuleCsProj.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModuleCsProj.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\ModuleManifest.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModuleManifest.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModuleTestsCsProj.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\RouteTemplate.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RouteTemplate.tt</DependentUpon>
-    </Compile>
-    <Compile Include="CodeGeneration\CodeGenerationTemplates\ThemeManifest.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ThemeManifest.tt</DependentUpon>
-    </Compile>
-    <None Include="CodeGeneration\CodeGenerationTemplates\ContentPartTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ContentPartTemplate.cs</LastGenOutput>
-    </None>
-    <None Include="CodeGeneration\CodeGenerationTemplates\ContentPartRecordTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ContentPartRecordTemplate.cs</LastGenOutput>
-    </None>
+    <None Include="CodeGeneration\CodeGenerationTemplates\ContentPart.tt" />
+    <None Include="CodeGeneration\CodeGenerationTemplates\ContentPartRecord.tt" />
     <Compile Include="CodeGeneration\Commands\CodeGenerationCommands.cs" />
     <Compile Include="CodeGeneration\Services\CodeGenerationCommandInterpreter.cs" />
+    <Compile Include="CodeGeneration\Services\ITemplateGenerator.cs" />
     <Compile Include="CodeGeneration\Services\SimpleTextTemplatingHost.cs" />
+    <Compile Include="CodeGeneration\Services\DefaultTemplateGenerator.cs" />
     <Compile Include="CodeGeneration\Utils\CSharpTypeNameProvider.cs" />
     <Compile Include="CodeGeneration\Utils\TypeExtensions.cs" />
     <Compile Include="CodeGeneration\Utils\TypeNameProvider.cs" />
@@ -390,55 +278,19 @@
     <Compile Include="RelationshipManagement\Services\IRelationshipService.cs" />
     <Compile Include="RelationshipManagement\Services\RelationshipService.cs" />
     <Compile Include="RelationshipManagement\Settings\ReferenceFieldEditorEvents.cs" />
-    <Content Include="CodeGeneration\CodeGenerationTemplates\CreateViewTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>CreateViewTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\PartsCreateViewTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>PartsCreateViewTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\IndexViewTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>IndexViewTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\ListViewTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ListViewTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\EditViewTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>EditViewTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\PartsEditViewTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>PartsEditViewTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\DetailViewTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>DetailViewTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\PartsDetailViewTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>PartsDetailViewTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\DriverTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>DriverTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\HandlerTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>HandlerTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\ListViewModelTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ListViewModelTemplate.cs</LastGenOutput>
-    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\CreateView.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\PartsCreateView.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\IndexView.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ListView.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\EditView.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\PartsEditView.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\DetailView.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\PartsDetailView.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\Driver.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\Handler.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ListViewModel.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\ListViewCommon.ttinclude" />
-    <Content Include="CodeGeneration\CodeGenerationTemplates\RouteTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>RouteTemplate.cs</LastGenOutput>
-    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\Route.tt" />
     <Content Include="Perspectives\Placement.info" />
     <Content Include="Perspectives\Scripts\Web.config" />
     <Content Include="Perspectives\Views\EditorTemplates\Parts.MenuItem.Edit.cshtml" />
@@ -453,10 +305,7 @@
     <Content Include="Perspectives\Views\Parts\DynamicEntity.Layout.Create.cshtml" />
     <Content Include="Perspectives\Views\Parts\DynamicEntity.Layout.cshtml" />
     <Content Include="Perspectives\Views\Parts\DynamicEntity.Layout.Edit.cshtml" />
-    <Content Include="CodeGeneration\CodeGenerationTemplates\FrontMenuTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>FrontMenuTemplate.cs</LastGenOutput>
-    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\FrontMenu.tt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EntityManagement\Scripts\Web.config" />
@@ -475,35 +324,14 @@
     <Content Include="EntityManagement\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\ControllerTemplate.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ControllerTemplate.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\DataMigration.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>DataMigration.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModuleAssemblyInfo.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleCsProj.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModuleCsProj.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModuleManifest.cs</LastGenOutput>
-    </Content>
-    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ModuleTestsCsProj.cs</LastGenOutput>
-    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\Controller.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\DataMigration.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleAssemblyInfo.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleCsProj.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleManifest.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ModuleTestsCsProj.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\Placement.info" />
-    <Content Include="CodeGeneration\CodeGenerationTemplates\ThemeManifest.tt">
-      <Generator>TextTemplatingFilePreprocessor</Generator>
-      <LastGenOutput>ThemeManifest.cs</LastGenOutput>
-    </Content>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ThemeManifest.tt" />
     <Content Include="CodeGeneration\web.config" />
   </ItemGroup>
   <ItemGroup>

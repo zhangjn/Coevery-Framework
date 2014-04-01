@@ -1,5 +1,6 @@
-﻿<#@ template debug="false" language="C#" #>
-<#@ import namespace="CodeGeneration.Services" #>
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="Coevery.DeveloperTools" #>
+<#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Services" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.Collections.Generic.IEnumerable<DynamicDefinition>" name="TypeDefinitions" #>
 using Coevery.Localization;

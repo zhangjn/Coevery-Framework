@@ -1,4 +1,4 @@
-﻿<#@ template debug="false" language="C#" #>
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ output extension=".txt" #>
 <#@ parameter type="System.String" name="ModuleName" #>
 Name: <#=ModuleName#>
