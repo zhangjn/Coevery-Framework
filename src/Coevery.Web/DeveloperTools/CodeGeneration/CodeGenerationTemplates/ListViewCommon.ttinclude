@@ -12,12 +12,6 @@
         var listViewPart = contentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")
             .Where(v => v.IsDefault && v.ItemContentType == entityTypeName).List().FirstOrDefault();
 
-        var keyColumn = new GridColumn();
-        keyColumn.Name = "Id";
-        keyColumn.Label = "Id";
-        keyColumn.Hidden = true;
-        keyColumn.IsKey = true;
-
         IEnumerable<FieldDescriptor> properties = Enumerable.Empty<FieldDescriptor>();
         LayoutRecord layoutRecord = null;
 
@@ -41,7 +35,7 @@
         #endregion
 
 
-        var columns = new List<GridColumn> {keyColumn};
+        var columns = new List<GridColumn>();
 
         foreach (var property in properties.Select(x => x.Property)) {
             var column = new GridColumn();
@@ -58,8 +52,6 @@
     class GridColumn {
         public string Name { get; set; }
 		public string Label { get; set; }
-		public bool Hidden { get; set; }
-		public bool IsKey { get; set; }
     }
 
 	class FieldDescriptor

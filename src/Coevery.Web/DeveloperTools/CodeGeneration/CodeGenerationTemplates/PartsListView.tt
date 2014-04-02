@@ -111,7 +111,7 @@
     private string GetGridColumnJSONString() {
         var jsonColumns = new JArray();
         var columns = GetColumns(EntityName);
-		var partDefinition = GetContentPartDefinition(EntityName);
+        var partDefinition = GetContentPartDefinition(EntityName);
         foreach (var gridColumn in columns) {
             var field = partDefinition.Fields.FirstOrDefault(f => f.Name == gridColumn.Name);
             if (field != null) {
@@ -119,13 +119,15 @@
                 column["name"] = field.Name;
                 column["index"] = field.Name;
                 column["label"] = field.DisplayName;
-                if (gridColumn.Hidden)
-                    column["hidden"] = true;
-                if (gridColumn.IsKey)
-                    column["key"] = true;
                 jsonColumns.Add(column);
             }
         }
+        var keyColumn = new JObject();
+        keyColumn["name"] = "Id";
+        keyColumn["hidden"] = true;
+        keyColumn["key"] = true;
+        jsonColumns.Add(keyColumn);
         return JsonConvert.SerializeObject(jsonColumns);
     }
+
 #>
