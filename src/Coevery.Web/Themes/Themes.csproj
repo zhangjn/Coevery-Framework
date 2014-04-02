@@ -3639,54 +3639,6 @@
     <Content Include="Mooncake\Styles\Web.config" />
     <Content Include="Mooncake\Styles\widget.css" />
     <Content Include="Mooncake\Theme.txt" />
-    <Content Include="TheAdmin\Scripts\admin.js" />
-    <Content Include="TheAdmin\Styles\ie.css" />
-    <Content Include="TheAdmin\Styles\ie7.css" />
-    <Content Include="TheAdmin\Styles\ie8.css" />
-    <Content Include="TheAdmin\Styles\images\adminNavBackground.gif" />
-    <Content Include="TheAdmin\Styles\images\icon-advisory.png" />
-    <Content Include="TheAdmin\Styles\images\icon-contribute.png" />
-    <Content Include="TheAdmin\Styles\images\icon-docs.png" />
-    <Content Include="TheAdmin\Styles\images\icon-friends.png" />
-    <Content Include="TheAdmin\Styles\images\icon-gallery.png" />
-    <Content Include="TheAdmin\Styles\images\icon-settings.png" />
-    <Content Include="TheAdmin\Styles\images\info.gif" />
-    <Content Include="TheAdmin\Styles\images\menu-default.png" />
-    <Content Include="TheAdmin\Styles\images\menu-glyph.png" />
-    <Content Include="TheAdmin\Styles\images\menuClosed.gif" />
-    <Content Include="TheAdmin\Styles\images\menuClosedHover.gif" />
-    <Content Include="TheAdmin\Styles\images\menuOpen.gif" />
-    <Content Include="TheAdmin\Styles\images\menuOpenHover.gif" />
-    <Content Include="TheAdmin\Styles\images\vinesBackgroundBottom.gif" />
-    <Content Include="TheThemeMachine\Styles\Site.css" />
-    <Content Include="TheThemeMachine\Theme.png" />
-    <Content Include="TheThemeMachine\Theme.txt" />
-    <Content Include="SafeMode\Content\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="SafeMode\Styles\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="TheAdmin\Views\Pager.cshtml" />
-    <Content Include="TheAdmin\Views\CoeveryVersion.cshtml" />
-    <Content Include="TheThemeMachine\ThemeZonePreview.png" />
-    <Content Include="Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="TheAdmin\Views\Menu.cshtml" />
-    <Content Include="TheThemeMachine\Views\Branding.cshtml" />
-    <Content Include="TheThemeMachine\Views\BadgeOfHonor.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TheAdmin\Styles\images\icons.png" />
-    <Content Include="TheAdmin\Styles\images\tableHeaderBackgroundRed.gif" />
-    <Content Include="TheAdmin\Styles\site.css" />
-    <Content Include="TheAdmin\Theme.txt" />
-    <Content Include="SafeMode\Views\Document.cshtml" />
-    <Content Include="TheAdmin\Views\Layout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TheAdmin\Styles\images\icons.psd" />
     <Content Include="SafeMode\Content\Coevery.ico" />
     <Content Include="SafeMode\Styles\ie6.css" />
     <Content Include="SafeMode\Styles\images\backgroundHeader.gif" />
@@ -3695,38 +3647,9 @@
     <Content Include="SafeMode\Styles\site.css" />
     <Content Include="SafeMode\Theme.png" />
     <Content Include="SafeMode\Theme.txt" />
-    <Content Include="SafeMode\Views\Layout.cshtml" />
-    <Content Include="TheAdmin\Styles\images\backgroundGradient.gif" />
-    <Content Include="TheAdmin\Styles\images\backgroundHeader.gif" />
-    <Content Include="TheAdmin\Styles\images\CoeveryLogo.gif" />
-    <Content Include="TheAdmin\Theme.png" />
-    <Content Include="TheAdmin\Views\User.cshtml" />
-    <Content Include="TheAdmin\Views\Header.cshtml" />
-    <Content Include="TheThemeMachine\Views\Layout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TheThemeMachine\Styles\Web.config">
+    <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TheAdmin\Scripts\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TheAdmin\Styles\Web.config">
-      <SubType>Designer</SubType>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TheThemeMachine\Placement.info" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TheAdmin\Views\LocalMenu.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TheAdmin\Views\Title.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Coevery\Coevery.Framework.csproj">
@@ -3734,14 +3657,6 @@
       <Name>Coevery.Framework</Name>
       <Private>True</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TheThemeMachine\Views\Pager.cshtml" />
-    <Content Include="TheThemeMachine\Views\Pager.First.cshtml" />
-    <Content Include="TheThemeMachine\Views\Pager.Last.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TheAdmin\Views\ErrorPage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="MooncakeAdmin\Placement.info" />
@@ -3806,7 +3721,12 @@
   <ItemGroup>
     <Content Include="MooncakeAdmin\Views\ClientBootstrapScript.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="SafeMode\Content\Web.config" />
+    <Content Include="SafeMode\Styles\Web.config" />
+    <Content Include="SafeMode\Views\Document.cshtml" />
+    <Content Include="SafeMode\Views\Layout.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
