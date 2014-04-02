@@ -5,22 +5,24 @@
 namespace <#=Namespace#>.ViewModels {
     public sealed class <#=EntityName#>ListViewModel {
 		public int Id { get; set; }
-<#foreach (var field in GetFields()) {
-    var fileType = GetFieldType(field.FieldDefinition.Name);
-#>
-		public <#= fileType.GetFriendlyName() #> <#=field.Name #>{ get; set; }
+<#foreach (var field in GetFields()) {#>
+		public <#= field.Item2.GetFriendlyName() #> <#=field.Item1 #>{ get; set; }
 <# } #>
     }
 }
 <#+
 
-	private IEnumerable<ContentPartFieldDefinition> GetFields() {
+	private IEnumerable<Tuple<string,Type>> GetFields() {
         var columns = GetColumns(EntityName);
         var partDefinition = GetContentPartDefinition(EntityName);
         foreach (var col in columns) {
             var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
             if (field != null) {
-                yield return field;
+                if (field.FieldDefinition.Name == "ReferenceField") {
+                    yield return new Tuple<string, Type>(field.Name + "_Name", typeof (string));
+                }
+				var fileType = GetFieldType(field.FieldDefinition.Name);
+                yield return new Tuple<string, Type>(field.Name, fileType);
             }
         }
     }

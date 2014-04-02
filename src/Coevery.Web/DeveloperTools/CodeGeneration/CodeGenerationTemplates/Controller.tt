@@ -58,11 +58,28 @@ namespace <#=Namespace#>.Controllers {
 					<#=field.Name#> = item.Record.<#=field.Name#>,
 <#}#>
 				}).ToList();
+<#	
+	var optionSetFields = GetOptionSetFields().ToList();
+    if (optionSetFields.Any()) { #>
 			foreach (var model in records) {
-<# foreach (var field in GetOptionSetFields()) { #>
-	            model.<#=field.Name#> = GetOptionSetFieldValue(model.Id, "<#=field.Name#>");
+<# foreach (var field in optionSetFields) { #>
+	            model.<#=field.Name #> = GetOptionSetFieldValue(model.Id, "<#=field.Name #>");
 <# } #>
 	        }
+<# } #>
+<#	
+	var referenceFields = GetReferenceFields().ToList();
+    if (referenceFields.Any()) { #>
+			foreach (var model in records) {
+<# foreach (var field in referenceFields) { #>
+				if (model.<#=field.Name #> != null) {
+                    var referenceContentItem = Services.ContentManager.Get(model.<#=field.Name #>.Value);
+                    var contentItemMetadata = Services.ContentManager.GetItemMetadata(referenceContentItem);
+                    model.<#=field.Name #>_Name = contentItemMetadata.DisplayText;
+		        }
+<# } #>
+	        }
+<# } #>
 	        var result = new {
 	            page,
 	            totalPages = totalRecords/pageSize,
@@ -168,7 +185,7 @@ namespace <#=Namespace#>.Controllers {
         var partDefinition = GetContentPartDefinition(EntityName);
         foreach (var col in columns) {
             var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
-            if (field != null && (field.FieldDefinition.Name != "OptionSetField" && field.FieldDefinition.Name != "ReferenceField")) {
+            if (field != null && field.FieldDefinition.Name != "OptionSetField") {
                 yield return field;
             }
         }
@@ -180,6 +197,17 @@ namespace <#=Namespace#>.Controllers {
         foreach (var col in columns) {
             var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
             if (field != null && field.FieldDefinition.Name == "OptionSetField") {
+                yield return field;
+            }
+        }
+	}
+
+	private IEnumerable<ContentPartFieldDefinition> GetReferenceFields() {
+        var columns = GetColumns(EntityName);
+        var partDefinition = GetContentPartDefinition(EntityName);
+        foreach (var col in columns) {
+            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            if (field != null && field.FieldDefinition.Name == "ReferenceField") {
                 yield return field;
             }
         }

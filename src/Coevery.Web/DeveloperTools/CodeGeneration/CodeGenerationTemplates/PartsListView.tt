@@ -109,25 +109,37 @@
 <#+
 
     private string GetGridColumnJSONString() {
-        var jsonColumns = new JArray();
+        var columns = GetFieldObjects().ToArray();
+        return JsonConvert.SerializeObject(columns);
+    }
+
+	private IEnumerable<JObject> GetFieldObjects() {
         var columns = GetColumns(EntityName);
         var partDefinition = GetContentPartDefinition(EntityName);
-        foreach (var gridColumn in columns) {
-            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == gridColumn.Name);
-            if (field != null) {
+        foreach (var col in columns) {
+            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            if (field != null ) {
                 var column = new JObject();
                 column["name"] = field.Name;
                 column["index"] = field.Name;
                 column["label"] = field.DisplayName;
-                jsonColumns.Add(column);
+                column["sortable"] = (field.FieldDefinition.Name != "OptionSetField" && field.FieldDefinition.Name != "ReferenceField");
+                if (field.FieldDefinition.Name == "ReferenceField") {
+                    column["hidden"] = true;
+                    var refernceNameColumn = new JObject();
+                    refernceNameColumn["name"] = field.Name + "_Name";
+					refernceNameColumn["label"] = field.DisplayName;
+                    refernceNameColumn["sortable"] = false;
+                    yield return refernceNameColumn;
+                }
+                yield return column;
             }
         }
-        var keyColumn = new JObject();
+		var keyColumn = new JObject();
         keyColumn["name"] = "Id";
         keyColumn["hidden"] = true;
         keyColumn["key"] = true;
-        jsonColumns.Add(keyColumn);
-        return JsonConvert.SerializeObject(jsonColumns);
-    }
+	    yield return keyColumn;
+	}
 
 #>
