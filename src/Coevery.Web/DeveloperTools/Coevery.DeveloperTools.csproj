@@ -165,8 +165,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CodeGeneration\CodeGenerationTemplates\ContentPart.tt" />
-    <None Include="CodeGeneration\CodeGenerationTemplates\ContentPartRecord.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ContentPart.tt" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ContentPartRecord.tt" />
     <Compile Include="CodeGeneration\Commands\CodeGenerationCommands.cs" />
     <Compile Include="CodeGeneration\Services\CodeGenerationCommandInterpreter.cs" />
     <Compile Include="CodeGeneration\Services\ITemplateGenerator.cs" />

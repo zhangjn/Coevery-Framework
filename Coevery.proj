@@ -15,6 +15,7 @@
     <GalleryArtifactFolder>$(ArtifactsFolder)\Gallery</GalleryArtifactFolder>
     <ModulesSrcFolder>$(MSBuildProjectDirectory)\src\Coevery.Web\Modules</ModulesSrcFolder>
     <CoeveryCoreSrcFolder>$(MSBuildProjectDirectory)\src\Coevery.Web\Core</CoeveryCoreSrcFolder>
+	<CoeveryDeveloperToolsSrcFolder>$(MSBuildProjectDirectory)\src\Coevery.Web\DeveloperTools</CoeveryDeveloperToolsSrcFolder>
     <ThemesSrcFolder>$(MSBuildProjectDirectory)\src\Coevery.Web\Themes</ThemesSrcFolder>
 
     <CompileFolder>$(BuildFolder)\Compile</CompileFolder>
@@ -181,10 +182,11 @@
       <Stage-Media Include="$(SrcFolder)\Coevery.Web\Media\CoeveryLogo.png" />
       <Stage-PoFiles Include="$(SrcFolder)\Coevery.Web\**\*.po" />
       <Stage-Core Include="$(WebSitesFolder)\Coevery.Core\**\*" Exclude="$(WebSitesFolder)\Coevery.Core\**\bin\**\*" />
+	  <Stage-DeveloperTools Include="$(WebSitesFolder)\Coevery.DeveloperTools\**\*" Exclude="$(WebSitesFolder)\Coevery.DeveloperTools\**\bin\**\*" />
       <Stage-Themes Include="$(ThemesSrcFolder)\**\*" Exclude="@(Stage-Bin-Exclude);$(ThemesSrcFolder)\*.*;$(ThemesSrcFolder)\*.*;$(ThemesSrcFolder)\bin\**;$(ThemesSrcFolder)\obj\**;$(ThemesSrcFolder)\*.*;$(ThemesSrcFolder)\Properties\**" />
       <Stage-Themes-Binaries Include="$(ThemesSrcFolder)\*\**\bin\*" />
 
-      <Stage-Module-Exclude Include="@(Stage-Web);@(Stage-Core);@(Stage-Themes);$(WebSitesFolder)\Themes\**\*;$(WebSitesFolder)\PackageIndexReferenceImplementation\**\*"/>
+      <Stage-Module-Exclude Include="@(Stage-Web);@(Stage-Core);@(Stage-DeveloperTools);@(Stage-Themes);$(WebSitesFolder)\Themes\**\*;$(WebSitesFolder)\PackageIndexReferenceImplementation\**\*"/>
 
       <Stage-Modules Include="$(WebSitesFolder)\**\*" Exclude="@(Stage-Bin-Exclude);@(Stage-Module-Exclude)" />
       <Stage-Modules-Binaries Include="$(WebSitesFolder)\**\bin\**\*"  Exclude="@(Stage-Module-Exclude)"/>
@@ -218,6 +220,7 @@
     <Copy SourceFiles="@(SqlCe-Native-Binaries-x86)" DestinationFolder="$(StageFolder)\bin\x86\%(RecursiveDir)"/>
     <Copy SourceFiles="@(SqlCe-Native-Binaries-amd64)" DestinationFolder="$(StageFolder)\bin\amd64\%(RecursiveDir)"/>
     <Copy SourceFiles="@(Stage-Core)" DestinationFolder="$(StageFolder)\Core\%(RecursiveDir)"/>
+	<Copy SourceFiles="@(Stage-DeveloperTools)" DestinationFolder="$(StageFolder)\DeveloperTools\%(RecursiveDir)"/>
     <Copy SourceFiles="@(Stage-Modules)" DestinationFolder="$(StageFolder)\Modules\%(RecursiveDir)"/>
     <Copy SourceFiles="@(Stage-Modules-Sources)" DestinationFolder="$(StageFolder)\Modules\%(RecursiveDir)"/>
     <Copy SourceFiles="@(Stage-Modules-Binaries-Unique)" DestinationFolder="$(StageFolder)\Modules\%(RecursiveDir)"/>
@@ -376,7 +379,7 @@
 
     <ItemGroup>
       <Validate-ProjectFiles 
-        Include="$(ModulesSrcFolder)\**\*.csproj;$(ThemesSrcFolder)\**\*.csproj;$(CoeveryCoreSrcFolder)\Coevery.Core.csproj"
+        Include="$(ModulesSrcFolder)\**\*.csproj;$(ThemesSrcFolder)\**\*.csproj;$(CoeveryCoreSrcFolder)\Coevery.Core.csproj;$(CoeveryDeveloperToolsSrcFolder)\Coevery.DeveloperTools.csproj"
         Exclude="$(ModulesSrcFolder)\**\*.Specs.csproj"
         />
     </ItemGroup>
