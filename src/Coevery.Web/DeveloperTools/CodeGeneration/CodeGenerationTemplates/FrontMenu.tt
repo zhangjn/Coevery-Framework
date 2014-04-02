@@ -1,8 +1,7 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="Coevery.DeveloperTools" #>
-<#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Services" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="System.Collections.Generic.IEnumerable<DynamicDefinition>" name="TypeDefinitions" #>
+<#@ parameter type="System.Collections.Generic.IEnumerable<string>" name="Entities" #>
 using Coevery.Localization;
 using Coevery.UI.Navigation;
 
@@ -20,8 +19,8 @@ namespace <#=Namespace#> {
 
         public void GetNavigation(NavigationBuilder builder) {
 <# int i = 1; #>
-<# foreach (var definition in TypeDefinitions) { #>
-            builder.Add(T("<#=definition.Name#>"), "<#=i++#>", menu => menu.Url("<#=definition.Name#>").IdHint("<#=definition.Name#>"), new[] {"icon-<#=definition.Name#>"});
+<# foreach (var entityName in Entities) { #>
+            builder.Add(T("<#=entityName#>"), "<#=i++#>", menu => menu.Url("<#=entityName#>").IdHint("<#=entityName#>"), new[] {"icon-<#=entityName#>"});
 <# } #>
         }
     }

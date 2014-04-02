@@ -1,24 +1,24 @@
-﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ include file="ListViewCommon.ttinclude" #>
-<#@ output extension=".txt" #>
-<#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Services" #>
-<#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Utils" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition" name="ModelDefinition" #>
+<#@ parameter type="System.String" name="EntityName" #>
 namespace <#=Namespace#>.ViewModels {
-    public sealed class <#=ModelDefinition.Name#>ListViewModel {
+    public sealed class <#=EntityName#>ListViewModel {
 		public int Id { get; set; }
-<#foreach (var field in GetFields()) { #>
-		public <#= field.Type.GetFriendlyName() #> <#=field.Name #>{ get; set; }
+<#foreach (var field in GetFields()) {
+    var fileType = GetFieldType(field.FieldDefinition.Name);
+#>
+		public <#= fileType.GetFriendlyName() #> <#=field.Name #>{ get; set; }
 <# } #>
     }
 }
 <#+
 
-    private IEnumerable<DynamicFieldDefinition> GetFields() {
-        var columns = GetColumns(ModelDefinition.Name);
+	private IEnumerable<ContentPartFieldDefinition> GetFields() {
+        var columns = GetColumns(EntityName);
+        var partDefinition = GetContentPartDefinition(EntityName);
         foreach (var col in columns) {
-            var field = ModelDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
             if (field != null) {
                 yield return field;
             }

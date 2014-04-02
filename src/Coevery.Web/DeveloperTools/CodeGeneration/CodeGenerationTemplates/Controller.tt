@@ -1,8 +1,7 @@
 ﻿<#@ template debug="false" language="C#" hostspecific="true"#>
 <#@ include file="ListViewCommon.ttinclude" #>
-<#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Services" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition" name="ModelDefinition" #>
+<#@ parameter type="System.String" name="EntityName" #>
 using System.Linq;
 using System.Collections.Generic;
 using System.Net;
@@ -18,10 +17,10 @@ using <#=Namespace#>.ViewModels;
 
 namespace <#=Namespace#>.Controllers {
 	[Themed]
-    public class <#=ModelDefinition.Name#>Controller : Controller , IUpdateModel{
+    public class <#=EntityName#>Controller : Controller , IUpdateModel{
         private readonly ITransactionManager _transactionManager;
 
-        public <#=ModelDefinition.Name#>Controller (ICoeveryServices services, ITransactionManager transactionManager) {
+        public <#=EntityName#>Controller (ICoeveryServices services, ITransactionManager transactionManager) {
             Services = services;
             _transactionManager = transactionManager;
             T = NullLocalizer.Instance;
@@ -35,20 +34,20 @@ namespace <#=Namespace#>.Controllers {
         }
 
 		public ActionResult List() {
-            var contentItem = Services.ContentManager.New("<#=ModelDefinition.Name#>");
-            contentItem.Weld(new <#=ModelDefinition.Name#>Part());
+            var contentItem = Services.ContentManager.New("<#=EntityName#>");
+            contentItem.Weld(new <#=EntityName#>Part());
             var model = Services.ContentManager.BuildDisplay(contentItem, "List");
             return View("List", model);
         }
 
 		[HttpPost]
 		public ActionResult List(int page = 1, int pageSize = 10, string sortBy = null, string sortOrder = "asc") {
-	        var query = Services.ContentManager.Query<<#=ModelDefinition.Name#>Part, <#=ModelDefinition.Name#>PartRecord>();
+	        var query = Services.ContentManager.Query<<#=EntityName#>Part, <#=EntityName#>PartRecord>();
 	        var totalRecords = query.Count();
 	        var records = query
 	            .OrderBy(sortBy, sortOrder)
 	            .Slice((page - 1)*pageSize, pageSize)
-	            .Select(item => new <#=ModelDefinition.Name#>ListViewModel{
+	            .Select(item => new <#=EntityName#>ListViewModel{
 					Id = item.Record.Id,
 <# foreach (var field in GetFields()) {#>
 					<#=field.Name#> = item.Record.<#=field.Name#>,
@@ -74,22 +73,22 @@ namespace <#=Namespace#>.Controllers {
         }
 
         public ActionResult Create() {
-            var contentItem = Services.ContentManager.New("<#=ModelDefinition.Name#>");
+            var contentItem = Services.ContentManager.New("<#=EntityName#>");
             var model = Services.ContentManager.BuildEditor(contentItem, "Create");
             return View(model);
         }
 
         [HttpPost, ActionName("Create")]
-        public ActionResult CreatePost() {
-            var contentItem = Services.ContentManager.New("<#=ModelDefinition.Name#>");
+        public ActionResult CreatePost(string returnUrl) {
+            var contentItem = Services.ContentManager.New("<#=EntityName#>");
             dynamic model = Services.ContentManager.UpdateEditor(contentItem, this, "Create");
             if (!ModelState.IsValid) {
                 return View("Create", (object) model);
             }
             Services.ContentManager.Create(contentItem, VersionOptions.Draft);
             Services.ContentManager.Publish(contentItem);
-            Services.Notifier.Information(T("<#=ModelDefinition.Name#> created"));
-            return RedirectToAction("Edit", new { id = contentItem.Id });
+            Services.Notifier.Information(T("<#=EntityName#> created"));
+            return RedirectToAction("Edit", new { id = contentItem.Id, returnUrl });
         }
 
         public ActionResult Edit(int id) {
@@ -103,7 +102,7 @@ namespace <#=Namespace#>.Controllers {
         }
 
         [HttpPost, ActionName("Edit")]
-        public ActionResult EditPost(int id) {
+        public ActionResult EditPost(int id, string returnUrl) {
 			var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
             if (contentItem == null) {
                 return HttpNotFound();
@@ -114,8 +113,8 @@ namespace <#=Namespace#>.Controllers {
                 _transactionManager.Cancel();
                 return View("Edit", (object) model);
             }
-            Services.Notifier.Information(T("<#=ModelDefinition.Name#> information updated"));
-            return RedirectToAction("Edit", new {id});
+            Services.Notifier.Information(T("<#=EntityName#> information updated"));
+            return RedirectToAction("Edit", new {id, returnUrl});
         }
 
         public ActionResult Delete(int id) {
@@ -148,10 +147,11 @@ namespace <#=Namespace#>.Controllers {
 
 <#+
 
-    private IEnumerable<DynamicFieldDefinition> GetFields() {
-        var columns = GetColumns(ModelDefinition.Name);
+    private IEnumerable<ContentPartFieldDefinition> GetFields() {
+        var columns = GetColumns(EntityName);
+        var partDefinition = GetContentPartDefinition(EntityName);
         foreach (var col in columns) {
-            var field = ModelDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
             if (field != null) {
                 yield return field;
             }

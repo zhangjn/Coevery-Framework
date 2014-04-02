@@ -306,6 +306,8 @@
     <Content Include="Perspectives\Views\Parts\DynamicEntity.Layout.cshtml" />
     <Content Include="Perspectives\Views\Parts\DynamicEntity.Layout.Edit.cshtml" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\FrontMenu.tt" />
+    <None Include="CodeGeneration\CodeGenerationTemplates\EntityDefinition.ttinclude" />
+    <Content Include="CodeGeneration\CodeGenerationTemplates\ProcessTemplate.tt" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="EntityManagement\Scripts\Web.config" />

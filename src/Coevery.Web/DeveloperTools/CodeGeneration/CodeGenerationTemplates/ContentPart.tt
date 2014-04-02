@@ -1,19 +1,27 @@
 ﻿<#@ template debug="false" language="C#" #>
-<#@ output extension=".txt" #>
-<#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Utils" #>
+<#@ include file="EntityDefinition.ttinclude" #>
 <#@ parameter type="System.String" name="Namespace" #>
-<#@ parameter type="Coevery.DeveloperTools.CodeGeneration.Services.DynamicDefinition" name="ModelDefinition" #>
+<#@ parameter type="System.String" name="EntityName" #>
 using System;
 using System.Collections.Generic;
 using Coevery.ContentManagement;
 
 namespace <#=Namespace#>.Models {
-    public sealed class <#=ModelDefinition.Name#>Part : ContentPart<<#=ModelDefinition.Name#>PartRecord> {
-<#foreach (var field in ModelDefinition.Fields) { #>
-		public <#= field.Type.GetFriendlyName() #> <#=field.Name #>{
+    public sealed class <#=EntityName#>Part : ContentPart<<#=EntityName#>PartRecord> {
+<# 
+	var definition = GetContentPartDefinition(EntityName);
+    if (definition != null) {
+        foreach (var field in definition.Fields) {
+            var fieldType = GetFieldType(field.FieldDefinition.Name);
+#>
+
+		public <#= fieldType.GetFriendlyName() #> <#=field.Name #>{
 			get{ return Record.<#=field.Name #>; }
 			set{ Record.<#=field.Name #> = value; }
 		}
-<# } #>
+<#
+        }
+    }
+#>
     }
 }

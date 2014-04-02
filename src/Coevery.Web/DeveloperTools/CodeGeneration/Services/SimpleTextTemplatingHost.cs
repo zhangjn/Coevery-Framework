@@ -112,23 +112,21 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services
         {
             content = System.String.Empty;
             location = System.String.Empty;
+            string routedRequestFilePath = requestFileName;
+            if (!Path.IsPathRooted(requestFileName)) {
+                var directoryPath = Path.GetDirectoryName(TemplateFile);
+                if (directoryPath != null) {
+                    routedRequestFilePath = Path.Combine(directoryPath, requestFileName);
+                }
+            }
 
-            //If the argument is the fully qualified path of an existing file,
-            //then we are done.
-            //----------------------------------------------------------------
-            if (File.Exists(requestFileName))
+            if (File.Exists(routedRequestFilePath))
             {
-                content = File.ReadAllText(requestFileName);
+                content = File.ReadAllText(routedRequestFilePath);
+                location = routedRequestFilePath;
                 return true;
             }
-            //This can be customized to search specific paths for the file.
-            //This can be customized to accept paths to search as command line
-            //arguments.
-            //----------------------------------------------------------------
-            else
-            {
-                return false;
-            }
+            return false;
         }
         //Called by the Engine to enquire about 
         //the processing options you require. 
@@ -208,33 +206,21 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services
         //specific paths for the file and returning the file and path if found.
         //This method can be called 0, 1, or more times.
         //---------------------------------------------------------------------
-        public string ResolvePath(string fileName)
-        {
-            if (fileName == null)
-            {
+        public string ResolvePath(string fileName) {
+            if (fileName == null) {
                 throw new ArgumentNullException("the file name cannot be null");
             }
-            //If the argument is the fully qualified path of an existing file,
-            //then we are done
-            //----------------------------------------------------------------
-            if (File.Exists(fileName))
-            {
+            if (Path.IsPathRooted(fileName)) {
                 return fileName;
             }
-            //Maybe the file is in the same folder as the text template that 
-            //called the directive.
-            //----------------------------------------------------------------
-            string candidate = Path.Combine(Path.GetDirectoryName(this.TemplateFile), fileName);
-            if (File.Exists(candidate))
-            {
-                return candidate;
+            string directoryName = Path.GetDirectoryName(this.TemplateFile);
+            string str = Path.Combine(directoryName, fileName);
+            if (!File.Exists(str) && !Directory.Exists(str)) {
+                return fileName;
             }
-            //Look more places.
-            //----------------------------------------------------------------
-            //More code can go here...
-            //If we cannot do better, return the original file name.
-            return fileName;
+            return str;
         }
+
         //If a call to a directive in a text template does not provide a value
         //for a required parameter, the directive processor can try to get it
         //from the host by calling this method.

@@ -1,0 +1,214 @@
+﻿<#@ template language="C#" hostspecific="true" #>
+<#@ assembly name="FubuCore" #>
+<#@ assembly name="Newtonsoft.Json" #>
+<#@ include file="EntityDefinition.ttinclude" #>
+<#@ import namespace="Coevery.ContentManagement.MetaData" #>
+<#@ import namespace="Coevery.DeveloperTools.FormDesigner.Models" #>
+<#@ import namespace="FubuCore" #>
+<#@ import namespace="Newtonsoft.Json" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="Microsoft.VisualStudio.TextTemplating" #>
+<#@ import namespace="FubuCsProjFile" #>
+<#@ import namespace="System.Text" #>
+<#@ parameter name="ProjFile" type="FubuCsProjFile.CsProjFile" #>
+<#
+    var entityDefinitions = GetContentPartDefinitions().ToList();
+    AddRoute(ProjFile);
+    AddFrontMenuFile(ProjFile, entityDefinitions);
+    foreach (var definition in entityDefinitions) {
+        var entityName = definition.Name.RemovePartSuffix();
+        AddModelClassFile(ProjFile, entityName);
+        AddControllerFile(ProjFile, entityName);
+        AddDriverFile(ProjFile, entityName);
+        AddHandlerFile(ProjFile, entityName);
+		AddViewFile(ProjFile, entityName);
+    }
+#>
+<#+
+
+    private string TransformText(string templateFileName, ITextTemplatingSession session = null) {
+        var templateGenerator = Services.WorkContext.Resolve<ITemplateGenerator>();
+        string output = templateGenerator.ProcessTemplate(templateFileName, session);
+        return output;
+    }
+
+    private void AddRoute(CsProjFile csProjFile) {
+        string routePath = csProjFile.ProjectDirectory;
+
+        // Route
+        var routeSession = new TextTemplatingSession();
+        routeSession["Namespace"] = csProjFile.RootNamespace;
+        routeSession["AreaName"] = csProjFile.AssemblyName;
+
+        string routeFilePath = Path.Combine(routePath, "Route.cs");
+        string routeTemplate = TransformText("Route.tt", routeSession);
+        AddFile<CodeFile>(csProjFile, routeFilePath, routeTemplate);
+    }
+
+    private void AddFrontMenuFile(CsProjFile csProjFile, IEnumerable<ContentPartDefinition> typeDefinitions) {
+        var entities = typeDefinitions.Select(definition => definition.Name.RemovePartSuffix()).ToList();
+        var frontMenuSession = new TextTemplatingSession();
+        frontMenuSession["Namespace"] = csProjFile.RootNamespace;
+        frontMenuSession["Entities"] = entities;
+
+        string frontMenuClassFilePath = Path.Combine(csProjFile.ProjectDirectory, "FrontMenu.cs");
+        string frontMenuTemplate = TransformText("FrontMenu.tt", frontMenuSession);
+        AddFile<CodeFile>(csProjFile, frontMenuClassFilePath, frontMenuTemplate);
+    }
+
+    private void AddModelClassFile(CsProjFile csProjFile, string entityName) {
+        string moduleModelsPath = Path.Combine(csProjFile.ProjectDirectory, "Models");
+        EnsureDirectories(moduleModelsPath);
+        var modelClassSession = new TextTemplatingSession();
+        modelClassSession["Namespace"] = ProjFile.RootNamespace;
+        modelClassSession["EntityName"] = entityName;
+        modelClassSession["Services"] = Services;
+
+        string partClassFilePath = Path.Combine(moduleModelsPath, entityName + "Part.cs");
+        string contentPart = TransformText("ContentPart.tt", modelClassSession);
+        AddFile<CodeFile>(csProjFile, partClassFilePath, contentPart);
+
+        string contentPartRecord = TransformText("ContentPartRecord.tt", modelClassSession);
+        string recordClassFilePath = Path.Combine(moduleModelsPath, entityName + "PartRecord.cs");
+        AddFile<CodeFile>(csProjFile, recordClassFilePath, contentPartRecord);
+    }
+
+    private void AddControllerFile(CsProjFile csProjFile, string entityName) {
+
+        string moduleControllersPath = Path.Combine(csProjFile.ProjectDirectory, "Controllers");
+        EnsureDirectories(moduleControllersPath);
+
+        // Controller
+        var controllerSession = new TextTemplatingSession();
+        controllerSession["EntityName"] = entityName;
+        controllerSession["Namespace"] = csProjFile.RootNamespace;
+        controllerSession["Services"] = Services;
+
+        string controllerClassFilePath = Path.Combine(moduleControllersPath, string.Format("{0}Controller.cs", entityName));
+        string controllerTemplate = TransformText("Controller.tt", controllerSession);
+        AddFile<CodeFile>(csProjFile, controllerClassFilePath, controllerTemplate);
+    }
+
+    private void AddDriverFile(CsProjFile csProjFile, string entityName) {
+        string moduleDriversPath = Path.Combine(csProjFile.ProjectDirectory, "Drivers");
+        EnsureDirectories(moduleDriversPath);
+
+        var driverSession = new TextTemplatingSession();
+        driverSession["Namespace"] = csProjFile.RootNamespace;
+        driverSession["EntityName"] = entityName;
+
+        string partClassFilePath = Path.Combine(moduleDriversPath, entityName + "PartDriver.cs");
+        string driverTemplate = TransformText("Driver.tt", driverSession);
+        AddFile<CodeFile>(csProjFile, partClassFilePath, driverTemplate);
+    }
+
+    private void AddHandlerFile(CsProjFile csProjFile, string entityName) {
+        string handlersPath = Path.Combine(csProjFile.ProjectDirectory, "Handlers");
+        EnsureDirectories(handlersPath);
+
+        var handlerSession = new TextTemplatingSession();
+        handlerSession["EntityName"] = entityName;
+        handlerSession["Namespace"] = csProjFile.RootNamespace;
+
+        string handlerFilePath = Path.Combine(handlersPath, string.Format("{0}PartHandler.cs", entityName));
+        string handlerPart = TransformText("Handler.tt", handlerSession);
+        AddFile<CodeFile>(csProjFile, handlerFilePath, handlerPart);
+    }
+
+    private void AddViewFile(CsProjFile csProjFile, string entityName) {
+        string viewsPath = Path.Combine(csProjFile.ProjectDirectory, "Views");
+
+        string controllerViewPath = Path.Combine(viewsPath, entityName);
+        string partsViewPath = Path.Combine(viewsPath, "Parts");
+        string viewModelsPath = Path.Combine(csProjFile.ProjectDirectory, "ViewModels");
+        EnsureDirectories(viewsPath, controllerViewPath, partsViewPath, viewModelsPath);
+
+        // {{EntityName}}/Create.cshtml
+        string createViewFilePath = Path.Combine(controllerViewPath, "Create.cshtml");
+        string createViewTemplate = TransformText("CreateView.tt");
+        AddFile<Content>(csProjFile, createViewFilePath, createViewTemplate);
+
+        // {{EntityName}}/Edit.cshtml
+        string editViewFilePath = Path.Combine(controllerViewPath, "Edit.cshtml");
+        string editViewTemplate = TransformText("EditView.tt");
+        AddFile<Content>(csProjFile, editViewFilePath, editViewTemplate);
+
+        // {{EntityName}}/List.cshtml
+        string listViewFilePath = Path.Combine(controllerViewPath, "List.cshtml");
+        string listViewTemplate = TransformText("ListView.tt");
+        AddFile<Content>(csProjFile, listViewFilePath, listViewTemplate);
+
+        // {{EntityName}}/Detail.cshtml
+        string detailViewFilePath = Path.Combine(controllerViewPath, "Detail.cshtml");
+        string detailViewTemplate = TransformText("DetailView.tt");
+        AddFile<Content>(csProjFile, detailViewFilePath, detailViewTemplate);
+
+        // Parts/CreateView-{{EntityName}}.cshtml
+        var contentDefinitionManager = Services.WorkContext.Resolve<IContentDefinitionManager>();
+        var contentTypeDefinition = contentDefinitionManager.GetTypeDefinition(entityName);
+        var sectionList = contentTypeDefinition.Settings.ContainsKey("Layout")
+            ? JsonConvert.DeserializeObject<IList<Section>>(contentTypeDefinition.Settings["Layout"])
+            : Enumerable.Empty<Section>();
+
+        var partsCreateViewSession = new TextTemplatingSession();
+        partsCreateViewSession["EntityName"] = entityName;
+        partsCreateViewSession["SectionList"] = sectionList;
+
+        string partsCreateViewFilePath = Path.Combine(partsViewPath, string.Format("CreateView-{0}.cshtml", entityName));
+        string partsCreateViewTemplate = TransformText("PartsCreateView.tt", partsCreateViewSession);
+        AddFile<Content>(csProjFile, partsCreateViewFilePath, partsCreateViewTemplate);
+
+        // Parts/ListView-{{EntityName}}.cshtml
+        var partsListViewSession = new TextTemplatingSession();
+        partsListViewSession["EntityName"] = entityName;
+        partsListViewSession["Namespace"] = csProjFile.RootNamespace;
+        partsListViewSession["Services"] = Services;
+
+        string partsListViewFilePath = Path.Combine(partsViewPath, string.Format("ListView-{0}.cshtml", entityName));
+        string partsListViewTemplate = TransformText("PartsListView.tt", partsListViewSession);
+        AddFile<Content>(csProjFile, partsListViewFilePath, partsListViewTemplate);
+
+        //ViewModels/{EntityName}ListViewModel.cs
+        var listViewModelSession = new TextTemplatingSession();
+        listViewModelSession["EntityName"] = entityName;
+        listViewModelSession["Namespace"] = csProjFile.RootNamespace;
+        listViewModelSession["Services"] = Services;
+
+        string listViewModelFilePath = Path.Combine(viewModelsPath, string.Format("{0}ListViewModel.cs", entityName));
+        string listViewModelTemplate = TransformText("ListViewModel.tt", listViewModelSession);
+        AddFile<CodeFile>(csProjFile, listViewModelFilePath, listViewModelTemplate);
+
+        // Parts/EditView-{{EntityName}}.cshtml
+        var partsEditViewSession = new TextTemplatingSession();
+        partsEditViewSession["EntityName"] = entityName;
+        partsEditViewSession["SectionList"] = sectionList;
+
+        string partsEditViewFilePath = Path.Combine(partsViewPath, string.Format("EditView-{0}.cshtml", entityName));
+        string partsEditViewTemplate = TransformText("PartsEditView.tt", partsEditViewSession);
+        AddFile<Content>(csProjFile, partsEditViewFilePath, partsEditViewTemplate);
+
+        // Parts/DetailView-{{EntityName}}.cshtml
+        var partsDetailViewSession = new TextTemplatingSession();
+        partsDetailViewSession["EntityName"] = entityName;
+        partsDetailViewSession["SectionList"] = sectionList;
+
+        string partsDetailViewFilePath = Path.Combine(partsViewPath, string.Format("DetailView-{0}.cshtml", entityName));
+        string partsDetailViewTemplate = TransformText("PartsDetailView.tt", partsDetailViewSession);
+        AddFile<Content>(csProjFile, partsDetailViewFilePath, partsDetailViewTemplate);
+    }
+
+    private void EnsureDirectories(params string[] paths) {
+        foreach (var path in paths) {
+            if (!Directory.Exists(path)) {
+                Directory.CreateDirectory(path);
+            }
+        }
+    }
+
+    private void AddFile<T>(CsProjFile csProjFile, string path, string text) where T : ProjectItem, new() {
+        File.WriteAllText(path, text, Encoding.UTF8);
+        var relativePath = path.PathRelativeTo(csProjFile.ProjectDirectory);
+        csProjFile.Add<T>(relativePath);
+    }
+
+#>

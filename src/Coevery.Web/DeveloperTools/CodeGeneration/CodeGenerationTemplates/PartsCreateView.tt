@@ -9,7 +9,7 @@
     var id = Guid.NewGuid().ToString();
 }
 <div class="row-fluid edit-mode">
-	@using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "<#=EntityName #>"),
+	@using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "<#=EntityName #>", new { returnUrl = Request.QueryString["ReturnUrl"] }),
 		FormMethod.Post, new {@class = "form-horizontal", id = id})) {
 <# foreach (var layoutSection in SectionList) { #>
 <# var widths = layoutSection.SectionColumnsWidth.Split(':').ToArray(); #>

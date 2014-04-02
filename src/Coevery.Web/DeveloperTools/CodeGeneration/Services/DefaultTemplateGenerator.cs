@@ -36,7 +36,7 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services {
             if (host.Errors.HasErrors)
             {
                 StringBuilder sb = new StringBuilder();
-
+                sb.AppendLine("Template:" + templateFilePath);
                 foreach (CompilerError error in host.Errors)
                 {
                     sb.AppendLine(String.Format("Error ({0}): {1}", error.ErrorNumber, error.ErrorText));

@@ -818,7 +818,9 @@
     <Content Include="Fields\Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="OptionSet\Placement.info" />
+    <Content Include="OptionSet\Placement.info">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="OptionSet\Views\DefinitionTemplates\OptionSetFieldSettings.cshtml" />
