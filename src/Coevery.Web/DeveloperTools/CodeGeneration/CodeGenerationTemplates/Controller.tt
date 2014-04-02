@@ -12,6 +12,7 @@ using Coevery.ContentManagement;
 using Coevery.Data;
 using Coevery.Themes;
 using Coevery.Localization;
+using Coevery.Core.OptionSet.Services;
 using <#=Namespace#>.Models;
 using <#=Namespace#>.ViewModels;
 
@@ -19,10 +20,14 @@ namespace <#=Namespace#>.Controllers {
 	[Themed]
     public class <#=EntityName#>Controller : Controller , IUpdateModel{
         private readonly ITransactionManager _transactionManager;
+		private readonly IOptionSetService _optionSetService;
 
-        public <#=EntityName#>Controller (ICoeveryServices services, ITransactionManager transactionManager) {
+        public <#=EntityName#>Controller (ICoeveryServices services, 
+			ITransactionManager transactionManager, 
+            IOptionSetService optionSetService) {
             Services = services;
             _transactionManager = transactionManager;
+			_optionSetService = optionSetService;
             T = NullLocalizer.Instance;
         }
 
@@ -49,10 +54,15 @@ namespace <#=Namespace#>.Controllers {
 	            .Slice((page - 1)*pageSize, pageSize)
 	            .Select(item => new <#=EntityName#>ListViewModel{
 					Id = item.Record.Id,
-<# foreach (var field in GetFields()) {#>
+<# foreach (var field in GetPrimaryFields()) {#>
 					<#=field.Name#> = item.Record.<#=field.Name#>,
 <#}#>
 				}).ToList();
+			foreach (var model in records) {
+<# foreach (var field in GetOptionSetFields()) { #>
+	            model.<#=field.Name#> = GetOptionSetFieldValue(model.Id, "<#=field.Name#>");
+<# } #>
+	        }
 	        var result = new {
 	            page,
 	            totalPages = totalRecords/pageSize,
@@ -60,6 +70,12 @@ namespace <#=Namespace#>.Controllers {
 	            rows = records
 	        };
 	        return Json(result);
+	    }
+
+		private string GetOptionSetFieldValue(int id, string fieldName) {
+            var optionItems = _optionSetService.GetOptionItemsForContentItem(id, fieldName).ToList();
+            var value = string.Join(", ", optionItems.Select(t => t.Name).ToArray());
+	        return value;
 	    }
 
         public ActionResult Detail(int id) {
@@ -147,15 +163,26 @@ namespace <#=Namespace#>.Controllers {
 
 <#+
 
-    private IEnumerable<ContentPartFieldDefinition> GetFields() {
+    private IEnumerable<ContentPartFieldDefinition> GetPrimaryFields() {
         var columns = GetColumns(EntityName);
         var partDefinition = GetContentPartDefinition(EntityName);
         foreach (var col in columns) {
             var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
-            if (field != null) {
+            if (field != null && (field.FieldDefinition.Name != "OptionSetField" && field.FieldDefinition.Name != "ReferenceField")) {
                 yield return field;
             }
         }
     }
+
+	private IEnumerable<ContentPartFieldDefinition> GetOptionSetFields() {
+        var columns = GetColumns(EntityName);
+        var partDefinition = GetContentPartDefinition(EntityName);
+        foreach (var col in columns) {
+            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            if (field != null && field.FieldDefinition.Name == "OptionSetField") {
+                yield return field;
+            }
+        }
+	}
 
 #>
