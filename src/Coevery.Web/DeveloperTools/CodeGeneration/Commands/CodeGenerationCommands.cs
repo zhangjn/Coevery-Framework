@@ -419,6 +419,9 @@ namespace Coevery.DeveloperTools.CodeGeneration.Commands {
                     solutionText = solutionText.Insert(solutionText.LastIndexOf("EndProject\r\n"), modulesReference);
                 }
                 solutionText = solutionText.Insert(solutionText.LastIndexOf("EndProject\r\n"), projectReference).Replace("GlobalSection(ProjectConfigurationPlatforms) = postSolution\r\n", projectConfiguationPlatforms);
+                if (!solutionText.Contains("GlobalSection(NestedProjects) = postSolution\r\n")) {
+                    solutionText = solutionText.Insert(solutionText.LastIndexOf("EndGlobal"), "\tGlobalSection(NestedProjects) = preSolution\r\n\tEndGlobalSection\r\n");
+                }
                 solutionText = solutionText.Insert(solutionText.LastIndexOf("EndGlobalSection"), "\t{" + solutionProject.ProjectGuid + "} = {" + solutionFolderGuid + "}\r\n\t");
                 File.WriteAllText(solutionPath, solutionText);
                 TouchSolution(output);
