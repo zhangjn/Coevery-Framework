@@ -29,14 +29,17 @@
 <# } #>
 		</fieldset>
 <# } #>
-		<div class="form-actions">
-			<button type="submit" class="btn btn-small btn-primary">Save changes</button>
-			@{
-				var returnUrl = Request.QueryString["returnUrl"];
-			}
-			@if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl)) {
-				<a class="btn btn-small"  href="@returnUrl">@T("Cancel")</a>
-			}
+		<div class="data-row clearfix">
+            <div class="control controls">
+                <button type="submit" class="btn btn-small btn-primary">Save changes</button>
+                @{
+                    var returnUrl = Request.QueryString["returnUrl"];
+                }
+                @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+                {
+                    <a class="btn btn-small"  href="@returnUrl">@T("Cancel")</a>
+                }
+            </div>
         </div>
 	}
 </div>

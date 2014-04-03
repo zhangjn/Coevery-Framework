@@ -2,6 +2,9 @@
 <#@ include file="ListViewCommon.ttinclude" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="EntityName" #>
+using System;
+using System.Collections.Generic;
+
 namespace <#=Namespace#>.ViewModels {
     public sealed class <#=EntityName#>ListViewModel {
 		public int Id { get; set; }

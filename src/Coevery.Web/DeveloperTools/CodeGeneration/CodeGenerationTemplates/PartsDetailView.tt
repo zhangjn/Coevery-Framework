@@ -27,12 +27,16 @@
 <# } #>
 	</section>
 <# } #>
-	<div id="page-actions" class="clearfix">
-		<div btn-actions>
-			<button type="button" class="btn btn-small" onclick="history.back()">@T("Back")</button>
-			<button type="button" class="btn btn-small" onclick="location.href='@Url.Action("Edit","<#=EntityName#>",new {id = Model.ContentItem.Id})'">
-				<i class="icon-edit"></i>&nbsp;@T("Edit") 
-			</button>
-		</div>
-	</div>
+	<div class="data-row clearfix">
+        <div class="control controls">
+			<a class="btn btn-small btn-primary"  href="@Url.Action("Edit", new {id = Model.ContentItem.Id})"><i class="icon-edit"></i>&nbsp;@T("Edit") </a>
+            @{
+                var returnUrl = Request.QueryString["returnUrl"];
+            }
+            @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+            {
+                <a class="btn btn-small"  href="@returnUrl">@T("Cancel")</a>
+            }
+        </div>
+    </div>
 </div>
