@@ -2,6 +2,7 @@
 <#@ assembly name="Coevery.DeveloperTools" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="AreaName" #>
+<#@ parameter type="System.String" name="DefaultController" #>
 using System.Collections.Generic;
 using System.Web.Mvc;
 using System.Web.Routing;
@@ -16,6 +17,7 @@ namespace <#=Namespace#> {
                     "{controller}/{action}/{id}",
                     new RouteValueDictionary {
                         {"area", "<#=AreaName#>"},
+						{"controller", "<#=DefaultController#>"},
                         {"action", "Index"},
                         {"id", ""}
                     },

@@ -13,8 +13,10 @@
 <#@ parameter name="ProjFile" type="FubuCsProjFile.CsProjFile" #>
 <#
     var entityDefinitions = GetContentPartDefinitions().ToList();
-    AddRoute(ProjFile);
-    AddFrontMenuFile(ProjFile, entityDefinitions);
+    if (entityDefinitions.Any()) {
+        AddRoute(ProjFile, entityDefinitions);
+		AddFrontMenuFile(ProjFile, entityDefinitions);
+    }
     foreach (var definition in entityDefinitions) {
         var entityName = definition.Name.RemovePartSuffix();
         AddModelClassFile(ProjFile, entityName);
@@ -32,14 +34,15 @@
         return output;
     }
 
-    private void AddRoute(CsProjFile csProjFile) {
+    private void AddRoute(CsProjFile csProjFile, IEnumerable<ContentPartDefinition> typeDefinitions) {
         string routePath = csProjFile.ProjectDirectory;
 
         // Route
         var routeSession = new TextTemplatingSession();
         routeSession["Namespace"] = csProjFile.RootNamespace;
         routeSession["AreaName"] = csProjFile.AssemblyName;
-
+        routeSession["DefaultController"] = typeDefinitions.First().Name.RemovePartSuffix();
+		
         string routeFilePath = Path.Combine(routePath, "Route.cs");
         string routeTemplate = TransformText("Route.tt", routeSession);
         AddFile<CodeFile>(csProjFile, routeFilePath, routeTemplate);
