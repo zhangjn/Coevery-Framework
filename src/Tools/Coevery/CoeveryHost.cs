@@ -103,7 +103,7 @@ namespace Coevery {
 
         private string ReadCommand(CommandHostContext context) {
             _output.WriteLine();
-            _output.Write("Coevery> ");
+            _output.Write("coevery> ");
             return _input.ReadLine();
         }
 
@@ -186,13 +186,13 @@ namespace Coevery {
             _output.WriteLine("Executes Coevery commands from a Coevery installation directory.");
             _output.WriteLine("");
             _output.WriteLine("Usage:");
-            _output.WriteLine("   Coevery.exe");
+            _output.WriteLine("   coevery.exe");
             _output.WriteLine("       Starts the Coevery command interpreter");
             _output.WriteLine("");
-            _output.WriteLine("   Coevery.exe <command-name> [arg1] ... [argn] [/switch1[:value1]] ... [/switchn[:valuen]]");
+            _output.WriteLine("   coevery.exe <command-name> [arg1] ... [argn] [/switch1[:value1]] ... [/switchn[:valuen]]");
             _output.WriteLine("       Executes a single command");
             _output.WriteLine("");
-            _output.WriteLine("   Coevery.exe @response-file1 ... [@response-filen] [/switch1[:value1]] ... [/switchn[:valuen]]");
+            _output.WriteLine("   coevery.exe @response-file1 ... [@response-filen] [/switch1[:value1]] ... [/switchn[:valuen]]");
             _output.WriteLine("       Executes multiples commands from response files");
             _output.WriteLine("");
             _output.WriteLine(" where");
@@ -225,7 +225,7 @@ namespace Coevery {
             _output.WriteLine("");
             _output.WriteLine("   /WorkingDirectory:<physical-path>");
             _output.WriteLine("   /wd:<physical-path>");
-            _output.WriteLine("       Specifies the Coevery installation directory. The current directory is the default.");
+            _output.WriteLine("       Specifies the coevery installation directory. The current directory is the default.");
             _output.WriteLine("");
             _output.WriteLine("   /Verbose");
             _output.WriteLine("   /v");

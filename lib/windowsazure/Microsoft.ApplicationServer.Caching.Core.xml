@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <doc>
   <assembly>
     <name>Microsoft.ApplicationServer.Caching.Core</name>
@@ -652,10 +652,10 @@
       <summary>Specifies the way locally cached objects should be invalidated.</summary>
     </member>
     <member name="F:Microsoft.ApplicationServer.Caching.DataCacheLocalCacheInvalidationPolicy.NotificationBased">
-      <summary>Specifies that objects will stay in local cache until they are automatically invalidated by a cache notification.  Not supported in Windows Azure Shared Caching.</summary>
+      <summary>Specifies that objects will stay in local cache until they are automatically invalidated by a cache notification.? Not supported in Windows Azure Shared Caching.</summary>
     </member>
     <member name="F:Microsoft.ApplicationServer.Caching.DataCacheLocalCacheInvalidationPolicy.TimeoutBased">
-      <summary>Specifies that objects will stay in local cache until their lifetime reaches the localCacheTimeout duration specified in the DataCacheFactory constructor. </summary>
+      <summary>Specifies that objects will stay in local cache until their lifetime reaches the localCacheTimeout duration specified in the DataCacheFactory constructor.?</summary>
     </member>
     <member name="T:Microsoft.ApplicationServer.Caching.DataCacheLockHandle">
       <summary>Represents the structure used as a key to lock and unlock cached objects in a pessimistic concurrency scenario.</summary>
@@ -706,16 +706,16 @@
       <summary>Indicates that an object was added to the cache.</summary>
     </member>
     <member name="F:Microsoft.ApplicationServer.Caching.DataCacheOperations.ReplaceItem">
-      <summary>Indicates that an object was replaced in the cache. </summary>
+      <summary>Indicates that an object was replaced in the cache.?</summary>
     </member>
     <member name="F:Microsoft.ApplicationServer.Caching.DataCacheOperations.RemoveItem">
-      <summary>Indicates that an object was removed from the cache. </summary>
+      <summary>Indicates that an object was removed from the cache.?</summary>
     </member>
     <member name="F:Microsoft.ApplicationServer.Caching.DataCacheOperations.CreateRegion">
-      <summary>Indicates that a region in the cache was created with the <see cref="M:Microsoft.ApplicationServer.Caching.DataCache.CreateRegion(System.String,System.Boolean)" /> method. </summary>
+      <summary>Indicates that a region in the cache was created with the <see cref="M:Microsoft.ApplicationServer.Caching.DataCache.CreateRegion(System.String,System.Boolean)" /> method.?</summary>
     </member>
     <member name="F:Microsoft.ApplicationServer.Caching.DataCacheOperations.RemoveRegion">
-      <summary>Indicates that a region in the cache was removed with the <see cref="M:Microsoft.ApplicationServer.Caching.DataCache.RemoveRegion(System.String)" /> method. </summary>
+      <summary>Indicates that a region in the cache was removed with the <see cref="M:Microsoft.ApplicationServer.Caching.DataCache.RemoveRegion(System.String)" /> method.?</summary>
     </member>
     <member name="F:Microsoft.ApplicationServer.Caching.DataCacheOperations.ClearRegion">
       <summary>Indicates that a region in the cache was cleared with the <see cref="M:Microsoft.ApplicationServer.Caching.DataCache.ClearRegion(System.String)" /> method.</summary>

@@ -1,4 +1,4 @@
-Ôªø<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <doc>
   <assembly>
     <name>Microsoft.ServiceBus</name>
@@ -37,7 +37,7 @@
       <summary>Specifies that the audience is missing.</summary>
     </member>
     <member name="F:Microsoft.ServiceBus.AuthorizationFailedException.FailureCode.MissingExpiresOn">
-      <summary>Specifies that the ‚Äòexpires on‚Äô date is missing.</summary>
+      <summary>Specifies that the °Æexpires on°Ø date is missing.</summary>
     </member>
     <member name="F:Microsoft.ServiceBus.AuthorizationFailedException.FailureCode.MissingIssuer">
       <summary>Specifies that the issuer is missing.</summary>
@@ -254,7 +254,7 @@
       <summary>Messages are not secured during transfer. </summary>
     </member>
     <member name="F:Microsoft.ServiceBus.EndToEndBasicHttpSecurityMode.Transport">
-      <summary>Security is provided using HTTPS. The service must be configured with SSL certificates. The SOAP message is protected as a whole using HTTPS. The service is authenticated by the client using the service‚Äôs SSL certificate. The client authentication is controlled through the ClientCredentialType.</summary>
+      <summary>Security is provided using HTTPS. The service must be configured with SSL certificates. The SOAP message is protected as a whole using HTTPS. The service is authenticated by the client using the service°Øs SSL certificate. The client authentication is controlled through the ClientCredentialType.</summary>
     </member>
     <member name="F:Microsoft.ServiceBus.EndToEndBasicHttpSecurityMode.TransportWithMessageCredential">
       <summary>Integrity, confidentiality and server authentication are provided by HTTPS. The service must be configured with a certificate. Client authentication is provided by means of SOAP message security. This mode is applicable when the user is authenticating with a UserName or Certificate credential and there is an existing HTTPS deployment for securing message transfer.</summary>
@@ -538,7 +538,7 @@
     </member>
     <member name="P:Microsoft.ServiceBus.HttpsRelayTransportBindingElement.Scheme">
       <summary>Gets the URI scheme for the transport.</summary>
-      <returns>The URI scheme for the transport, which is ‚ÄúHTTPS‚Äù.</returns>
+      <returns>The URI scheme for the transport, which is °∞HTTPS°±.</returns>
     </member>
     <member name="T:Microsoft.ServiceBus.HybridConnectionState">
       <summary>Describes the current connection state for a hybrid connection.</summary>
@@ -1134,7 +1134,7 @@
       <returns>The <see cref="T:Microsoft.ServiceBus.Messaging.TopicDescription" /> of the newly created topic.</returns>
       <param name="path">The path of the topic relative to the service namespace base address.</param>
       <exception cref="T:System.ArgumentException">
-        <paramref name="path" /> is null or empty, or <paramref name="path" /> begins or ends with ‚Äú/‚Äù.</exception>
+        <paramref name="path" /> is null or empty, or <paramref name="path" /> begins or ends with °∞/°±.</exception>
       <exception cref="T:System.ArgumentOutOfRangeException">Length of <paramref name="path" /> is greater than <see cref="F:Microsoft.ServiceBus.Messaging.Constants.QueueNameMaximumLength" />.</exception>
       <exception cref="T:System.TimeoutException">The operation times out. The timeout period is initialized through the <see cref="T:Microsoft.ServiceBus.NamespaceManagerSettings" /> class. You may need to increase the value of the <see cref="P:Microsoft.ServiceBus.NamespaceManagerSettings.OperationTimeout" /> property to avoid this exception if the timeout value is relatively low.</exception>
       <exception cref="T:Microsoft.ServiceBus.Messaging.MessagingEntityAlreadyExistsException">A queue or a topic with the same name and path exists under the same service namespace.</exception>
@@ -1660,7 +1660,7 @@
     </member>
     <member name="P:Microsoft.ServiceBus.NetOnewayRelayBinding.Scheme">
       <summary>Gets the URI scheme for the transport.</summary>
-      <returns>Returns the URI scheme for the transport. The default value is ‚Äúsb‚Äù, indicating the Windows Azure Service Bus.</returns>
+      <returns>Returns the URI scheme for the transport. The default value is °∞sb°±, indicating the Windows Azure Service Bus.</returns>
     </member>
     <member name="P:Microsoft.ServiceBus.NetOnewayRelayBinding.Security">
       <summary>Gets an object that specifies the type of security used with services configured with this binding.</summary>
@@ -1834,7 +1834,7 @@
     </member>
     <member name="P:Microsoft.ServiceBus.NetTcpRelayBindingBase.Scheme">
       <summary>Gets the URI scheme for the transport.</summary>
-      <returns>Returns the URI scheme for the transport. The default is ‚Äúsb‚Äù.</returns>
+      <returns>Returns the URI scheme for the transport. The default is °∞sb°±.</returns>
     </member>
     <member name="P:Microsoft.ServiceBus.NetTcpRelayBindingBase.Security">
       <summary>Gets an object that specifies the type of security used with services configured with this binding.</summary>
@@ -2046,7 +2046,7 @@
     </member>
     <member name="P:Microsoft.ServiceBus.RelayedOnewayTransportBindingElement.Scheme">
       <summary>Gets the URI scheme used by this binding element.</summary>
-      <returns>The URI scheme used by this binding element. The value returned is ‚Äúsb‚Äù.</returns>
+      <returns>The URI scheme used by this binding element. The value returned is °∞sb°±.</returns>
     </member>
     <member name="M:Microsoft.ServiceBus.RelayedOnewayTransportBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
       <summary>Includes a custom policy assertion about bindings for exporting.</summary>
@@ -2877,7 +2877,7 @@ This mode additionally requires outbound port 819 for the NAT prediction algorit
     </member>
     <member name="P:Microsoft.ServiceBus.TcpRelayTransportBindingElement.Scheme">
       <summary>Gets the URI scheme for the transport.</summary>
-      <returns>Returns the URI scheme for the transport, which is ‚ÄúTCP‚Äù.</returns>
+      <returns>Returns the URI scheme for the transport, which is °∞TCP°±.</returns>
     </member>
     <member name="M:Microsoft.ServiceBus.TcpRelayTransportBindingElement.System#ServiceModel#Description#IPolicyExportExtension#ExportPolicy(System.ServiceModel.Description.MetadataExporter,System.ServiceModel.Description.PolicyConversionContext)">
       <summary> Exports a custom policy assertion about bindings.</summary>
@@ -5356,8 +5356,8 @@ This mode additionally requires outbound port 819 for the NAT prediction algorit
       <returns>The claim type.</returns>
     </member>
     <member name="P:Microsoft.ServiceBus.Messaging.AuthorizationRule.ClaimValue">
-      <summary>Gets or sets the claim value which is either ‚ÄòSend‚Äô, ‚ÄòListen‚Äô, or ‚ÄòManage‚Äô.</summary>
-      <returns>The claim value which is either ‚ÄòSend‚Äô, ‚ÄòListen‚Äô, or ‚ÄòManage‚Äô.</returns>
+      <summary>Gets or sets the claim value which is either °ÆSend°Ø, °ÆListen°Ø, or °ÆManage°Ø.</summary>
+      <returns>The claim value which is either °ÆSend°Ø, °ÆListen°Ø, or °ÆManage°Ø.</returns>
     </member>
     <member name="M:Microsoft.ServiceBus.Messaging.AuthorizationRule.Clone">
       <summary>Creates a copy of <see cref="T:Microsoft.ServiceBus.Messaging.AuthorizationRule" />.</summary>
@@ -5890,8 +5890,8 @@ This mode additionally requires outbound port 819 for the NAT prediction algorit
       <param name="writer">The XmlWriter stream to which the object is serialized.</param>
     </member>
     <member name="P:Microsoft.ServiceBus.Messaging.BrokeredMessage.TimeToLive">
-      <summary>Gets or sets the message‚Äôs time to live value. This is the duration after which the message expires, starting from when the message is sent to the Service Bus. Messages older than their TimeToLive value will expire and no longer be retained in the message store. Subscribers will be unable to receive expired messages.</summary>
-      <returns>The message‚Äôs time to live value.</returns>
+      <summary>Gets or sets the message°Øs time to live value. This is the duration after which the message expires, starting from when the message is sent to the Service Bus. Messages older than their TimeToLive value will expire and no longer be retained in the message store. Subscribers will be unable to receive expired messages.</summary>
+      <returns>The message°Øs time to live value.</returns>
       <exception cref="T:System.ObjectDisposedException">Thrown if the message is in disposed state.</exception>
       <exception cref="T:System.ArgumentOutOfRangeException">Thrown if the passed in value is less than or equal to TimeSpan.Zero.</exception>
     </member>
@@ -6002,8 +6002,8 @@ This mode additionally requires outbound port 819 for the NAT prediction algorit
       <returns>The copy of the current instance of brokered message.</returns>
     </member>
     <member name="P:Microsoft.ServiceBus.Messaging.BrokeredMessageProperty.TimeToLive">
-      <summary>Gets or sets the message‚Äôs time to live value. This is the duration after which the message expires, starting from when the message is sent to the Service Bus.Messages older than their TimeToLive value will expire and no longer be retained in the message store. Subscribers will be unable to receive expired messages.</summary>
-      <returns>The message‚Äôs time to live value.</returns>
+      <summary>Gets or sets the message°Øs time to live value. This is the duration after which the message expires, starting from when the message is sent to the Service Bus.Messages older than their TimeToLive value will expire and no longer be retained in the message store. Subscribers will be unable to receive expired messages.</summary>
+      <returns>The message°Øs time to live value.</returns>
       <exception cref="T:System.ObjectDisposedException">If the message is in disposed state.</exception>
       <exception cref="T:System.ArgumentOutOfRangeException">If the passed in value is less than or equal to TimeSpan.Zero.</exception>
     </member>
@@ -8902,14 +8902,14 @@ This mode additionally requires outbound port 819 for the NAT prediction algorit
       <returns>The interface implemented by the channel factory.</returns>
       <param name="context">The binding context.</param>
       <typeparam name="TChannel">The type of the channel.</typeparam>
-      <exception cref="T:System.ArgumentException">Thrown when TChannel isn‚Äôt a supported channel type.</exception>
+      <exception cref="T:System.ArgumentException">Thrown when TChannel isn°Øt a supported channel type.</exception>
     </member>
     <member name="M:Microsoft.ServiceBus.Messaging.NetMessagingTransportBindingElement.BuildChannelListener``1(System.ServiceModel.Channels.BindingContext)">
       <summary>Builds a channel listener.</summary>
       <returns>An implemented <see cref="T:System.ServiceModel.Channels.IChannelListener`1" /> interface.</returns>
       <param name="context">The binding context.</param>
       <typeparam name="TChannel">The type of the channel.</typeparam>
-      <exception cref="T:System.ArgumentException">Thrown when TChannel isn‚Äôt a supported channel type.</exception>
+      <exception cref="T:System.ArgumentException">Thrown when TChannel isn°Øt a supported channel type.</exception>
     </member>
     <member name="M:Microsoft.ServiceBus.Messaging.NetMessagingTransportBindingElement.CanBuildChannelFactory``1(System.ServiceModel.Channels.BindingContext)">
       <summary>Queries if the binding element can build a channel factory.</summary>
@@ -11614,7 +11614,7 @@ This mode additionally requires outbound port 819 for the NAT prediction algorit
     </member>
     <member name="P:Microsoft.ServiceBus.Messaging.Configuration.NetMessagingBindingExtensionElement.SessionIdleTimeout">
       <summary>Gets or sets the SessionIdleTimeout.</summary>
-      <returns>If an IInputSessionChannel.TryReceive operation doesn‚Äôt receive any message within this TimeSpan then the channel will indicate end of session.</returns>
+      <returns>If an IInputSessionChannel.TryReceive operation doesn°Øt receive any message within this TimeSpan then the channel will indicate end of session.</returns>
     </member>
     <member name="P:Microsoft.ServiceBus.Messaging.Configuration.NetMessagingBindingExtensionElement.TransportSettings">
       <summary>Gets or sets the transport settings element for the net messaging.</summary>
@@ -11644,7 +11644,7 @@ This mode additionally requires outbound port 819 for the NAT prediction algorit
     </member>
     <member name="P:Microsoft.ServiceBus.Messaging.Configuration.NetMessagingTransportExtensionElement.SessionIdleTimeout">
       <summary>Gets or sets the SessionIdleTimeout.</summary>
-      <returns>If an IInputSessionChannel.TryReceive operation doesn‚Äôt receive any message within this TimeSpan then the channel will indicate end of session.</returns>
+      <returns>If an IInputSessionChannel.TryReceive operation doesn°Øt receive any message within this TimeSpan then the channel will indicate end of session.</returns>
     </member>
     <member name="P:Microsoft.ServiceBus.Messaging.Configuration.NetMessagingTransportExtensionElement.TransportSettings">
       <summary>Gets or sets the transport settings element for the net messaging.</summary>
@@ -12133,14 +12133,14 @@ This mode additionally requires outbound port 819 for the NAT prediction algorit
       <summary>Creates a message from a stream, using the specified version, action, and delegate.</summary>
       <returns>Returns a stream-created <see cref="T:System.ServiceModel.Channels.Message" />.</returns>
       <param name="version">Specifies the Addressing and Envelope versions to use for the newly created message. If the request is made using REST, the Addressing and Envelope version are None.</param>
-      <param name="action">A description of how the message should be processed. For Messages sent in response to a HTTP request, this value must be ‚ÄúGETRESPONSE‚Äù.</param>
+      <param name="action">A description of how the message should be processed. For Messages sent in response to a HTTP request, this value must be °∞GETRESPONSE°±.</param>
       <param name="writer">A delegate that allows <see cref="Overload:Microsoft.ServiceBus.Web.StreamMessageHelper.CreateMessage" /> to callback and ask for a Stream to populate the body of the Message.</param>
     </member>
     <member name="M:Microsoft.ServiceBus.Web.StreamMessageHelper.CreateMessage(System.ServiceModel.Channels.MessageVersion,System.String,System.IO.Stream)">
       <summary>Creates a message, using the specified version, action, and stream.</summary>
       <returns>Returns a stream-created <see cref="T:System.ServiceModel.Channels.Message" />.</returns>
       <param name="version">Specifies the Addressing and Envelope versions to use for the newly created message. If the request is made using REST, the Addressing and Envelope version are None.</param>
-      <param name="action">A description of how the message should be processed. For Messages sent in response to a HTTP request, this value must be ‚ÄúGETRESPONSE‚Äù.</param>
+      <param name="action">A description of how the message should be processed. For Messages sent in response to a HTTP request, this value must be °∞GETRESPONSE°±.</param>
       <param name="stream">A stream that contains content used to write the body of the new message.</param>
     </member>
     <member name="M:Microsoft.ServiceBus.Web.StreamMessageHelper.GetStream(System.ServiceModel.Channels.Message)">

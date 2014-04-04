@@ -37,14 +37,14 @@ namespace Coevery.Environment {
         public string Resolve(string shortName) {
             // A few common .net framework assemblies are referenced by the Coevery.Framework assembly.
             // Look into those to see if we can find the assembly we are looking for.
-            var CoeveryFrameworkReferences = _cacheManager.Get(typeof(IAssemblyLoader), ctx =>
+            var coeveryFrameworkReferences = _cacheManager.Get(typeof(IAssemblyLoader), ctx =>
                             ctx.Key.Assembly
                             .GetReferencedAssemblies()
                             .GroupBy(n => AssemblyLoaderExtensions.ExtractAssemblyShortName(n.FullName), StringComparer.OrdinalIgnoreCase)
                             .ToDictionary(n => n.Key /*short assembly name*/, g => g.OrderBy(n => n.Version).Last() /* highest assembly version */, StringComparer.OrdinalIgnoreCase));
 
             AssemblyName assemblyName;
-            if (CoeveryFrameworkReferences.TryGetValue(shortName, out assemblyName)) {
+            if (coeveryFrameworkReferences.TryGetValue(shortName, out assemblyName)) {
                 return assemblyName.FullName;
             }
 

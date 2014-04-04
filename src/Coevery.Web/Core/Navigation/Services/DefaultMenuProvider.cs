@@ -17,7 +17,6 @@ namespace Coevery.Core.Navigation.Services {
             var menuParts = _contentManager
                 .Query<MenuPart, MenuPartRecord>()
                 .Where(x => x.MenuId == menu.Id)
-                .WithQueryHints(new QueryHints().ExpandRecords<MenuItemPartRecord>())
                 .List();
 
             foreach (var menuPart in menuParts) {

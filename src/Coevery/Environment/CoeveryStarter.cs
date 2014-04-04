@@ -9,7 +9,6 @@ using System.Web.Mvc;
 using Autofac;
 using Autofac.Configuration;
 using Coevery.Caching;
-using Coevery.Compilation.Razor;
 using Coevery.Data;
 using Coevery.Environment.AutofacUtil;
 using Coevery.Environment.Configuration;
@@ -102,10 +101,8 @@ namespace Coevery.Environment {
                             builder.RegisterType<ExtensionHarvester>().As<IExtensionHarvester>().SingleInstance();
                             builder.RegisterType<ModuleFolders>().As<IExtensionFolders>().SingleInstance()
                                 .WithParameter(new NamedParameter("paths", new[] { "~/Modules" }));
-                            builder.RegisterType<DeveloperToolsModuleFolders>().As<IExtensionFolders>().SingleInstance()
-                              .WithParameter(new NamedParameter("paths", new[] { "~/DeveloperTools" }));
                             builder.RegisterType<CoreModuleFolders>().As<IExtensionFolders>().SingleInstance()
-                                .WithParameter(new NamedParameter("paths", new[] { "~/Core" }));
+                                .WithParameter(new NamedParameter("paths", new[] { "~/Core", "~/DeveloperTools" }));
                             builder.RegisterType<ThemeFolders>().As<IExtensionFolders>().SingleInstance()
                                 .WithParameter(new NamedParameter("paths", new[] { "~/Themes" }));
 

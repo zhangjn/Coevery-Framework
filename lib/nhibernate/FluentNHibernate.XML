@@ -1686,7 +1686,7 @@
         <member name="M:FluentNHibernate.Conventions.Instances.GeneratorInstance.GuidNative">
             <summary>
             Generator that uses the RDBMS native function to generate a GUID.
-            The behavior is similar to the “sequence” generator. When a new
+            The behavior is similar to the “sequence�?generator. When a new
             object is saved NH run two queries: the first to retrieve the GUID
             value and the second to insert the entity using the Guid retrieved
             from the RDBMS. Your entity Id must be System.Guid and the SQLType
@@ -1697,7 +1697,7 @@
         <member name="M:FluentNHibernate.Conventions.Instances.GeneratorInstance.GuidNative(System.Action{FluentNHibernate.Mapping.ParamBuilder})">
             <summary>
             Generator that uses the RDBMS native function to generate a GUID.
-            The behavior is similar to the “sequence” generator. When a new
+            The behavior is similar to the “sequence�?generator. When a new
             object is saved NH run two queries: the first to retrieve the GUID
             value and the second to insert the entity using the Guid retrieved
             from the RDBMS. Your entity Id must be System.Guid and the SQLType
@@ -4928,7 +4928,7 @@
         <member name="M:FluentNHibernate.Mapping.IdentityGenerationStrategyBuilder`1.GuidNative">
             <summary>
             Generator that uses the RDBMS native function to generate a GUID.
-            The behavior is similar to the “sequence” generator. When a new
+            The behavior is similar to the “sequence�?generator. When a new
             object is saved NH run two queries: the first to retrieve the GUID
             value and the second to insert the entity using the Guid retrieved
             from the RDBMS. Your entity Id must be System.Guid and the SQLType
@@ -4939,7 +4939,7 @@
         <member name="M:FluentNHibernate.Mapping.IdentityGenerationStrategyBuilder`1.GuidNative(System.Action{FluentNHibernate.Mapping.ParamBuilder})">
             <summary>
             Generator that uses the RDBMS native function to generate a GUID.
-            The behavior is similar to the “sequence” generator. When a new
+            The behavior is similar to the “sequence�?generator. When a new
             object is saved NH run two queries: the first to retrieve the GUID
             value and the second to insert the entity using the Guid retrieved
             from the RDBMS. Your entity Id must be System.Guid and the SQLType

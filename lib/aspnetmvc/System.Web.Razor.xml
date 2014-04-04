@@ -1,4 +1,4 @@
-Ôªø<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <doc>
   <assembly>
     <name>System.Web.Razor</name>
@@ -28,7 +28,7 @@
     </member>
     <member name="P:System.Web.Razor.CSharpRazorCodeLanguage.LanguageName">
       <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code. Gets the name of the C# code language.</summary>
-      <returns>The name of the C# code language. Value is ‚Äòcsharp‚Äô.</returns>
+      <returns>The name of the C# code language. Value is °Æcsharp°Ø.</returns>
     </member>
     <member name="T:System.Web.Razor.DocumentParseCompleteEventArgs">
       <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.</summary>
@@ -83,17 +83,17 @@
     <member name="M:System.Web.Razor.ParserResults.#ctor(System.Boolean,System.Web.Razor.Parser.SyntaxTree.Block,System.Collections.Generic.IList{System.Web.Razor.Parser.SyntaxTree.RazorError})">
       <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Initializes a new instance of the <see cref="T:System.Web.Razor.ParserResults" /> class.</summary>
       <param name="success">true if parsing was successful; otherwise, false.</param>
-      <param name="document">The root node in the document‚Äôs syntax tree.</param>
+      <param name="document">The root node in the document°Øs syntax tree.</param>
       <param name="errors">The list of errors which occurred during parsing.</param>
     </member>
     <member name="M:System.Web.Razor.ParserResults.#ctor(System.Web.Razor.Parser.SyntaxTree.Block,System.Collections.Generic.IList{System.Web.Razor.Parser.SyntaxTree.RazorError})">
       <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Initializes a new instance of the <see cref="T:System.Web.Razor.ParserResults" /> class.</summary>
-      <param name="document">The root node in the document‚Äôs syntax tree.</param>
+      <param name="document">The root node in the document°Øs syntax tree.</param>
       <param name="parserErrors">The list of errors which occurred during parsing.</param>
     </member>
     <member name="P:System.Web.Razor.ParserResults.Document">
-      <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Gets or sets the root node in the document‚Äôs syntax tree.</summary>
-      <returns>The root node in the document‚Äôs syntax tree.</returns>
+      <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Gets or sets the root node in the document°Øs syntax tree.</summary>
+      <returns>The root node in the document°Øs syntax tree.</returns>
     </member>
     <member name="P:System.Web.Razor.ParserResults.ParserErrors">
       <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Gets or sets the list of errors which occurred during parsing.</summary>
@@ -149,7 +149,7 @@
       <param name="fileExtension">The file extension.</param>
     </member>
     <member name="P:System.Web.Razor.RazorCodeLanguage.LanguageName">
-      <summary>Gets the language name of the current Razor code, that is ‚Äúcsharp‚Äù or ‚Äúvb‚Äù.This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.</summary>
+      <summary>Gets the language name of the current Razor code, that is °∞csharp°± or °∞vb°±.This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.</summary>
       <returns>The language name of the current Razor code.</returns>
     </member>
     <member name="P:System.Web.Razor.RazorCodeLanguage.Languages">
@@ -1877,8 +1877,8 @@
       <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Initializes a new instance of the <see cref="T:System.Web.Razor.Parser.CSharpCodeParser" /> class.</summary>
     </member>
     <member name="M:System.Web.Razor.Parser.CSharpCodeParser.AcceptIf(System.Web.Razor.Tokenizer.Symbols.CSharpKeyword)">
-      <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Determines whether the parser accepts the ‚ÄòIF‚Äô keyword.</summary>
-      <returns>true if the parser accepts the ‚ÄòIF‚Äô keyword; otherwise, false.</returns>
+      <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Determines whether the parser accepts the °ÆIF°Ø keyword.</summary>
+      <returns>true if the parser accepts the °ÆIF°Ø keyword; otherwise, false.</returns>
       <param name="keyword">The keyword to accept.</param>
     </member>
     <member name="M:System.Web.Razor.Parser.CSharpCodeParser.AssertDirective(System.String)">
@@ -1886,8 +1886,8 @@
       <param name="directive">The directive code to assert.</param>
     </member>
     <member name="M:System.Web.Razor.Parser.CSharpCodeParser.At(System.Web.Razor.Tokenizer.Symbols.CSharpKeyword)">
-      <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Determines whether the code contains ‚ÄòAT‚Äô keyword.</summary>
-      <returns>true if the code contains ‚ÄòAT‚Äô keyword; otherwise, false.</returns>
+      <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Determines whether the code contains °ÆAT°Ø keyword.</summary>
+      <returns>true if the code contains °ÆAT°Ø keyword; otherwise, false.</returns>
       <param name="keyword">The keyword.</param>
     </member>
     <member name="M:System.Web.Razor.Parser.CSharpCodeParser.BaseTypeDirective(System.String,System.Func{System.String,System.Web.Razor.Generator.SpanCodeGenerator})">
@@ -2989,13 +2989,13 @@
       <param name="directive">The directive to assert.</param>
     </member>
     <member name="M:System.Web.Razor.Parser.VBCodeParser.At(System.String)">
-      <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Determines whether the directive is ‚ÄòAT‚Äô directive.</summary>
-      <returns>true if the directive is an ‚ÄòAT‚Äô directive; otherwise, false.</returns>
+      <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Determines whether the directive is °ÆAT°Ø directive.</summary>
+      <returns>true if the directive is an °ÆAT°Ø directive; otherwise, false.</returns>
       <param name="directive">The directive.</param>
     </member>
     <member name="M:System.Web.Razor.Parser.VBCodeParser.At(System.Web.Razor.Tokenizer.Symbols.VBKeyword)">
-      <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Determines whether the given keyword is ‚ÄòAT‚Äô.</summary>
-      <returns>true if the given keyword is ‚ÄòAT‚Äô; otherwise, false.</returns>
+      <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Determines whether the given keyword is °ÆAT°Ø.</summary>
+      <returns>true if the given keyword is °ÆAT°Ø; otherwise, false.</returns>
       <param name="keyword">The keyword.</param>
     </member>
     <member name="M:System.Web.Razor.Parser.VBCodeParser.EndTerminatedDirective(System.String,System.Web.Razor.Parser.SyntaxTree.BlockType,System.Web.Razor.Generator.SpanCodeGenerator,System.Boolean)">
@@ -4652,7 +4652,7 @@
     </member>
     <member name="M:System.Web.Razor.Tokenizer.Symbols.CSharpSymbol.#ctor(System.Int32,System.Int32,System.Int32,System.String,System.Web.Razor.Tokenizer.Symbols.CSharpSymbolType)">
       <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Initializes a new instance of the <see cref="T:System.Web.Razor.Tokenizer.Symbols.CSharpSymbol" /> class.</summary>
-      <param name="offset">The symbol‚Äôs offset.</param>
+      <param name="offset">The symbol°Øs offset.</param>
       <param name="line">The line.</param>
       <param name="column">The column</param>
       <param name="content">The content of the symbol.</param>
@@ -4660,7 +4660,7 @@
     </member>
     <member name="M:System.Web.Razor.Tokenizer.Symbols.CSharpSymbol.#ctor(System.Int32,System.Int32,System.Int32,System.String,System.Web.Razor.Tokenizer.Symbols.CSharpSymbolType,System.Collections.Generic.IEnumerable{System.Web.Razor.Parser.SyntaxTree.RazorError})">
       <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Initializes a new instance of the <see cref="T:System.Web.Razor.Tokenizer.Symbols.CSharpSymbol" /> class.</summary>
-      <param name="offset">The symbol‚Äôs offset.</param>
+      <param name="offset">The symbol°Øs offset.</param>
       <param name="line">The line.</param>
       <param name="column">The column</param>
       <param name="content">The content of the symbol.</param>
@@ -5064,7 +5064,7 @@
       <returns>A hash of the current <see cref="T:System.Web.Razor.Tokenizer.Symbols.SymbolBase`1" /> object.</returns>
     </member>
     <member name="M:System.Web.Razor.Tokenizer.Symbols.SymbolBase`1.OffsetStart(System.Web.Razor.Text.SourceLocation)">
-      <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Starts the time‚Äôs offset for the source location.</summary>
+      <summary>This type/member supports the .NET Framework infrastructure and is not intended to be used directly from your code.Starts the time°Øs offset for the source location.</summary>
       <param name="documentStart">The document start.</param>
     </member>
     <member name="P:System.Web.Razor.Tokenizer.Symbols.SymbolBase`1.Start">

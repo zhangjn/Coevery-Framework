@@ -69,7 +69,7 @@ namespace Coevery.HostContext {
 
             LogInfo(context, "Working directory: \"{0}\"", context.Arguments.WorkingDirectory);
 
-            LogInfo(context, "Detecting Coevery installation root directory...");
+            LogInfo(context, "Detecting coevery installation root directory...");
             context.CoeveryDirectory = GetCoeveryDirectory(context.Arguments.WorkingDirectory);
             LogInfo(context, "Coevery root directory: \"{0}\"", context.CoeveryDirectory.FullName);
 
@@ -102,8 +102,8 @@ namespace Coevery.HostContext {
                 if (!binDirectoryInfo.Exists)
                     continue;
 
-                var CoeveryFrameworkFileInfo = new FileInfo(Path.Combine(binDirectoryInfo.FullName, "Coevery.Framework.dll"));
-                if (!CoeveryFrameworkFileInfo.Exists)
+                var coeveryFrameworkFileInfo = new FileInfo(Path.Combine(binDirectoryInfo.FullName, "Coevery.Framework.dll"));
+                if (!coeveryFrameworkFileInfo.Exists)
                     continue;
 
                 return directoryInfo;
@@ -115,7 +115,7 @@ namespace Coevery.HostContext {
 
         private static CommandHost CreateWorkerAppDomainWithHost(string virtualPath, string physicalPath, Type hostType) {
             var clientBuildManager = new ClientBuildManager(virtualPath, physicalPath);
-            // Fix for http://Coevery.codeplex.com/workitem/17920
+            // Fix for http://coevery.codeplex.com/workitem/17920
             // By forcing the CBM to build App_Code, etc, we ensure that the ASP.NET BuildManager
             // is in a state where it can safely (i.e. in a multi-threaded safe way) process
             // multiple concurrent calls to "GetCompiledAssembly".

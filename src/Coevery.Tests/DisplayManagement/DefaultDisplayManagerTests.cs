@@ -4,13 +4,13 @@ using System.Web;
 using System.Web.Mvc;
 using Autofac;
 using Autofac.Integration.Web;
-using Coevery.Mvc;
-using Coevery.Tests.Stubs;
 using NUnit.Framework;
 using Coevery.DisplayManagement.Descriptors;
 using Coevery.DisplayManagement.Implementation;
 using Coevery.DisplayManagement.Shapes;
 using Coevery.Environment.Extensions.Models;
+using Coevery.Mvc;
+using Coevery.Tests.Stubs;
 
 namespace Coevery.Tests.DisplayManagement {
     [TestFixture]

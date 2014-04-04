@@ -34,8 +34,8 @@ namespace Coevery.Wcf {
             IRunningShellTable runningShellTable = HostContainer.Resolve<IRunningShellTable>();
             ShellSettings shellSettings = runningShellTable.Match(baseAddresses.First().Host, baseAddresses.First().LocalPath);
 
-            ICoeveryHost CoeveryHost = HostContainer.Resolve<ICoeveryHost>();
-            ShellContext shellContext = CoeveryHost.GetShellContext(shellSettings);
+            ICoeveryHost coeveryHost = HostContainer.Resolve<ICoeveryHost>();
+            ShellContext shellContext = coeveryHost.GetShellContext(shellSettings);
             IWorkContextAccessor workContextAccessor = shellContext.LifetimeScope.Resolve<IWorkContextAccessor>();
             WorkContext workContext = workContextAccessor.GetContext();
             if (workContext == null) {

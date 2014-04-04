@@ -6,7 +6,6 @@ using Autofac.Core;
 using Autofac.Core.Lifetime;
 using Autofac.Features.Indexed;
 using Autofac.Features.Metadata;
-using Castle.Core.Interceptor;
 using Castle.DynamicProxy;
 using NUnit.Framework;
 using Coevery.Environment;

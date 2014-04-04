@@ -67,15 +67,15 @@
     </Reference>
     <Reference Include="Castle.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Castle Windsor 2.0\bin\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.DynamicProxy2, Version=2.1.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\Castle Windsor 2.0\bin\Castle.DynamicProxy2.dll</HintPath>
+      <HintPath>..\..\lib\castle-windsor\net45\Castle.Core.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8aa435e3cb308880, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\nhibernate\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\nhibernate\Iesi.Collections.dll</HintPath>
     </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -113,6 +113,7 @@
     </Reference>
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Activation" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Http">
@@ -145,14 +146,6 @@
     <Compile Include="Caching\DefaultParallelCacheContext.cs" />
     <Compile Include="Caching\ICacheContextAccessor.cs" />
     <Compile Include="Caching\IParallelCacheContext.cs" />
-    <Compile Include="Compilation\CompilersModule.cs" />
-    <Compile Include="Compilation\ICompiler.cs" />
-    <Compile Include="Compilation\Razor\RazorModule.cs" />
-    <Compile Include="Compilation\Razor\IRazorCompiler.cs" />
-    <Compile Include="Compilation\Razor\IRazorTemplateHolder.cs" />
-    <Compile Include="Compilation\Razor\RazorCompiler.cs" />
-    <Compile Include="Compilation\Razor\RazorTemplateBase.cs" />
-    <Compile Include="Compilation\Razor\RazorTemplateCache.cs" />
     <Compile Include="ContentManagement\Aspects\IAliasAspect.cs" />
     <Compile Include="ContentManagement\Aspects\ITitleAspect.cs" />
     <Compile Include="ContentManagement\Aspects\ILocalizableAspect.cs" />
@@ -183,7 +176,6 @@
     <Compile Include="Data\AbstractSessionInterceptor.cs" />
     <Compile Include="Data\Bags\SArray.cs" />
     <Compile Include="Data\FetchRequest.cs" />
-    <Compile Include="Data\Migration\AutomaticDataMigrations.cs" />
     <Compile Include="Data\Migration\Interpreters\MySqlCommandInterpreter.cs" />
     <Compile Include="Data\Providers\MySqlStatementProvider.cs" />
     <Compile Include="Data\Providers\SqlCeStatementProvider.cs" />
@@ -202,6 +194,7 @@
     <Compile Include="Data\Conventions\CacheConventions.cs" />
     <Compile Include="Data\DefaultDatabaseCacheConfiguration.cs" />
     <Compile Include="Data\IDatabaseCacheConfiguration.cs" />
+    <Compile Include="Data\Migration\AutomaticDataMigrations.cs" />
     <Compile Include="Data\Migration\Interpreters\SqlCeCommandInterpreter.cs" />
     <Compile Include="Data\ISessionConfigurationEvents.cs" />
     <Compile Include="Data\ISessionInterceptor.cs" />
@@ -231,7 +224,6 @@
     <Compile Include="Environment\Extensions\DefaultCriticalErrorProvider.cs" />
     <Compile Include="Environment\Extensions\ExtensionMonitoringCoordinator.cs" />
     <Compile Include="Caching\IAsyncTokenProvider.cs" />
-    <Compile Include="Environment\Extensions\Folders\DeveloperToolsModuleFolders.cs" />
     <Compile Include="Environment\Extensions\Folders\CoreModuleFolders.cs" />
     <Compile Include="Environment\Extensions\Folders\IExtensionHarvester.cs" />
     <Compile Include="Environment\Extensions\IExtensionMonitoringCoordinator.cs" />
@@ -270,9 +262,18 @@
     <Compile Include="FileSystems\Media\FileSystemStorageProvider.cs" />
     <Compile Include="FileSystems\Media\IMimeTypeProvider.cs" />
     <Compile Include="Indexing\ISearchBits.cs" />
+    <Compile Include="Localization\Services\CurrentCalendarWorkContext.cs" />
     <Compile Include="Localization\Services\CurrentCultureWorkContext.cs" />
+    <Compile Include="Localization\Services\DefaultCalendarManager.cs" />
+    <Compile Include="Localization\Services\CultureDateTimeFormatProvider.cs" />
+    <Compile Include="Localization\Services\DefaultDateServices.cs" />
     <Compile Include="Localization\Services\DefaultLocalizedStringManager.cs" />
+    <Compile Include="Localization\Services\ICalendarSelector.cs" />
+    <Compile Include="Localization\Services\ICalendarManager.cs" />
+    <Compile Include="Localization\Services\IDateServices.cs" />
+    <Compile Include="Localization\Services\IDateTimeFormatProvider.cs" />
     <Compile Include="Localization\Services\ILocalizedStringManager.cs" />
+    <Compile Include="Localization\Services\SiteCalendarSelector.cs" />
     <Compile Include="Logging\CoeveryFileAppender.cs" />
     <Compile Include="Logging\CoeveryLog4netFactory.cs" />
     <Compile Include="Logging\CoeveryLog4netLogger.cs" />
@@ -322,63 +323,10 @@
     <Compile Include="Recipes\Services\IRecipeScheduler.cs" />
     <Compile Include="Recipes\Services\IRecipeStepExecutor.cs" />
     <Compile Include="Recipes\Services\IRecipeStepQueue.cs" />
-    <Compile Include="Security\AlwaysAccessibleAttribute.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\Authorizer.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\CreateUserParams.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\CurrentUserWorkContext.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\IAuthenticationService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\IAuthorizationService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\IAuthorizationServiceEventHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\IEncryptionService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\IMembershipService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\IUser.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\MembershipSettings.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\CoeverySecurityException.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\Permissions\IPermissionProvider.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\Permissions\Permission.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\Providers\DefaultEncryptionService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\Providers\FormsAuthenticationService.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\Providers\CoeveryRoleProvider.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\SecurityFilter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Security\StandardPermissions.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Security\AlwaysAccessibleAttribute.cs" />
+    <Compile Include="Security\IEncryptionService.cs" />
+    <Compile Include="Security\CurrentUserWorkContext.cs" />
+    <Compile Include="Security\Providers\DefaultEncryptionService.cs" />
     <Compile Include="Services\Clock.cs" />
     <Compile Include="Services\DefaultJsonConverter.cs" />
     <Compile Include="Services\IJsonConverter.cs" />
@@ -899,6 +847,10 @@
     <Compile Include="Mvc\Wrappers\HttpRequestBaseWrapper.cs" />
     <Compile Include="Mvc\Wrappers\HttpResponseBaseWrapper.cs" />
     <Compile Include="CoeveryException.cs" />
+    <Compile Include="Security\IAuthorizationServiceEventHandler.cs" />
+    <Compile Include="Security\MembershipSettings.cs" />
+    <Compile Include="Security\StandardPermissions.cs" />
+    <Compile Include="Security\CoeverySecurityException.cs" />
     <Compile Include="Tasks\Scheduling\IPublishingTaskManager.cs" />
     <Compile Include="Tasks\Scheduling\IScheduledTask.cs" />
     <Compile Include="Localization\Text.cs" />
@@ -974,6 +926,10 @@
     <Compile Include="Mvc\ViewPage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Security\IAuthenticationService.cs" />
+    <Compile Include="Security\Authorizer.cs" />
+    <Compile Include="Security\Providers\FormsAuthenticationService.cs" />
+    <Compile Include="Security\SecurityFilter.cs" />
     <Compile Include="Settings\ISite.cs" />
     <Compile Include="Settings\ISiteService.cs" />
     <Compile Include="Tasks\BackgroundService.cs" />
@@ -990,6 +946,13 @@
     <Compile Include="UI\Notify\NotifierExtensions.cs" />
     <Compile Include="UI\Notify\NotifyEntry.cs" />
     <Compile Include="UI\Notify\NotifyFilter.cs" />
+    <Compile Include="Security\CreateUserParams.cs" />
+    <Compile Include="Security\IAuthorizationService.cs" />
+    <Compile Include="Security\IMembershipService.cs" />
+    <Compile Include="Security\IUser.cs" />
+    <Compile Include="Security\Permissions\IPermissionProvider.cs" />
+    <Compile Include="Security\Permissions\Permission.cs" />
+    <Compile Include="Security\Providers\CoeveryRoleProvider.cs" />
     <Compile Include="Services\IClock.cs" />
     <Compile Include="FileSystems\Media\IStorageFile.cs" />
     <Compile Include="FileSystems\Media\IStorageFolder.cs" />

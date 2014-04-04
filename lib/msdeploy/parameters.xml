@@ -1,6 +1,6 @@
-﻿<parameters>
+<parameters>
 	<!-- Prompts where to copy the content files and takes a web site path (such as "contoso.com/app") -->
-	<parameter name="Application Path" description="Full site path where you would like to install your application (i.e., Default Web Site/Coevery)" defaultValue="Default Web Site/Coevery" tags="iisapp">
+	<parameter name="Application Path" description="Full site path where you would like to install your application (i.e., Default Web Site/coevery)" defaultValue="Default Web Site/coevery" tags="iisapp">
 		<parameterEntry type="ProviderPath" scope="iisapp" match="Coevery" />
 	</parameter>
 
@@ -22,13 +22,13 @@
 	</parameter>
 
 	<!-- Prompts for the database name and fills it into the database scripts -->
-	<parameter name="Database Name" description="Name of the database for Coevery." defaultValue="Coevery" tags="SQL, dbName">
+	<parameter name="Database Name" description="Name of the database for Coevery." defaultValue="coevery" tags="SQL, dbName">
 		<parameterEntry type="TextFile" scope="install.sql" match="PlaceHolderForDb" />
 	</parameter>	
 
         <!-- Prompts for the database username and fills it into the database scripts.
 	The SQL tag indicates it is a parameter required for SQL, the DbUsername tag indicates this is a Db username -->
-	<parameter name="Database Username" description="User name to access you application database." defaultValue="Coeveryuser" tags="SQL, DbUsername">
+	<parameter name="Database Username" description="User name to access you application database." defaultValue="coeveryuser" tags="SQL, DbUsername">
 		<parameterEntry type="TextFile" scope="install.sql" match="PlaceHolderForUser" />
 	</parameter>
 

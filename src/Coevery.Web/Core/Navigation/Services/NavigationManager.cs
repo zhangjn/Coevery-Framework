@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Coevery.ContentManagement;
+using Coevery.Environment.Configuration;
 using Coevery.Logging;
 using Coevery.Security;
 using Coevery.Security.Permissions;
@@ -19,6 +20,7 @@ namespace Coevery.Core.Navigation.Services {
         private readonly IEnumerable<INavigationFilter> _navigationFilters;
         private readonly UrlHelper _urlHelper;
         private readonly ICoeveryServices _coeveryServices;
+        private readonly ShellSettings _shellSettings;
 
         public NavigationManager(
             IEnumerable<INavigationProvider> navigationProviders, 
@@ -26,13 +28,15 @@ namespace Coevery.Core.Navigation.Services {
             IAuthorizationService authorizationService,
             IEnumerable<INavigationFilter> navigationFilters,
             UrlHelper urlHelper, 
-            ICoeveryServices coeveryServices) {
+            ICoeveryServices coeveryServices,
+            ShellSettings shellSettings) {
             _navigationProviders = navigationProviders;
             _menuProviders = menuProviders;
             _authorizationService = authorizationService;
             _navigationFilters = navigationFilters;
             _urlHelper = urlHelper;
             _coeveryServices = coeveryServices;
+            _shellSettings = shellSettings;
             Logger = NullLogger.Instance;
         }
 
@@ -41,7 +45,7 @@ namespace Coevery.Core.Navigation.Services {
         public IEnumerable<MenuItem> BuildMenu(string menuName) {
             var sources = GetSources(menuName);
             var hasDebugShowAllMenuItems = _authorizationService.TryCheckAccess(Permission.Named("DebugShowAllMenuItems"), _coeveryServices.WorkContext.CurrentUser, null);
-            return FinishMenu(Reduce(Arrange(Filter(Merge(sources))), menuName == "admin", hasDebugShowAllMenuItems).ToArray());
+            return FinishMenu(Reduce(Merge(sources), menuName == "admin", hasDebugShowAllMenuItems).ToArray());
         }
 
         public IEnumerable<MenuItem> BuildMenu(IContent menu) {
@@ -60,7 +64,7 @@ namespace Coevery.Core.Navigation.Services {
             return GetImageSets(menuName).SelectMany(imageSets => imageSets.Distinct()).Distinct();
         }
 
-        private IEnumerable<MenuItem> FinishMenu(IEnumerable<MenuItem> menuItems) {
+        private IEnumerable<MenuItem> FinishMenu(ICollection<MenuItem> menuItems) {
             foreach (var menuItem in menuItems) {
                 menuItem.Href = GetUrl(menuItem.Url, menuItem.RouteValues);
                 menuItem.Items = FinishMenu(menuItem.Items.ToArray());
@@ -85,10 +89,17 @@ namespace Coevery.Core.Navigation.Services {
                                 ? menuItemUrl
                                 : _urlHelper.RouteUrl(routeValueDictionary);
 
+            var schemes = new[] { "http", "https", "tel", "mailto" };
             if (!string.IsNullOrEmpty(url) && _urlHelper.RequestContext.HttpContext != null &&
-                !(url.StartsWith("http://") || url.StartsWith("https://") || url.StartsWith("/"))) {
+                !(url.StartsWith("/") || schemes.Any(scheme => url.StartsWith(scheme + ":")))) {
                 if (url.StartsWith("~/")) {
-                    url = url.Substring(2);
+
+                    if (!String.IsNullOrEmpty(_shellSettings.RequestUrlPrefix)) {
+                        url = _shellSettings.RequestUrlPrefix + "/" + url.Substring(2);
+                    }
+                    else {
+                        url = url.Substring(2);
+                    }
                 }
                 if (!url.StartsWith("#")) {
                     var appPath = _urlHelper.RequestContext.HttpContext.Request.ApplicationPath;
@@ -113,9 +124,20 @@ namespace Coevery.Core.Navigation.Services {
                 item.Permissions.Any(x => _authorizationService.TryCheckAccess(
                     x, 
                     _coeveryServices.WorkContext.CurrentUser, 
-                    item.Content == null || isAdminMenu ? null : item.Content))))
-            {
-                item.Items = Reduce(item.Items, isAdminMenu, hasDebugShowAllMenuItems);
+                    item.Content == null || isAdminMenu ? null : item.Content)))) {
+                var oldItems = item.Items;
+
+                item.Items = Reduce(item.Items, isAdminMenu, hasDebugShowAllMenuItems).ToList();
+
+                // if all sub items have been filtered out, ensure the main one is not one of them
+                // e.g., Manage Roles and Manage Users are not granted, the Users item should not show up 
+                if (oldItems.Any() && !item.Items.Any()) {
+                    if (oldItems.Any(x => NavigationHelper.RouteMatches(x.RouteValues, item.RouteValues))) {
+                        continue;
+                    }
+                }
+
+                // if there are sub items returns the current item, otherwise ensure this item has valid permissions
                 yield return item;
             }
         }

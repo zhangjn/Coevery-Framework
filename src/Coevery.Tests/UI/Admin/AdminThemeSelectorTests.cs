@@ -44,15 +44,15 @@ namespace Coevery.Tests.UI.Admin {
 
         [Test]
         public void ThemeResultShouldBeTheAdminAt100AfterBeingSet() {
-            //var context = new RequestContext(new StubHttpContext(), new RouteData());
+            var context = new RequestContext(new StubHttpContext(), new RouteData());
 
-            //AdminFilter.Apply(context);
+            AdminFilter.Apply(context);
 
-            //var selector = new AdminThemeSelector();
-            //var result = selector.GetTheme(context);
-            //Assert.That(result, Is.Not.Null);
-            //Assert.That(result.ThemeName, Is.EqualTo("TheAdmin"));
-            //Assert.That(result.Priority, Is.EqualTo(100));
+            var selector = new AdminThemeSelector();
+            var result = selector.GetTheme(context);
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.ThemeName, Is.EqualTo("TheAdmin"));
+            Assert.That(result.Priority, Is.EqualTo(100));
         }
     }
 }

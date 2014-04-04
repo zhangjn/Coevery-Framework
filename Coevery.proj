@@ -400,12 +400,12 @@
     </ItemGroup>
 
     <FileUpdateLines Files="@(Version-Modules)"
-        Regex="^(Coeveryversion|version)(\s*):(\s*)(.*)"
+        Regex="^(coeveryversion|version)(\s*):(\s*)(.*)"
         ReplacementText="${1}${2}:${3}$(Version)"
         IgnoreCase="True"/>
 
     <FileUpdateLines Files="@(Version-Themes)"
-          Regex="^(Coeveryversion|version)(\s*):(\s*)(.*)"
+          Regex="^(coeveryversion|version)(\s*):(\s*)(.*)"
           ReplacementText="${1}${2}:${3}$(Version)"
           IgnoreCase="True"/>
 

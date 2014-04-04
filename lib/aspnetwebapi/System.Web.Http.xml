@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <doc>
   <assembly>
     <name>System.Web.Http</name>
@@ -4440,7 +4440,7 @@
       <returns>The HTTP request message which led to this result.</returns>
     </member>
     <member name="T:System.Web.Http.Results.ExceptionResult">
-      <summary>Represents an action result that returns a <see cref="F:System.Net.HttpStatusCode.InternalServerError" /> response and performs content negotiation on an <see cref="T:System.Web.Http.HttpError" />  based on an <see cref="P:System.Web.Http.Results.ExceptionResult.Exception" />. </summary>
+      <summary>Represents an action result that returns a <see cref="F:System.Net.HttpStatusCode.InternalServerError" /> response and performs content negotiation on an <see cref="T:System.Web.Http.HttpError" /> ?based on an <see cref="P:System.Web.Http.Results.ExceptionResult.Exception" />. </summary>
     </member>
     <member name="M:System.Web.Http.Results.ExceptionResult.#ctor(System.Exception,System.Boolean,System.Net.Http.Formatting.IContentNegotiator,System.Net.Http.HttpRequestMessage,System.Collections.Generic.IEnumerable{System.Net.Http.Formatting.MediaTypeFormatter})">
       <summary>Initializes a new instance of the <see cref="T:System.Web.Http.Results.ExceptionResult" /> class.</summary>

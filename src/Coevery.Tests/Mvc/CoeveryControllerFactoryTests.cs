@@ -95,10 +95,10 @@ namespace Coevery.Tests.Mvc {
 
         [Test]
         public void NullServiceKeyReturnsDefault() {
-            CoeveryControllerFactoryAccessor CoeveryControllerFactory = new CoeveryControllerFactoryAccessor();
+            CoeveryControllerFactoryAccessor coeveryControllerFactory = new CoeveryControllerFactoryAccessor();
             ReplacementFooController fooController;
 
-            Assert.That(CoeveryControllerFactory.TryResolveAccessor(_workContextAccessor.GetContext(), null, out fooController), Is.False);
+            Assert.That(coeveryControllerFactory.TryResolveAccessor(_workContextAccessor.GetContext(), null, out fooController), Is.False);
             Assert.That(fooController, Is.Null);
         }
 

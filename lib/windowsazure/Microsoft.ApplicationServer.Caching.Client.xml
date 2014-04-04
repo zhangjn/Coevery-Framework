@@ -1,4 +1,4 @@
-Ôªø<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <doc>
   <assembly>
     <name>Microsoft.ApplicationServer.Caching.Client</name>
@@ -762,7 +762,7 @@
     <member name="M:Microsoft.ApplicationServer.Caching.DataCacheFactory.GetCache(System.String)">
       <summary>Returns the cache client, an instance of the <see cref="T:Microsoft.ApplicationServer.Caching.DataCache" /> object.</summary>
       <returns>The cache client, an instance of the DataCache object.</returns>
-      <param name="cacheName">The named cache to use for cache operations. For , the cache name must be ‚Äúdefault‚Äù, which is the same as calling <see cref="M:Microsoft.ApplicationServer.Caching.DataCacheFactory.GetDefaultCache" />.</param>
+      <param name="cacheName">The named cache to use for cache operations. For , the cache name must be °∞default°±, which is the same as calling <see cref="M:Microsoft.ApplicationServer.Caching.DataCacheFactory.GetDefaultCache" />.</param>
     </member>
     <member name="M:Microsoft.ApplicationServer.Caching.DataCacheFactory.GetDefaultCache">
       <summary>Returns the cache client corresponding to the default cache, an instance of the <see cref="T:Microsoft.ApplicationServer.Caching.DataCache" /> object.</summary>
