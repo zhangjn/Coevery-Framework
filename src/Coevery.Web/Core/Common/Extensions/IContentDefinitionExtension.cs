@@ -10,7 +10,6 @@ namespace Coevery.Core.Common.Extensions {
     public class EntityNames {
         public string DisplayName { get; set; }
         public string Name { get; set; }
-        public string CollectionName { get; set; }
         public string CollectionDisplayName { get; set; }
     }
 
@@ -75,11 +74,10 @@ namespace Coevery.Core.Common.Extensions {
                 return null;
             }
             var setting = entity.Settings;
-            return setting.ContainsKey("CollectionName") && setting.ContainsKey("CollectionDisplayName")
+            return setting.ContainsKey("CollectionDisplayName")
                 ? new EntityNames {
                     Name = entity.Name,
                     DisplayName = entity.DisplayName,
-                    CollectionName = setting["CollectionName"],
                     CollectionDisplayName = setting["CollectionDisplayName"]
                 }
                 : null;
@@ -90,9 +88,6 @@ namespace Coevery.Core.Common.Extensions {
                 var setting = type.Settings;
                 if (isDisplayName && setting.ContainsKey("CollectionDisplayName")) {
                     return setting["CollectionDisplayName"] == collectionname;
-                }
-                if (!isDisplayName && setting.ContainsKey("CollectionName")) {
-                    return setting["CollectionName"] == collectionname;
                 }
                 return false;
             });

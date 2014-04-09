@@ -48,7 +48,7 @@ namespace Coevery.Core.Relationships.Drivers {
                         yield return new RelatedEntityViewModel {
                             RelationId = _relationshipService.GetReferenceField(record.RelatedEntity.Name, record.Name),
                             Label = oneToMany.RelatedListLabel,
-                            RelatedEntityName = _settingService.ParseSetting(record.RelatedEntity.Settings)["CollectionName"],
+                            //RelatedEntityName = _settingService.ParseSetting(record.RelatedEntity.Settings)["CollectionName"],
                             RelatedPartName = record.RelatedEntity.Name.ToPartName(),
                             ProjectionId = oneToMany.RelatedListProjection.Id
                         };
@@ -56,9 +56,9 @@ namespace Coevery.Core.Relationships.Drivers {
                 }
                 else {
                     var manyToMany = _relationshipService.GetManyToMany(record.Id);
-                    var relatedEntityName = record.PrimaryEntity.Name == contentType
-                        ? _settingService.ParseSetting(record.RelatedEntity.Settings)["CollectionName"]
-                        : _settingService.ParseSetting(record.PrimaryEntity.Settings)["CollectionName"];
+                    //var relatedEntityName = record.PrimaryEntity.Name == contentType
+                    //    ? _settingService.ParseSetting(record.RelatedEntity.Settings)["CollectionName"]
+                    //    : _settingService.ParseSetting(record.PrimaryEntity.Settings)["CollectionName"];
                     var projectionId = record.PrimaryEntity.Name == contentType ? manyToMany.RelatedListProjection.Id : manyToMany.PrimaryListProjection.Id;
                     var label = record.PrimaryEntity.Name == contentType ? manyToMany.RelatedListLabel : manyToMany.PrimaryListLabel;
                     var showList = record.PrimaryEntity.Name == contentType ? manyToMany.ShowRelatedList : manyToMany.ShowPrimaryList;
@@ -66,7 +66,7 @@ namespace Coevery.Core.Relationships.Drivers {
                         yield return new RelatedEntityViewModel {
                             RelationId = record.Name,
                             Label = label,
-                            RelatedEntityName = relatedEntityName,
+                            //RelatedEntityName = relatedEntityName,
                             ProjectionId = projectionId
                         };
                     }

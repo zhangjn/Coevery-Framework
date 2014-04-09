@@ -7,7 +7,6 @@ using Coevery.ContentManagement.MetaData.Models;
 using Coevery.Core.Common.Services;
 using Coevery.Core.Entities.Events;
 using Coevery.Core.Entities.Models;
-using Coevery.Core.Fields.EntityRecords;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data;
 using Coevery.DeveloperTools.EntityManagement.ViewModels;
@@ -44,7 +43,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         private readonly IContentDefinitionService _contentDefinitionService;
         private readonly ISchemaUpdateService _schemaUpdateService;
         private readonly IEntityEvents _entityEvents;
-        private readonly IEntityRecordEditorEvents _entityRecordEditorEvents;
 
         public ContentMetadataService(
             ICoeveryServices services,
@@ -53,15 +51,13 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             ISchemaUpdateService schemaUpdateService,
             IEntityEvents entityEvents,
             IRepository<ContentFieldDefinitionRecord> fieldDefinitionRepository,
-            IContentDefinitionEditorEvents contentDefinitionEditorEvents,
-            IEntityRecordEditorEvents entityRecordEditorEvents) {
+            IContentDefinitionEditorEvents contentDefinitionEditorEvents) {
             _contentDefinitionService = contentDefinitionService;
             _schemaUpdateService = schemaUpdateService;
             _entityEvents = entityEvents;
             _settingService = settingService;
             _fieldDefinitionRepository = fieldDefinitionRepository;
             _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
-            _entityRecordEditorEvents = entityRecordEditorEvents;
             Services = services;
         }
 
@@ -80,15 +76,10 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
                 .Any(x => string.Equals(x.Name, name, StringComparison.OrdinalIgnoreCase)
                           || string.Equals(x.DisplayName, displayName, StringComparison.OrdinalIgnoreCase));
 
-            var collectionName = settings["CollectionName"];
             var collectionDisplayName = settings["CollectionDisplayName"];
-            if (collectionName != collectionName.ToSafeName()) {
-                isValid = false;
-            }
             var hasDuplicateEntities = (from entity in entities
                 let tSetting = entity.EntitySetting
                 where tSetting != null
-                      && (tSetting.ContainsKey("CollectionName") && tSetting["CollectionName"] == collectionName)
                       && (tSetting.ContainsKey("CollectionDisplayName") && tSetting["CollectionDisplayName"] == collectionDisplayName)
                 select entity).Any();
             if (hasDuplicateEntities) {
@@ -107,15 +98,10 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
                 .Query<EntityMetadataPart, EntityMetadataRecord>(VersionOptions.Latest)
                 .Where(record => record.Name != name).List<EntityMetadataPart>();
             var isValid = !entities.Any(x => string.Equals(x.DisplayName, displayName, StringComparison.OrdinalIgnoreCase));
-            var collectionName = settings["CollectionName"];
             var collectionDisplayName = settings["CollectionDisplayName"];
-            if (collectionName != collectionName.ToSafeName()) {
-                isValid = false;
-            }
             var hasDuplicateEntities = (from entity in entities
                 let tSetting = entity.EntitySetting
-                where tSetting["CollectionName"] == collectionName ||
-                      tSetting["CollectionDisplayName"] == collectionDisplayName
+                where tSetting["CollectionDisplayName"] == collectionDisplayName
                 select entity).Any();
             if (hasDuplicateEntities) {
                 isValid = false;
@@ -158,22 +144,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             entityDraft.Name = sourceModel.Name;
             entityDraft.EntitySetting = sourceModel.Settings;
 
-            var field = new FieldMetadataRecord {
-                Name = sourceModel.FieldName,
-                ContentFieldDefinitionRecord = FetchFieldDefinition(sourceModel.FieldType)
-            };
-            entityDraft.FieldMetadataRecords.Add(field);
             Services.ContentManager.Create(entityDraft, VersionOptions.Draft);
-
-            var baseFieldSetting = new SettingsDictionary {
-                {"DisplayName", sourceModel.FieldLabel},
-                {"AddInLayout", bool.TrueString},
-                {"EntityName", sourceModel.Name},
-                {"Storage", "Part"}
-            };
-            _entityRecordEditorEvents.FieldSettingsEditorUpdate(sourceModel.FieldType, sourceModel.FieldName, baseFieldSetting, updateModel);
-            field.Settings = _settingService.CompileSetting(baseFieldSetting);
-            field.EntityMetadataRecord = entityDraft.Record;
         }
 
         public string DeleteEntity(int id) {

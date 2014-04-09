@@ -26,11 +26,11 @@ namespace Coevery.Core.Relationships.Projections {
             var referenceContentItem = _contentManager.Get(value.Value);
             var contentItemMetadata = _contentManager.GetItemMetadata(referenceContentItem);
 
-            var pluralContentTypeName = _contentDefinitionExtension.GetEntityNames(referenceContentItem.ContentType).CollectionName;
+            //var pluralContentTypeName = _contentDefinitionExtension.GetEntityNames(referenceContentItem.ContentType).CollectionName;
 
             var linkTag = new TagBuilder("a");
             linkTag.AddCssClass("btn-link");
-            linkTag.Attributes.Add("ui-sref", "Root.Menu.View({NavigationId: $stateParams.NavigationId, Module: '" + pluralContentTypeName + "', Id: " + value + "})");
+            //linkTag.Attributes.Add("ui-sref", "Root.Menu.View({NavigationId: $stateParams.NavigationId, Module: '" + pluralContentTypeName + "', Id: " + value + "})");
             linkTag.InnerHtml = contentItemMetadata.DisplayText;
             return linkTag.ToString();
         }

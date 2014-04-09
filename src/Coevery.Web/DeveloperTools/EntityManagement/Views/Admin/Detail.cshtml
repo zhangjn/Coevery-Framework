@@ -32,31 +32,23 @@
                     </header>
                     <div class="data-row clearfix">
                         <div class="span6">
-                            <span class="title control-label">@T("Display Name")</span>
-                            <div class="controls">
-                                <span class="control-text">@Model.DisplayName</span>
-                            </div>
-                        </div>
-                        <div class="span6">
                             <span class="title control-label">@T("Name")</span>
                             <div class="controls">
                                 <span class="control-text">@Model.Name</span>
                             </div>
                         </div>
-
+                        <div class="span6">
+                            <span class="title control-label">@T("Display Name")</span>
+                            <div class="controls">
+                                <span class="control-text">@Model.DisplayName</span>
+                            </div>
+                        </div>
                     </div>
-
                     <div class="data-row clearfix">
                         <div class="span6">
                             <span class="title control-label">@T("Plural Display Name")</span>
                             <div class="controls">
                                 <span class="control-text">@Model.Settings["CollectionDisplayName"]</span>
-                            </div>
-                        </div>
-                        <div class="span6">
-                            <span class="title control-label">@T("Plural Name")</span>
-                            <div class="controls">
-                                <span class="control-text">@Model.Settings["CollectionName"]</span>
                             </div>
                         </div>
                     </div>

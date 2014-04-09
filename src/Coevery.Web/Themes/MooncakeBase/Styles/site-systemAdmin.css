@@ -303,3 +303,6 @@ ul.nav.nav-tabs {
         font-size: 20px;
     }
 
+.data-row .help-inline {
+    margin-top: 5px;
+}

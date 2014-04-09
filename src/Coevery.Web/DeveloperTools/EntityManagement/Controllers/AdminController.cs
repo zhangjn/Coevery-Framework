@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -7,11 +6,8 @@ using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.Core.Common.Services;
-using Coevery.Core.Fields.EntityRecords;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.EntityManagement.ViewModels;
-using Coevery.Environment.Extensions;
-using Coevery.Environment.Extensions.Models;
 using Coevery.Localization;
 using Coevery.Logging;
 using Coevery.Themes;
@@ -24,25 +20,19 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;
         private readonly IContentMetadataService _contentMetadataService;
         private readonly ISettingService _settingService;
-        private readonly IEntityRecordEditorEvents _entityRecordEditorEvents;
-        private readonly IExtensionManager _extensionManager;
 
         public AdminController(
             ICoeveryServices coeveryServices,
             ISettingService settingService,
             IContentDefinitionService contentDefinitionService,
             IContentDefinitionEditorEvents contentDefinitionEditorEvents,
-            IContentMetadataService contentMetadataService,
-            IEntityRecordEditorEvents entityRecordEditorEvents, 
-            IExtensionManager extensionManager) {
+            IContentMetadataService contentMetadataService) {
             Services = coeveryServices;
             _settingService = settingService;
             _contentDefinitionService = contentDefinitionService;
             T = NullLocalizer.Instance;
             _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
             _contentMetadataService = contentMetadataService;
-            _entityRecordEditorEvents = entityRecordEditorEvents;
-            _extensionManager = extensionManager;
         }
 
         public ICoeveryServices Services { get; private set; }
@@ -60,15 +50,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to create a content type."))) {
                 return new HttpUnauthorizedResult();
             }
-            var entityRecords = _entityRecordEditorEvents.FieldSettingsEditor().ToList();
-            var fieldTypes = entityRecords.Select(x =>
-                new SelectListItem {Text = x.FieldTypeDisplayName, Value = x.FieldTypeName});
-
             var typeViewModel = _contentDefinitionService.GetType(string.Empty);
-            typeViewModel.Settings.Add("CollectionName", string.Empty);
             typeViewModel.Settings.Add("CollectionDisplayName", string.Empty);
-            typeViewModel.FieldTypes = fieldTypes;
-            typeViewModel.FieldTemplates = entityRecords;
 
             return View(typeViewModel);
         }
@@ -96,27 +79,12 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             viewModel.DisplayName = string.IsNullOrWhiteSpace(viewModel.DisplayName) ? String.Empty : viewModel.DisplayName.Trim();
             viewModel.Name = (viewModel.Name ?? viewModel.DisplayName).ToSafeName();
 
-            viewModel.FieldLabel = string.IsNullOrWhiteSpace(viewModel.FieldLabel) ? String.Empty : viewModel.FieldLabel.Trim();
-            viewModel.FieldName = (viewModel.FieldName ?? viewModel.FieldLabel).ToSafeName();
-
             if (String.IsNullOrWhiteSpace(viewModel.DisplayName)) {
                 ModelState.AddModelError("DisplayName", T("The Display Name name can't be empty.").ToString());
             }
 
             if (String.IsNullOrWhiteSpace(viewModel.Name)) {
                 ModelState.AddModelError("Name", T("The Content Type Id can't be empty.").ToString());
-            }
-
-            if (String.IsNullOrWhiteSpace(viewModel.FieldLabel)) {
-                ModelState.AddModelError("DisplayName", T("The Field Label name can't be empty.").ToString());
-            }
-
-            if (String.IsNullOrWhiteSpace(viewModel.FieldName)) {
-                ModelState.AddModelError("Name", T("The Field Name can't be empty.").ToString());
-            }
-
-            if (String.IsNullOrWhiteSpace(viewModel.FieldType)) {
-                ModelState.AddModelError("Name", T("The FieldType can't be empty.").ToString());
             }
 
             if (!_contentMetadataService.CheckEntityCreationValid(viewModel.Name, viewModel.DisplayName, viewModel.Settings)) {

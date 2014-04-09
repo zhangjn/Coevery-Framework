@@ -10,7 +10,6 @@ using Coevery.Core.Entities.Events;
 using Coevery.Core.Entities.Models;
 using Coevery.Data;
 using Coevery.Data.Migration.Schema;
-using Coevery.DeveloperTools.CodeGeneration.Services;
 using Coevery.DeveloperTools.EntityManagement.Services;
 
 namespace Coevery.DeveloperTools.EntityManagement.Handlers {

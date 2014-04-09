@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web.Mvc;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 using Coevery.Core.Common.Extensions;
-using Coevery.Core.Fields.Settings;
 
 namespace Coevery.DeveloperTools.EntityManagement.ViewModels {
     public class EditTypeViewModel  {
@@ -21,7 +19,6 @@ namespace Coevery.DeveloperTools.EntityManagement.ViewModels {
             Settings = contentTypeDefinition.Settings;
             Fields = GetTypeFields(contentTypeDefinition).ToList();
             Parts = GetTypeParts(contentTypeDefinition).ToList();
-            _Definition = contentTypeDefinition;
         }
 
         public string Name { get; set; }
@@ -30,12 +27,6 @@ namespace Coevery.DeveloperTools.EntityManagement.ViewModels {
         public IEnumerable<EditPartFieldViewModel> Fields { get; set; }
         public IEnumerable<EditTypePartViewModel> Parts { get; set; }
         public IEnumerable<TemplateViewModel> Templates { get; set; }
-        public ContentTypeDefinition _Definition { get; private set; }
-        public string FieldLabel { get; set; }
-        public string FieldName { get; set; }
-        public string FieldType { get; set; }
-        public IEnumerable<SelectListItem> FieldTypes { get; set; }
-        public IEnumerable<EntityRecordViewModel> FieldTemplates { get; set; }
 
         private IEnumerable<EditPartFieldViewModel> GetTypeFields(ContentTypeDefinition contentTypeDefinition) {
             var implicitTypePart = contentTypeDefinition.Parts.SingleOrDefault(p => string.Equals(p.PartDefinition.Name, Name.ToPartName(), StringComparison.OrdinalIgnoreCase));

@@ -1,4 +1,4 @@
-@model Coevery.DeveloperTools.EntityManagement.ViewModels.EditTypeViewModel        
+@model Coevery.DeveloperTools.EntityManagement.ViewModels.EditTypeViewModel
 <header id="page-title">
     <h1 class="pull-left">@T("New Entity") <span>Create a new entity</span></h1>
 </header>
@@ -15,23 +15,27 @@
     <div class="row-fluid">
         <div class="span12">
             <div class="form-horizontal">
-                @using (Html.BeginFormAntiForgeryPost(Html.ViewContext.HttpContext.Request.Url.PathAndQuery, FormMethod.Post,
+                @using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "Admin"), FormMethod.Post,
                     new {@class = "edit-mode", id = "myForm"})) {
                     @Html.ValidationSummary()
                     <fieldset>
                         <legend>General Information</legend>
                         <section class="data-row control-group">
                             <div class="span6">
-                                <label class="control-label required" >@T("Display Name")</label>
+                                <label class="control-label required" >@T("Name")</label>
                                 <div class="controls errortips">
-                                    @Html.TextBoxFor(m => m.DisplayName, new { @class = "span12 labelForName", autofocus = "autofocus",required="" })
+                                    @Html.TextBoxFor(m => m.Name, new {@class = "span12 required safename", @id = "EntityName"})
                                 </div>
                             </div>
                             <div class="span6">
-                                <label class="control-label required" >@T("Name")</label>
+                                <span class="help-inline">@T("Technical name of the type.")</span>
+                            </div>
+                        </section>
+                        <section class="data-row control-group">
+                            <div class="span6">
+                                <label class="control-label required" >@T("Display Name")</label>
                                 <div class="controls errortips">
-                                    @Html.TextBoxFor(m => m.Name, new { @class = "span12 required safename", @id = "EntityName" })
-                                    <span class="help-block">@T("Technical name of the type.")</span>
+                                    @Html.TextBoxFor(m => m.DisplayName, new {@class = "span12 labelForName", autofocus = "autofocus", required = ""})
                                 </div>
                             </div>
                         </section>
@@ -39,56 +43,13 @@
                             <div class="span6">
                                 <label class="control-label required" >@T("Plural Display Name")</label>
                                 <div class="controls errortips">
-                                    @Html.TextBoxFor(m => m.Settings["CollectionDisplayName"], new { @class = "span12 required" })
-                                    <span class="help-block">@T("Display name of the type's collection.")</span>
+                                    @Html.TextBoxFor(m => m.Settings["CollectionDisplayName"], new {@class = "span12 required"})
                                 </div>
                             </div>
                             <div class="span6">
-                                <label class="control-label required" >@T("Plural Name")</label>
-                                <div class="controls errortips">
-                                    @Html.TextBoxFor(m => m.Settings["CollectionName"], new { @class = "span12 required safename" })
-                                    <span class="help-block">@T("Technical name of the type's collection.")</span>
-                                </div>
-                            </div>
-                            </section>
-                    </fieldset>
-                    <fieldset>
-                        <legend>Enter Record Name and Label</legend>
-                        <section class="data-row control-group">   
-                            <p class="help-block">
-                                The Record Name appears in page layouts, key lists, related lists, lookups, and search results.
-                                For example, the Record Name for Account is "Account Name" and for case it is "Case Number".
-                                Note that the Record Name field is always called "Name" when referenced via the API.
-                            </p>
-                        </section>
-                        <section class="data-row control-group">
-                            <label class="control-label required" for="@Html.NameFor(m => m.FieldType)">@T("Field Type")</label>
-                            <div class="controls errortips" style="width:200px">
-                                @Html.DropDownListFor(m => m.FieldType,Model.FieldTypes,string.Empty, new {ng_model = "selection",required=""})
+                                <span class="help-inline">@T("Display name of the type's collection.")</span>
                             </div>
                         </section>
-                        <section class="data-row control-group">                          
-                            <label class="control-label required" for="@Html.NameFor(m => m.FieldLabel)">@T("Record Name Label")</label>
-                            <div class="controls errortips">
-                                @Html.TextBoxFor(m => m.FieldLabel, new {@class = "span12 labelForFieldName", required = ""})
-                            </div>
-                        </section>
-                        <section class="data-row control-group">
-                            <label class="control-label required" for="@Html.NameFor(m => m.FieldName)">@T("Record Name")</label>
-                            <div class="controls errortips">
-                                @Html.TextBoxFor(m => m.FieldName, new {@class = "span12 nameisnotid required safename", @id = "FieldName"})
-                            </div>
-                        </section>
-                        
-                        <div ng-switch on="selection">
-                            @foreach (var fieldTemplate in Model.FieldTemplates) {
-                                if (fieldTemplate.TemplateViewModel != null) {
-                                    <div ng-switch-when="@fieldTemplate.FieldTypeName">
-                                        @{ Html.RenderTemplates(fieldTemplate.TemplateViewModel); }                                        
-                                    </div>
-                                }
-                            }
-                        </div>
                     </fieldset>
                 }
             </div>
@@ -104,8 +65,7 @@
         }, "FieldName is not legal!");
         $.validator.classRuleSettings.safename = { safename: true };
 
-        var validator = $("#myForm").validate({
-            //ignore: "*:not('.toValidate *')",
+        $("#myForm").validate({
             onkeyup: function(element) {
                 if (element.type == "text") {
                     this.element(element);
@@ -152,48 +112,5 @@
         $displayName.keyup(function() {
             compute();
         });
-
-
-        var $fieldName = $("#FieldName");
-        var $displayFieldName = $(".labelForFieldName");
-        var jsonUrlFieldName = '@Url.Action("FieldName", "Admin", new RouteValueDictionary {{"Area", "EntityManagement"}})';
-        var versionFieldName = 0;
-
-        var nameAlteredFieldName;
-        $fieldName.keyup(function() {
-            if (!$fieldName.val()) {
-                nameAlteredFieldName = false;
-            } else {
-                nameAlteredFieldName = true;
-            }
-        });
-
-        var computeFieldName = function() {
-            // stop processing automatically if altered by the user
-            if (nameAlteredFieldName) {
-                return;
-            }
-
-            $.post(jsonUrlFieldName, {
-                    creatingEntity: true,
-                    entityName: $name.val(),
-                    displayName: $displayFieldName.val(),
-                    version: ++versionFieldName,
-                    __RequestVerificationToken: $("input[name=__RequestVerificationToken]").val()
-                },
-                function(data) {
-                    if (versionFieldName == data.version) {
-                        $fieldName.val(data.result);
-                    }
-                },
-                "json"
-            );
-        };
-
-        $displayFieldName.keyup(function() {
-            computeFieldName();
-        });
-
-        
     });
 </script>
