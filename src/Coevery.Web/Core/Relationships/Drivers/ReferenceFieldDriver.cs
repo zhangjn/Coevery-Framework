@@ -15,14 +15,12 @@ namespace Coevery.Core.Relationships.Drivers {
     public class ReferenceFieldDriver : ContentFieldDriver<ReferenceField> {
         private readonly IContentManager _contentManager;
         private readonly IProjectionManager _projectionManager;
-        public ICoeveryServices Services { get; set; }
+
         private const string TemplateName = "Fields/Reference.Edit";
 
         public ReferenceFieldDriver(
-            ICoeveryServices services,
             IContentManager contentManager,
             IProjectionManager projectionManager) {
-            Services = services;
             _contentManager = contentManager;
             _projectionManager = projectionManager;
             T = NullLocalizer.Instance;
@@ -58,23 +56,24 @@ namespace Coevery.Core.Relationships.Drivers {
         }
 
         protected override DriverResult Editor(ContentPart part, ReferenceField field, dynamic shapeHelper) {
-            var settings = field.PartFieldDefinition.Settings.GetModel<ReferenceFieldSettings>();
-
-            var contentItems = _projectionManager.GetContentItems(settings.QueryId)
-                .Select(c => new SelectListItem {
-                    Text = Services.ContentManager.GetItemMetadata(c).DisplayText,
-                    Value = c.Id.ToString(CultureInfo.InvariantCulture),
-                    Selected = field.Value == c.Id
-                }).ToList();
-
-            var model = new ReferenceFieldViewModel {
-                ContentId = field.Value,
-                Field = field,
-                ItemList = new SelectList(contentItems, "Value", "Text", field.Value)
-            };
-
             return ContentShape("Fields_Reference_Edit", GetDifferentiator(field, part),
-                () => shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: model, Prefix: GetPrefix(field, part)));
+                () => {
+                    var settings = field.PartFieldDefinition.Settings.GetModel<ReferenceFieldSettings>();
+
+                    var contentItems = _projectionManager.GetContentItems(settings.QueryId)
+                        .Select(c => new SelectListItem {
+                            Text = _contentManager.GetItemMetadata(c).DisplayText,
+                            Value = c.Id.ToString(CultureInfo.InvariantCulture),
+                            Selected = field.Value == c.Id
+                        }).ToList();
+
+                    var model = new ReferenceFieldViewModel {
+                        ContentId = field.Value,
+                        Field = field,
+                        ItemList = new SelectList(contentItems, "Value", "Text", field.Value)
+                    };
+                    return shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: model, Prefix: GetPrefix(field, part));
+                });
         }
 
         protected override DriverResult Editor(ContentPart part, ReferenceField field, IUpdateModel updater, dynamic shapeHelper) {
@@ -94,7 +93,7 @@ namespace Coevery.Core.Relationships.Drivers {
         }
 
         protected override void Importing(ContentPart part, ReferenceField field, ImportContentContext context) {
-            context.ImportAttribute(field.FieldDefinition.Name + "." + field.Name, "Value", v => field.Value = int.Parse(v), () => field.Value = (int?)null);
+            context.ImportAttribute(field.FieldDefinition.Name + "." + field.Name, "Value", v => field.Value = int.Parse(v), () => field.Value = (int?) null);
         }
 
         protected override void Exporting(ContentPart part, ReferenceField field, ExportContentContext context) {
@@ -102,7 +101,7 @@ namespace Coevery.Core.Relationships.Drivers {
         }
 
         protected override void Describe(DescribeMembersContext context) {
-            context.Member(null, typeof(int?), null, T("The content item id referenced by this field."));
+            context.Member(null, typeof (int?), null, T("The content item id referenced by this field."));
         }
 
         private void HandleUniqueValue(ContentPart part, ReferenceField field, int? value, IUpdateModel updater) {
@@ -111,7 +110,7 @@ namespace Coevery.Core.Relationships.Drivers {
             Action<IHqlExpressionFactory> notCurrentItem = x => x.Not(y => y.Eq("ContentItemRecord", part.Id));
             Action<IHqlExpressionFactory> predicate = x => x.And(notCurrentItem, y => y.Eq(field.Name, value));
 
-            var count = Services.ContentManager.HqlQuery()
+            var count = _contentManager.HqlQuery()
                 .ForType(part.TypeDefinition.Name)
                 .Where(alias, predicate)
                 .Count();
