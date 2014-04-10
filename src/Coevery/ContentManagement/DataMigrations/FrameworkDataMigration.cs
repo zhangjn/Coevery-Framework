@@ -4,14 +4,14 @@ namespace Coevery.ContentManagement.DataMigrations {
     public class FrameworkDataMigration : DataMigrationImpl {
 
         public int Create() {
-            SchemaBuilder.CreateTable("ContentItemRecord", 
+            SchemaBuilder.CreateTable("Framework_ContentItemRecord", 
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
                     .Column<string>("Data", c => c.Unlimited())
                     .Column<int>("ContentType_id")
                 );
 
-            SchemaBuilder.CreateTable("ContentItemVersionRecord", 
+            SchemaBuilder.CreateTable("Framework_ContentItemVersionRecord", 
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
                     .Column<int>("Number")
@@ -21,13 +21,13 @@ namespace Coevery.ContentManagement.DataMigrations {
                     .Column<int>("ContentItemRecord_id", c => c.NotNull())
                 );
 
-            SchemaBuilder.CreateTable("ContentTypeRecord", 
+            SchemaBuilder.CreateTable("Framework_ContentTypeRecord", 
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
                     .Column<string>("Name")
                 );
 
-            SchemaBuilder.CreateTable("CultureRecord", 
+            SchemaBuilder.CreateTable("Framework_CultureRecord", 
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
                     .Column<string>("Culture")
@@ -37,12 +37,12 @@ namespace Coevery.ContentManagement.DataMigrations {
         }
 
         public int UpdateFrom1() {
-            SchemaBuilder.AlterTable("ContentItemRecord",
+            SchemaBuilder.AlterTable("Framework_ContentItemRecord",
                table => table
                    .CreateIndex("IDX_ContentType_id", "ContentType_id")
                );
 
-            SchemaBuilder.AlterTable("ContentItemVersionRecord",
+            SchemaBuilder.AlterTable("Framework_ContentItemVersionRecord",
                 table => table
                     .CreateIndex("IDX_ContentItemRecord_id", "ContentItemRecord_id")
                 );

@@ -53,7 +53,7 @@ namespace <#=Namespace#>.Controllers {
 	            .OrderBy(sortBy, sortOrder)
 	            .Slice((page - 1)*pageSize, pageSize)
 	            .Select(item => new <#=EntityName#>ListViewModel{
-					Id = item.Record.Id,
+					Id = item.Record.ContentItemRecord.Id,
 <# foreach (var field in GetPrimaryFields()) {#>
 					<#=field.Name#> = item.Record.<#=field.Name#>,
 <#}#>

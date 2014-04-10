@@ -8,19 +8,19 @@ namespace Coevery.Themes {
     public class ThemeFilter : FilterProvider, IActionFilter, IResultFilter {
         public void OnActionExecuting(ActionExecutingContext filterContext) {
             var attribute = GetThemedAttribute(filterContext.ActionDescriptor);
-            if (AdminFilter.IsApplied(filterContext.RequestContext)) {
-                // admin are themed by default
-                if (attribute == null || attribute.Enabled) {
-                    Apply(filterContext.RequestContext);
-                }
-            }
-            else {
+            //if (AdminFilter.IsApplied(filterContext.RequestContext)) {
+            //    // admin are themed by default
+            //    if (attribute == null || attribute.Enabled) {
+            //        Apply(filterContext.RequestContext);
+            //    }
+            //}
+            //else {
                 // non-admin are explicitly themed
                 // Don't layout the result if it's not an Admin controller and it's disabled
                 if (attribute != null && attribute.Enabled) {
                     Apply(filterContext.RequestContext);
                 }
-            }
+            //}
         }
 
         public void OnActionExecuted(ActionExecutedContext filterContext) {}

@@ -1,4 +1,5 @@
 Name: Projections
+TablePrefix: Projections
 AntiForgery: enabled
 Author: 
 Website: http://coevery.codeplex.com

@@ -29,6 +29,7 @@ namespace Coevery.Environment.Extensions.Folders {
         private const string PrioritySection = "priority";
         private const string FeaturesSection = "features";
         private const string SessionStateSection = "sessionstate";
+        private const string TablePrefixSection = "tableprefix";
 
         private readonly ICacheManager _cacheManager;
         private readonly IWebSiteFolder _webSiteFolder;
@@ -123,7 +124,8 @@ namespace Coevery.Environment.Extensions.Folders {
                 AntiForgery = GetValue(manifest, AntiForgerySection),
                 Zones = GetValue(manifest, ZonesSection),
                 BaseTheme = GetValue(manifest, BaseThemeSection),
-                SessionState = GetValue(manifest, SessionStateSection)
+                SessionState = GetValue(manifest, SessionStateSection),
+                TablePrefix = GetValue(manifest, TablePrefixSection)
             };
             extensionDescriptor.Features = GetFeaturesForExtension(manifest, extensionDescriptor);
 
@@ -167,6 +169,9 @@ namespace Coevery.Environment.Extensions.Folders {
                     switch (field[0].ToLowerInvariant()) {
                         case NameSection:
                             manifest.Add(NameSection, field[1]);
+                            break;
+                        case TablePrefixSection:
+                            manifest.Add(TablePrefixSection, field[1]);
                             break;
                         case PathSection:
                             manifest.Add(PathSection, field[1]);

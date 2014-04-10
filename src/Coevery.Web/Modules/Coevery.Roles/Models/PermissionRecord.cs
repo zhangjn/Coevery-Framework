@@ -1,4 +1,7 @@
-﻿namespace Coevery.Roles.Models {
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Coevery.Roles.Models {
+    [Table("Permission")]
     public class PermissionRecord {
         public virtual int Id { get; set; }
         public virtual string Name { get; set; }

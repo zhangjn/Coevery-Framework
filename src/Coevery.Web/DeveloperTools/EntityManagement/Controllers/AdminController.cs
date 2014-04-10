@@ -14,6 +14,7 @@ using Coevery.Environment.Extensions;
 using Coevery.Environment.Extensions.Models;
 using Coevery.Localization;
 using Coevery.Logging;
+using Coevery.Themes;
 using Coevery.UI.Notify;
 using Coevery.Utility.Extensions;
 

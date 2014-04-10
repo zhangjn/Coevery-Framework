@@ -7,7 +7,7 @@ using Coevery.Mvc.Filters;
 using Coevery.UI.Admin;
 using Coevery.UI.Navigation;
 
-namespace Coevery.DeveloperTools.Perspectives.FrontMenu {
+namespace Coevery.Core.Common {
     public class FrontMenuFilter : FilterProvider, IResultFilter {
         private readonly INavigationManager _navigationManager;
         private readonly IWorkContextAccessor _workContextAccessor;

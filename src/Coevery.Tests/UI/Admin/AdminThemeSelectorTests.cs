@@ -51,7 +51,7 @@ namespace Coevery.Tests.UI.Admin {
             var selector = new AdminThemeSelector();
             var result = selector.GetTheme(context);
             Assert.That(result, Is.Not.Null);
-            Assert.That(result.ThemeName, Is.EqualTo("TheAdmin"));
+            Assert.That(result.ThemeName, Is.EqualTo("MooncakeAdmin"));
             Assert.That(result.Priority, Is.EqualTo(100));
         }
     }

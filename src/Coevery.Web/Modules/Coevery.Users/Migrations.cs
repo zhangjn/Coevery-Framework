@@ -5,7 +5,7 @@ namespace Coevery.Users {
     public class UsersDataMigration : DataMigrationImpl {
 
         public int Create() {
-            SchemaBuilder.CreateTable("UserPartRecord", 
+            SchemaBuilder.CreateTable("User", 
                 table => table
                     .ContentPartRecord()
                     .Column<string>("UserName")

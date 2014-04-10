@@ -12,7 +12,7 @@ using Coevery.UI;
 using Coevery.UI.Navigation;
 using Coevery.Utility;
 
-namespace Coevery.Core.Navigation.Services {
+namespace Coevery.Core.Common.Services {
     public class NavigationManager : INavigationManager {
         private readonly IEnumerable<INavigationProvider> _navigationProviders;
         private readonly IEnumerable<IMenuProvider> _menuProviders;

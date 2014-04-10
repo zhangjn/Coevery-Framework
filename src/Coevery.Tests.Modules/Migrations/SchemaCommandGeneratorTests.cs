@@ -203,20 +203,20 @@ Features:
             Assert.That(commands, Is.Not.Null);
             Assert.That(commands.Count(), Is.EqualTo(3));
 
-            var blogRecord = commands.Where(c => c.Name == "TEST_Feature1_BlogRecord").First();
+            var blogRecord = commands.Where(c => c.Name == "TEST_BlogRecord").First();
 
             Assert.That(blogRecord.TableCommands.OfType<CreateColumnCommand>().Any(c => c.ColumnName == "Id" && !c.IsIdentity && c.IsPrimaryKey && c.DbType == DbType.Int32));
             Assert.That(blogRecord.TableCommands.OfType<CreateColumnCommand>().Any(c => c.ColumnName == "Description" && c.DbType == DbType.String));
             Assert.That(blogRecord.TableCommands.OfType<CreateColumnCommand>().Any(c => c.ColumnName == "PostCount" && c.DbType == DbType.Int32));
 
-            var blogArchiveRecord = commands.Where(c => c.Name == "TEST_Feature1_BlogArchiveRecord").First();
+            var blogArchiveRecord = commands.Where(c => c.Name == "TEST_BlogArchiveRecord").First();
             Assert.That(blogArchiveRecord.TableCommands.OfType<CreateColumnCommand>().Any(c => c.ColumnName == "Id" && c.IsPrimaryKey && c.DbType == DbType.Int32));
             Assert.That(blogArchiveRecord.TableCommands.OfType<CreateColumnCommand>().Any(c => c.ColumnName == "Year" && c.DbType == DbType.Int32));
             Assert.That(blogArchiveRecord.TableCommands.OfType<CreateColumnCommand>().Any(c => c.ColumnName == "Month" && c.DbType == DbType.Int32));
             Assert.That(blogArchiveRecord.TableCommands.OfType<CreateColumnCommand>().Any(c => c.ColumnName == "PostCount" && c.DbType == DbType.Int32));
             Assert.That(blogArchiveRecord.TableCommands.OfType<CreateColumnCommand>().Any(c => c.ColumnName == "Blog_id" && c.DbType == DbType.Int32));
 
-            var bodyRecord = commands.Where(c => c.Name == "TEST_Feature1_BodyRecord").First();
+            var bodyRecord = commands.Where(c => c.Name == "TEST_BodyRecord").First();
             Assert.That(bodyRecord.TableCommands.OfType<CreateColumnCommand>().Any(c => c.ColumnName == "Id" && c.IsPrimaryKey && c.DbType == DbType.Int32));
             Assert.That(bodyRecord.TableCommands.OfType<CreateColumnCommand>().Any(c => c.ColumnName == "Text" && c.DbType == DbType.String && c.Length == 10000));
             Assert.That(bodyRecord.TableCommands.OfType<CreateColumnCommand>().Any(c => c.ColumnName == "Format" && c.DbType == DbType.String && c.Length == 42));
@@ -233,20 +233,20 @@ Features:
             var sw = new StringWriter();
             var interpreter = new CodeGenerationCommandInterpreter(sw);
 
-            var blogRecord = commands.Where(c => c.Name == "TEST_Feature1_BlogRecord").First();
-            var blogArchiveRecord = commands.Where(c => c.Name == "TEST_Feature1_BlogArchiveRecord").First();
-            var bodyRecord = commands.Where(c => c.Name == "TEST_Feature1_BodyRecord").First();
+            var blogRecord = commands.Where(c => c.Name == "TEST_BlogRecord").First();
+            var blogArchiveRecord = commands.Where(c => c.Name == "TEST_BlogArchiveRecord").First();
+            var bodyRecord = commands.Where(c => c.Name == "TEST_BodyRecord").First();
 
             sw.GetStringBuilder().Clear();
             interpreter.Visit(blogRecord);
-            Assert.That(sw.ToString().Contains("SchemaBuilder.CreateTable(\"TEST_Feature1_BlogRecord"));
+            Assert.That(sw.ToString().Contains("SchemaBuilder.CreateTable(\"TEST_BlogRecord"));
             Assert.That(sw.ToString().Contains(".ContentPartRecord()"));
             Assert.That(sw.ToString().Contains(".Column(\"Description\", DbType.String)"));
             Assert.That(sw.ToString().Contains(".Column(\"PostCount\", DbType.Int32)"));
 
             sw.GetStringBuilder().Clear();
             interpreter.Visit(blogArchiveRecord);
-            Assert.That(sw.ToString().Contains("SchemaBuilder.CreateTable(\"TEST_Feature1_BlogArchiveRecord"));
+            Assert.That(sw.ToString().Contains("SchemaBuilder.CreateTable(\"TEST_BlogArchiveRecord"));
             Assert.That(sw.ToString().Contains(".Column(\"Id\", DbType.Int32, column => column.PrimaryKey().Identity())"));
             Assert.That(sw.ToString().Contains(".Column(\"Year\", DbType.Int32)"));
             Assert.That(sw.ToString().Contains(".Column(\"Month\", DbType.Int32)"));
@@ -255,7 +255,7 @@ Features:
 
             sw.GetStringBuilder().Clear();
             interpreter.Visit(bodyRecord);
-            Assert.That(sw.ToString().Contains("SchemaBuilder.CreateTable(\"TEST_Feature1_BodyRecord"));
+            Assert.That(sw.ToString().Contains("SchemaBuilder.CreateTable(\"TEST_BodyRecord"));
             Assert.That(sw.ToString().Contains(".ContentPartVersionRecord()"));
             Assert.That(sw.ToString().Contains(".Column(\"Text\", DbType.String, column => column.Unlimited())"));
             Assert.That(sw.ToString().Contains(".Column(\"Format\", DbType.String, column => column.WithLength(42))"));

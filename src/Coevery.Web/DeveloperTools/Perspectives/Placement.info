@@ -1,8 +1,0 @@
-﻿<Placement>
-  <Place Parts_ModuleMenuItem_Edit="Content:10"/>
-  <Match DisplayType="Detail" ContentType="MenuItem">
-    <Place Parts_Common_Owner_Edit="-" />
-    <Place Parts_Common_Container_Edit="-" />
-    <Place Parts_Navigation_Menu_Edit="-" />
-  </Match>
-</Placement>
