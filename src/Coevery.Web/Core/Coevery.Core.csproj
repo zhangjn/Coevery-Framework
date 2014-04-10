@@ -91,6 +91,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\ClientRouteShape.cs" />
+    <Compile Include="Common\Controllers\ErrorController.cs" />
     <Compile Include="Common\Controllers\HomeController.cs" />
     <Compile Include="Common\DynamicPermissions.cs" />
     <Compile Include="Common\Extensions\IContentDefinitionExtension.cs" />

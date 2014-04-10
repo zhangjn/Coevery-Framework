@@ -17,6 +17,21 @@ namespace Coevery.Core.Common {
                         }, new RouteValueDictionary(),
                         new RouteValueDictionary {{"area", "Common"}},
                         new MvcRouteHandler())
+                },
+                new RouteDescriptor {
+                    Priority = -9999,
+                    Route = new Route(
+                        "{*path}",
+                        new RouteValueDictionary {
+                            {"area", "Common"},
+                            {"controller", "Error"},
+                            {"action", "NotFound"}
+                        },
+                        new RouteValueDictionary(),
+                        new RouteValueDictionary {
+                            {"area", "Common"}
+                        },
+                        new MvcRouteHandler())
                 }
             };
         }
