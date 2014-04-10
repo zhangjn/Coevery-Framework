@@ -36,7 +36,9 @@
                                 <div class="controls errortips">
                                     @Html.TextBoxFor(m => m.DisplayName, new {@class = "span12", required = ""})
                                 </div>
-                                <meta itemprop="DisplayName" content="@Model.DisplayName" />
+                            </div>
+                            <div class="span6">
+                                <span class="help-inline">@T("The name that user see on the UI.")</span>
                             </div>
                         </section>
                         <section class="data-row control-group">
@@ -47,7 +49,7 @@
                                 </div>
                             </div>
                             <div class="span6">
-                                <span class="help-inline">@T("Display name of the type's collection.")</span>
+                                <span class="help-inline">@T("The plural name that user see on the UI.")</span>
                             </div>
                         </section>
                     </fieldset>

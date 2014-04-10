@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -13,6 +14,7 @@ using Coevery.Logging;
 using Coevery.Themes;
 using Coevery.UI.Notify;
 using Coevery.Utility.Extensions;
+using System.Data.Entity.Design.PluralizationServices;
 
 namespace Coevery.DeveloperTools.EntityManagement.Controllers {
     public class AdminController : Controller, IUpdateModel {
@@ -56,9 +58,10 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             return View(typeViewModel);
         }
 
-        public ActionResult EntityName(string displayName, int version) {
+        public ActionResult EntityName(string entityName, int version) {
+            var pluralService = PluralizationService.CreateService(new CultureInfo("en-US"));
             return Json(new {
-                result = _contentMetadataService.ConstructEntityName(displayName.ToSafeName()),
+                pluralName = pluralService.Pluralize(entityName),
                 version = version
             });
         }

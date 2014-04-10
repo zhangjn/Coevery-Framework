@@ -10,7 +10,6 @@ using Coevery.Core.Entities.Models;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data;
 using Coevery.DeveloperTools.EntityManagement.ViewModels;
-using Coevery.Utility.Extensions;
 
 namespace Coevery.DeveloperTools.EntityManagement.Services {
     public interface IContentMetadataService : IDependency {

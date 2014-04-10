@@ -131,7 +131,6 @@
     <Compile Include="Fields\Drivers\PhoneFieldDriver.cs" />
     <Compile Include="Fields\Drivers\TextFieldDriver.cs" />
     <Compile Include="Fields\Drivers\UrlFieldDriver.cs" />
-    <Compile Include="Fields\EntityRecords\TextFieldEntityRecordEditorEvents.cs" />
     <Compile Include="Fields\Fields\BooleanField.cs" />
     <Compile Include="Fields\Fields\CurrencyField.cs" />
     <Compile Include="Fields\Fields\DateField.cs" />
@@ -189,7 +188,6 @@
     <Compile Include="Fields\Settings\EntityRecordTemplateViewModel.cs" />
     <Compile Include="Fields\Settings\FieldEditorEvents.cs" />
     <Compile Include="Fields\Settings\FieldSettings.cs" />
-    <Compile Include="Fields\EntityRecords\IEntityRecordEditorEvents.cs" />
     <Compile Include="Fields\Settings\MultilineTextFieldEditorEvents.cs" />
     <Compile Include="Fields\Settings\MultilineTextFieldSettings.cs" />
     <Compile Include="Fields\Settings\NumberFieldEditorEvents.cs" />

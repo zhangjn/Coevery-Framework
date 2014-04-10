@@ -24,30 +24,33 @@
                             <div class="span6">
                                 <label class="control-label required" >@T("Name")</label>
                                 <div class="controls errortips">
-                                    @Html.TextBoxFor(m => m.Name, new {@class = "span12 required safename", @id = "EntityName"})
+                                    @Html.TextBoxFor(m => m.Name, new {@class = "span12 required safename", autofocus = "autofocus"})
                                 </div>
                             </div>
                             <div class="span6">
-                                <span class="help-inline">@T("Technical name of the type.")</span>
+                                <span class="help-inline">@T("The code name of this entity.")</span>
                             </div>
                         </section>
                         <section class="data-row control-group">
                             <div class="span6">
                                 <label class="control-label required" >@T("Display Name")</label>
                                 <div class="controls errortips">
-                                    @Html.TextBoxFor(m => m.DisplayName, new {@class = "span12 labelForName", autofocus = "autofocus", required = ""})
+                                    @Html.TextBoxFor(m => m.DisplayName, new {@class = "span12", required = ""})
                                 </div>
+                            </div>
+                            <div class="span6">
+                                <span class="help-inline">@T("The name that user see on the UI.")</span>
                             </div>
                         </section>
                         <section class="data-row control-group">
                             <div class="span6">
                                 <label class="control-label required" >@T("Plural Display Name")</label>
                                 <div class="controls errortips">
-                                    @Html.TextBoxFor(m => m.Settings["CollectionDisplayName"], new {@class = "span12 required"})
+                                    @Html.TextBoxFor(m => m.Settings["CollectionDisplayName"], new {@class = "span12 required", id = "PluralName"})
                                 </div>
                             </div>
                             <div class="span6">
-                                <span class="help-inline">@T("Display name of the type's collection.")</span>
+                                <span class="help-inline">@T("The plural name that user see on the UI.")</span>
                             </div>
                         </section>
                     </fieldset>
@@ -75,42 +78,38 @@
         });
 
         //Auto get name
-        var $name = $("#EntityName");
-        var $displayName = $(".labelForName");
-        var jsonUrl = "@Url.Action("EntityName", "Admin", new RouteValueDictionary {{"Area", "EntityManagement"}})";
-        var version = 0;
+        var $name = $("#Name"),
+            $displayName = $("#DisplayName"),
+            $pluralName = $('#PluralName'),
+            nameAltered = false,
+            version = 0;
 
-        var nameAltered;
-        $name.keyup(function() {
-            if (!$name.val()) {
-                nameAltered = false;
-            } else {
-                nameAltered = true;
-            }
+        $displayName.keyup(function() {
+            nameAltered = $name.val() != $displayName.val();
         });
 
-        var compute = function() {
-            // stop processing automatically if altered by the user
-            if (nameAltered) {
+        $name.focusout(function() {
+            var entityName = $name.val();
+            if (nameAltered || !entityName) {
                 return;
             }
+            $displayName.val(entityName);
+            getPluralName(entityName);
+        });
 
-            $.post(jsonUrl, {
-                    displayName: $displayName.val(),
+        var getPluralName = function(entityName) {
+            $.post("@Url.Action("EntityName", "Admin")", {
+                    entityName: entityName,
                     version: ++version,
                     __RequestVerificationToken: $("input[name=__RequestVerificationToken]").val()
                 },
                 function(data) {
                     if (version == data.version) {
-                        $name.val(data.result);
+                        $pluralName.val(data.pluralName);
                     }
                 },
                 "json"
             );
         };
-
-        $displayName.keyup(function() {
-            compute();
-        });
     });
 </script>
