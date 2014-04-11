@@ -44,11 +44,6 @@ namespace Coevery.Setup.Controllers {
 
         public ActionResult Index() {
             var initialSettings = _setupService.Prime();
-            var recipes = OrderRecipes(_setupService.Recipes());
-            string recipeDescription = null;
-            if (recipes.Count > 0) {
-                recipeDescription = recipes[0].Description;
-            }
             
             // On the first time installation of Coevery, the user gets to the setup screen, which
             // will take a while to finish (user inputting data and the setup process itself).
@@ -72,11 +67,24 @@ namespace Coevery.Setup.Controllers {
             // sets the setup request timeout to 10 minutes to give enough time to execute custom recipes.  
             HttpContext.Server.ScriptTimeout = 600;
 
-            var recipes = OrderRecipes(_setupService.Recipes());
-
             // if no builtin provider, a connection string is mandatory
-            if (model.DatabaseProvider != SetupDatabaseType.Builtin && string.IsNullOrEmpty(model.DatabaseConnectionString))
-                ModelState.AddModelError("DatabaseConnectionString", T("A connection string is required").Text);
+            if (model.DatabaseProvider != SetupDatabaseType.Builtin) {
+                if (string.IsNullOrEmpty(model.DatabaseServerName)) {
+                    ModelState.AddModelError("DatabaseServerName", T("A database server name is required").Text);
+                }
+                if (string.IsNullOrEmpty(model.DatabaseName)) {
+                    ModelState.AddModelError("DatabaseName", T("A database name is required").Text);
+                }
+                if ((model.DatabaseProvider == SetupDatabaseType.MySql || model.ServerAuthentication == DatabaseAuthenticationMode.UserNamePassword)) {
+                    if (string.IsNullOrEmpty(model.DatabaseUserName)) {
+                        ModelState.AddModelError("DatabaseUserName", T("A database user name is required").Text);
+                    }
+                    if (string.IsNullOrEmpty(model.DatabasePassword)) {
+                        ModelState.AddModelError("DatabasePassword", T("A database user password name is required").Text);
+                    }
+                }
+            }
+
 
             if (!String.IsNullOrWhiteSpace(model.ConfirmPassword) && model.AdminPassword != model.ConfirmPassword ) {
                 ModelState.AddModelError("ConfirmPassword", T("Password confirmation must match").Text);
@@ -100,6 +108,7 @@ namespace Coevery.Setup.Controllers {
 
             try {
                 string providerName = null;
+                string databaseConnectionString = null;
 
                 switch (model.DatabaseProvider)
                 {
@@ -109,10 +118,16 @@ namespace Coevery.Setup.Controllers {
 
                     case SetupDatabaseType.SqlServer:
                         providerName = "SqlServer";
+                        databaseConnectionString = string.Format("Data Source={0};Initial Catalog={1};Persist Security Info=True;", model.DatabaseServerName, model.DatabaseName);
+                        if (model.ServerAuthentication == DatabaseAuthenticationMode.Windows) 
+                            databaseConnectionString += "Integrated Security=true;";
+                        else 
+                            databaseConnectionString += string.Format("User ID={0};Password={1}", model.DatabaseUserName, model.DatabasePassword);
                         break;
 
                     case SetupDatabaseType.MySql:
                         providerName = "MySql";
+                        databaseConnectionString = string.Format("Data Source={0};Database={1};User Id={2};Password={3}", model.DatabaseServerName, model.DatabaseName, model.DatabaseUserName, model.DatabasePassword);
                         break;
 
                     default:
@@ -124,7 +139,7 @@ namespace Coevery.Setup.Controllers {
                     AdminUsername = model.AdminUsername,
                     AdminPassword = model.AdminPassword,
                     DatabaseProvider = providerName,
-                    DatabaseConnectionString = model.DatabaseConnectionString,
+                    DatabaseConnectionString = databaseConnectionString,
                     DatabaseTablePrefix = model.DatabaseTablePrefix,
                     EnabledFeatures = null // default list
                 };
@@ -146,20 +161,6 @@ namespace Coevery.Setup.Controllers {
 
                 return IndexViewResult(model);
             }
-        }
-
-        private static List<Recipe> OrderRecipes(IEnumerable<Recipe> recipes) {
-            var recipeList = new List<Recipe>();
-            var tempList = new List<Recipe>();
-            foreach (var recipe in recipes) {
-                if (recipe.Name == DefaultRecipe) {
-                    recipeList.Add(recipe);
-                }
-                else {
-                    tempList.Add(recipe);
-                }
-            }
-            return recipeList.Concat(tempList).ToList();
         }
     }
 }

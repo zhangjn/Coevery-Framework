@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using Coevery.Recipes.Models;
 using Coevery.Setup.Annotations;
 using Coevery.Setup.Controllers;
@@ -18,7 +19,11 @@ namespace Coevery.Setup.ViewModels {
         public string ConfirmPassword { get; set; }
         public SetupDatabaseType DatabaseProvider { get; set; }
         
-        public string DatabaseConnectionString { get; set; }
+        public string DatabaseServerName { get; set; }
+        public string DatabaseName { get; set; }
+        public DatabaseAuthenticationMode ServerAuthentication { get; set; }
+        public string DatabaseUserName { get; set; }
+        public string DatabasePassword { get; set; }
         public string DatabaseTablePrefix { get; set; }
         public bool DatabaseIsPreconfigured { get; set; }
     }

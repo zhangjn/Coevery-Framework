@@ -1,5 +1,8 @@
 ﻿(function () {
     function show() {
+        if ($('#mysql').is(":checked")) {
+            $('#serveranthentication').remove();
+        }
         window.setTimeout(function () {
             document.getElementById("throbber").style.display = "block";
         }, 2000);

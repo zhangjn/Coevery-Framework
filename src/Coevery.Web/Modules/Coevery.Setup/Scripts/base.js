@@ -158,7 +158,7 @@
                     }
                 } else if (!_controlleeIsHidden) {
                     // _controllees.slideUp(200); // <- hook this back up when chrome behaves, or when I care less...or when chrome behaves
-                    _controllee.hide()
+                    _controllee.hide();
                 }
             });
 
