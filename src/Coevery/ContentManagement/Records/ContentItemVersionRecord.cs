@@ -1,7 +1,9 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Coevery.ContentManagement.FieldStorage.InfosetStorage;
 using Coevery.Data.Conventions;
 
 namespace Coevery.ContentManagement.Records {
+    [Table("Framework_ContentItemVersionRecord")]
     public class ContentItemVersionRecord {
         public ContentItemVersionRecord() {
             Infoset = new Infoset();

@@ -30,6 +30,7 @@ namespace Coevery.Environment.Extensions.Models {
         public string Zones { get; set; }
         public string BaseTheme { get; set; }
         public string SessionState { get; set; }
+        public string TablePrefix { get; set; }
 
         public IEnumerable<FeatureDescriptor> Features { get; set; }
     }

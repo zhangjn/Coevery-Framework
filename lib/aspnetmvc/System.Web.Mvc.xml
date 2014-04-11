@@ -1,4 +1,4 @@
-ï»¿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <doc>
   <assembly>
     <name>System.Web.Mvc</name>
@@ -5740,7 +5740,7 @@
       <returns>The URL prefix to apply to the routes of this area.</returns>
     </member>
     <member name="T:System.Web.Mvc.RouteAttribute">
-      <summary>Place on a controller or action to expose it directly via a route.             When placed on a controller, it applies to actions that do not have any System.Web.Mvc.RouteAttributeâ€™s on them.</summary>
+      <summary>Place on a controller or action to expose it directly via a route.             When placed on a controller, it applies to actions that do not have any System.Web.Mvc.RouteAttribute¡¯s on them.</summary>
     </member>
     <member name="M:System.Web.Mvc.RouteAttribute.#ctor">
       <summary>Initializes a new instance of the <see cref="T:System.Web.Mvc.RouteAttribute" /> class.</summary>

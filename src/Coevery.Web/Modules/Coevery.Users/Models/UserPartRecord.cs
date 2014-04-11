@@ -1,7 +1,9 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Security;
 using Coevery.ContentManagement.Records;
 
 namespace Coevery.Users.Models {
+    [Table("User")]
     public class UserPartRecord : ContentPartRecord {
         public virtual string UserName { get; set; }
         public virtual string Email { get; set; }

@@ -33,6 +33,7 @@ using Coevery.Users.Models;
 using Coevery.Users.Services;
 using Coevery.Services;
 using Coevery.Tests.Messaging;
+using Coevery.Tests.Modules.Stubs;
 
 namespace Coevery.Tests.Modules.Users.Services {
     [TestFixture]
@@ -79,6 +80,7 @@ namespace Coevery.Tests.Modules.Users.Services {
         [SetUp]
         public void Init() {
             var builder = new ContainerBuilder();
+            _channel = new MessagingChannelStub();
 
             builder.RegisterType<MembershipService>().As<IMembershipService>();
             builder.RegisterType<UserService>().As<IUserService>();
@@ -95,9 +97,7 @@ namespace Coevery.Tests.Modules.Users.Services {
             builder.RegisterType<CoeveryServices>().As<ICoeveryServices>();
             builder.RegisterAutoMocking(MockBehavior.Loose);
             builder.RegisterGeneric(typeof(Repository<>)).As(typeof(IRepository<>));
-            builder.RegisterInstance(new Mock<IMessageEventHandler>().Object);
-            builder.RegisterType<DefaultMessageManager>().As<IMessageManager>();
-            builder.RegisterInstance(_channel = new MessagingChannelStub()).As<IMessagingChannel>();
+            builder.RegisterInstance(new MessageChannelSelectorStub(_channel)).As<IMessageChannelSelector>(); 
             builder.RegisterType<DefaultShapeTableManager>().As<IShapeTableManager>();
             builder.RegisterType<DefaultShapeFactory>().As<IShapeFactory>();
             builder.RegisterType<StubExtensionManager>().As<IExtensionManager>();

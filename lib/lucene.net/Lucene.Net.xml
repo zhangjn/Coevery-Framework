@@ -15298,7 +15298,7 @@
             <A HREF="#formula_queryNorm">queryNorm(q)</A>  · 
             </td>
             <td valign="bottom" align="center" rowspan="1">
-            <big><big><big>∑</big></big></big>
+            <big><big><big>�?/big></big></big>
             </td>
             <td valign="middle" align="right" rowspan="1">
             <big><big>(</big></big>
@@ -15364,7 +15364,7 @@
             <td valign="middle" align="center">
             <table>
             <tr><td align="center"><small>numDocs</small></td></tr>
-            <tr><td align="center">–––––––––</td></tr>
+            <tr><td align="center">––––––––�?/td></tr>
             <tr><td align="center"><small>docFreq+1</small></td></tr>
             </table>
             </td>
@@ -15412,7 +15412,7 @@
             <table>
             <tr><td align="center"><big>1</big></td></tr>
             <tr><td align="center"><big>
-            ––––––––––––––
+            –––––––––––––�?
             </big></td></tr>
             <tr><td align="center">sumOfSquaredWeights<sup><big>½</big></sup></td></tr>
             </table>
@@ -15435,7 +15435,7 @@
              · 
             </td>
             <td valign="bottom" align="center" rowspan="1">
-            <big><big><big>∑</big></big></big>
+            <big><big><big>�?/big></big></big>
             </td>
             <td valign="middle" align="right" rowspan="1">
             <big><big>(</big></big>
@@ -15505,7 +15505,7 @@
              · 
             </td>
             <td valign="bottom" align="center" rowspan="1">
-            <big><big><big>∏</big></big></big>
+            <big><big><big>�?/big></big></big>
             </td>
             <td valign="middle" align="right" rowspan="1">
             <see cref="M:Lucene.Net.Documents.Fieldable.GetBoost">field.GetBoost()</see>
@@ -17049,7 +17049,7 @@
         <member name="M:Lucene.Net.Search.NumericRangeFilter.NewLongRange(System.String,System.ValueType,System.ValueType,System.Boolean,System.Boolean)">
             <summary> Factory that creates a <c>NumericRangeFilter</c>, that queries a <c>long</c>
             range using the default <c>precisionStep</c> <see cref="F:Lucene.Net.Util.NumericUtils.PRECISION_STEP_DEFAULT"/> (4).
-            You can have half-open ranges (which are in fact &lt;/≤ or &gt;/≥ queries)
+            You can have half-open ranges (which are in fact &lt;/�?or &gt;/�?queries)
             by setting the min or max value to <c>null</c>. By setting inclusive to false, it will
             match all documents excluding the bounds, with inclusive on, the boundaries are hits, too.
             </summary>
@@ -17065,7 +17065,7 @@
         <member name="M:Lucene.Net.Search.NumericRangeFilter.NewIntRange(System.String,System.ValueType,System.ValueType,System.Boolean,System.Boolean)">
             <summary> Factory that creates a <c>NumericRangeFilter</c>, that queries a <c>int</c>
             range using the default <c>precisionStep</c> <see cref="F:Lucene.Net.Util.NumericUtils.PRECISION_STEP_DEFAULT"/> (4).
-            You can have half-open ranges (which are in fact &lt;/≤ or &gt;/≥ queries)
+            You can have half-open ranges (which are in fact &lt;/�?or &gt;/�?queries)
             by setting the min or max value to <c>null</c>. By setting inclusive to false, it will
             match all documents excluding the bounds, with inclusive on, the boundaries are hits, too.
             </summary>
@@ -17081,7 +17081,7 @@
         <member name="M:Lucene.Net.Search.NumericRangeFilter.NewDoubleRange(System.String,System.Double,System.Double,System.Boolean,System.Boolean)">
             <summary> Factory that creates a <c>NumericRangeFilter</c>, that queries a <c>double</c>
             range using the default <c>precisionStep</c> <see cref="F:Lucene.Net.Util.NumericUtils.PRECISION_STEP_DEFAULT"/> (4).
-            You can have half-open ranges (which are in fact &lt;/≤ or &gt;/≥ queries)
+            You can have half-open ranges (which are in fact &lt;/�?or &gt;/�?queries)
             by setting the min or max value to <c>null</c>. By setting inclusive to false, it will
             match all documents excluding the bounds, with inclusive on, the boundaries are hits, too.
             </summary>
@@ -17097,7 +17097,7 @@
         <member name="M:Lucene.Net.Search.NumericRangeFilter.NewFloatRange(System.String,System.Single,System.Single,System.Boolean,System.Boolean)">
             <summary> Factory that creates a <c>NumericRangeFilter</c>, that queries a <c>float</c>
             range using the default <c>precisionStep</c> <see cref="F:Lucene.Net.Util.NumericUtils.PRECISION_STEP_DEFAULT"/> (4).
-            You can have half-open ranges (which are in fact &lt;/≤ or &gt;/≥ queries)
+            You can have half-open ranges (which are in fact &lt;/�?or &gt;/�?queries)
             by setting the min or max value to <c>null</c>. By setting inclusive to false, it will
             match all documents excluding the bounds, with inclusive on, the boundaries are hits, too.
             </summary>
@@ -21999,7 +21999,7 @@
         <member name="M:Lucene.Net.Search.NumericRangeQuery.NewLongRange(System.String,System.ValueType,System.ValueType,System.Boolean,System.Boolean)">
             <summary> Factory that creates a <c>NumericRangeQuery</c>, that queries a <c>long</c>
             range using the default <c>precisionStep</c> <see cref="F:Lucene.Net.Util.NumericUtils.PRECISION_STEP_DEFAULT"/> (4).
-            You can have half-open ranges (which are in fact &lt;/≤ or &gt;/≥ queries)
+            You can have half-open ranges (which are in fact &lt;/�?or &gt;/�?queries)
             by setting the min or max value to <c>null</c>. By setting inclusive to false, it will
             match all documents excluding the bounds, with inclusive on, the boundaries are hits, too.
             </summary>
@@ -22015,7 +22015,7 @@
         <member name="M:Lucene.Net.Search.NumericRangeQuery.NewIntRange(System.String,System.ValueType,System.ValueType,System.Boolean,System.Boolean)">
             <summary> Factory that creates a <c>NumericRangeQuery</c>, that queries a <c>int</c>
             range using the default <c>precisionStep</c> <see cref="F:Lucene.Net.Util.NumericUtils.PRECISION_STEP_DEFAULT"/> (4).
-            You can have half-open ranges (which are in fact &lt;/≤ or &gt;/≥ queries)
+            You can have half-open ranges (which are in fact &lt;/�?or &gt;/�?queries)
             by setting the min or max value to <c>null</c>. By setting inclusive to false, it will
             match all documents excluding the bounds, with inclusive on, the boundaries are hits, too.
             </summary>
@@ -22031,7 +22031,7 @@
         <member name="M:Lucene.Net.Search.NumericRangeQuery.NewDoubleRange(System.String,System.Double,System.Double,System.Boolean,System.Boolean)">
             <summary> Factory that creates a <c>NumericRangeQuery</c>, that queries a <c>double</c>
             range using the default <c>precisionStep</c> <see cref="F:Lucene.Net.Util.NumericUtils.PRECISION_STEP_DEFAULT"/> (4).
-            You can have half-open ranges (which are in fact &lt;/≤ or &gt;/≥ queries)
+            You can have half-open ranges (which are in fact &lt;/�?or &gt;/�?queries)
             by setting the min or max value to <c>null</c>. By setting inclusive to false, it will
             match all documents excluding the bounds, with inclusive on, the boundaries are hits, too.
             </summary>
@@ -22047,7 +22047,7 @@
         <member name="M:Lucene.Net.Search.NumericRangeQuery.NewFloatRange(System.String,System.Single,System.Single,System.Boolean,System.Boolean)">
             <summary> Factory that creates a <c>NumericRangeQuery</c>, that queries a <c>float</c>
             range using the default <c>precisionStep</c> <see cref="F:Lucene.Net.Util.NumericUtils.PRECISION_STEP_DEFAULT"/> (4).
-            You can have half-open ranges (which are in fact &lt;/≤ or &gt;/≥ queries)
+            You can have half-open ranges (which are in fact &lt;/�?or &gt;/�?queries)
             by setting the min or max value to <c>null</c>. By setting inclusive to false, it will
             match all documents excluding the bounds, with inclusive on, the boundaries are hits, too.
             </summary>

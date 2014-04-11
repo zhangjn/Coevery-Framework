@@ -5,7 +5,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.SessionState;
-using Castle.Core;
+using Castle.Core.Internal;
 using Coevery.Environment;
 using Coevery.Environment.Configuration;
 ﻿using Coevery.Environment.Extensions;

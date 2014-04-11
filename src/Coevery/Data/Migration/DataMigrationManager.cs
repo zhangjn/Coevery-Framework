@@ -189,11 +189,17 @@ namespace Coevery.Data.Migration {
                     .ToList();
 
             foreach (var migration in migrations.OfType<DataMigrationImpl>()) {
-                migration.SchemaBuilder = new SchemaBuilder(_interpreter, migration.Feature.Descriptor.Extension.Id, s => s.Replace(".", "_") + "_");
+                migration.SchemaBuilder = new SchemaBuilder(_interpreter, migration.Feature.Descriptor.Extension.TablePrefix, FormatTablePrefix);
                 migration.ContentDefinitionManager = _contentDefinitionManager;
             }
 
             return migrations;
+        }
+
+        private string FormatTablePrefix(string tablePrefix) {
+            if (string.IsNullOrEmpty(tablePrefix))
+                return string.Empty;
+            return tablePrefix.Replace(".", "_") + "_";
         }
 
         /// <summary>

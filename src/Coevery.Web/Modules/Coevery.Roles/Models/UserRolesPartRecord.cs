@@ -1,4 +1,7 @@
-﻿namespace Coevery.Roles.Models {
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Coevery.Roles.Models {
+    [Table("UserRoles")]
     public class UserRolesPartRecord {
         public virtual int Id { get; set; }
         public virtual int UserId { get; set; }

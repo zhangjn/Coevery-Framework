@@ -198,7 +198,7 @@ Name: AnotherWiki
 Author: Coder Notaprogrammer
 Website: http://anotherwiki.codeplex.com
 Version: 1.2.3
-Coeveryversion: 1
+CoeveryVersion: 1
 Features:
     AnotherWiki: 
         Description: My super wiki module for Coevery.

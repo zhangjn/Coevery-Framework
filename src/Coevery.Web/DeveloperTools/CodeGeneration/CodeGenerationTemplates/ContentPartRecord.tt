@@ -4,9 +4,11 @@
 <#@ parameter type="System.String" name="EntityName" #>
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Coevery.ContentManagement.Records;
 
 namespace <#=Namespace#>.Models {
+	[Table("<#=EntityName#>")]
     public class <#=EntityName#>PartRecord : ContentPartVersionRecord {
 <# 
 	var definition = GetContentPartDefinition(EntityName);

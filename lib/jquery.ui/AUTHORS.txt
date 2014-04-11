@@ -1,4 +1,4 @@
-ÔªøjQuery UI Authors (http://ui.jquery.com/about)
+jQuery UI Authors (http://ui.jquery.com/about)
 
 This software consists of voluntary contributions made by many
 individuals. For exact contribution history, see the revision history
@@ -14,7 +14,7 @@ Michelle D'Souza
 Aaron Eisenberger (aaronchi@gmail.com)
 Ariel Flesler
 Bohdan Ganicky
-Scott Gonz√°lez
+Scott Gonz®¢lez
 Marc Grabanski (m@marcgrabanski.com)
 Klaus Hartl (stilbuero.de)
 Scott Jehl
@@ -27,4 +27,4 @@ Ca-Phun Ung (yelotofu.com)
 Keith Wood (kbwood@virginbroadband.com.au)
 Maggie Costello Wachs
 Richard D. Worth (rdworth.org)
-J√∂rn Zaefferer (bassistance.de)
+J?rn Zaefferer (bassistance.de)

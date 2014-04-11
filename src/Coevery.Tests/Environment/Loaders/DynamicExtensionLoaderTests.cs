@@ -49,7 +49,7 @@ namespace Coevery.Tests.Environment.Loaders {
         [Test]
         public void GetDependenciesContainsNoDuplicatesTest() {
             const string pathPrefix = "~/modules/foo";
-            const string projectName = "Coevery.a.csproj";
+            const string projectName = "coevery.a.csproj";
             const string fileName1 = "a.cs";
             const string fileName2 = "b.cs";
 
@@ -75,9 +75,9 @@ namespace Coevery.Tests.Environment.Loaders {
             const string path1Prefix = "~/modules/foo";
             const string path2Prefix = "~/modules/bar";
             const string path3Prefix = "~/modules/blah";
-            const string project1Name = "Coevery.a.csproj";
-            const string project2Name = "Coevery.b.csproj";
-            const string project3Name = "Coevery.c.csproj";
+            const string project1Name = "coevery.a.csproj";
+            const string project2Name = "coevery.b.csproj";
+            const string project3Name = "coevery.c.csproj";
             const string fileName1 = "a.cs";
             const string fileName2 = "b.cs";
             const string commonFileName = "c.cs";

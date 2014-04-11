@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Coevery.ContentManagement.FieldStorage.InfosetStorage;
 using Coevery.Data.Conventions;
 
 namespace Coevery.ContentManagement.Records {
+    [Table("Framework_ContentItemRecord")]
     public class ContentItemRecord {
         public ContentItemRecord() {
             // ReSharper disable DoNotCallOverridableMethodsInConstructor

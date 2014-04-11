@@ -169,6 +169,8 @@ namespace Coevery.Environment.ShellBuilders {
             var dataTablePrefix = "";
             if (!string.IsNullOrEmpty(settings.DataTablePrefix))
                 dataTablePrefix = settings.DataTablePrefix + "_";
+            if (!string.IsNullOrEmpty(feature.Descriptor.Extension.TablePrefix))
+                dataTablePrefix += feature.Descriptor.Extension.TablePrefix.Replace(".", "_") + "_";
 
             return new RecordBlueprint {
                 Type = type,

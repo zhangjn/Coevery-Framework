@@ -17,11 +17,11 @@ namespace Coevery.Localization.Services {
         private readonly ICacheManager _cacheManager;
         private readonly ShellSettings _shellSettings;
         private readonly ISignals _signals;
-        const string CoreLocalizationFilePathFormat = "~/Core/App_Data/Localization/{0}/Coevery.core.po";
-        const string ModulesLocalizationFilePathFormat = "~/Modules/{0}/App_Data/Localization/{1}/Coevery.module.po";
-        const string ThemesLocalizationFilePathFormat = "~/Themes/{0}/App_Data/Localization/{1}/Coevery.theme.po";
-        const string RootLocalizationFilePathFormat = "~/App_Data/Localization/{0}/Coevery.root.po";
-        const string TenantLocalizationFilePathFormat = "~/App_Data/Sites/{0}/Localization/{1}/Coevery.po";
+        const string CoreLocalizationFilePathFormat = "~/Core/App_Data/Localization/{0}/coevery.core.po";
+        const string ModulesLocalizationFilePathFormat = "~/Modules/{0}/App_Data/Localization/{1}/coevery.module.po";
+        const string ThemesLocalizationFilePathFormat = "~/Themes/{0}/App_Data/Localization/{1}/coevery.theme.po";
+        const string RootLocalizationFilePathFormat = "~/App_Data/Localization/{0}/coevery.root.po";
+        const string TenantLocalizationFilePathFormat = "~/App_Data/Sites/{0}/Localization/{1}/coevery.po";
 
         public DefaultLocalizedStringManager(
             IWebSiteFolder webSiteFolder,
@@ -100,11 +100,11 @@ namespace Coevery.Localization.Services {
 
         // Merging occurs from multiple locations:
         // In reverse priority order: 
-        // "~/Core/App_Data/Localization/<culture_name>/Coevery.core.po";
-        // "~/Modules/<module_name>/App_Data/Localization/<culture_name>/Coevery.module.po";
-        // "~/Themes/<theme_name>/App_Data/Localization/<culture_name>/Coevery.theme.po";
-        // "~/App_Data/Localization/<culture_name>/Coevery.root.po";
-        // "~/App_Data/Sites/<tenant_name>/Localization/<culture_name>/Coevery.po";
+        // "~/Core/App_Data/Localization/<culture_name>/coevery.core.po";
+        // "~/Modules/<module_name>/App_Data/Localization/<culture_name>/coevery.module.po";
+        // "~/Themes/<theme_name>/App_Data/Localization/<culture_name>/coevery.theme.po";
+        // "~/App_Data/Localization/<culture_name>/coevery.root.po";
+        // "~/App_Data/Sites/<tenant_name>/Localization/<culture_name>/coevery.po";
         // The dictionary entries from po files that live in higher priority locations will
         // override the ones from lower priority locations during loading of dictionaries.
 

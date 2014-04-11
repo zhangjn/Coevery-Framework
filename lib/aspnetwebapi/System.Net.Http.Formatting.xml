@@ -1,4 +1,4 @@
-Ôªø<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <doc>
   <assembly>
     <name>System.Net.Http.Formatting</name>
@@ -1622,13 +1622,13 @@
       <summary> Matched on a type, meaning that the formatter is able to serialize the type.</summary>
     </member>
     <member name="F:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking.MatchOnRequestAcceptHeaderAllMediaRange">
-      <summary>Matched on an explicit ‚Äú*/*‚Äù range in the Accept header.</summary>
+      <summary>Matched on an explicit °∞*/*°± range in the Accept header.</summary>
     </member>
     <member name="F:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking.MatchOnRequestAcceptHeaderLiteral">
-      <summary>Matched on an explicit literal accept header, such as ‚Äúapplication/json‚Äù.</summary>
+      <summary>Matched on an explicit literal accept header, such as °∞application/json°±.</summary>
     </member>
     <member name="F:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking.MatchOnRequestAcceptHeaderSubtypeMediaRange">
-      <summary>Matched on an explicit subtype range in an Accept header, such as ‚Äúapplication/*‚Äù.</summary>
+      <summary>Matched on an explicit subtype range in an Accept header, such as °∞application/*°±.</summary>
     </member>
     <member name="F:System.Net.Http.Formatting.MediaTypeFormatterMatchRanking.MatchOnRequestMediaType">
       <summary> Matched on the media type of the entity body in the HTTP request message.</summary>
@@ -1777,7 +1777,7 @@
     </member>
     <member name="P:System.Net.Http.Formatting.XmlMediaTypeFormatter.DefaultMediaType">
       <summary>Gets the default media type for the XML formatter.</summary>
-      <returns>The default media type, which is ‚Äúapplication/xml‚Äù.</returns>
+      <returns>The default media type, which is °∞application/xml°±.</returns>
     </member>
     <member name="M:System.Net.Http.Formatting.XmlMediaTypeFormatter.GetDeserializer(System.Type,System.Net.Http.HttpContent)">
       <summary>Called during deserialization to get the XML serializer to use for deserializing objects.</summary>
@@ -1933,7 +1933,7 @@
     </member>
     <member name="P:System.Net.Http.Headers.CookieHeaderValue.Cookies">
       <summary>Gets a collection of cookies sent by the client.</summary>
-      <returns>A collection object representing the client‚Äôs cookie variables.</returns>
+      <returns>A collection object representing the client°Øs cookie variables.</returns>
     </member>
     <member name="P:System.Net.Http.Headers.CookieHeaderValue.Domain">
       <summary>Gets or sets the domain to associate the cookie with.</summary>
@@ -1960,7 +1960,7 @@
       <returns>The virtual path to transmit with the cookie.</returns>
     </member>
     <member name="P:System.Net.Http.Headers.CookieHeaderValue.Secure">
-      <summary>Gets or sets a value indicating whether to transmit the cookie using Secure Sockets Layer (SSL)‚Äîthat is, over HTTPS only.</summary>
+      <summary>Gets or sets a value indicating whether to transmit the cookie using Secure Sockets Layer (SSL)°™that is, over HTTPS only.</summary>
       <returns>true to transmit the cookie over an SSL connection (HTTPS); otherwise, false.</returns>
     </member>
     <member name="M:System.Net.Http.Headers.CookieHeaderValue.ToString">

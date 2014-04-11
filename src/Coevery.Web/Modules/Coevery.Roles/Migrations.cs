@@ -10,7 +10,7 @@ namespace Coevery.Roles {
         }
 
         public int Create() {
-            SchemaBuilder.CreateTable("PermissionRecord", 
+            SchemaBuilder.CreateTable("Permission", 
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
                     .Column<string>("Name")
@@ -18,13 +18,13 @@ namespace Coevery.Roles {
                     .Column<string>("Description")
                 );
 
-            SchemaBuilder.CreateTable("RoleRecord", 
+            SchemaBuilder.CreateTable("Role", 
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
                     .Column<string>("Name")
                 );
 
-            SchemaBuilder.CreateTable("RolesPermissionsRecord", 
+            SchemaBuilder.CreateTable("RolesPermissions", 
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
                     .Column<int>("Role_id")
@@ -32,7 +32,7 @@ namespace Coevery.Roles {
                     .Column<int>("RoleRecord_Id")
                 );
 
-            SchemaBuilder.CreateTable("UserRolesPartRecord", 
+            SchemaBuilder.CreateTable("UserRoles", 
                 table => table
                     .Column<int>("Id", column => column.PrimaryKey().Identity())
                     .Column<int>("UserId")

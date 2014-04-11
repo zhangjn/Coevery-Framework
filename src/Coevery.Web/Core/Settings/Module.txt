@@ -1,4 +1,5 @@
 ﻿Name: Settings
+TablePrefix: Metadata
 AntiForgery: enabled
 Author: The Coevery Team
 Website: http://Coeveryproject.net

@@ -30,7 +30,12 @@ namespace Coevery.Mvc.Extensions {
             }
             
             if(String.IsNullOrEmpty(baseUrl)) {
-                baseUrl = urlHelper.RequestContext.HttpContext.Request.ToApplicationRootUrlString();
+                var workContextAccessor = urlHelper.RequestContext.GetWorkContext();
+                baseUrl = workContextAccessor.CurrentSite.BaseUrl;
+
+                if (String.IsNullOrWhiteSpace(baseUrl)) {
+                    baseUrl = urlHelper.RequestContext.HttpContext.Request.ToApplicationRootUrlString();
+                }
             }
 
             if(String.IsNullOrEmpty(url)) {
@@ -45,12 +50,12 @@ namespace Coevery.Mvc.Extensions {
                 url = url.Substring(1);
             }
 
-            // Coeverylocal/foo/bar => /Coeverylocal/foo/bar
+            // coeverylocal/foo/bar => /coeverylocal/foo/bar
             if(!url.StartsWith("/")) {
                 url = "/" + url;
             }
             
-            // /Coeverylocal/foo/bar => foo/bar
+            // /coeverylocal/foo/bar => foo/bar
             if (url.StartsWith(applicationPath, StringComparison.OrdinalIgnoreCase)) {
                 url = url.Substring(applicationPath.Length);
             }

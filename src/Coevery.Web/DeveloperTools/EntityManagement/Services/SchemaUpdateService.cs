@@ -52,8 +52,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         private readonly IDynamicAssemblyBuilder _dynamicAssemblyBuilder;
         private readonly ISessionFactoryHolder _sessionFactoryHolder;
 
-        private const string TableFormat = "{0}PartRecord";
-
         public SchemaUpdateService(
             IDynamicAssemblyBuilder dynamicAssemblyBuilder,
             ISessionFactoryHolder sessionFactoryHolder,
@@ -63,7 +61,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             _dynamicAssemblyBuilder = dynamicAssemblyBuilder;
             _sessionFactoryHolder = sessionFactoryHolder;
             var interpreter = new DefaultDataMigrationInterpreter(shellSettings, commandInterpreters, sessionFactoryHolder, reportsCoordinator);
-            _schemaBuilder = new SchemaBuilder(interpreter, "", s => s.Replace(".", "_"));
+            _schemaBuilder = new SchemaBuilder(interpreter);
         }
 
         private bool CheckTableExists(string tableName) {
@@ -95,12 +93,11 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         }
 
         public void CreateTable(string tableName, Action<CreateTableContext> action = null) {
-            var formatedTableName = string.Format(TableFormat, tableName);
-            bool result = CheckTableExists(formatedTableName);
+            bool result = CheckTableExists(tableName);
             if (result) {
                 return;
             }
-            _schemaBuilder.CreateTable(formatedTableName,
+            _schemaBuilder.CreateTable(tableName,
                 table => {
                     table.Column<int>("Id", column => column.PrimaryKey())
                         .Column<int>("ContentItemRecord_id");
@@ -112,12 +109,11 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         }
 
         public void DropTable(string tableName) {
-            string formatedTableName = string.Format(TableFormat, tableName);
-            bool result = CheckTableExists(formatedTableName);
+            bool result = CheckTableExists(tableName);
             if (!result) {
                 return;
             }
-            _schemaBuilder.DropTable(formatedTableName);
+            _schemaBuilder.DropTable(tableName);
         }
 
         public void CreateCustomTable(string tableName, Action<CreateTableCommand> table) {
@@ -137,8 +133,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         }
 
         public void CreateColumn(string tableName, string columnName, string columnType, int? length = null) {
-            string formatedTableName = string.Format(TableFormat, tableName);
-            bool result = CheckTableColumnExists(formatedTableName, columnName);
+            bool result = CheckTableColumnExists(tableName, columnName);
             if (result) {
                 return;
             }
@@ -148,13 +143,12 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             }
             var dbType = SchemaUtils.ToDbType(type);
             Action<ColumnCommand> columnAction = x => x.WithLength(length);
-            _schemaBuilder.AlterTable(formatedTableName,
+            _schemaBuilder.AlterTable(tableName,
                 table => table.AddColumn(columnName, dbType, columnAction));
         }
 
         public void AlterColumn(string tableName, string columnName, string columnType, int? length = null) {
-            string formatedTableName = string.Format(TableFormat, tableName);
-            bool result = CheckTableColumnExists(formatedTableName, columnName);
+            bool result = CheckTableColumnExists(tableName, columnName);
             if (!result) {
                 return;
             }
@@ -164,17 +158,16 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             }
             var dbType = SchemaUtils.ToDbType(type);
             Action<ColumnCommand> columnAction = x => x.WithType(dbType).WithLength(length);
-            _schemaBuilder.AlterTable(formatedTableName,
+            _schemaBuilder.AlterTable(tableName,
                 table => table.AlterColumn(columnName, columnAction));
         }
 
         public void DropColumn(string tableName, string columnName) {
-            string formatedTableName = string.Format(TableFormat, tableName);
-            bool result = CheckTableColumnExists(formatedTableName, columnName);
+            bool result = CheckTableColumnExists(tableName, columnName);
             if (!result) {
                 return;
             }
-            _schemaBuilder.AlterTable(formatedTableName, table => table.DropColumn(columnName));
+            _schemaBuilder.AlterTable(tableName, table => table.DropColumn(columnName));
         }
     }
 }

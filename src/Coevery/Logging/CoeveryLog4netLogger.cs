@@ -14,13 +14,17 @@ namespace Coevery.Logging {
     [Serializable]
     public class CoeveryLog4netLogger : MarshalByRefObject, Logger, IShim {
         private static readonly Type declaringType = typeof(CoeveryLog4netLogger);
+
+        private readonly Lazy<ShellSettings> _shellSettings;
+
         public ICoeveryHostContainer HostContainer { get; set; }
-        private ShellSettings _shellSettings;
 
         public CoeveryLog4netLogger(log4net.Core.ILogger logger, CoeveryLog4netFactory factory) {
             CoeveryHostContainerRegistry.RegisterShim(this);
             Logger = logger;
             Factory = factory;
+
+            _shellSettings = new Lazy<ShellSettings>(LoadSettings);
         }
 
         internal CoeveryLog4netLogger() {
@@ -30,46 +34,45 @@ namespace Coevery.Logging {
             : this(log.Logger, factory) {
         }
 
-        // Return a per class variable for each instance of the logger, which is for each tenant.  This variable allows outputting the tenant name
-        private ShellSettings ShellSettings {
-            get {
-                if (_shellSettings == null) {
-                    var ctx = HttpContext.Current;
-                    if (ctx == null)
-                        return null;
+        private ShellSettings LoadSettings() {
+            var ctx = HttpContext.Current;
+            if (ctx == null)
+                return null;
 
-                    var runningShellTable = HostContainer.Resolve<IRunningShellTable>();
-                    if (runningShellTable == null)
-                        return null;
+            var runningShellTable = HostContainer.Resolve<IRunningShellTable>();
+            if (runningShellTable == null)
+                return null;
 
-                    var shellSettings = runningShellTable.Match(new HttpContextWrapper(ctx));
-                    if (shellSettings == null)
-                        return null;
+            var shellSettings = runningShellTable.Match(new HttpContextWrapper(ctx));
+            if (shellSettings == null)
+                return null;
 
-                    var CoeveryHost = HostContainer.Resolve<ICoeveryHost>();
-                    if (CoeveryHost == null)
-                        return null;
+            var coeveryHost = HostContainer.Resolve<ICoeveryHost>();
+            if (coeveryHost == null)
+                return null;
 
-                    var shellContext = CoeveryHost.GetShellContext(shellSettings);
-                    if (shellContext == null || shellContext.Settings == null)
-                        return null;
+            var shellContext = coeveryHost.GetShellContext(shellSettings);
+            if (shellContext == null || shellContext.Settings == null)
+                return null;
 
-                    _shellSettings = shellContext.Settings;
-                }
 
-                return _shellSettings;
-            }
+            return shellContext.Settings;
         }
 
         // Load the log4net thread with additional properties if they are available
         protected internal void AddExtendedThreadInfo() {
-            if (ShellSettings != null) {
-                ThreadContext.Properties["Tenant"] = ShellSettings.Name;
+            if (_shellSettings.Value != null) {
+                ThreadContext.Properties["Tenant"] = _shellSettings.Value.Name;
             }
 
-            var ctx = HttpContext.Current;
-            if (ctx != null)             {
-                ThreadContext.Properties["Url"] = ctx.Request.Url.ToString();
+            try {
+                var ctx = HttpContext.Current;
+                if (ctx != null) {
+                    ThreadContext.Properties["Url"] = ctx.Request.Url.ToString();
+                }
+            }
+            catch(HttpException) {
+                // can happen on cloud service for an unknown reason
             }
         }
 
