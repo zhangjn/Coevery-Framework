@@ -9,12 +9,10 @@ using System.Web.Mvc;
 using Coevery;
 using Coevery.UI.Notify;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData;
 using Coevery.Data;
 using Coevery.Themes;
 using Coevery.Localization;
 using Coevery.Core.OptionSet.Services;
-using Coevery.Core.Common.Extensions;
 using <#=Namespace#>.Models;
 using <#=Namespace#>.ViewModels;
 
@@ -23,16 +21,13 @@ namespace <#=Namespace#>.Controllers {
     public class <#=EntityName#>Controller : Controller , IUpdateModel{
         private readonly ITransactionManager _transactionManager;
 		private readonly IOptionSetService _optionSetService;
-	    private readonly IContentDefinitionManager _contentDefinitionManager;
 
         public <#=EntityName#>Controller (ICoeveryServices services, 
 			ITransactionManager transactionManager, 
-            IOptionSetService optionSetService, 
-            IContentDefinitionManager contentDefinitionManager) {
+            IOptionSetService optionSetService) {
             Services = services;
             _transactionManager = transactionManager;
 			_optionSetService = optionSetService;
-            _contentDefinitionManager = contentDefinitionManager;
             T = NullLocalizer.Instance;
         }
 
@@ -73,29 +68,22 @@ namespace <#=Namespace#>.Controllers {
 	        }
 <# } #>
 <#	
-	var referenceFields = GetReferenceFields().ToList();
-    if (referenceFields.Any()) { #>
+	var fieldsDictionary = GetReferenceFields();
+    if (fieldsDictionary.Count > 0) {
+		foreach (var item in fieldsDictionary) {
+		    var recordsName = item.Key.ToLower() + "Records";
+#>
 
-			var fields = _contentDefinitionManager.GetPartDefinition("<#=EntityName#>Part").Fields;
-
-<# foreach (var field in referenceFields) { 
-			var fieldName = field.Name.ToLower();#>
-			var <#=fieldName#>Field = fields.First(x => x.Name == "<#=field.Name#>");
-            var <#=fieldName#>DisplayFieldName = <#=fieldName#>Field.Settings["ReferenceFieldSettings.DisplayFieldName"];
-            var <#=fieldName#>ReferencePartName = <#=fieldName#>Field.Settings["ReferenceFieldSettings.ContentTypeName"].ToPartName();
-            var <#=fieldName#>Records = records.Where(x => x.<#=field.Name#>.HasValue).Select(x => x).ToList();
-            var <#=fieldName#>Ids = <#=fieldName#>Records.Select(x => x.<#=field.Name#>.Value);
-            var <#=fieldName#>ContentItems = Services.ContentManager.Query().ForContentItems(<#=fieldName#>Ids).List().ToDictionary(x => x.Id);
-            foreach (var record in <#=fieldName#>Records) {
-                var <#=fieldName#>Id = record.<#=field.Name#>.Value;
-                if (!<#=fieldName#>ContentItems.ContainsKey(<#=fieldName#>Id)) {
-                    continue;
+            var <#=recordsName#> = Services.ContentManager.Query<<#=item.Key#>Part, <#=item.Key#>PartRecord>().List().ToDictionary(x => x.Id);
+            foreach (var record in records) {
+<#
+		foreach (var field in item.Value) {
+		    var displayField = field.Settings["ReferenceFieldSettings.DisplayFieldName"];
+		    var fieldName = field.Name;#>
+				if (record.<#=fieldName#>.HasValue && <#=recordsName#>.ContainsKey(record.<#=fieldName#>.Value)) {
+					record.<#=fieldName#>_Name = <#=recordsName#>[record.<#=fieldName#>.Value].<#=displayField#>;
                 }
-                var displayField = <#=fieldName#>ContentItems[record.<#=field.Name#>.Value].Parts
-                    .First(x => x.PartDefinition.Name == <#=fieldName#>ReferencePartName)
-                    .Fields.First(x => x.Name == <#=fieldName#>DisplayFieldName);
-
-                record.<#=field.Name#>_Name = displayField.Storage.Get<dynamic>(null);
+<# } #>
             }
 
 <# } #>
@@ -222,15 +210,21 @@ namespace <#=Namespace#>.Controllers {
         }
 	}
 
-	private IEnumerable<ContentPartFieldDefinition> GetReferenceFields() {
-        var columns = GetColumns(EntityName);
+	private Dictionary<string, List<ContentPartFieldDefinition>> GetReferenceFields() {
+	    var fieldsDictionary = new Dictionary<string, List<ContentPartFieldDefinition>>();
+		var columns = GetColumns(EntityName);
         var partDefinition = GetContentPartDefinition(EntityName);
         foreach (var col in columns) {
             var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
             if (field != null && field.FieldDefinition.Name == "ReferenceField") {
-                yield return field;
+				var typeName = field.Settings["ReferenceFieldSettings.ContentTypeName"];
+                if (!fieldsDictionary.ContainsKey(typeName)) {
+                    fieldsDictionary[typeName] = new List<ContentPartFieldDefinition>();
+                }
+				fieldsDictionary[typeName].Add(field);
             }
         }
+	    return fieldsDictionary;
 	}
 
 #>
