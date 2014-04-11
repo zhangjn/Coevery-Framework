@@ -9,10 +9,12 @@ using System.Web.Mvc;
 using Coevery;
 using Coevery.UI.Notify;
 using Coevery.ContentManagement;
+using Coevery.ContentManagement.MetaData;
 using Coevery.Data;
 using Coevery.Themes;
 using Coevery.Localization;
 using Coevery.Core.OptionSet.Services;
+using Coevery.Core.Common.Extensions;
 using <#=Namespace#>.Models;
 using <#=Namespace#>.ViewModels;
 
@@ -21,13 +23,16 @@ namespace <#=Namespace#>.Controllers {
     public class <#=EntityName#>Controller : Controller , IUpdateModel{
         private readonly ITransactionManager _transactionManager;
 		private readonly IOptionSetService _optionSetService;
+	    private readonly IContentDefinitionManager _contentDefinitionManager;
 
         public <#=EntityName#>Controller (ICoeveryServices services, 
 			ITransactionManager transactionManager, 
-            IOptionSetService optionSetService) {
+            IOptionSetService optionSetService, 
+            IContentDefinitionManager contentDefinitionManager) {
             Services = services;
             _transactionManager = transactionManager;
 			_optionSetService = optionSetService;
+            _contentDefinitionManager = contentDefinitionManager;
             T = NullLocalizer.Instance;
         }
 
@@ -70,15 +75,30 @@ namespace <#=Namespace#>.Controllers {
 <#	
 	var referenceFields = GetReferenceFields().ToList();
     if (referenceFields.Any()) { #>
-			foreach (var model in records) {
-<# foreach (var field in referenceFields) { #>
-				if (model.<#=field.Name #> != null) {
-                    var referenceContentItem = Services.ContentManager.Get(model.<#=field.Name #>.Value);
-                    var contentItemMetadata = Services.ContentManager.GetItemMetadata(referenceContentItem);
-                    model.<#=field.Name #>_Name = contentItemMetadata.DisplayText;
-		        }
+
+			var fields = _contentDefinitionManager.GetPartDefinition("<#=EntityName#>Part").Fields;
+
+<# foreach (var field in referenceFields) { 
+			var fieldName = field.Name.ToLower();#>
+			var <#=fieldName#>Field = fields.First(x => x.Name == "<#=field.Name#>");
+            var <#=fieldName#>DisplayFieldName = <#=fieldName#>Field.Settings["ReferenceFieldSettings.DisplayFieldName"];
+            var <#=fieldName#>ReferencePartName = <#=fieldName#>Field.Settings["ReferenceFieldSettings.ContentTypeName"].ToPartName();
+            var <#=fieldName#>Records = records.Where(x => x.<#=field.Name#>.HasValue).Select(x => x).ToList();
+            var <#=fieldName#>Ids = <#=fieldName#>Records.Select(x => x.<#=field.Name#>.Value);
+            var <#=fieldName#>ContentItems = Services.ContentManager.Query().ForContentItems(<#=fieldName#>Ids).List().ToDictionary(x => x.Id);
+            foreach (var record in <#=fieldName#>Records) {
+                var <#=fieldName#>Id = record.<#=field.Name#>.Value;
+                if (!<#=fieldName#>ContentItems.ContainsKey(<#=fieldName#>Id)) {
+                    continue;
+                }
+                var displayField = <#=fieldName#>ContentItems[record.<#=field.Name#>.Value].Parts
+                    .First(x => x.PartDefinition.Name == <#=fieldName#>ReferencePartName)
+                    .Fields.First(x => x.Name == <#=fieldName#>DisplayFieldName);
+
+                record.<#=field.Name#>_Name = displayField.Storage.Get<dynamic>(null);
+            }
+
 <# } #>
-	        }
 <# } #>
 	        var result = new {
 	            page,

@@ -26,14 +26,6 @@ namespace Coevery.Core.Fields.Drivers {
             return field.Name;
         }
 
-        protected override void GetContentItemMetadata(ContentPart part, TextField field, ContentItemMetadata metadata) {
-            var model = field.PartFieldDefinition.Settings.GetModel<TextFieldSettings>();
-
-            if (model.IsDisplayField) {
-                metadata.DisplayText = field.Value;
-            }
-        }
-
         protected override DriverResult Display(ContentPart part, TextField field, string displayType, dynamic shapeHelper) {
             return ContentShape("Fields_Text", GetDifferentiator(field, part), () => {
                 var settings = field.PartFieldDefinition.Settings.GetModel<TextFieldSettings>();

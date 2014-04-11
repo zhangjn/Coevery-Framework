@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
@@ -10,6 +9,7 @@ using Coevery.ContentManagement.ViewModels;
 using Coevery.Core.Fields.Settings;
 using Coevery.Core.Relationships.Records;
 using Coevery.Core.Relationships.Settings;
+using Coevery.Core.Relationships.ViewModels;
 using Coevery.Data;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.RelationshipManagement.Services;
@@ -64,6 +64,7 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Settings {
                 settingsDictionary["ReferenceFieldSettings.QueryId"] = model.QueryId.ToString(CultureInfo.InvariantCulture);
                 settingsDictionary["ReferenceFieldSettings.RelationshipId"] = model.RelationshipId.ToString(CultureInfo.InvariantCulture);
                 settingsDictionary["ReferenceFieldSettings.IsUnique"] = model.IsUnique.ToString();
+                settingsDictionary["ReferenceFieldSettings.DisplayFieldName"] = model.DisplayFieldName;
             }
         }
 
@@ -75,13 +76,13 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Settings {
             var model = settingsDictionary.TryGetModel<ReferenceFieldSettings>();
             if (model != null) {
                 UpdateSettings(model, builder, "ReferenceFieldSettings");
-                builder.WithSetting("ReferenceFieldSettings.IsDisplayField", model.IsDisplayField.ToString());
                 builder.WithSetting("ReferenceFieldSettings.DisplayAsLink", model.DisplayAsLink.ToString());
                 builder.WithSetting("ReferenceFieldSettings.ContentTypeName", model.ContentTypeName);
                 builder.WithSetting("ReferenceFieldSettings.RelationshipName", model.RelationshipName);
                 builder.WithSetting("ReferenceFieldSettings.RelationshipId", model.RelationshipId.ToString(CultureInfo.InvariantCulture));
                 builder.WithSetting("ReferenceFieldSettings.QueryId", model.QueryId.ToString(CultureInfo.InvariantCulture));
                 builder.WithSetting("ReferenceFieldSettings.IsUnique", model.IsUnique.ToString());
+                builder.WithSetting("ReferenceFieldSettings.DisplayFieldName", model.DisplayFieldName);
             }
         }
 
@@ -101,13 +102,15 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Settings {
         public override IEnumerable<TemplateViewModel> PartFieldEditor(ContentPartFieldDefinition definition) {
             if (definition.FieldDefinition.Name == "ReferenceField" ||
                 definition.FieldDefinition.Name == "ReferenceFieldCreate") {
-                var metadataTypes = _contentDefinitionService.GetUserDefinedTypes();
+                var metadataTypes = _contentDefinitionService.GetUserDefinedTypes().ToList();
                 var model = definition.Settings.GetModel<ReferenceFieldSettings>();
-                model.ContentTypeList = metadataTypes.Select(item => new SelectListItem {
-                    Text = item.Name,
-                    Value = item.Name,
+
+                model.Entities = metadataTypes.Select(item => new EntityViewModel {
+                    Name = item.Name,
+                    Fields = item.Fields.Where(x => x.FieldDefinition.Name == "TextField").Select(x => x.Name).ToList(),
                     Selected = item.Name == model.ContentTypeName
                 }).ToList();
+
                 yield return DefinitionTemplate(model);
             }
         }

@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
-using Coevery.Core.Projections.Services;
+using Coevery.Core.Common.Extensions;
 using Coevery.Core.Relationships.Fields;
 using Coevery.Core.Relationships.Models;
 using Coevery.Core.Relationships.Settings;
@@ -14,15 +14,11 @@ using Coevery.Localization;
 namespace Coevery.Core.Relationships.Drivers {
     public class ReferenceFieldDriver : ContentFieldDriver<ReferenceField> {
         private readonly IContentManager _contentManager;
-        private readonly IProjectionManager _projectionManager;
 
         private const string TemplateName = "Fields/Reference.Edit";
 
-        public ReferenceFieldDriver(
-            IContentManager contentManager,
-            IProjectionManager projectionManager) {
+        public ReferenceFieldDriver(IContentManager contentManager) {
             _contentManager = contentManager;
-            _projectionManager = projectionManager;
             T = NullLocalizer.Instance;
         }
 
@@ -36,20 +32,17 @@ namespace Coevery.Core.Relationships.Drivers {
             return field.Name;
         }
 
-        protected override void GetContentItemMetadata(ContentPart part, ReferenceField field, ContentItemMetadata metadata) {
-            var model = field.PartFieldDefinition.Settings.GetModel<ReferenceFieldSettings>();
-
-            if (model.IsDisplayField) {
-                metadata.DisplayText = _contentManager.GetItemMetadata(field.ContentItem).DisplayText;
-            }
-        }
-
         protected override DriverResult Display(ContentPart part, ReferenceField field, string displayType, dynamic shapeHelper) {
             var settings = field.PartFieldDefinition.Settings.GetModel<ReferenceFieldSettings>();
             int? value = field.Value;
-            string title = value.HasValue
-                ? _contentManager.GetItemMetadata(field.ContentItem).DisplayText
-                : string.Empty;
+            string title = string.Empty;
+            if (value.HasValue) {
+                string partName = settings.ContentTypeName.ToPartName();
+                var referenceItem = field.ContentItem.ContentItem;
+                var contentPart = referenceItem.Parts.First(x => x.PartDefinition.Name == partName);
+                var displayField = contentPart.Fields.First(x => x.Name == settings.DisplayFieldName);
+                title = displayField.Storage.Get<dynamic>(null);
+            }
 
             return ContentShape("Fields_Reference", GetDifferentiator(field, part),
                 () => shapeHelper.Fields_Reference(DisplayAsLink: settings.DisplayAsLink, ContentField: field, Title: title));
@@ -59,18 +52,22 @@ namespace Coevery.Core.Relationships.Drivers {
             return ContentShape("Fields_Reference_Edit", GetDifferentiator(field, part),
                 () => {
                     var settings = field.PartFieldDefinition.Settings.GetModel<ReferenceFieldSettings>();
+                    string partName = settings.ContentTypeName.ToPartName();
+                    var items = _contentManager.Query(settings.ContentTypeName).List().Select(contentItem => {
+                        var contentPart = contentItem.Parts.First(x => x.PartDefinition.Name == partName);
+                        var displayField = contentPart.Fields.First(x => x.Name == settings.DisplayFieldName);
 
-                    var contentItems = _projectionManager.GetContentItems(settings.QueryId)
-                        .Select(c => new SelectListItem {
-                            Text = _contentManager.GetItemMetadata(c).DisplayText,
-                            Value = c.Id.ToString(CultureInfo.InvariantCulture),
-                            Selected = field.Value == c.Id
-                        }).ToList();
+                        return new SelectListItem {
+                            Text = displayField.Storage.Get<dynamic>(null),
+                            Value = contentItem.Id.ToString(CultureInfo.InvariantCulture),
+                            Selected = field.Value == contentItem.Id
+                        };
+                    });
 
                     var model = new ReferenceFieldViewModel {
                         ContentId = field.Value,
                         Field = field,
-                        ItemList = new SelectList(contentItems, "Value", "Text", field.Value)
+                        ItemList = new SelectList(items, "Value", "Text", field.Value)
                     };
                     return shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: model, Prefix: GetPrefix(field, part));
                 });

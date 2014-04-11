@@ -1,21 +1,30 @@
 ﻿@using System.Web.Mvc.Html
 @using Coevery.Mvc.Html
+@using Newtonsoft.Json
 @model Coevery.Core.Relationships.Settings.ReferenceFieldSettings
-
 @{
     string disabled = string.Empty;
     if (Model.QueryId > 0) {
         disabled = "disabled='disabled'";
     }
 }
+
 <section class="control-group data-row">
     <label class="control-label required" for="@Html.FieldIdFor(m => m.ContentTypeName)">@T("Primary Entity")</label>
     <div class="controls errortips">
         <select id="@Html.FieldIdFor(m => m.ContentTypeName)" @disabled name="@Html.FieldNameFor(m => m.ContentTypeName)" class="span12" required="">
-            @foreach (var item in Model.ContentTypeList) {
-                @Html.SelectOption(item.Value, item.Selected, item.Text)
+            @foreach (var item in Model.Entities) {
+                @Html.SelectOption(item.Name, item.Selected, item.Name)
             }
         </select>
+    </div>
+</section>
+<section class="control-group data-row">
+    <label class="control-label required" for="@Html.FieldIdFor(m => m.DisplayFieldName)">@T("Display Field")</label>
+    <div class="controls errortips">
+        <select id="@Html.FieldIdFor(m => m.DisplayFieldName)" name="@Html.FieldNameFor(m => m.DisplayFieldName)" class="span12" required="">
+        </select>
+        <span class="help-block">@T("Only can select text type field.")</span>
     </div>
 </section>
 <section class="control-group data-row">
@@ -47,3 +56,36 @@
     @Html.HiddenFor(m => m.ContentTypeName)
     @Html.HiddenFor(model => model.RelationshipName)
 }
+
+<script>
+    (function() {
+        var entity = $('#@Html.FieldIdFor(m => m.ContentTypeName)'),
+            field = $('#@Html.FieldIdFor(m => m.DisplayFieldName)'),
+            entities = @Html.Raw(JsonConvert.SerializeObject(Model.Entities));
+
+        var setFields = function() {
+            var selectedEntity = entity.val(),
+                fields;
+
+            field.empty();
+            $.each(entities, function() {
+                if (this.Name == selectedEntity) {
+                    fields = this.Fields;
+                    return false;
+                }
+            });
+            if (fields) {
+                $.each(fields, function() {
+                    field.append('<option value="' + this + '">' + this + '</option>');
+                });
+            }
+        };
+
+        entity.change(function() {
+            setFields();
+        });
+
+        setFields();
+        field.val('@Model.DisplayFieldName');
+    })();
+</script>

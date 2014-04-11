@@ -409,6 +409,7 @@
     <Compile Include="Relationships\Services\IRelationshipService.cs" />
     <Compile Include="Relationships\Services\RelationshipService.cs" />
     <Compile Include="Relationships\Settings\ReferenceFieldSettings.cs" />
+    <Compile Include="Relationships\ViewModels\EntityViewModel.cs" />
     <Compile Include="Relationships\ViewModels\EditRelationshipViewModel.cs" />
     <Compile Include="Relationships\ViewModels\RelatedEntityViewModel.cs" />
     <Compile Include="Settings\Descriptor\Records\ShellDescriptorRecord.cs" />
@@ -913,9 +914,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Projections\Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Relationships\Views\DefinitionTemplates\ReferenceFieldEntityRecord.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Relationships\Views\DefinitionTemplates\ReferenceFieldSettings.cshtml" />

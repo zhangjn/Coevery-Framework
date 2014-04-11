@@ -376,7 +376,6 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
                 return;
             }
             string category = typeName.ToPartName() + "ContentFields";
-            const string settingName = "TextFieldSettings.IsDisplayField";
             var allFields = _contentDefinitionManager.GetPartDefinition(typeName.ToPartName()).Fields.ToList();
             foreach (var property in properties) {
                 var field = allFields.FirstOrDefault(c => c.Name == property);
@@ -388,7 +387,6 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
                     Type = string.Format("{0}.{1}.", typeName.ToPartName(), property),
                     Description = field.DisplayName,
                     Position = layoutRecord.Properties.Count,
-                    LinkToContent = field.Settings.ContainsKey(settingName) && bool.Parse(field.Settings[settingName])
                 };
                 layoutRecord.Properties.Add(propertyRecord);
             }

@@ -31,7 +31,6 @@ namespace Coevery.Core.Fields.Settings {
             var model = settingsDictionary.TryGetModel<TextFieldSettings>();
             if (model != null) {
                 UpdateSettings(model, builder, "TextFieldSettings");
-                builder.WithSetting("TextFieldSettings.IsDisplayField", model.IsDisplayField.ToString());
                 builder.WithSetting("TextFieldSettings.MaxLength", model.MaxLength.ToString());
                 builder.WithSetting("TextFieldSettings.PlaceHolderText", model.PlaceHolderText);
                 builder.WithSetting("TextFieldSettings.IsUnique", model.IsUnique.ToString());
