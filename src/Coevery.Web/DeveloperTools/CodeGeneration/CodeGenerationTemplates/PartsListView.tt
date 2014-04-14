@@ -34,6 +34,14 @@
                 order: 'sortOrder'
             }
         });
+<#
+	var projectionService = Services.WorkContext.Resolve<IProjectionService>();
+	var listViewPart = Services.ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage").Where(v => v.IsDefault && v.ItemContentType == EntityName).List().FirstOrDefault();
+	var viewModel = projectionService.GetProjectionViewModel(listViewPart.Id);
+    int pageSize = string.IsNullOrEmpty(viewModel.State["PageRowCount"]) ? 10 : int.Parse(viewModel.State["PageRowCount"]);
+	string sortedBy = string.IsNullOrEmpty(viewModel.State["SortedBy"]) ? string.Empty : viewModel.State["SortedBy"];
+    string sortOrder = string.IsNullOrEmpty(viewModel.State["SortMode"]) ? "asc" : viewModel.State["SortMode"];
+#>
         $('#<#=EntityName.ToLower()#>Grid').jqGrid({
             url: '@Url.Action("List")',
             datatype: 'json',
@@ -46,14 +54,16 @@
                 }
             },
             colModel: <#=GetGridColumnJSONString()#>,
-            rowNum: 10,
-            rowList: [10, 20, 30],
+            rowNum: <#=pageSize#>,
+            rowList: [<#=pageSize#>, <#=pageSize*2#>, <#=pageSize*3#>],
             pager: '#<#=EntityName.ToLower()#>GridPager',
             viewrecords: true,
             height: '100%',
             pagerpos: 'right',
             recordpos: 'left',
             sortable: true,
+			sortname: '<#=sortedBy#>', 
+			sortorder: '<#=sortOrder#>',
             headertitles: true,
             multiselect: true,
             multiboxonly: true,

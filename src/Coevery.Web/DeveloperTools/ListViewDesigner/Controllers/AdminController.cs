@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Coevery.ContentManagement.MetaData;
 using Coevery.Core.Common.Extensions;
 using Coevery.Core.Forms.Services;
 using Coevery.Core.Projections.Services;
@@ -15,20 +16,20 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Controllers {
     public class AdminController : Controller {
         private readonly IProjectionService _projectionService;
         private readonly IContentMetadataService _contentMetadataService;
-        private readonly IContentDefinitionExtension _contentDefinitionExtension;
         private readonly IProjectionManager _projectionManager;
         private readonly IFormManager _formManager;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
 
         public AdminController(
             ICoeveryServices services,
             IContentMetadataService contentMetadataService,
-            IContentDefinitionExtension contentDefinitionExtension,
             IFormManager formManager,
             IProjectionManager projectionManager,
-            IProjectionService projectionService) {
-            _contentDefinitionExtension = contentDefinitionExtension;
+            IProjectionService projectionService, 
+            IContentDefinitionManager contentDefinitionManager) {
             _contentMetadataService = contentMetadataService;
             _projectionService = projectionService;
+            _contentDefinitionManager = contentDefinitionManager;
             _projectionManager = projectionManager;
             _formManager = formManager;
             Services = services;
@@ -47,11 +48,7 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Controllers {
             return View(model);
         }
 
-        public ActionResult Create(string id, string category, string type) {
-            var entityName = _contentDefinitionExtension.GetEntityNameFromCollectionName(id);
-            if (entityName != null) {
-                id = entityName;
-            }
+        public ActionResult Create(string id, string category, string type) { 
             if (!_contentMetadataService.CheckEntityPublished(id)) {
                 return Content(T("The \"{0}\" hasn't been published!", id).Text);
             }
@@ -68,7 +65,10 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Controllers {
                 return HttpNotFound();
             }
             viewModel.Form = _formManager.Build(viewModel.Layout.Form) ?? Services.New.EmptyForm();
-            viewModel.Form.Fields = viewModel.Fields;
+            viewModel.Form.Fields = _contentDefinitionManager.GetPartDefinition(id.ToPartName()).Fields.Select(x => new PicklistItemViewModel {
+                Value = x.Name,
+                Text = x.DisplayName
+            });
             return View("Edit", viewModel);
         }
 

@@ -16,7 +16,6 @@
     @using (Html.BeginFormAntiForgeryPost(Url.Action("Edit", new {Id = Model.Id, ReturnUrl = Request.QueryString["ReturnUrl"]}),
         FormMethod.Post,
         new {@class = "form-horizontal", @name = "myForm", @ng_submit = "save()"})) {
-
         <div class="row-fluid">
             <div class=" form-container edit-mode">
                 <div class="form-horizontal no-border">

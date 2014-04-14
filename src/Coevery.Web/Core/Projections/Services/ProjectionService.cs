@@ -65,8 +65,6 @@ namespace Coevery.Core.Projections.Services {
             //Get Projection&QueryPart
             var projectionItem = _contentManager.Get(id, VersionOptions.Latest);
             var projectionPart = projectionItem.As<ProjectionPart>();
-            var queryId = projectionPart.Record.QueryPartRecord.Id;
-            var queryPart = _contentManager.Get<QueryPart>(queryId, VersionOptions.Latest);
             var layout = projectionPart.Record.LayoutRecord;
             var listViewPart = projectionItem.As<ListViewPart>();
             viewModel.Id = id;
@@ -85,7 +83,10 @@ namespace Coevery.Core.Projections.Services {
             }
             viewModel.Form = _formManager.Build(viewModel.Layout.Form) ?? Services.New.EmptyForm();
             viewModel.State = FormParametersHelper.FromString(layout.State);
-            viewModel.Form.Fields = viewModel.Fields;
+            viewModel.Form.Fields = _contentDefinitionManager.GetPartDefinition(listViewPart.ItemContentType.ToPartName()).Fields.Select(x => new PicklistItemViewModel {
+                Value = x.Name,
+                Text = x.DisplayName
+            });
             viewModel.Form.State = MergeDictionary(new[] {(Dictionary<string, string>)viewModel.Form.State, viewModel.State});
 
             return viewModel;
