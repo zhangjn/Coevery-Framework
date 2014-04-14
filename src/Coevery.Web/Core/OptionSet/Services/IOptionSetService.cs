@@ -15,7 +15,6 @@ namespace Coevery.Core.OptionSet.Services {
         OptionItemPart GetOptionItemByName(int optionSetId, string name);
         void DeleteOptionItem(OptionItemPart optionItemPart);
 
-        string GenerateTermTypeName(string taxonomyName);
         OptionItemPart NewOptionItem(OptionSetPart taxonomy);
         bool CreateOptionItem(OptionItemPart termPart);
         bool EditOptionItem(OptionItemEntry newItem);

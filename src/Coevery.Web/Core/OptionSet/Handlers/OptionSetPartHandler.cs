@@ -10,8 +10,7 @@ namespace Coevery.Core.OptionSet.Handlers {
     public class OptionSetPartHandler : ContentHandler {
         public OptionSetPartHandler(
             IRepository<OptionSetPartRecord> repository, 
-            IOptionSetService optionSetService,
-            IContentDefinitionManager contentDefinitionManager) {
+            IOptionSetService optionSetService) {
 
             Filters.Add(StorageFilter.For(repository));
      
