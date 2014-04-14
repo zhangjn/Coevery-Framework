@@ -8,35 +8,19 @@ using <#=Namespace#>.Models;
 namespace <#=Namespace#>.Drivers {
     public class <#=EntityName#>PartDriver : ContentPartDriver<<#=EntityName#>Part> {
         protected override DriverResult Display(<#=EntityName#>Part part, string displayType, dynamic shapeHelper) {
-            if (displayType == "List") {
-                return Combined(
-                    ContentShape("Parts_ListView",
-                        () => shapeHelper.Parts_ListView())
-                    );
-            }
-
-			if (displayType == "Detail") {
-                return Combined(
-                    ContentShape("Parts_DetailView",
-                        () => shapeHelper.Parts_DetailView())
-                    );
-            }
-            return null;
+			return Combined(
+                ContentShape("Parts_ListView",
+                    () => shapeHelper.Parts_ListView()),
+                ContentShape("Parts_DetailView",
+                    () => shapeHelper.Parts_DetailView())
+                );
         }
 
         protected override DriverResult Editor(<#=EntityName#>Part part, string displayType, dynamic shapeHelper) {
-            if (displayType == "Create") {
-                return Combined(
-                    ContentShape("Parts_CreateView", () => shapeHelper.Parts_CreateView())
-                    );
-            }
-
-            if (displayType == "Edit") {
-                return Combined(
-                    ContentShape("Parts_EditView", () => shapeHelper.Parts_EditView())
-                    );
-            }
-            return null;
+            return Combined(
+                ContentShape("Parts_CreateView", () => shapeHelper.Parts_CreateView()),
+                ContentShape("Parts_EditView", () => shapeHelper.Parts_EditView())
+                );
         }
 
         protected override DriverResult Editor(<#=EntityName#>Part part, IUpdateModel updater, string displayType, dynamic shapeHelper) {

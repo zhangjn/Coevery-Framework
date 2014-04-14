@@ -31,7 +31,7 @@ namespace Coevery.Core.Fields {
         public void DisplayField(ContentPart part, string fieldName, dynamic Display, TextWriter Output) {
             var shapeFactory = _shapeFactory.Value;
 
-            dynamic itemShape = GetContentShape(shapeFactory, part);
+            dynamic itemShape = CreateContentShape(shapeFactory, part);
             var context = new BuildDisplayContext(itemShape, part, "", string.Empty, shapeFactory);
             context.FindPlacement = (partShapeType, differentiator, defaultLocation) => new PlacementInfo {Location = "Content"};
 
@@ -52,7 +52,7 @@ namespace Coevery.Core.Fields {
         public void DisplayFieldEditor(ContentPart part, string fieldName, dynamic Display, TextWriter Output) {
             var shapeFactory = _shapeFactory.Value;
 
-            dynamic itemShape = GetContentShape(shapeFactory, part);
+            dynamic itemShape = CreateContentShape(shapeFactory, part);
             var context = new BuildEditorContext(itemShape, part, "", string.Empty, shapeFactory);
             context.FindPlacement = (partShapeType, differentiator, defaultLocation) => new PlacementInfo {Location = "Content"};
 
@@ -69,7 +69,7 @@ namespace Coevery.Core.Fields {
             DisplayFieldShape(part, fieldName, context, buildAction, Display, Output);
         }
 
-        private dynamic GetContentShape(IShapeFactory shapeFactory, ContentPart part) {
+        private dynamic CreateContentShape(IShapeFactory shapeFactory, ContentPart part) {
             dynamic shape = shapeFactory.Create("Content", Arguments.Empty(), () => new ZoneHolding(() => shapeFactory.Create("ContentZone", Arguments.Empty())));
             shape.ContentItem = part.ContentItem;
             return shape;

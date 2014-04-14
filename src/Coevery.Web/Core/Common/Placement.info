@@ -1,5 +1,14 @@
 ﻿<Placement>
-  <Place Parts_CreateView="Content:1" />
-  <Place Parts_EditView="Content:1" />
-  <Place Parts_DetailView="Content:1" />
+  <Match DisplayType="List">
+    <Place Parts_ListView="Content"/>
+  </Match>
+  <Match DisplayType="Detail">
+    <Place Parts_DetailView="Content"/>
+  </Match>
+  <Match DisplayType="Create">
+    <Place Parts_CreateView="Content"/>
+  </Match>
+  <Match DisplayType="Edit">
+    <Place Parts_EditView="Content"/>
+  </Match>
 </Placement>
