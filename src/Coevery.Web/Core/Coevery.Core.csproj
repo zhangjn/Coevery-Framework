@@ -170,6 +170,7 @@
     <Compile Include="Forms\Shapes\PropertyItemsBehavior.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Projections\Controllers\ProjectionController.cs" />
     <Compile Include="Projections\PropertyEditors\IContentFieldFormatter.cs" />
     <Compile Include="Projections\Providers\Properties\IContentFieldValueProvider.cs" />
     <Compile Include="Fields\Projections\NumericFieldFormatter.cs" />
@@ -225,11 +226,8 @@
     <Compile Include="OptionSet\Settings\OptionSetFieldSettings.cs" />
     <Compile Include="OptionSet\Shapes.cs" />
     <Compile Include="OptionSet\ViewModels\OptionSetFieldViewModel.cs" />
-    <Compile Include="Projections\Controllers\EntityController.cs" />
-    <Compile Include="Projections\Controllers\FilterController.cs" />
     <Compile Include="Projections\Controllers\GridColumnController.cs" />
     <Compile Include="Projections\Controllers\OptionSetController.cs" />
-    <Compile Include="Projections\Controllers\ProjectionController.cs" />
     <Compile Include="Projections\Controllers\ReferenceController.cs" />
     <Compile Include="Projections\Descriptors\Filter\DescribeFilterContext.cs" />
     <Compile Include="Projections\Descriptors\Filter\DescribeFilterFor.cs" />
