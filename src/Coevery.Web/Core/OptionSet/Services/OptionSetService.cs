@@ -18,21 +18,18 @@ namespace Coevery.Core.OptionSet.Services {
         private readonly IContentManager _contentManager;
         private readonly INotifier _notifier;
         private readonly IAuthorizationService _authorizationService;
-        private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly ICoeveryServices _services;
 
         public OptionSetService(
             IRepository<OptionItemContentItem> optionItemContentItemRepository,
             IContentManager contentManager,
             INotifier notifier,
-            IContentDefinitionManager contentDefinitionManager,
             IAuthorizationService authorizationService,
             ICoeveryServices services) {
             _optionItemContentItemRepository = optionItemContentItemRepository;
             _contentManager = contentManager;
             _notifier = notifier;
             _authorizationService = authorizationService;
-            _contentDefinitionManager = contentDefinitionManager;
             _services = services;
 
             Logger = NullLogger.Instance;
@@ -70,16 +67,6 @@ namespace Coevery.Core.OptionSet.Services {
             foreach (var term in GetOptionItems(taxonomy.Id)) {
                 DeleteOptionItem(term);
             }
-        }
-
-        public string GenerateTermTypeName(string taxonomyName) {
-            var name = taxonomyName.ToSafeName() + "Term";
-            int i = 2;
-            while (_contentDefinitionManager.GetTypeDefinition(name) != null) {
-                name = taxonomyName.ToSafeName() + i++;
-            }
-
-            return name;
         }
 
         public OptionItemPart NewOptionItem(OptionSetPart optionSet) {
