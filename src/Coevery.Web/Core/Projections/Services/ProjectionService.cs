@@ -72,7 +72,6 @@ namespace Coevery.Core.Projections.Services {
             viewModel.Id = id;
             viewModel.ItemContentType = listViewPart.ItemContentType.ToPartName();
             viewModel.DisplayName = listViewPart.Name;
-            viewModel.VisableTo = listViewPart.VisableTo;
             viewModel.IsDefault = listViewPart.IsDefault;
             //Get AllFields
             viewModel.Fields = GetFieldDescriptors(listViewPart.ItemContentType, id);
@@ -160,7 +159,6 @@ namespace Coevery.Core.Projections.Services {
                 queryPart = _contentManager.Get<QueryPart>(queryId, VersionOptions.Latest);
             }
 
-            listViewPart.VisableTo = viewModel.VisableTo;
             listViewPart.Name = viewModel.DisplayName;
             listViewPart.IsDefault = viewModel.IsDefault;
             queryPart.Name = listViewPart.ItemContentType + " - " + viewModel.DisplayName;

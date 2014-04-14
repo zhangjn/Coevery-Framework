@@ -1,10 +1,6 @@
-﻿@model Coevery.Core.Projections.ViewModels.ProjectionEditViewModel
+﻿@using Coevery.Core.Common.Extensions
+@model Coevery.Core.Projections.ViewModels.ProjectionEditViewModel
 
-@{
-    var visableTo = new List<SelectListItem>();
-    visableTo.Add(new SelectListItem { Selected = Model.VisableTo == "All", Text = "All" });
-    visableTo.Add(new SelectListItem { Selected = Model.VisableTo == "Me", Text = "Me" });
-}
 <header id="page-title">
     <h1 class="pull-left">View Detail <span>show view detail information</span></h1>
 </header>
@@ -33,7 +29,7 @@
                             <div class="span6">
                                 <label class="control-label">@T("Name")</label>
                                 <div class="controls">
-                                    @Html.TextBoxFor(m => m.ItemContentType, new {@class = "span12", @disabled = "disabled"})
+                                    <input type="text" value="@Model.ItemContentType.RemovePartSuffix()" class="span12" disabled="disabled" />
                                     @Html.HiddenFor(m => m.ItemContentType)
                                     @Html.HiddenFor(m => m.IsDefault)
                                 </div>
@@ -42,15 +38,6 @@
                                 <label class="control-label required">@T("Display Name")</label>
                                 <div class="controls errortips">
                                     @Html.TextBoxFor(m => m.DisplayName, new {@class = "span12", required = ""})
-                                </div>
-                            </div>
-                        </section>
-
-                        <section class="data-row control-group">
-                            <div class="span6">
-                                <label class="control-label">@T("Visable To")</label>
-                                <div class="controls">
-                                    @Html.DropDownListFor(m => m.VisableTo, visableTo, string.Empty, new {@class = "span12", @id = "visableto"})
                                 </div>
                             </div>
                         </section>

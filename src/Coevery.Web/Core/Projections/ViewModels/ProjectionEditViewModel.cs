@@ -14,7 +14,6 @@ namespace Coevery.Core.Projections.ViewModels {
         public string DisplayName { get; set; }
         public IEnumerable<PicklistItemViewModel> Fields { get; set; }
         public IEnumerable<PropertyDescriptorViewModel> PickedFields { get; set; }
-        public string VisableTo { get; set; }
         public bool IsDefault { get; set; }
 
         public int LayoutId { get; set; }

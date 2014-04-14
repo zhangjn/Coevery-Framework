@@ -7,11 +7,6 @@ namespace Coevery.Core.Projections.Models {
             set { Record.Name = value; }
         }
 
-        public string VisableTo {
-            get { return Record.VisableTo; }
-            set { Record.VisableTo = value; }
-        }
-
         public string ItemContentType {
             get { return Record.ItemContentType; }
             set { Record.ItemContentType = value; }

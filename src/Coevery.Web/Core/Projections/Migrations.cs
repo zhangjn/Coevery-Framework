@@ -272,7 +272,6 @@ namespace Coevery.Core.Projections {
                     .ContentPartRecord()
                     .Column<string>("Name", column => column.WithLength(1024))
                     .Column<string>("ItemContentType")
-                    .Column<string>("VisableTo")
                 );
 
             ContentDefinitionManager.AlterTypeDefinition("ListViewPage",
