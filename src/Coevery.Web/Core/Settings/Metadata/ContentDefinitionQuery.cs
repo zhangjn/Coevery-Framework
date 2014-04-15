@@ -7,6 +7,7 @@ using Coevery.Caching;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.MetaData.Services;
+using Coevery.ContentManagement.Records;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data;
 using Coevery.Logging;
@@ -19,6 +20,7 @@ namespace Coevery.Core.Settings.Metadata {
         private readonly IRepository<ContentTypeDefinitionRecord> _typeDefinitionRepository;
         private readonly IRepository<ContentPartDefinitionRecord> _partDefinitionRepository;
         private readonly IRepository<ContentFieldDefinitionRecord> _fieldDefinitionRepository;
+        private readonly IRepository<ContentItemVersionRecord> _contentItemVersionRepository;
         private readonly ISettingsFormatter _settingsFormatter;
 
         public ContentDefinitionQuery(
@@ -83,10 +85,11 @@ namespace Coevery.Core.Settings.Metadata {
                 MonitorContentDefinitionSignal(ctx);
 
                 AcquireContentPartDefinitions();
-
+                
                 var contentTypeDefinitionRecords = _typeDefinitionRepository.Table
                     .FetchMany(x => x.ContentTypePartDefinitionRecords)
                     .ThenFetch(x => x.ContentPartDefinitionRecord)
+                    .Where(t=>t.ContentItemVersionRecord.Published)
                     .Select(Build);
 
                 return contentTypeDefinitionRecords.ToDictionary(x => x.Name, y => y, StringComparer.OrdinalIgnoreCase);
@@ -100,6 +103,7 @@ namespace Coevery.Core.Settings.Metadata {
                 var contentPartDefinitionRecords = _partDefinitionRepository.Table
                     .FetchMany(x => x.ContentPartFieldDefinitionRecords)
                     .ThenFetch(x => x.ContentFieldDefinitionRecord)
+                    .Where(x=>x.ContentItemVersionRecord.Published)
                     .Select(Build);
 
                 return contentPartDefinitionRecords.ToDictionary(x => x.Name, y => y, StringComparer.OrdinalIgnoreCase);
