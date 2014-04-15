@@ -40,12 +40,13 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Controllers {
         public Localizer T { get; set; }
 
         public ActionResult List(string id) {
-            var model = new EntityViewListModel {
-                Layouts = _projectionManager.DescribeLayouts()
-                    .SelectMany(type => type.Descriptors)
-                    .Where(type => type.Category == "Grids")
-            };
-            return View(model);
+            //var model = new EntityViewListModel {
+            //    Layouts = _projectionManager.DescribeLayouts()
+            //        .SelectMany(type => type.Descriptors)
+            //        .Where(type => type.Category == "Grids")
+            //};
+            //return View(model);
+            return View();
         }
 
         public ActionResult Create(string id, string category, string type) { 
