@@ -333,10 +333,10 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
 
             var primaryPart = _contentDefinitionManager.GetPartDefinition(relationshipRecord.Name + relationshipRecord.PrimaryEntity.Name.ToPartName());
             primaryPart.Settings["DisplayName"] = manyToMany.RelatedListLabel;
-            _contentDefinitionManager.StorePartDefinition(primaryPart);
+            _contentDefinitionManager.StorePartDefinition(primaryPart, VersionOptions.DraftRequired);
             var relatedPart = _contentDefinitionManager.GetPartDefinition(relationshipRecord.Name + relationshipRecord.RelatedEntity.Name.ToPartName());
             relatedPart.Settings["DisplayName"] = manyToMany.PrimaryListLabel;
-            _contentDefinitionManager.StorePartDefinition(relatedPart);
+            _contentDefinitionManager.StorePartDefinition(relatedPart, VersionOptions.DraftRequired);
 
             _manyToManyRepository.Update(manyToManyRecord);
 

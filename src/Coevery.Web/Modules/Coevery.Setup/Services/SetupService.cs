@@ -125,6 +125,7 @@ namespace Coevery.Setup.Services {
                                                                .Column<int>("Version"));
 
                         var dataMigrationManager = environment.Resolve<IDataMigrationManager>();
+                        dataMigrationManager.Update("Coevery.Framework");
                         dataMigrationManager.Update("Settings");
 
                         foreach (var feature in context.EnabledFeatures) {

@@ -154,6 +154,7 @@
     <Compile Include="ContentManagement\FieldStorage\PartPropertyStorage\PartPropertyFieldStorage.cs" />
     <Compile Include="ContentManagement\FieldStorage\PartPropertyStorage\PartPropertyStorageProvider.cs" />
     <Compile Include="ContentManagement\InfosetHelper.cs" />
+    <Compile Include="ContentManagement\MetaData\IContentDefinitionQuery.cs" />
     <Compile Include="ContentManagement\XmlHelper.cs" />
     <Compile Include="ContentManagement\Handlers\TemplateFilterForPart.cs" />
     <Compile Include="ContentManagement\Handlers\UpdateContentContext.cs" />

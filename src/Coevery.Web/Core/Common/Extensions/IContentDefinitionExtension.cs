@@ -22,20 +22,20 @@ namespace Coevery.Core.Common.Extensions {
 
     public class ContentDefinitionExtension : IContentDefinitionExtension {
         private const string ContentDefinitionSignal = "ContentDefinitionManager";
-        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IContentDefinitionQuery _contentDefinitionQuery;
         private readonly IRepository<EntityMetadataRecord> _entityMetadataRepository;
         private readonly ICacheManager _cacheManager;
         private readonly ISignals _signals;
 
         public ContentDefinitionExtension(
-            IContentDefinitionManager contentDefinitionManager,
             IRepository<EntityMetadataRecord> entityMetadataRepository,
             ICacheManager cacheManager,
-            ISignals signals) {
-            _contentDefinitionManager = contentDefinitionManager;
+            ISignals signals, 
+            IContentDefinitionQuery contentDefinitionQuery) {
             _entityMetadataRepository = entityMetadataRepository;
             _cacheManager = cacheManager;
             _signals = signals;
+            _contentDefinitionQuery = contentDefinitionQuery;
         }
 
         public IEnumerable<ContentTypeDefinition> ListUserDefinedTypeDefinitions() {
@@ -47,7 +47,7 @@ namespace Coevery.Core.Common.Extensions {
                     return Enumerable.Empty<ContentTypeDefinition>();
                 }
 
-                return (from type in _contentDefinitionManager.ListTypeDefinitions()
+                return (from type in _contentDefinitionQuery.ListTypeDefinitions()
                     where metaEntities.Contains(type.Name)
                     select type).ToList();
             });
@@ -62,14 +62,14 @@ namespace Coevery.Core.Common.Extensions {
                     return Enumerable.Empty<ContentPartDefinition>();
                 }
 
-                return (from part in _contentDefinitionManager.ListPartDefinitions()
+                return (from part in _contentDefinitionQuery.ListPartDefinitions()
                     where metaEntities.Contains(part.Name.RemovePartSuffix())
                     select part).ToList();
             });
         }
 
         public EntityNames GetEntityNames(string entityName) {
-            var entity = _contentDefinitionManager.GetTypeDefinition(entityName);
+            var entity = _contentDefinitionQuery.GetTypeDefinition(entityName);
             if (entity == null) {
                 return null;
             }
@@ -84,7 +84,7 @@ namespace Coevery.Core.Common.Extensions {
         }
 
         public string GetEntityNameFromCollectionName(string collectionname, bool isDisplayName) {
-            var entity = _contentDefinitionManager.ListTypeDefinitions().FirstOrDefault(type => {
+            var entity = _contentDefinitionQuery.ListTypeDefinitions().FirstOrDefault(type => {
                 var setting = type.Settings;
                 if (isDisplayName && setting.ContainsKey("CollectionDisplayName")) {
                     return setting["CollectionDisplayName"] == collectionname;

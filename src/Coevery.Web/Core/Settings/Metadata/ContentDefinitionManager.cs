@@ -3,57 +3,50 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using Coevery.Caching;
+using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.MetaData.Services;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data;
-using Coevery.Logging;
 
 namespace Coevery.Core.Settings.Metadata {
     public class ContentDefinitionManager : Component, IContentDefinitionManager {
-        private const string ContentDefinitionSignal = "ContentDefinitionManager";
-        private readonly ICacheManager _cacheManager;
         private readonly ISignals _signals;
-        private readonly IRepository<ContentTypeDefinitionRecord> _typeDefinitionRepository;
-        private readonly IRepository<ContentPartDefinitionRecord> _partDefinitionRepository;
+        //private readonly IRepository<ContentTypeDefinitionRecord> _typeDefinitionRepository;
+        //private readonly IRepository<ContentPartDefinitionRecord> _partDefinitionRepository;
         private readonly IRepository<ContentFieldDefinitionRecord> _fieldDefinitionRepository;
         private readonly ISettingsFormatter _settingsFormatter;
+        private readonly IContentDefinitionQuery _contentDefinitionQuery;
+        private readonly IContentManager _contentManager;
 
         public ContentDefinitionManager(
-            ICacheManager cacheManager,
             ISignals signals,
-            IRepository<ContentTypeDefinitionRecord> typeDefinitionRepository,
-            IRepository<ContentPartDefinitionRecord> partDefinitionRepository,
+            //IRepository<ContentTypeDefinitionRecord> typeDefinitionRepository,
+            //IRepository<ContentPartDefinitionRecord> partDefinitionRepository,
             IRepository<ContentFieldDefinitionRecord> fieldDefinitionRepository,
-            ISettingsFormatter settingsFormatter) {
-            _cacheManager = cacheManager;
+            ISettingsFormatter settingsFormatter, 
+            IContentDefinitionQuery contentDefinitionQuery, 
+            IContentManager contentManager) {
             _signals = signals;
-            _typeDefinitionRepository = typeDefinitionRepository;
-            _partDefinitionRepository = partDefinitionRepository;
+            //_typeDefinitionRepository = typeDefinitionRepository;
+            //_partDefinitionRepository = partDefinitionRepository;
             _fieldDefinitionRepository = fieldDefinitionRepository;
             _settingsFormatter = settingsFormatter;
+            _contentDefinitionQuery = contentDefinitionQuery;
+            _contentManager = contentManager;
         }
 
         public ContentTypeDefinition GetTypeDefinition(string name) {
-            if (String.IsNullOrWhiteSpace(name)) {
-                return null;
-            }
-
-            var contentTypeDefinitions = AcquireContentTypeDefinitions();
-            if (contentTypeDefinitions.ContainsKey(name)) {
-                return contentTypeDefinitions[name];
-            }
-
-            return null;
+            return _contentDefinitionQuery.GetTypeDefinition(name);
         }
 
         public void DeleteTypeDefinition(string name) {
-            var record = _typeDefinitionRepository.Table.SingleOrDefault(x => x.Name == name);
+            var part = _contentManager.Query<ContentTypeDefinitionPart, ContentTypeDefinitionRecord>()
+                .Where(x => x.Name == name).List().SingleOrDefault();
 
-            // deletes the content type record associated
-            if (record != null) {
-                _typeDefinitionRepository.Delete(record);
+            if (part != null) {
+                _contentManager.Remove(part.ContentItem);
             }
 
             // invalidates the cache
@@ -62,17 +55,17 @@ namespace Coevery.Core.Settings.Metadata {
 
         public void DeletePartDefinition(string name) {
             // remove parts from current types
-            var typesWithPart = ListTypeDefinitions().Where(typeDefinition => typeDefinition.Parts.Any(part => part.PartDefinition.Name == name));
+            var typesWithPart = _contentDefinitionQuery.ListTypeDefinitions().Where(typeDefinition => typeDefinition.Parts.Any(part => part.PartDefinition.Name == name));
 
             foreach (var typeDefinition in typesWithPart) {
                 this.AlterTypeDefinition(typeDefinition.Name, builder => builder.RemovePart(name));
             }
 
-            // delete part
-            var record = _partDefinitionRepository.Table.SingleOrDefault(x => x.Name == name);
+            var partRecord = _contentManager.Query<ContentPartDefinitionPart, ContentPartDefinitionRecord>()
+                .Where(x => x.Name == name).List().SingleOrDefault();
 
-            if (record != null) {
-                _partDefinitionRepository.Delete(record);
+            if (partRecord != null) {
+                _contentManager.Remove(partRecord.ContentItem);
             }
 
             // invalidates the cache
@@ -81,100 +74,47 @@ namespace Coevery.Core.Settings.Metadata {
         }
 
         public ContentPartDefinition GetPartDefinition(string name) {
-            if (String.IsNullOrWhiteSpace(name)) {
-                return null;
-            }
-
-            var contentPartDefinitions = AcquireContentPartDefinitions();
-            if (contentPartDefinitions.ContainsKey(name)) {
-                return contentPartDefinitions[name];
-            }
-
-            return null;
+            return _contentDefinitionQuery.GetPartDefinition(name);
         }
 
-        public IEnumerable<ContentTypeDefinition> ListTypeDefinitions() {
-            return AcquireContentTypeDefinitions().Values;
-        }
-
-        public IEnumerable<ContentPartDefinition> ListPartDefinitions() {
-            return AcquireContentPartDefinitions().Values;
-        }
-
-        public IEnumerable<ContentFieldDefinition> ListFieldDefinitions() {
-            return AcquireContentFieldDefinitions().Values;
-        }
-
-        public void StoreTypeDefinition(ContentTypeDefinition contentTypeDefinition) {
-            Apply(contentTypeDefinition, Acquire(contentTypeDefinition));
+        public void StoreTypeDefinition(ContentTypeDefinition contentTypeDefinition, VersionOptions options) {
+            Apply(contentTypeDefinition, Acquire(contentTypeDefinition, options), options);
             TriggerContentDefinitionSignal();
         }
 
-        public void StorePartDefinition(ContentPartDefinition contentPartDefinition) {
-            Apply(contentPartDefinition, Acquire(contentPartDefinition));
+        public void StorePartDefinition(ContentPartDefinition contentPartDefinition, VersionOptions options) {
+            Apply(contentPartDefinition, Acquire(contentPartDefinition, options));
             TriggerContentDefinitionSignal();
-        }
-
-        private void MonitorContentDefinitionSignal(AcquireContext<string> ctx) {
-            ctx.Monitor(_signals.When(ContentDefinitionSignal));
         }
 
         private void TriggerContentDefinitionSignal() {
-            _signals.Trigger(ContentDefinitionSignal);
+            _signals.Trigger(ContentDefinitionQuery.ContentDefinitionSignal);
         }
 
-        private IDictionary<string, ContentTypeDefinition> AcquireContentTypeDefinitions() {
-            return _cacheManager.Get("ContentTypeDefinitions", ctx => {
-                MonitorContentDefinitionSignal(ctx);
-
-                AcquireContentPartDefinitions();
-
-                var contentTypeDefinitionRecords = _typeDefinitionRepository.Table
-                    .FetchMany(x => x.ContentTypePartDefinitionRecords)
-                    .ThenFetch(x => x.ContentPartDefinitionRecord)
-                    .Select(Build);
-
-                return contentTypeDefinitionRecords.ToDictionary(x => x.Name, y => y, StringComparer.OrdinalIgnoreCase);
-            });
-        }
-
-        private IDictionary<string, ContentPartDefinition> AcquireContentPartDefinitions() {
-            return _cacheManager.Get("ContentPartDefinitions", ctx => {
-                MonitorContentDefinitionSignal(ctx);
-
-                var contentPartDefinitionRecords = _partDefinitionRepository.Table
-                    .FetchMany(x => x.ContentPartFieldDefinitionRecords)
-                    .ThenFetch(x => x.ContentFieldDefinitionRecord)
-                    .Select(Build);
-
-                return contentPartDefinitionRecords.ToDictionary(x => x.Name, y => y, StringComparer.OrdinalIgnoreCase);
-            });
-        }
-
-        private IDictionary<string, ContentFieldDefinition> AcquireContentFieldDefinitions() {
-            return _cacheManager.Get("ContentFieldDefinitions", ctx => {
-                MonitorContentDefinitionSignal(ctx);
-
-                return _fieldDefinitionRepository.Table.Select(Build).ToDictionary(x => x.Name, y => y);
-            });
-        }
-
-        private ContentTypeDefinitionRecord Acquire(ContentTypeDefinition contentTypeDefinition) {
-            var result = _typeDefinitionRepository.Table.SingleOrDefault(x => x.Name == contentTypeDefinition.Name);
-            if (result == null) {
-                result = new ContentTypeDefinitionRecord { Name = contentTypeDefinition.Name, DisplayName = contentTypeDefinition.DisplayName };
-                _typeDefinitionRepository.Create(result);
+        private ContentTypeDefinitionRecord Acquire(ContentTypeDefinition contentTypeDefinition, VersionOptions options)
+        {
+            var part = _contentManager.Query<ContentTypeDefinitionPart, ContentTypeDefinitionRecord>()
+                .ForVersion(VersionOptions.DraftRequired)
+                .Where(x => x.Name == contentTypeDefinition.Name).List().SingleOrDefault();
+            if (part == null) {
+                part = _contentManager.New<ContentTypeDefinitionPart>("ContentTypeDefinition");
+                part.Record.Name = contentTypeDefinition.Name;
+                part.Record.DisplayName = contentTypeDefinition.DisplayName;
+                _contentManager.Create(part.ContentItem, options);
             }
-            return result;
+            return part.Record;
         }
 
-        private ContentPartDefinitionRecord Acquire(ContentPartDefinition contentPartDefinition) {
-            var result = _partDefinitionRepository.Table.SingleOrDefault(x => x.Name == contentPartDefinition.Name);
-            if (result == null) {
-                result = new ContentPartDefinitionRecord { Name = contentPartDefinition.Name };
-                _partDefinitionRepository.Create(result);
+        private ContentPartDefinitionRecord Acquire(ContentPartDefinition contentPartDefinition, VersionOptions options) {
+            var part = _contentManager.Query<ContentPartDefinitionPart, ContentPartDefinitionRecord>()
+                .ForVersion(VersionOptions.DraftRequired)
+                .Where(x => x.Name == contentPartDefinition.Name).List().SingleOrDefault();
+            if (part == null) {
+                part = _contentManager.New<ContentPartDefinitionPart>("ContentPartDefinition");
+                part.Record.Name = contentPartDefinition.Name;
+                _contentManager.Create(part.ContentItem, options);
             }
-            return result;
+            return part.Record;
         }
 
         private ContentFieldDefinitionRecord Acquire(ContentFieldDefinition contentFieldDefinition) {
@@ -186,7 +126,7 @@ namespace Coevery.Core.Settings.Metadata {
             return result;
         }
 
-        private void Apply(ContentTypeDefinition model, ContentTypeDefinitionRecord record) {
+        private void Apply(ContentTypeDefinition model, ContentTypeDefinitionRecord record, VersionOptions options) {
             record.DisplayName = model.DisplayName;
             record.Settings = _settingsFormatter.Map(model.Settings).ToString();
 
@@ -202,7 +142,7 @@ namespace Coevery.Core.Settings.Metadata {
                 var partName = part.PartDefinition.Name;
                 var typePartRecord = record.ContentTypePartDefinitionRecords.SingleOrDefault(r => r.ContentPartDefinitionRecord.Name == partName);
                 if (typePartRecord == null) {
-                    typePartRecord = new ContentTypePartDefinitionRecord { ContentPartDefinitionRecord = Acquire(part.PartDefinition) };
+                    typePartRecord = new ContentTypePartDefinitionRecord {ContentPartDefinitionRecord = Acquire(part.PartDefinition, options)};
                     record.ContentTypePartDefinitionRecords.Add(typePartRecord);
                 }
                 Apply(part, typePartRecord);
@@ -240,51 +180,6 @@ namespace Coevery.Core.Settings.Metadata {
 
         private void Apply(ContentPartFieldDefinition model, ContentPartFieldDefinitionRecord record) {
             record.Settings = Compose(_settingsFormatter.Map(model.Settings));
-        }
-
-        ContentTypeDefinition Build(ContentTypeDefinitionRecord source) {
-            return new ContentTypeDefinition(
-                source.Name,
-                source.DisplayName,
-                source.ContentTypePartDefinitionRecords.Select(Build),
-                _settingsFormatter.Map(Parse(source.Settings)));
-        }
-
-        ContentTypePartDefinition Build(ContentTypePartDefinitionRecord source) {
-            return new ContentTypePartDefinition(
-                Build(source.ContentPartDefinitionRecord),
-                _settingsFormatter.Map(Parse(source.Settings)));
-        }
-
-        ContentPartDefinition Build(ContentPartDefinitionRecord source) {
-            return new ContentPartDefinition(
-                source.Name,
-                source.ContentPartFieldDefinitionRecords.Select(Build),
-                _settingsFormatter.Map(Parse(source.Settings)));
-        }
-
-        ContentPartFieldDefinition Build(ContentPartFieldDefinitionRecord source) {
-            return new ContentPartFieldDefinition(
-                Build(source.ContentFieldDefinitionRecord),
-                source.Name,
-                _settingsFormatter.Map(Parse(source.Settings)));
-        }
-
-        ContentFieldDefinition Build(ContentFieldDefinitionRecord source) {
-            return new ContentFieldDefinition(source.Name);
-        }
-
-        XElement Parse(string settings) {
-            if (string.IsNullOrEmpty(settings))
-                return null;
-
-            try {
-                return XElement.Parse(settings);
-            }
-            catch (Exception ex) {
-                Logger.Error(ex, "Unable to parse settings xml");
-                return null;
-            }
         }
 
         static string Compose(XElement map) {

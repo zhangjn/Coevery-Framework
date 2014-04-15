@@ -417,6 +417,11 @@
     <Compile Include="Settings\Descriptor\Records\ShellParameterRecord.cs" />
     <Compile Include="Settings\Descriptor\ShellDescriptorManager.cs" />
     <Compile Include="Settings\Handlers\SiteSettingsPartHandler.cs" />
+    <Compile Include="Settings\Metadata\ContentDefinitionQuery.cs" />
+    <Compile Include="Settings\Metadata\Handlers\ContentPartDefinitionPartHandler.cs" />
+    <Compile Include="Settings\Metadata\Handlers\ContentTypeDefinitionPartHandler.cs" />
+    <Compile Include="Settings\Metadata\Parts\ContentPartDefinitionPart.cs" />
+    <Compile Include="Settings\Metadata\Parts\ContentTypeDefinitionPart.cs" />
     <Compile Include="Settings\Migrations.cs" />
     <Compile Include="Settings\Metadata\ContentDefinitionManager.cs" />
     <Compile Include="Settings\Metadata\Records\ContentFieldDefinitionRecord.cs" />

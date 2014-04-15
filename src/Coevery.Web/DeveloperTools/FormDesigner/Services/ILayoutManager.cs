@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.Core.Common.Extensions;
 using Coevery.DeveloperTools.FormDesigner.Models;
@@ -43,7 +44,7 @@ namespace Coevery.DeveloperTools.FormDesigner.Services {
                         }
 
                         typeDefinition.Settings["Layout"] = JsonConvert.SerializeObject(layout);
-                        _contentDefinitionManager.StoreTypeDefinition(typeDefinition);
+                        _contentDefinitionManager.StoreTypeDefinition(typeDefinition, VersionOptions.DraftRequired);
                         break;
                     }
                 }
@@ -68,7 +69,7 @@ namespace Coevery.DeveloperTools.FormDesigner.Services {
             }
             emptyColumn.Field = new Field {FieldName = fieldName};
             typeDefinition.Settings["Layout"] = JsonConvert.SerializeObject(layout);
-            _contentDefinitionManager.StoreTypeDefinition(typeDefinition);
+            _contentDefinitionManager.StoreTypeDefinition(typeDefinition, VersionOptions.DraftRequired);
         }
 
         public void GenerateDefaultLayout(string typeName) {
@@ -99,7 +100,7 @@ namespace Coevery.DeveloperTools.FormDesigner.Services {
                 fieldObject["FieldName"] = field.Name;
             }
             typeDefinition.Settings["Layout"] = JsonConvert.SerializeObject(layout);
-            _contentDefinitionManager.StoreTypeDefinition(typeDefinition);
+            _contentDefinitionManager.StoreTypeDefinition(typeDefinition, VersionOptions.DraftRequired);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 
 namespace Coevery.DeveloperTools.FormDesigner.Controllers {
@@ -28,7 +29,7 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
             else {
                 contentTypeDefinition.Settings.Add("Layout", data.Layout);
             }
-            _contentDefinitionManager.StoreTypeDefinition(contentTypeDefinition);
+            _contentDefinitionManager.StoreTypeDefinition(contentTypeDefinition, VersionOptions.DraftRequired);
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

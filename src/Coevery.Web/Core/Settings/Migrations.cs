@@ -1,8 +1,29 @@
 ﻿using Coevery.ContentManagement.MetaData;
+using Coevery.ContentManagement.Records;
+using Coevery.Core.Settings.Metadata.Records;
+using Coevery.Data;
 using Coevery.Data.Migration;
 
 namespace Coevery.Core.Settings {
     public class Migrations : DataMigrationImpl {
+        private readonly IRepository<ContentTypeDefinitionRecord> _typeDefinitionRepository;
+        private readonly IRepository<ContentPartDefinitionRecord> _partDefinitionRepository;
+        private readonly IRepository<ContentTypeRecord> _contentTypeRepository;
+        private readonly IRepository<ContentItemRecord> _contentItemRepository;
+        private readonly IRepository<ContentItemVersionRecord> _contentItemVersionRepository;
+
+        public Migrations(
+            IRepository<ContentTypeDefinitionRecord> typeDefinitionRepository,
+            IRepository<ContentPartDefinitionRecord> partDefinitionRepository,
+            IRepository<ContentTypeRecord> contentTypeRepository,
+            IRepository<ContentItemRecord> contentItemRepository,
+            IRepository<ContentItemVersionRecord> contentItemVersionRepository) {
+            _typeDefinitionRepository = typeDefinitionRepository;
+            _partDefinitionRepository = partDefinitionRepository;
+            _contentTypeRepository = contentTypeRepository;
+            _contentItemRepository = contentItemRepository;
+            _contentItemVersionRepository = contentItemVersionRepository;
+        }
 
         public int Create() {
             SchemaBuilder.CreateTable("ContentFieldDefinitionRecord", 
@@ -13,7 +34,7 @@ namespace Coevery.Core.Settings {
 
             SchemaBuilder.CreateTable("ContentPartDefinitionRecord", 
                 table => table
-                    .Column<int>("Id", column => column.PrimaryKey().Identity())
+                    .ContentPartVersionRecord()
                     .Column<string>("Name")
                     .Column<bool>("Hidden")
                     .Column<string>("Settings", column => column.Unlimited())
@@ -30,7 +51,7 @@ namespace Coevery.Core.Settings {
 
             SchemaBuilder.CreateTable("ContentTypeDefinitionRecord", 
                 table => table
-                    .Column<int>("Id", column => column.PrimaryKey().Identity())
+                    .ContentPartVersionRecord()
                     .Column<string>("Name")
                     .Column<string>("DisplayName")
                     .Column<bool>("Hidden")
