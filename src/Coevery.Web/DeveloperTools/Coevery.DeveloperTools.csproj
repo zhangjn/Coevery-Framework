@@ -265,7 +265,6 @@
     <Content Include="EntityManagement\Views\Admin\List.cshtml" />
     <Content Include="EntityManagement\Views\Admin\ChooseFieldType.cshtml" />
     <Content Include="EntityManagement\Views\Admin\ConfirmFieldInfo.cshtml" />
-    <Content Include="EntityManagement\Views\Admin\CreateEditInfo.cshtml" />
     <Content Include="EntityManagement\Views\Admin\EditFields.cshtml" />
     <Content Include="EntityManagement\Views\Admin\Fields.cshtml" />
     <Content Include="EntityManagement\Views\Admin\FillFieldInfo.cshtml" />
