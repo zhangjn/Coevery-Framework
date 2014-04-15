@@ -19,7 +19,7 @@ define(['core/app/detourService', 'DeveloperTools/ListViewDesigner/Scripts/servi
                     var jasondata = {};
                     for (var i = 0; i < pool.list.length; i++) {
                         var fieldNames = pool.list[i].Value.split(".");
-                        $scope.fieldCoumns[i] = { name: fieldNames[1], label: fieldNames[1] };
+                        $scope.fieldCoumns[i] = { name: fieldNames[1], label: pool.list[i].Text };
                         jasondata[fieldNames[1]] = "data_" + fieldNames[1];
                     }
                     if (i > 0) {
@@ -37,9 +37,14 @@ define(['core/app/detourService', 'DeveloperTools/ListViewDesigner/Scripts/servi
 
                 $scope.changePreview = function () {
                     deferred.promise.then(function () {
+                        var sortby = $('#sortby').val();
+                        var sortmode = $('#sortmode').val();
+                        sortmode || (sortmode = 'asc');
                         $scope.gridOptions = {
                             colModel: $scope.fieldCoumns,
-                            needReloading: !isInit
+                            needReloading: !isInit,
+                            sortname: sortby,
+                            sortorder: sortmode
                         };
                         isInit = false;
                         angular.extend($scope.gridOptions, $rootScope.defaultGridOptions);
