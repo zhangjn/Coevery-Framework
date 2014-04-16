@@ -81,7 +81,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
 
             foreach (var record in part.FieldMetadataRecords) {
                 AddField(part.Name, record, false);
-            }
+            }  
 
             _entityEvents.OnCreated(part.Name);
 

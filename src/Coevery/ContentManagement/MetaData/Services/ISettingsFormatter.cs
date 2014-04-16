@@ -13,11 +13,15 @@ namespace Coevery.ContentManagement.MetaData.Services {
         /// <returns>The settings dictionary.</returns>
         SettingsDictionary Map(XElement element);
 
+        SettingsDictionary Parse(string setting);
+
         /// <summary>
         /// Maps a settings dictionary to an XML element.
         /// </summary>
         /// <param name="settingsDictionary">The settings dictionary.</param>
         /// <returns>The XML element.</returns>
         XElement Map(SettingsDictionary settingsDictionary);
+
+        string Parse(SettingsDictionary settingsDictionary);
     }
 }

@@ -17,7 +17,8 @@ namespace Coevery.ContentManagement {
         /// The content item is not yet persisted!
         /// </remarks>
         /// <param name="contentType">The name of the content type</param>
-        ContentItem New(string contentType);
+        /// <param name="contentTypeDefinition">Content definition type</param>
+        ContentItem New(string contentType, ContentTypeDefinition contentTypeDefinition = null);
         
 
         /// <summary>

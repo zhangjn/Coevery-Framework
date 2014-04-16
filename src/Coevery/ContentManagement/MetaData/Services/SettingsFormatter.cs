@@ -1,13 +1,16 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 using Coevery.ContentManagement.MetaData.Models;
+using Coevery.Logging;
 
 namespace Coevery.ContentManagement.MetaData.Services {
     /// <summary>
     /// Abstraction to manage settings metadata on a content.
     /// </summary>
-    public class SettingsFormatter : ISettingsFormatter {
+    public class SettingsFormatter : Component, ISettingsFormatter
+    {
         /// <summary>
         /// Maps an XML element to a settings dictionary.
         /// </summary>
@@ -38,6 +41,32 @@ namespace Coevery.ContentManagement.MetaData.Services {
                 settingsDictionary
                     .Where(kv => kv.Value != null)
                     .Select(kv => new XAttribute(XmlConvert.EncodeLocalName(kv.Key), kv.Value)));
+        }
+
+
+        XElement TryParse(string settings)
+        {
+            if (string.IsNullOrEmpty(settings))
+                return null;
+
+            try
+            {
+                return XElement.Parse(settings);
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex, "Unable to parse settings xml");
+                return null;
+            }
+        }
+
+
+        public SettingsDictionary Parse(string setting) {
+            return Map(TryParse(setting));
+        }
+
+        public string Parse(SettingsDictionary settingsDictionary) {
+            return Map(settingsDictionary).ToString();
         }
     }
 }

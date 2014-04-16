@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using Coevery.ContentManagement.MetaData;
+using Coevery.ContentManagement.MetaData.Models;
 using Coevery.Core.Common.Extensions;
 using Coevery.DeveloperTools.FormDesigner.Models;
 using Coevery.Localization;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using Column = Coevery.DeveloperTools.FormDesigner.Models.Column;
 
 namespace Coevery.DeveloperTools.FormDesigner.Services {
     public interface ILayoutManager : IDependency {
         void DeleteField(string typeName, string fieldName);
         void AddField(string typeName, string fieldName);
-        void GenerateDefaultLayout(string typeName);
+        IEnumerable<Section> GetLayout(ContentTypeDefinition typeDefinition);
     }
 
     public class LayoutManager : ILayoutManager {
@@ -71,35 +72,24 @@ namespace Coevery.DeveloperTools.FormDesigner.Services {
             _contentDefinitionManager.StoreTypeDefinition(typeDefinition);
         }
 
-        public void GenerateDefaultLayout(string typeName) {
-            var typeDefinition = _contentDefinitionManager.GetTypeDefinition(typeName);
-            if (typeDefinition == null) {
-                return;
+        public IEnumerable<Section> GetLayout(ContentTypeDefinition typeDefinition) {
+            if (typeDefinition.Settings.ContainsKey("Layout")) {
+                return JsonConvert.DeserializeObject<List<Section>>(typeDefinition.Settings["Layout"]);
             }
 
-            var layout = new JArray();
-            var section = new JObject();
-            layout.Add(section);
-            section["SectionColumns"] = 1;
-            section["SectionColumnsWidth"] = "12";
-            section["SectionTitle"] = T("General Information").Text;
-            var rows = new JArray();
-            section["Rows"] = rows;
-            string partName = typeName.ToPartName();
+            var section = new Section {
+                SectionColumns = 1,
+                SectionColumnsWidth = "12",
+                SectionTitle = T("General Information").Text
+            };
+            string partName = typeDefinition.Name.ToPartName();
             var fields = typeDefinition.Parts.First(x => x.PartDefinition.Name == partName).PartDefinition.Fields;
-            foreach (var field in fields) {
-                var row = new JObject();
-                rows.Add(row);
-                var columns = new JArray();
-                row["Columns"] = columns;
-                var column = new JObject();
-                columns.Add(column);
-                var fieldObject = new JObject();
-                column["Field"] = fieldObject;
-                fieldObject["FieldName"] = field.Name;
-            }
-            typeDefinition.Settings["Layout"] = JsonConvert.SerializeObject(layout);
-            _contentDefinitionManager.StoreTypeDefinition(typeDefinition);
+            section.Rows = fields.Select(field => new Row {
+                Columns = new[] {
+                    new Column {Field = new Field {FieldName = field.Name}}
+                }
+            }).ToList();
+            return new[] {section};
         }
     }
 }

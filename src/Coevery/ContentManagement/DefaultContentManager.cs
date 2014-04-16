@@ -85,10 +85,10 @@ namespace Coevery.ContentManagement {
             return _contentDefinitionManager.ListTypeDefinitions();
         }
 
-        public virtual ContentItem New(string contentType) {
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType);
+        public virtual ContentItem New(string contentType, ContentTypeDefinition contentTypeDefinition = null) {
             if (contentTypeDefinition == null) {
-                contentTypeDefinition = new ContentTypeDefinitionBuilder().Named(contentType).Build();
+                contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType)
+                                        ?? new ContentTypeDefinitionBuilder().Named(contentType).Build();
             }
 
             // create a new kernel for the model instance

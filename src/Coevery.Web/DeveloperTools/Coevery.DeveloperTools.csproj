@@ -200,9 +200,6 @@
     <Compile Include="FormDesigner\Controllers\LayoutController.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="FormDesigner\Handlers\FormDesignerEntityEventsHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="FormDesigner\Handlers\FormDesignerFieldEventsHandler.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -222,9 +219,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FormDesigner\Services\ILayoutManager.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FormDesigner\ViewModels\FieldViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ListViewDesigner\Controllers\AdminController.cs" />
