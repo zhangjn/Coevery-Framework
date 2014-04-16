@@ -110,7 +110,6 @@
     <Compile Include="Common\Services\SafeModeThemeSelector.cs" />
     <Compile Include="Common\Shapes\Localization\DateTimeLocalization.cs" />
     <Compile Include="Common\Utilities\LazyField.cs" />
-    <Compile Include="Entities\Drivers\EntityMetadataPartDriver.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsDriver.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsHandler.cs" />
     <Compile Include="Entities\Events\IEntityDataEvents.cs" />
@@ -120,7 +119,6 @@
     <Compile Include="Entities\Models\EntityMetadataPart.cs" />
     <Compile Include="Entities\Models\EntityMetadataRecord.cs" />
     <Compile Include="Entities\Models\FieldMetadataRecord.cs" />
-    <Compile Include="Common\Services\SettingService.cs" />
     <Compile Include="Fields\Drivers\BooleanFieldDriver.cs" />
     <Compile Include="Fields\Drivers\CurrencyFieldDriver.cs" />
     <Compile Include="Fields\Drivers\DateFieldDriver.cs" />

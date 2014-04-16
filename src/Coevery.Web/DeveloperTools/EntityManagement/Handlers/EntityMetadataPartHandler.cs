@@ -4,8 +4,9 @@ using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData;
+using Coevery.ContentManagement.MetaData.Models;
+using Coevery.ContentManagement.MetaData.Services;
 using Coevery.Core.Common.Extensions;
-using Coevery.Core.Common.Services;
 using Coevery.Core.Entities.Events;
 using Coevery.Core.Entities.Models;
 using Coevery.Data;
@@ -17,34 +18,40 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
         private readonly IRepository<FieldMetadataRecord> _fieldMetadataRepository;
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly ISettingService _settingService;
+        private readonly ISettingsFormatter _settingsFormatter;
         private readonly IEntityEvents _entityEvents;
         private readonly ISchemaUpdateService _schemaUpdateService;
         private readonly IFieldEvents _fieldEvents;
-        private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;
 
         public EntityMetadataPartHandler(
             IRepository<EntityMetadataRecord> entityMetadataRepository,
             IRepository<FieldMetadataRecord> fieldMetadataRepository,
             IContentManager contentManager,
             IContentDefinitionManager contentDefinitionManager,
-            ISettingService settingService,
             IEntityEvents entityEvents,
             ISchemaUpdateService schemaUpdateService,
             IFieldEvents fieldEvents,
-            IContentDefinitionEditorEvents contentDefinitionEditorEvents) {
+            ISettingsFormatter settingsFormatter) {
             _fieldMetadataRepository = fieldMetadataRepository;
             _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager;
-            _settingService = settingService;
             _entityEvents = entityEvents;
             _schemaUpdateService = schemaUpdateService;
             _fieldEvents = fieldEvents;
-            _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
+            _settingsFormatter = settingsFormatter;
 
             Filters.Add(StorageFilter.For(entityMetadataRepository));
+            OnInitializing<EntityMetadataPart>((context, part) => part.EntitySetting = new SettingsDictionary());
+            OnLoaded<EntityMetadataPart>(LazyLoadHandlers);
             OnVersioning<EntityMetadataPart>(OnVersioning);
             OnPublishing<EntityMetadataPart>(OnPublishing);
+        }
+
+        private void LazyLoadHandlers(LoadContentContext context, EntityMetadataPart part) {
+            part.EntitySettingsField.Getter(() => _settingsFormatter.Parse(part.Record.Settings));
+            part.EntitySettingsField.Setter(value => {
+                part.Record.Settings = _settingsFormatter.Parse(value);
+            });
         }
 
         private void OnVersioning(VersionContentContext context, EntityMetadataPart existing, EntityMetadataPart building) {
@@ -71,11 +78,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
 
         private void CreateEntity(EntityMetadataPart part) {
             _contentDefinitionManager.AlterTypeDefinition(part.Name, builder => {
-                var entitySetting = part.EntitySetting;
                 builder.DisplayedAs(part.DisplayName);
-                foreach (var key in entitySetting.Keys) {
-                    builder.WithSetting(key, entitySetting[key]);
-                }
+                MergeDictionary(part.EntitySetting, builder.WithSetting);
                 builder.WithPart(part.Name.ToPartName());
             });
 
@@ -97,10 +101,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
 
         private void UpdateEntity(EntityMetadataPart previousEntity, EntityMetadataPart entity) {
             _contentDefinitionManager.AlterTypeDefinition(entity.Name, builder => {
-                var entitySetting = entity.EntitySetting;
-                foreach (var key in entitySetting.Keys) {
-                    builder.WithSetting(key, entitySetting[key]);
-                }
+                MergeDictionary(entity.EntitySetting, builder.WithSetting);
                 builder.DisplayedAs(entity.DisplayName);
             });
 
@@ -129,13 +130,9 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
 
             foreach (var fieldMetadataRecord in needUpdateFields) {
                 var record = fieldMetadataRecord;
-                var settings = _settingService.ParseSetting(record.Settings);
+                var settings = _settingsFormatter.Parse(record.Settings);
                 _contentDefinitionManager.AlterPartDefinition(entity.Name.ToPartName(), builder =>
-                    builder.WithField(record.Name, fieldBuilder => {
-                        fieldBuilder.WithDisplayName(settings["DisplayName"]);
-                        _contentDefinitionEditorEvents.UpdateFieldSettings(fieldBuilder, settings);
-                    }));
-                record.Settings = _settingService.CompileSetting(settings);
+                    builder.WithField(record.Name, fieldBuilder => MergeDictionary(settings, builder.WithSetting)));
 
                 var length = GetMaxLength(fieldMetadataRecord.Settings);
                 _schemaUpdateService.AlterColumn(entity.Name, fieldMetadataRecord.Name, fieldMetadataRecord.ContentFieldDefinitionRecord.Name, length);
@@ -143,8 +140,14 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
             _entityEvents.OnUpdating(entity.Name);
         }
 
+        private static void MergeDictionary<T>(SettingsDictionary entitySetting, Func<string,string, T> withSetting) {
+            foreach (var pair in entitySetting) {
+                withSetting(pair.Key, pair.Value);
+            }
+        }
+
         private int? GetMaxLength(string settings) {
-            var settingDictionary = _settingService.ParseSetting(settings);
+            var settingDictionary = _settingsFormatter.Parse(settings);
             string maxLengthSetting;
             if (settingDictionary.TryGetValue("TextFieldSettings.MaxLength", out maxLengthSetting)) {
                 int length;
@@ -156,23 +159,16 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
         }
 
         private void AddField(string entityName, FieldMetadataRecord field, bool needEvent = true) {
-            var settings = _settingService.ParseSetting(field.Settings);
+            var settings = _settingsFormatter.Parse(field.Settings);
 
             // add field to part
             _contentDefinitionManager.AlterPartDefinition(entityName.ToPartName(), builder => {
                 string fieldTypeName = field.ContentFieldDefinitionRecord.Name;
-                builder.WithField(field.Name, fieldBuilder =>
-                    fieldBuilder.OfType(fieldTypeName).WithSetting("Storage", "Part"));
-            });
-
-            // update field settings
-            _contentDefinitionManager.AlterPartDefinition(entityName.ToPartName(), builder =>
                 builder.WithField(field.Name, fieldBuilder => {
-                    fieldBuilder.WithDisplayName(settings["DisplayName"]);
-                    _contentDefinitionEditorEvents.UpdateFieldSettings(fieldBuilder, settings);
-                }));
-
-            field.Settings = _settingService.CompileSetting(settings);
+                    fieldBuilder.OfType(fieldTypeName).WithSetting("Storage", "Part");
+                    MergeDictionary(settings, builder.WithSetting);
+                });
+            });
 
             if (needEvent) {
                 _fieldEvents.OnCreated(entityName, field.Name, bool.Parse(settings["AddInLayout"]));

@@ -53,8 +53,7 @@
                             </div>
                             <div class="tab-pane" id="fieldTools">
                                 @{
-                                    foreach (var field in Model.ContentPart.Fields)
-                                    {
+                                    foreach (var field in Model.ContentPart.Fields) {
                                         @:<div fd-tools-field field-display-name="@field.DisplayName" field-name="@field.Name"></div>
                                     }
                                 }

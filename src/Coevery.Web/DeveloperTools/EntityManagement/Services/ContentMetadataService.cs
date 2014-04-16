@@ -4,6 +4,7 @@ using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
+using Coevery.ContentManagement.MetaData.Services;
 using Coevery.Core.Common.Services;
 using Coevery.Core.Entities.Events;
 using Coevery.Core.Entities.Models;
@@ -36,7 +37,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
     }
 
     public class ContentMetadataService : IContentMetadataService {
-        private readonly ISettingService _settingService;
+        private readonly ISettingsFormatter _settingsFormatter;
         private readonly IRepository<ContentFieldDefinitionRecord> _fieldDefinitionRepository;
         private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;
         private readonly IContentDefinitionService _contentDefinitionService;
@@ -45,18 +46,18 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
 
         public ContentMetadataService(
             ICoeveryServices services,
-            ISettingService settingService,
             IContentDefinitionService contentDefinitionService,
             ISchemaUpdateService schemaUpdateService,
             IEntityEvents entityEvents,
             IRepository<ContentFieldDefinitionRecord> fieldDefinitionRepository,
-            IContentDefinitionEditorEvents contentDefinitionEditorEvents) {
+            IContentDefinitionEditorEvents contentDefinitionEditorEvents, 
+            ISettingsFormatter settingsFormatter) {
             _contentDefinitionService = contentDefinitionService;
             _schemaUpdateService = schemaUpdateService;
             _entityEvents = entityEvents;
-            _settingService = settingService;
             _fieldDefinitionRepository = fieldDefinitionRepository;
             _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
+            _settingsFormatter = settingsFormatter;
             Services = services;
         }
 
@@ -152,7 +153,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
                 return "Invalid id";
             }
             foreach (var field in entity.FieldMetadataRecords) {
-                _contentDefinitionEditorEvents.FieldDeleted(field.ContentFieldDefinitionRecord.Name, field.Name, _settingService.ParseSetting(field.Settings));
+                _contentDefinitionEditorEvents.FieldDeleted(field.ContentFieldDefinitionRecord.Name, field.Name, _settingsFormatter.Parse(field.Settings));
             }
             var hasPublished = entity.HasPublished();
 
@@ -177,7 +178,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         public bool CheckFieldCreationValid(EntityMetadataPart entity, string name, string displayName) {
             return !entity.FieldMetadataRecords.Any(
                 field => string.Equals(field.Name, name, StringComparison.OrdinalIgnoreCase)
-                         || string.Equals(_settingService.ParseSetting(field.Settings)["DisplayName"], displayName, StringComparison.OrdinalIgnoreCase));
+                         || string.Equals(_settingsFormatter.Parse(field.Settings)[ContentPartFieldDefinition.DisplayNameKey], displayName, StringComparison.OrdinalIgnoreCase));
         }
 
         public string ConstructFieldName(string entityName, string displayName) {
@@ -203,15 +204,15 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             };
             entity.FieldMetadataRecords.Add(field);
             _contentDefinitionEditorEvents.UpdateFieldSettings(viewModel.FieldTypeName, viewModel.Name, settingsDictionary, updateModel);
-            field.Settings = _settingService.CompileSetting(settingsDictionary);
+            field.Settings = _settingsFormatter.Parse(settingsDictionary);
             field.EntityMetadataRecord = entity.Record;
         }
 
         public void UpdateField(FieldMetadataRecord record, string displayName, IUpdateModel updateModel) {
-            var settingsDictionary = _settingService.ParseSetting(record.Settings);
+            var settingsDictionary = _settingsFormatter.Parse(record.Settings);
             settingsDictionary["DisplayName"] = displayName;
             _contentDefinitionEditorEvents.UpdateFieldSettings(record.ContentFieldDefinitionRecord.Name, record.Name, settingsDictionary, updateModel);
-            record.Settings = _settingService.CompileSetting(settingsDictionary);
+            record.Settings = _settingsFormatter.Parse(settingsDictionary);
         }
 
         public bool DeleteField(string fieldName, string entityName) {
@@ -224,7 +225,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
                 return false;
             }
 
-            _contentDefinitionEditorEvents.FieldDeleted(field.ContentFieldDefinitionRecord.Name, field.Name, _settingService.ParseSetting(field.Settings));
+            _contentDefinitionEditorEvents.FieldDeleted(field.ContentFieldDefinitionRecord.Name, field.Name, _settingsFormatter.Parse(field.Settings));
             entity.FieldMetadataRecords.Remove(field);
             return true;
         }

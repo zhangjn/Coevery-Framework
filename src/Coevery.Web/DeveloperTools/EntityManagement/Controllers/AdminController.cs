@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
+using Coevery.ContentManagement.MetaData.Services;
 using Coevery.Core.Common.Services;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.EntityManagement.ViewModels;
@@ -21,20 +22,20 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         private readonly IContentDefinitionService _contentDefinitionService;
         private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;
         private readonly IContentMetadataService _contentMetadataService;
-        private readonly ISettingService _settingService;
+        private readonly ISettingsFormatter _settingsFormatter;
 
         public AdminController(
             ICoeveryServices coeveryServices,
-            ISettingService settingService,
             IContentDefinitionService contentDefinitionService,
             IContentDefinitionEditorEvents contentDefinitionEditorEvents,
-            IContentMetadataService contentMetadataService) {
+            IContentMetadataService contentMetadataService,
+            ISettingsFormatter settingsFormatter) {
             Services = coeveryServices;
-            _settingService = settingService;
             _contentDefinitionService = contentDefinitionService;
             T = NullLocalizer.Instance;
             _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
             _contentMetadataService = contentMetadataService;
+            _settingsFormatter = settingsFormatter;
         }
 
         public ICoeveryServices Services { get; private set; }
@@ -285,11 +286,11 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             if (field == null) {
                 return HttpNotFound();
             }
-            var settings = _settingService.ParseSetting(field.Settings);
+            var settings = _settingsFormatter.Parse(field.Settings);
             var fieldDefinition = new ContentFieldDefinition(field.ContentFieldDefinitionRecord.Name);
             var viewModel = new EditPartFieldViewModel {
                 Name = field.Name,
-                DisplayName = settings["DisplayName"],
+                DisplayName = settings[ContentPartFieldDefinition.DisplayNameKey],
                 Settings = settings,
                 FieldDefinition = new EditFieldViewModel(fieldDefinition),
                 Templates = _contentDefinitionEditorEvents.PartFieldEditor(new ContentPartFieldDefinition(fieldDefinition, field.Name, settings))
@@ -323,7 +324,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             }
 
             bool displayNameExist = entity.FieldMetadataRecords.Any(t => {
-                string displayName = _settingService.ParseSetting(t.Settings)["DisplayName"];
+                string displayName = _settingsFormatter.Parse(t.Settings)[ContentPartFieldDefinition.DisplayNameKey];
                 return t.Name != viewModel.Name && String.Equals(displayName.Trim(), viewModel.DisplayName.Trim(), StringComparison.OrdinalIgnoreCase);
             });
             if (displayNameExist) {
