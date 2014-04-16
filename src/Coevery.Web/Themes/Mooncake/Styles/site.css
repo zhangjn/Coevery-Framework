@@ -343,3 +343,15 @@ div.control textarea {
     border-color: #ebccd1;
     color: #a94442;
 }
+
+.popoverTipIcon {
+    position: absolute;
+    display: block;
+    right: -20px;
+    top: 8px;
+    cursor: pointer;
+}
+
+.errortips {
+    position: relative;
+}

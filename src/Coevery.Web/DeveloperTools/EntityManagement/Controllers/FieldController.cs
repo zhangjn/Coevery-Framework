@@ -36,8 +36,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
                     field.Id,
                     DisplayName = setting["DisplayName"],
                     FieldType = fieldType.CamelFriendly(),
-                    Type = setting.GetModel<FieldSettings>(fieldType + "Settings").IsSystemField
-                        ? "System Field" : "User Field",
+                    //Type = setting.GetModel<FieldSettings>(fieldType + "Settings").IsSystemField
+                    //    ? "System Field" : "User Field",
                     ControllField = string.Empty
                 };
 

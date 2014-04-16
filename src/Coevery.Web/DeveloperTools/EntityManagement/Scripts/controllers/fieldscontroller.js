@@ -13,7 +13,7 @@ define(['core/app/detourService', 'DeveloperTools/EntityManagement/Scripts/servi
                     { name: 'Name', label: 'Field Name', formatter: $rootScope.cellLinkTemplate, key: true },
                     { name: 'DisplayName', label: 'Field Label' },
                     { name: 'FieldType', label: 'Field Type' },
-                    { name: 'Type', label: 'Type' },
+                    //{ name: 'Type', label: 'Type' },
                 ];
 
                 $scope.gridOptions = {

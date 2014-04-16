@@ -17,7 +17,7 @@
             <text> maxlength="@settings.MaxLength"</text>
         } placeholder="@settings.PlaceHolderText" 
         @if (!string.IsNullOrWhiteSpace(settings.HelpText)) {
-            <text>helper:text='@settings.HelpText'</text>
+            <text>help-text='@settings.HelpText'</text>
         } >@Model.Value</textarea>
     @Html.ValidationMessageFor(m => m.Value)
 </div>
