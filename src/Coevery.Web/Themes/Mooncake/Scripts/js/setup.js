@@ -104,7 +104,6 @@
             element.attr('original-title', '');
             var icon = document.createElement("i");
             icon.className = "icon-question-sign popoverTipIcon";
-            icon.id = "popoverIcon";
             element.parents("div").first().get(0).appendChild(icon);
             $(icon).mouseover(function () {
                 element.popover('show');
