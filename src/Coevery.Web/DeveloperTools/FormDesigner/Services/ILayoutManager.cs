@@ -11,7 +11,7 @@ using Column = Coevery.DeveloperTools.FormDesigner.Models.Column;
 namespace Coevery.DeveloperTools.FormDesigner.Services {
     public interface ILayoutManager : IDependency {
         void DeleteField(string typeName, string fieldName);
-        void AddField(string typeName, string fieldName);
+        void AddField(SettingsDictionary settings, string fieldName);
         IEnumerable<Section> GetLayout(ContentTypeDefinition typeDefinition);
     }
 
@@ -51,13 +51,18 @@ namespace Coevery.DeveloperTools.FormDesigner.Services {
             }
         }
 
-        public void AddField(string typeName, string fieldName) {
-            var typeDefinition = _contentDefinitionManager.GetTypeDefinition(typeName);
-            if (typeDefinition == null) {
-                return;
+        public void AddField(SettingsDictionary settings, string fieldName) {
+            string layoutAttribute;
+            IList<Section> layout = new List<Section>(new[] {
+                new Section {
+                    SectionColumns = 1,
+                    SectionColumnsWidth = "12",
+                    SectionTitle = T("General Information").Text
+                }
+            });
+            if (settings.TryGetValue("Layout", out layoutAttribute)) {
+                layout = JsonConvert.DeserializeObject<IList<Section>>(layoutAttribute);
             }
-
-            var layout = JsonConvert.DeserializeObject<IList<Section>>(typeDefinition.Settings["Layout"]);
             var emptyColumn = layout.SelectMany(section => section.Rows.SelectMany(row => row.Columns))
                 .FirstOrDefault(column => column != null && column.Field == null);
             if (emptyColumn == null) {
@@ -68,8 +73,7 @@ namespace Coevery.DeveloperTools.FormDesigner.Services {
                 row.Columns[0] = emptyColumn;
             }
             emptyColumn.Field = new Field {FieldName = fieldName};
-            typeDefinition.Settings["Layout"] = JsonConvert.SerializeObject(layout);
-            _contentDefinitionManager.StoreTypeDefinition(typeDefinition);
+            settings["Layout"] = JsonConvert.SerializeObject(layout);
         }
 
         public IEnumerable<Section> GetLayout(ContentTypeDefinition typeDefinition) {

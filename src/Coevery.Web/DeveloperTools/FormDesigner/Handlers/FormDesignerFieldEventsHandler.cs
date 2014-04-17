@@ -9,12 +9,6 @@ namespace Coevery.DeveloperTools.FormDesigner.Handlers {
             _layoutManager = layoutManager;
         }
 
-        public void OnCreated(string entityName, string fieldName, bool isInLayout) {
-            if (isInLayout) {
-                _layoutManager.AddField(entityName, fieldName);
-            }
-        }
-
         public void OnDeleting(string entityName, string fieldName) {
             _layoutManager.DeleteField(entityName, fieldName);
         }

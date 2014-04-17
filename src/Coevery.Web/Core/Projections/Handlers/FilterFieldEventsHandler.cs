@@ -12,8 +12,6 @@ namespace Coevery.Core.Projections.Handlers {
             _entityFilterRepository = entityFilterRepository;
         }
 
-        public void OnCreated(string entityName, string fieldName, bool isInLayout) {}
-
         public void OnDeleting(string entityName, string fieldName) {
             var entityFilterRecords = _entityFilterRepository.Table.Where(x => x.EntityName == entityName).ToList();
             foreach (var entityFilterRecord in entityFilterRecords) {

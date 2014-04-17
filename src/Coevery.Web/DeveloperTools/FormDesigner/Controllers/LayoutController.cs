@@ -21,13 +21,16 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
             }
 
             var entityMetadataPart = Services.ContentManager
-                .Query<EntityMetadataPart>(VersionOptions.Latest, "EntityMetadata")
+                .Query<EntityMetadataPart>(VersionOptions.DraftRequired, "EntityMetadata")
                 .List().FirstOrDefault(x => x.Name == id);
             if (entityMetadataPart == null) {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            entityMetadataPart.Settings["Layout"] = data.Layout;
+            // computed field trick, the property have to be setted again when something changed.
+            var settings = entityMetadataPart.EntitySetting;
+            settings["Layout"] = data.Layout;
+            entityMetadataPart.EntitySetting = settings;
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

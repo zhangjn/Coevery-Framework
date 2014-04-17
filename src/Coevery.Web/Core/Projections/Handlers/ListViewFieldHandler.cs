@@ -12,8 +12,6 @@ namespace Coevery.Core.Projections.Handlers {
 
         public ICoeveryServices Services { get; private set; }
 
-        public void OnCreated(string entityName, string fieldName, bool isInLayout) {}
-
         public void OnDeleting(string entityName, string fieldName) {
             var parts = Services.ContentManager.Query<ListViewPart, ListViewPartRecord>()
                 .Where(r => r.ItemContentType == entityName).List();

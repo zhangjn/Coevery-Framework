@@ -41,13 +41,13 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
             _settingsFormatter = settingsFormatter;
 
             Filters.Add(StorageFilter.For(entityMetadataRepository));
-            OnInitializing<EntityMetadataPart>((context, part) => part.EntitySetting = new SettingsDictionary());
-            OnLoaded<EntityMetadataPart>(LazyLoadHandlers);
+            OnActivated<EntityMetadataPart>((context, part)=>LazyLoadHandlers(part));
+            OnLoaded<EntityMetadataPart>((context, part) => LazyLoadHandlers(part));
             OnVersioning<EntityMetadataPart>(OnVersioning);
             OnPublishing<EntityMetadataPart>(OnPublishing);
         }
 
-        private void LazyLoadHandlers(LoadContentContext context, EntityMetadataPart part) {
+        private void LazyLoadHandlers(EntityMetadataPart part) {
             part.EntitySettingsField.Getter(() => _settingsFormatter.Parse(part.Record.Settings));
             part.EntitySettingsField.Setter(value => {
                 part.Record.Settings = _settingsFormatter.Parse(value);
@@ -169,10 +169,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
                     MergeDictionary(settings, builder.WithSetting);
                 });
             });
-
-            if (needEvent) {
-                _fieldEvents.OnCreated(entityName, field.Name, bool.Parse(settings["AddInLayout"]));
-            }
         }
     }
 }

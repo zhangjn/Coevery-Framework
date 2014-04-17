@@ -11,6 +11,7 @@ using Coevery.Core.Entities.Models;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data;
 using Coevery.DeveloperTools.EntityManagement.ViewModels;
+using Coevery.DeveloperTools.FormDesigner.Services;
 
 namespace Coevery.DeveloperTools.EntityManagement.Services {
     public interface IContentMetadataService : IDependency {
@@ -43,6 +44,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         private readonly IContentDefinitionService _contentDefinitionService;
         private readonly ISchemaUpdateService _schemaUpdateService;
         private readonly IEntityEvents _entityEvents;
+        private readonly ILayoutManager _layoutManager;
 
         public ContentMetadataService(
             ICoeveryServices services,
@@ -51,13 +53,14 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             IEntityEvents entityEvents,
             IRepository<ContentFieldDefinitionRecord> fieldDefinitionRepository,
             IContentDefinitionEditorEvents contentDefinitionEditorEvents, 
-            ISettingsFormatter settingsFormatter) {
+            ISettingsFormatter settingsFormatter, ILayoutManager layoutManager) {
             _contentDefinitionService = contentDefinitionService;
             _schemaUpdateService = schemaUpdateService;
             _entityEvents = entityEvents;
             _fieldDefinitionRepository = fieldDefinitionRepository;
             _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
             _settingsFormatter = settingsFormatter;
+            _layoutManager = layoutManager;
             Services = services;
         }
 
@@ -196,7 +199,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         public void CreateField(EntityMetadataPart entity, AddFieldViewModel viewModel, IUpdateModel updateModel) {
             var settingsDictionary = new SettingsDictionary();
             settingsDictionary["DisplayName"] = viewModel.DisplayName;
-            settingsDictionary["AddInLayout"] = viewModel.AddInLayout.ToString();
             settingsDictionary["EntityName"] = entity.Name;
             var field = new FieldMetadataRecord {
                 ContentFieldDefinitionRecord = FetchFieldDefinition(viewModel.FieldTypeName),
@@ -206,6 +208,11 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             _contentDefinitionEditorEvents.UpdateFieldSettings(viewModel.FieldTypeName, viewModel.Name, settingsDictionary, updateModel);
             field.Settings = _settingsFormatter.Parse(settingsDictionary);
             field.EntityMetadataRecord = entity.Record;
+            if (viewModel.AddInLayout) {
+                var settings = entity.EntitySetting;
+                _layoutManager.AddField(settings, field.Name);
+                entity.EntitySetting = settings;
+            }
         }
 
         public void UpdateField(FieldMetadataRecord record, string displayName, IUpdateModel updateModel) {
