@@ -166,7 +166,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
                 string fieldTypeName = field.ContentFieldDefinitionRecord.Name;
                 builder.WithField(field.Name, fieldBuilder => {
                     fieldBuilder.OfType(fieldTypeName).WithSetting("Storage", "Part");
-                    MergeDictionary(settings, builder.WithSetting);
+                    MergeDictionary(settings, fieldBuilder.WithSetting);
                 });
             });
         }
