@@ -46,7 +46,7 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
 
             var typeBuilder = new ContentTypeDefinitionBuilder();
             typeBuilder.Named(entityMetadataPart.Name).DisplayedAs(entityMetadataPart.DisplayName);
-            foreach (var pair in entityMetadataPart.Settings) {
+            foreach (var pair in entityMetadataPart.EntitySetting) {
                 typeBuilder.WithSetting(pair.Key, pair.Value);
             }
             var partBuilder = new ContentPartDefinitionBuilder();
@@ -56,7 +56,9 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
                 var settings = _settingsFormatter.Parse(field.Settings);
                 partBuilder.WithField(field.Name, fieldBuilder => {
                     fieldBuilder.OfType(fieldTypeName);
-                    fieldBuilder.WithDisplayName(settings["DisplayName"]);
+                    foreach (var pair in settings) {
+                        typeBuilder.WithSetting(pair.Key, pair.Value);
+                    }
                 });
             }
             var partDefinition = partBuilder.Build();
