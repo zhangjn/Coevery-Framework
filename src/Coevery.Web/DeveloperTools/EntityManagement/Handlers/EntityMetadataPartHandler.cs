@@ -61,7 +61,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
                 _fieldMetadataRepository.Copy(record, newRecord);
                 newRecord.OriginalId = record.Id;
                 newRecord.EntityMetadataRecord = building.Record;
-                _fieldMetadataRepository.Create(newRecord);
                 building.Record.FieldMetadataRecords.Add(newRecord);
             }
         }
