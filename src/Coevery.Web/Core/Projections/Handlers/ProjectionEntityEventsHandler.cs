@@ -34,7 +34,7 @@ namespace Coevery.Core.Projections.Handlers {
                     .FirstOrDefault(descr => descr.Category == "Grids" && descr.Type == "Default"),
                 Fields = fields,
                 PickedFields = fields.Select(f => new PropertyDescriptorViewModel {
-                    Category = f.Category,
+                    //Category = f.Category,
                     Type = f.Value,
                     Text = f.Text
                 }),

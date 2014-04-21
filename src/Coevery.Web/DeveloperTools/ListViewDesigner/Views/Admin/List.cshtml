@@ -20,13 +20,11 @@
                 @AddLayoutButton(layoutType)
             }
         </ul>*@
-        <button class="btn btn-small btn-success" data-ng-disabled="isPublished=='False'" title="@T("Works when the entity has been published.")"
-            data-ng-click="add('Grids','Default')">
+        <button class="btn btn-small btn-success" data-ng-click="add('Grids','Default')">
             <i class="icon-plus"></i>&nbsp;New View
         </button>
     </div>
-    <button class="btn btn-small" data-ng-click="getAll()"
-            data-ng-disabled="isPublished=='False'" title="@T("Works when the entity has been published.")">
+    <button class="btn btn-small" data-ng-click="getAll()">
         <i class="icon-refresh"></i>&nbsp;Refresh
     </button>
     <div class="btn-group" data-ng-show="selectedItems.length > 0">
