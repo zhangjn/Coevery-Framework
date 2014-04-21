@@ -57,7 +57,7 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
                 partBuilder.WithField(field.Name, fieldBuilder => {
                     fieldBuilder.OfType(fieldTypeName);
                     foreach (var pair in settings) {
-                        typeBuilder.WithSetting(pair.Key, pair.Value);
+                        fieldBuilder.WithSetting(pair.Key, pair.Value);
                     }
                 });
             }
