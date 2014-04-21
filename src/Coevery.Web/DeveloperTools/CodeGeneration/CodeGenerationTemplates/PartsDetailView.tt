@@ -17,7 +17,8 @@
 <# int i = 0; #>
 		<div class="data-row clearfix">
 <# foreach (var column in row.Columns) { #>
-			<div class="span<#=widths[i++]#>">
+<# string width = row.IsMerged ? "12" : widths[i++]; #>
+			<div class="span<#=width#>">
 <# if (column.Field != null) { #>
 				@Display.DisplayField(part: Model.ContentPart, fieldName: "<#= column.Field.FieldName #>")
 <# } #>
