@@ -36,9 +36,9 @@
         });
 <#
 	var gridInfo = GetDefaultGridInfo(EntityName);
-    int pageSize = string.IsNullOrEmpty(gridInfo.GridSettings["PageRowCount"]) ? 10 : int.Parse(gridInfo.GridSettings["PageRowCount"]);
-	string sortedBy = string.IsNullOrEmpty(gridInfo.GridSettings["SortColumn"]) ? string.Empty : gridInfo.GridSettings["SortColumn"];
-    string sortOrder = string.IsNullOrEmpty(gridInfo.GridSettings["SortMode"]) ? "asc" : gridInfo.GridSettings["SortMode"];
+    int pageSize = string.IsNullOrEmpty(gridInfo.GridSettings[GridInfoSettings.PageRowCount]) ? 10 : int.Parse(gridInfo.GridSettings[GridInfoSettings.PageRowCount]);
+	string sortedBy = string.IsNullOrEmpty(gridInfo.GridSettings[GridInfoSettings.SortColumn]) ? string.Empty : gridInfo.GridSettings[GridInfoSettings.SortColumn];
+    string sortOrder = string.IsNullOrEmpty(gridInfo.GridSettings[GridInfoSettings.SortMode]) ? "asc" : gridInfo.GridSettings[GridInfoSettings.SortMode];
 #>
         $('#<#=EntityName.ToLower()#>Grid').jqGrid({
             url: '@Url.Action("List")',

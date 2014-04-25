@@ -182,6 +182,7 @@
     <Compile Include="ListViewDesigner\Migrations.cs" />
     <Compile Include="ListViewDesigner\Models\GridInfoPart.cs" />
     <Compile Include="ListViewDesigner\Models\GridInfoPartRecord.cs" />
+    <Compile Include="ListViewDesigner\Models\GridInfoSettings.cs" />
     <Compile Include="ListViewDesigner\Services\IGridService.cs" />
     <Compile Include="ListViewDesigner\ViewModels\GridColumnViewModel.cs" />
     <Compile Include="ListViewDesigner\ViewModels\GridViewModel.cs" />

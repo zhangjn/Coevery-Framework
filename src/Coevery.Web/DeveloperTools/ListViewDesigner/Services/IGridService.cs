@@ -64,7 +64,7 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
             }
 
             var settings = gridInfo.GridSettings;
-            var columns = settings["Columns"].Split(';');
+            var columns = settings[GridInfoSettings.Columns].Split(';');
 
             var viewModel = new GridViewModel {
                 Id = gridInfo.Id,
@@ -76,9 +76,9 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
                         Value = x.Name,
                         Selected = columns.Contains(x.Name)
                     }).ToList(),
-                SortColumn = settings["SortColumn"],
-                SortMode = settings["SortMode"],
-                PageRowCount = int.Parse(settings["PageRowCount"])
+                SortColumn = settings[GridInfoSettings.SortColumn],
+                SortMode = settings[GridInfoSettings.SortMode],
+                PageRowCount = int.Parse(settings[GridInfoSettings.PageRowCount])
             };
 
             int order = 0;
@@ -105,10 +105,10 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
             gridInfo.ItemContentType = viewModel.ItemContentType;
 
             var settings = gridInfo.GridSettings;
-            settings["Columns"] = viewModel.SelectedColumns.Join(";");
-            settings["SortColumn"] = viewModel.SortColumn ?? string.Empty;
-            settings["SortMode"] = viewModel.SortMode ?? string.Empty;
-            settings["PageRowCount"] = viewModel.PageRowCount.ToString();
+            settings[GridInfoSettings.Columns] = viewModel.SelectedColumns.Join(";");
+            settings[GridInfoSettings.SortColumn] = viewModel.SortColumn ?? string.Empty;
+            settings[GridInfoSettings.SortMode] = viewModel.SortMode ?? string.Empty;
+            settings[GridInfoSettings.PageRowCount] = viewModel.PageRowCount.ToString();
             gridInfo.GridSettings = settings;
 
             return id;
