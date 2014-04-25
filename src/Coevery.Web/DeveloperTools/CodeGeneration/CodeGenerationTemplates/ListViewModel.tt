@@ -19,7 +19,7 @@ namespace <#=Namespace#>.ViewModels {
         var columns = GetColumns(EntityName);
         var partDefinition = GetContentPartDefinition(EntityName);
         foreach (var col in columns) {
-            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col);
             if (field != null) {
                 if (field.FieldDefinition.Name == "ReferenceField") {
                     yield return new Tuple<string, Type>(field.Name + "_Name", typeof (string));
