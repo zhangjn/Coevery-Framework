@@ -176,12 +176,15 @@
     <Compile Include="CodeGeneration\Services\DynamicDefinition.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicAssemblyBuilder.cs" />
     <Compile Include="EntityManagement\Drivers\EntityMetadataPartDriver.cs" />
+    <Compile Include="ListViewDesigner\Controllers\GridInfoController.cs" />
     <Compile Include="ListViewDesigner\Drivers\GridInfoPartDriver.cs" />
     <Compile Include="ListViewDesigner\Handlers\GridInfoPartHandler.cs" />
     <Compile Include="ListViewDesigner\Migrations.cs" />
     <Compile Include="ListViewDesigner\Models\GridInfoPart.cs" />
     <Compile Include="ListViewDesigner\Models\GridInfoPartRecord.cs" />
     <Compile Include="ListViewDesigner\Services\IGridService.cs" />
+    <Compile Include="ListViewDesigner\ViewModels\GridColumnViewModel.cs" />
+    <Compile Include="ListViewDesigner\ViewModels\GridViewModel.cs" />
     <Compile Include="RelationshipManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicTypeGenerationEvents.cs" />
     <Compile Include="EntityManagement\Handlers\EntityMetadataPartHandler.cs" />
@@ -230,7 +233,6 @@
     </Compile>
     <Compile Include="ListViewDesigner\Controllers\AdminController.cs" />
     <Compile Include="ListViewDesigner\Services\ClientRouteProvider.cs" />
-    <Compile Include="ListViewDesigner\ViewModels\EntityViewListModel.cs" />
     <Compile Include="RelationshipManagement\Controllers\RelationshipController.cs" />
     <Compile Include="RelationshipManagement\Controllers\AdminController.cs" />
     <Compile Include="RelationshipManagement\Handlers\EntityMetadataPartHandler.cs" />
@@ -305,6 +307,7 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

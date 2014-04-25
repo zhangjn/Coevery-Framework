@@ -89,9 +89,7 @@
                 //'{{ option.Text }}</option>' +
                 //'</select>' +
                 '<div class="hide" ng-repeat="option in sourceList | filter: { Selected: true } | orderBy:\'+Order\'">' +
-                '<input type="hidden" ng-attr-name="{{selectName + \'[\' + $index + \'].Category\'}}" ng-attr-value="{{ option.Category }}" />' +
-                '<input type="hidden" ng-attr-name="{{selectName + \'[\' + $index + \'].Type\'}}" ng-attr-value="{{ option.Value }}" />' +
-                '<input type="hidden" ng-attr-name="{{selectName + \'[\' + $index + \'].Text\'}}" ng-attr-value="{{ option.Text }}" />' +
+                '<input type="hidden" ng-attr-name="{{selectName + \'[\' + $index + \']\'}}" ng-attr-value="{{ option.Value }}" />' +
                 '</div></div></div>',
             compile: function (element, attrs) {
                 return {

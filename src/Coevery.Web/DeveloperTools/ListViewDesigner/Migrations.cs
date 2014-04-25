@@ -9,6 +9,8 @@ namespace Coevery.DeveloperTools.ListViewDesigner {
                     .ContentPartVersionRecord()
                     .Column<string>("ItemContentType")
                     .Column<string>("DisplayName")
+                    .Column<bool>("IsDefault")
+                    .Column<string>("Settings", column => column.Unlimited())
                 );
 
             ContentDefinitionManager.AlterPartDefinition("GridInfoPart", cfg => { });

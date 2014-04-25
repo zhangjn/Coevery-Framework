@@ -17,7 +17,7 @@ define(['core/app/detourService',
                             { name: 'Default', label: $i18next('Default') }];
 
                         $scope.gridOptions = {
-                            url: "api/projections/Projection?id=" + $stateParams.Id,
+                            url: "api/ListViewDesigner/GridInfo?id=" + $stateParams.Id,
                             colModel: columnDefs
                         };
 
@@ -27,10 +27,10 @@ define(['core/app/detourService',
                             $state.transitionTo('EntityDetail.Fields', { Id: $stateParams.Id });
                         };
 
-                        $scope['delete'] = function (id) {
-                            var deleteView = id || $scope.selectedItems.length > 0 ? $scope.selectedItems[0] : null;
-                            if (!deleteView) return;
-                            projectionDataService['delete']({ Id: deleteView }, function() {
+                        $scope['delete'] = function () {
+                            if (!$scope.selectedItems.length)
+                                return;
+                            projectionDataService['delete']({ Ids: $scope.selectedItems }, function () {
                                 if ($scope.selectedItems.length != 0) {
                                     $scope.selectedItems.pop();
                                 }
@@ -42,8 +42,8 @@ define(['core/app/detourService',
 
                         };
 
-                        $scope.add = function(category,type) {
-                            $state.transitionTo('ProjectionCreate', { EntityName: $stateParams.Id, Category: category, Type: type });
+                        $scope.add = function() {
+                            $state.transitionTo('ProjectionCreate', { EntityName: $stateParams.Id });
                         };
 
                         $scope.edit = function(id) {
