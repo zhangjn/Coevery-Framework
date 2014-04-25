@@ -75,12 +75,18 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
                         Text = _settingsFormatter.Parse(x.Settings)["DisplayName"],
                         Value = x.Name,
                         Selected = columns.Contains(x.Name)
-                    }),
+                    }).ToList(),
                 SortColumn = settings["SortColumn"],
                 SortMode = settings["SortMode"],
                 PageRowCount = int.Parse(settings["PageRowCount"])
             };
 
+            int order = 0;
+            foreach (var column in columns) {
+                var field = viewModel.Fields.First(x => x.Value == column);
+                field.Selected = true;
+                field.Order = ++order;
+            }
             return viewModel;
         }
 
