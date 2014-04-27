@@ -3,6 +3,7 @@ using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Services;
 using Coevery.Core.Entities.Models;
+using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.ListViewDesigner.Models;
 using Coevery.DeveloperTools.ListViewDesigner.ViewModels;
 
@@ -16,19 +17,19 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
     public class GridService : IGridService {
         private readonly IContentManager _contentManager;
         private readonly ISettingsFormatter _settingsFormatter;
+        private readonly IContentMetadataService _contentMetadataService;
 
-        public GridService(IContentManager contentManager, ISettingsFormatter settingsFormatter) {
+        public GridService(
+            IContentManager contentManager, 
+            ISettingsFormatter settingsFormatter,
+            IContentMetadataService contentMetadataService) {
             _contentManager = contentManager;
             _settingsFormatter = settingsFormatter;
+            _contentMetadataService = contentMetadataService;
         }
 
         public GridViewModel GetGridViewModel(string entityName) {
-            var entityMetadataPart = _contentManager
-                .Query<EntityMetadataPart, EntityMetadataRecord>(VersionOptions.Latest)
-                .Where(x => x.Name == entityName)
-                .List()
-                .FirstOrDefault();
-
+            var entityMetadataPart = _contentMetadataService.GetEntity(entityName);
             if (entityMetadataPart == null) {
                 return null;
             }
@@ -111,6 +112,7 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
             settings[GridInfoSettings.PageRowCount] = viewModel.PageRowCount.ToString();
             gridInfo.GridSettings = settings;
 
+            _contentMetadataService.GetDraftEntity(gridInfo.ItemContentType);
             return id;
         }
     }
