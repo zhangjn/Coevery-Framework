@@ -40,16 +40,16 @@
                         </legend>
                         <section class="data-row control-group">
                             <div class="span6">
+                                <label class="control-label required">@T("Display Name")</label>
+                                <div class="controls errortips">
+                                    @Html.TextBoxFor(m => m.DisplayName, new {@class = "span12", required = ""})
+                                </div>
+                            </div>
+                            <div class="span6">
                                 <label class="control-label">@T("Entity")</label>
                                 <div class="controls">
                                     <input type="text" value="@Model.ItemContentType" class="span12" disabled="disabled" />
                                     @Html.HiddenFor(m => m.ItemContentType)
-                                </div>
-                            </div>
-                            <div class="span6">
-                                <label class="control-label required">@T("Display Name")</label>
-                                <div class="controls errortips">
-                                    @Html.TextBoxFor(m => m.DisplayName, new {@class = "span12", required = ""})
                                 </div>
                             </div>
                         </section>
