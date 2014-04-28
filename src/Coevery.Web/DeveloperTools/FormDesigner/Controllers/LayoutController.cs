@@ -1,16 +1,18 @@
-﻿using System.Net;
+﻿using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData;
+using Coevery.Core.Entities.Models;
 
 namespace Coevery.DeveloperTools.FormDesigner.Controllers {
     public class LayoutController : ApiController {
-        private readonly IContentDefinitionManager _contentDefinitionManager;
 
-        public LayoutController(IContentDefinitionManager contentDefinitionManager) {
-            _contentDefinitionManager = contentDefinitionManager;
+        public LayoutController(ICoeveryServices coeveryServices) {
+            Services = coeveryServices;
         }
+
+        public ICoeveryServices Services { get; private set; }
 
         // POST api/metadata/field
         public virtual HttpResponseMessage Post(string id, Data data) {
@@ -18,18 +20,18 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
                 return Request.CreateResponse(HttpStatusCode.MethodNotAllowed);
             }
 
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(id);
-            if (contentTypeDefinition == null) {
+            var entityMetadataPart = Services.ContentManager
+                .Query<EntityMetadataPart>(VersionOptions.DraftRequired, "EntityMetadata")
+                .List().FirstOrDefault(x => x.Name == id);
+            if (entityMetadataPart == null) {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            if (contentTypeDefinition.Settings.ContainsKey("Layout")) {
-                contentTypeDefinition.Settings["Layout"] = data.Layout;
-            }
-            else {
-                contentTypeDefinition.Settings.Add("Layout", data.Layout);
-            }
-            _contentDefinitionManager.StoreTypeDefinition(contentTypeDefinition, VersionOptions.DraftRequired);
+            // computed field trick, the property have to be setted again when something changed.
+            var settings = entityMetadataPart.EntitySetting;
+            settings["Layout"] = data.Layout;
+            entityMetadataPart.EntitySetting = settings;
+
             return Request.CreateResponse(HttpStatusCode.OK);
         }
     }

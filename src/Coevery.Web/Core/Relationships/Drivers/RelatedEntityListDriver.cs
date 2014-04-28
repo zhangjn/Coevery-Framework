@@ -11,12 +11,9 @@ using Coevery.Core.Relationships.ViewModels;
 namespace Coevery.Core.Relationships.Drivers {
     public class RelatedEntityListDriver : ContentPartDriver<ContentPart> {
         private readonly IRelationshipService _relationshipService;
-        private readonly ISettingService _settingService;
 
         public RelatedEntityListDriver(
-            IRelationshipService relationshipService,
-            ISettingService settingService) {
-            _settingService = settingService;
+            IRelationshipService relationshipService) {
             _relationshipService = relationshipService;
         }
 

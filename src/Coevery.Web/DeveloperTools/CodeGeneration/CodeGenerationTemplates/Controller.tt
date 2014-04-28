@@ -54,12 +54,14 @@ namespace <#=Namespace#>.Controllers {
 	            .Slice((page - 1)*pageSize, pageSize)
 	            .Select(item => new <#=EntityName#>ListViewModel{
 					Id = item.Record.ContentItemRecord.Id,
-<# foreach (var field in GetPrimaryFields()) {#>
+<#  var columns = GetColumns(EntityName);
+    var partDefinition = GetContentPartDefinition(EntityName);
+	foreach (var field in GetPrimaryFields(columns, partDefinition)) {#>
 					<#=field.Name#> = item.Record.<#=field.Name#>,
 <#}#>
 				}).ToList();
 <#	
-	var optionSetFields = GetOptionSetFields().ToList();
+	var optionSetFields = GetOptionSetFields(columns, partDefinition).ToList();
     if (optionSetFields.Any()) { #>
 			foreach (var model in records) {
 <# foreach (var field in optionSetFields) { #>
@@ -68,7 +70,7 @@ namespace <#=Namespace#>.Controllers {
 	        }
 <# } #>
 <#	
-	var fieldsDictionary = GetReferenceFields();
+	var fieldsDictionary = GetReferenceFields(columns, partDefinition);
     if (fieldsDictionary.Count > 0) {
 		foreach (var item in fieldsDictionary) {
 		    var recordsName = item.Key.ToLower() + "Records";
@@ -188,34 +190,28 @@ namespace <#=Namespace#>.Controllers {
 
 <#+
 
-    private IEnumerable<ContentPartFieldDefinition> GetPrimaryFields() {
-        var columns = GetColumns(EntityName);
-        var partDefinition = GetContentPartDefinition(EntityName);
+    private IEnumerable<ContentPartFieldDefinition> GetPrimaryFields(IEnumerable<string> columns, ContentPartDefinition partDefinition) {
         foreach (var col in columns) {
-            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col);
             if (field != null && field.FieldDefinition.Name != "OptionSetField") {
                 yield return field;
             }
         }
     }
 
-	private IEnumerable<ContentPartFieldDefinition> GetOptionSetFields() {
-        var columns = GetColumns(EntityName);
-        var partDefinition = GetContentPartDefinition(EntityName);
+	private IEnumerable<ContentPartFieldDefinition> GetOptionSetFields(IEnumerable<string> columns, ContentPartDefinition partDefinition) {
         foreach (var col in columns) {
-            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col);
             if (field != null && field.FieldDefinition.Name == "OptionSetField") {
                 yield return field;
             }
         }
 	}
 
-	private Dictionary<string, List<ContentPartFieldDefinition>> GetReferenceFields() {
+	private Dictionary<string, List<ContentPartFieldDefinition>> GetReferenceFields(IEnumerable<string> columns, ContentPartDefinition partDefinition) {
 	    var fieldsDictionary = new Dictionary<string, List<ContentPartFieldDefinition>>();
-		var columns = GetColumns(EntityName);
-        var partDefinition = GetContentPartDefinition(EntityName);
         foreach (var col in columns) {
-            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col);
             if (field != null && field.FieldDefinition.Name == "ReferenceField") {
 				var typeName = field.Settings["ReferenceFieldSettings.ContentTypeName"];
                 if (!fieldsDictionary.ContainsKey(typeName)) {

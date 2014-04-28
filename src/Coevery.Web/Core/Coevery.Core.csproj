@@ -110,7 +110,6 @@
     <Compile Include="Common\Services\SafeModeThemeSelector.cs" />
     <Compile Include="Common\Shapes\Localization\DateTimeLocalization.cs" />
     <Compile Include="Common\Utilities\LazyField.cs" />
-    <Compile Include="Entities\Drivers\EntityMetadataPartDriver.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsDriver.cs" />
     <Compile Include="Entities\DynamicTypeGeneration\DynamicContentsHandler.cs" />
     <Compile Include="Entities\Events\IEntityDataEvents.cs" />
@@ -120,7 +119,6 @@
     <Compile Include="Entities\Models\EntityMetadataPart.cs" />
     <Compile Include="Entities\Models\EntityMetadataRecord.cs" />
     <Compile Include="Entities\Models\FieldMetadataRecord.cs" />
-    <Compile Include="Common\Services\SettingService.cs" />
     <Compile Include="Fields\Drivers\BooleanFieldDriver.cs" />
     <Compile Include="Fields\Drivers\CurrencyFieldDriver.cs" />
     <Compile Include="Fields\Drivers\DateFieldDriver.cs" />
@@ -170,6 +168,7 @@
     <Compile Include="Forms\Shapes\PropertyItemsBehavior.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Projections\Controllers\ProjectionController.cs" />
     <Compile Include="Projections\PropertyEditors\IContentFieldFormatter.cs" />
     <Compile Include="Projections\Providers\Properties\IContentFieldValueProvider.cs" />
     <Compile Include="Fields\Projections\NumericFieldFormatter.cs" />
@@ -225,11 +224,8 @@
     <Compile Include="OptionSet\Settings\OptionSetFieldSettings.cs" />
     <Compile Include="OptionSet\Shapes.cs" />
     <Compile Include="OptionSet\ViewModels\OptionSetFieldViewModel.cs" />
-    <Compile Include="Projections\Controllers\EntityController.cs" />
-    <Compile Include="Projections\Controllers\FilterController.cs" />
     <Compile Include="Projections\Controllers\GridColumnController.cs" />
     <Compile Include="Projections\Controllers\OptionSetController.cs" />
-    <Compile Include="Projections\Controllers\ProjectionController.cs" />
     <Compile Include="Projections\Controllers\ReferenceController.cs" />
     <Compile Include="Projections\Descriptors\Filter\DescribeFilterContext.cs" />
     <Compile Include="Projections\Descriptors\Filter\DescribeFilterFor.cs" />

@@ -1,6 +1,21 @@
-﻿@using Coevery.Core.Common.Extensions
-@model Coevery.Core.Projections.ViewModels.ProjectionEditViewModel
+﻿@model Coevery.DeveloperTools.ListViewDesigner.ViewModels.GridViewModel
+@{
+    var sortedBy = Model.Fields.Select(x => new SelectListItem {
+        Text = x.Text,
+        Value = x.Value
+    });
 
+    var sortMode = new List<SelectListItem> {
+        new SelectListItem {Text = "Desc"},
+        new SelectListItem {Text = "Asc"}
+    };
+
+    var pageRowCount = new List<SelectListItem> {
+        new SelectListItem {Text = "50"},
+        new SelectListItem {Text = "100"},
+        new SelectListItem {Text = "200"}
+    };
+}
 <header id="page-title">
     <h1 class="pull-left">View Detail <span>show view detail information</span></h1>
 </header>
@@ -23,20 +38,18 @@
                         <legend>
                             <h5>@T("General Info")</h5>
                         </legend>
-
                         <section class="data-row control-group">
-                            <div class="span6">
-                                <label class="control-label">@T("Name")</label>
-                                <div class="controls">
-                                    <input type="text" value="@Model.ItemContentType.RemovePartSuffix()" class="span12" disabled="disabled" />
-                                    @Html.HiddenFor(m => m.ItemContentType)
-                                    @Html.HiddenFor(m => m.IsDefault)
-                                </div>
-                            </div>
                             <div class="span6">
                                 <label class="control-label required">@T("Display Name")</label>
                                 <div class="controls errortips">
                                     @Html.TextBoxFor(m => m.DisplayName, new {@class = "span12", required = ""})
+                                </div>
+                            </div>
+                            <div class="span6">
+                                <label class="control-label">@T("Entity")</label>
+                                <div class="controls">
+                                    <input type="text" value="@Model.ItemContentType" class="span12" disabled="disabled" />
+                                    @Html.HiddenFor(m => m.ItemContentType)
                                 </div>
                             </div>
                         </section>
@@ -52,18 +65,41 @@
                             <h5>@T("Select Fields to Display")</h5>
                         </legend>
                         <select data-ng-picklist="@Json.Encode(Model.Fields)" data-source-list-label="Fields" data-use-default-model=true
-                                data-target-list-label="Drag and drop to reorder" id="pickList" name="PickedFields">
+                                data-target-list-label="Drag and drop to reorder" id="pickList" name="SelectedColumns">
                         </select>
-                        @Html.HiddenFor(model => model.LayoutId)
-                        @Html.HiddenFor(model => model.Layout.Category)
-                        @Html.HiddenFor(model => model.Layout.Type)
-                        @Html.HiddenFor(model => model.Layout.Form)
                     </fieldset>
                 </div>
             </div>
         </div>
-        @Display(Model.Form)
         <div class="row-fluid">
+            <div class="span12 form-container edit-mode">
+                <div class="form-horizontal no-border">
+                    <fieldset>
+                        <legend>
+                            <h5>@T("Default Grid Settings")</h5>
+                        </legend>
+                        <section class="data-row control-group">
+                            <div class="span10">
+                                <label class="control-label ">@T("Sorted By")</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.SortColumn, sortedBy, string.Empty, new {@class = "span6"})
+                                    @Html.DropDownListFor(m => m.SortMode, sortMode, string.Empty, new {@class = "span3"})
+                                </div>
+                            </div>
+                        </section>
+                        <section class="data-row control-group">
+                            <div class="span6">
+                                <label class="control-label">@T("Page Row Count")</label>
+                                <div class="controls">
+                                    @Html.DropDownListFor(m => m.PageRowCount, pageRowCount, null, new {@class = "span12"})
+                                </div>
+                            </div>
+                        </section>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        <div class="row-fluid hide" id="preview-section">
             <div class=" form-container edit-mode">
                 <div class="form-horizontal no-border">
                     <fieldset>
@@ -78,9 +114,8 @@
     }
 </section>
 <script>
-    $(function () {
+    $(function() {
         $("#main-content").css("margin-top", $("#page-title").outerHeight(true));
         $("#page-actions h1 span").attr("title", $("#page-actions h1 span").html());
     });
 </script>
-

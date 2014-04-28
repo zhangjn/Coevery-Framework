@@ -12,9 +12,9 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
                 });
 
             builder.Describe("ProjectionCreate")
-                .Configure(descriptor => { descriptor.Url = "/Projections/{EntityName:[0-9a-zA-Z]+}/Create/{Category:[0-9a-zA-Z]+}/{Type:[0-9a-zA-Z]+}"; })
+                .Configure(descriptor => { descriptor.Url = "/Projections/{EntityName:[0-9a-zA-Z]+}/Create"; })
                 .View(view => {
-                    view.TemplateUrl = "function(params) { return '" + ModuleBasePath + @"Create/' + params.EntityName + '?category='+ params.Category +'&type=' + params.Type;}";
+                    view.TemplateUrl = "function(params) { return '" + ModuleBasePath + @"Create/' + params.EntityName;}";
                     view.Controller = "ProjectionDetailCtrl";
                     view.AddDependencies(ToAbsoluteScriptUrl, new[] {"controllers/detailcontroller"});
                 });

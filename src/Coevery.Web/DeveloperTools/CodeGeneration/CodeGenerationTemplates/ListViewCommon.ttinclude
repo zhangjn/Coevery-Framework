@@ -2,62 +2,23 @@
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
-<#@ import namespace="Coevery.Core.Projections.Descriptors.Property" #>
-<#@ import namespace="Coevery.Core.Projections.Models" #>
 <#@ import namespace="Coevery.ContentManagement" #>
-<#@ import namespace="Coevery.Core.Projections.Services" #>
+<#@ import namespace="Coevery.DeveloperTools.ListViewDesigner.Models" #>
 <#+
-    private IEnumerable<GridColumn> GetColumns(string entityTypeName) {
+
+    private IEnumerable<string> GetColumns(string entityTypeName) {
+        var gridInfo = GetDefaultGridInfo(entityTypeName);
+        return gridInfo.GridSettings[GridInfoSettings.Columns].Split(';');
+    }
+
+    private GridInfoPart GetDefaultGridInfo(string entityTypeName) {
         var contentManager = Services.ContentManager;
-        var listViewPart = contentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")
-            .Where(v => v.IsDefault && v.ItemContentType == entityTypeName).List().FirstOrDefault();
+        var gridInfos = contentManager.Query<GridInfoPart, GridInfoPartRecord>("GridInfo")
+            .Where(v => v.ItemContentType == entityTypeName)
+            .List().ToList();
 
-        IEnumerable<FieldDescriptor> properties = Enumerable.Empty<FieldDescriptor>();
-        LayoutRecord layoutRecord = null;
-
-        #region Load Properties
-
-        var projectionPart = listViewPart.As<ProjectionPart>();
-        if (projectionPart != null) {
-            var queryPartRecord = projectionPart.Record.QueryPartRecord;
-            if (queryPartRecord.Layouts.Any())
-                layoutRecord = queryPartRecord.Layouts[0];
-        }
-
-        if (layoutRecord != null) {
-            var projectionManager = Services.WorkContext.Resolve<IProjectionManager>();
-            var allFielDescriptors = projectionManager.DescribeProperties().ToList();
-            properties = layoutRecord.Properties.OrderBy(p => p.Position)
-                .Select(p => allFielDescriptors.SelectMany(x => x.Descriptors)
-                    .Select(d => new FieldDescriptor {Descriptor = d, Property = p}).FirstOrDefault(x => x.Descriptor.Category == p.Category && x.Descriptor.Type == p.Type)).ToList();
-        }
-
-        #endregion
-
-
-        var columns = new List<GridColumn>();
-
-        foreach (var property in properties.Select(x => x.Property)) {
-            var column = new GridColumn();
-            var filedName = property.GetFieldName();
-            column.Name = filedName;
-            column.Label = property.Description;
-            if (property.LinkToContent) {}
-            columns.Add(column);
-        }
-
-        return columns;
-    }
-
-    class GridColumn {
-        public string Name { get; set; }
-		public string Label { get; set; }
-    }
-
-	class FieldDescriptor
-    {
-        public PropertyDescriptor Descriptor { get; set; }
-        public PropertyRecord Property { get; set; }
+        var gridInfo = gridInfos.FirstOrDefault(x => x.IsDefault) ?? gridInfos.First();
+        return gridInfo;
     }
 
 #>

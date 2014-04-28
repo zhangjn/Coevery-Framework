@@ -68,11 +68,13 @@ namespace Coevery.Core.OptionSet.Settings {
             if (fieldType != "OptionSetField") {
                 return;
             }
-            var optionSet = _optionSetService.GetOptionSet(int.Parse(settingsDictionary["ReferenceFieldSettings.OptionSetId"]));
-            if (optionSet == null) {
-                return;
+            var model = settingsDictionary.TryGetModel<OptionSetFieldSettings>();
+            if (model != null) {
+                var optionSet = _optionSetService.GetOptionSet(model.OptionSetId);
+                if (optionSet != null) {
+                    _optionSetService.DeleteOptionSet(optionSet);
+                }
             }
-            _optionSetService.DeleteOptionSet(optionSet);
         }
 
         public override IEnumerable<TemplateViewModel> PartFieldEditor(ContentPartFieldDefinition definition) {

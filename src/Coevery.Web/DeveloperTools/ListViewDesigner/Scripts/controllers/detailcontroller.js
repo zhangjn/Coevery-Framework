@@ -1,51 +1,52 @@
 ﻿'use strict';
-define(['core/app/detourService', 'DeveloperTools/ListViewDesigner/Scripts/services/projectiondataservice'], function (detour) {
+define(['core/app/detourService'], function (detour) {
     detour.registerController([
         'ProjectionDetailCtrl',
-        ['$rootScope', '$scope', '$timeout', 'logger', '$state', '$stateParams', '$resource', '$http', 'projectionDataService', '$parse', '$q',
-            function ($rootScope, $scope, $timeout, logger, $state, $stateParams, $resource, $http, projectionDataService, $parse, $q) {
-                var name = $stateParams.Id;
-                var deferred = $q.defer();
+        ['$rootScope', '$scope', 'logger', '$state', '$stateParams', '$http',
+            function ($rootScope, $scope, logger, $state, $stateParams, $http) {
                 var isInit = true;
                 $scope.fieldCoumns = [];
                 $scope.SelectedColumns = [];
 
+                var previewSection = $('#preview-section');
                 $scope.preview = function () {
                     var pool = { list: [] };
                     $scope.$broadcast("getSelectedList", pool);
 
                     $scope.fieldCoumns = [];
                     $scope.myData = [];
-                    var jasondata = {};
+                    var jsondata = {};
                     for (var i = 0; i < pool.list.length; i++) {
-                        var fieldNames = pool.list[i].Value.split(".");
-                        $scope.fieldCoumns[i] = { name: fieldNames[1], label: fieldNames[1] };
-                        jasondata[fieldNames[1]] = "data_" + fieldNames[1];
+                        var fieldName = pool.list[i].Value;
+                        $scope.fieldCoumns[i] = { name: fieldName, label: pool.list[i].Text };
+                        jsondata[fieldName] = "data_" + fieldName;
                     }
                     if (i > 0) {
                         for (var j = 0; j < 5; j++) {
-                            var newjason = {};
-                            for (var filed in jasondata) {
-                                newjason[filed] = jasondata[filed] + "_" + (j + 1);
+                            var newjson = {};
+                            for (var filed in jsondata) {
+                                newjson[filed] = jsondata[filed] + "_" + (j + 1);
                             }
-                            $scope.myData.push(newjason);
+                            $scope.myData.push(newjson);
                         }
                     }
-                    deferred.resolve();
-                    $scope.changePreview();
-                };
+                    
+                    var sortby = $('#SortColumn').val();
+                    var sortmode = $('#SortMode').val();
+                    sortmode || (sortmode = 'asc');
+                    $scope.gridOptions = {
+                        colModel: $scope.fieldCoumns,
+                        needReloading: !isInit,
+                        sortname: sortby,
+                        sortorder: sortmode
+                    };
+                    isInit = false;
+                    angular.extend($scope.gridOptions, $rootScope.defaultGridOptions);
+                    $scope.gridOptions.datatype = "local";
+                    $scope.gridOptions.data = $scope.myData;
 
-                $scope.changePreview = function () {
-                    deferred.promise.then(function () {
-                        $scope.gridOptions = {
-                            colModel: $scope.fieldCoumns,
-                            needReloading: !isInit
-                        };
-                        isInit = false;
-                        angular.extend($scope.gridOptions, $rootScope.defaultGridOptions);
-                        $scope.gridOptions.datatype = "local";
-                        $scope.gridOptions.data = $scope.myData;
-                    });
+                    previewSection.show();
+                    scroll(0, previewSection.offset().top);
                 };
 
                 var validator = $("form[name=myForm]").validate({
@@ -61,7 +62,7 @@ define(['core/app/detourService', 'DeveloperTools/ListViewDesigner/Scripts/servi
                     var promise = $http({
                         url: form.attr('action'),
                         method: "POST",
-                        data: form.serialize() + '&submit.Save=Save',
+                        data: form.serialize(),
                         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                         tracker: 'saveview'
                     }).then(function (response) {
@@ -76,8 +77,7 @@ define(['core/app/detourService', 'DeveloperTools/ListViewDesigner/Scripts/servi
                 $scope.saveAndView = function () {
                     var promise = $scope.save();
                     promise && promise.then(function (response) {
-                        var getter = $parse('id');
-                        var id = getter(response.data);
+                        var id = response.data.id;
                         if (id)
                             $state.transitionTo('ProjectionEdit', { EntityName: $stateParams.EntityName, Id: id });
                     });

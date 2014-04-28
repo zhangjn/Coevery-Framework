@@ -53,7 +53,7 @@
                             </div>
                             <div class="tab-pane" id="fieldTools">
                                 @{
-                                    foreach (var field in Model.Fields) {
+                                    foreach (var field in Model.ContentPart.Fields) {
                                         @:<div fd-tools-field field-display-name="@field.DisplayName" field-name="@field.Name"></div>
                                     }
                                 }
@@ -122,15 +122,9 @@
         </div>
     </div>
 </section>
-@foreach (var item in Model.Templates) {
-    string templateName;
-    if (item.TemplateName == "Parts/Relationship.Edit") {
-        templateName = item.ContentPart.GetType().Name + ".html";
-    }
-    else {
-        templateName = item.ContentField.Name + ".html";
-    }
-    <script type="text/ng-template" id="@templateName">
-    @Display(item)
+@foreach (var field in Model.ContentPart.Fields) {
+    var template = field.Name + ".html";
+    <script type="text/ng-template" id="@template">
+    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: field.Name)
     </script>
 }

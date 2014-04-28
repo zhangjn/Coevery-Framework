@@ -60,7 +60,7 @@
                                     }
                                     @T("Required")
                                 </label>
-                                <label class="checkbox">
+                                @*<label class="checkbox">
                                     @if (settings.IsSystemField) {
                                         @Html.Hidden(fieldSettingsPrefix + ".AlwaysInLayout", settings.AlwaysInLayout)
                                         @Html.CheckBox(fieldSettingsPrefix + ".AlwaysInLayout", settings.AlwaysInLayout, new { disabled = "disabled" })
@@ -79,7 +79,7 @@
                                         @Html.CheckBox(fieldSettingsPrefix + ".IsAudit", settings.IsAudit);
                                     }
                                     @T("IsAudit")
-                                </label>
+                                </label>*@
                             </div>
                         </section>
                         <section class="data-row control-group">

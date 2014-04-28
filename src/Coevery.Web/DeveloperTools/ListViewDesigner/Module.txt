@@ -1,4 +1,5 @@
 ﻿Name: ListViewDesigner
+TablePrefix: Metadata
 AntiForgery: enabled
 Author: The Coevery Team
 Website: http://www.coevery.com

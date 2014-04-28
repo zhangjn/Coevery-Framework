@@ -22,7 +22,7 @@ namespace Coevery.ContentManagement.Drivers.Coordinators {
         public ILogger Logger { get; set; }
 
         public override void Activating(ActivatingContentContext context) {
-            var contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(context.ContentType);
+            var contentTypeDefinition = context.Definition;
             if (contentTypeDefinition == null)
                 return;
 

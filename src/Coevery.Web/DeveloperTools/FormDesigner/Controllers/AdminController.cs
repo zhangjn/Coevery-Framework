@@ -3,25 +3,28 @@ using System.Linq;
 using System.Net;
 using System.Web.Http;
 using System.Web.Mvc;
+using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
+using Coevery.ContentManagement.MetaData.Builders;
+using Coevery.ContentManagement.MetaData.Models;
+using Coevery.ContentManagement.MetaData.Services;
 using Coevery.Core.Common.Extensions;
-using Coevery.DeveloperTools.EntityManagement.Services;
-using Coevery.DeveloperTools.FormDesigner.Models;
-using Coevery.DeveloperTools.FormDesigner.ViewModels;
+using Coevery.Core.Entities.Models;
+using Coevery.DeveloperTools.FormDesigner.Services;
 using Coevery.Localization;
 using Newtonsoft.Json;
 
 namespace Coevery.DeveloperTools.FormDesigner.Controllers {
     public class AdminController : Controller {
-        private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IContentMetadataService _contentMetadataService;
+        private readonly ILayoutManager _layoutManager;
+        private readonly ISettingsFormatter _settingsFormatter;
 
         public AdminController(
             ICoeveryServices coeveryServices,
-            IContentMetadataService contentMetadataService,
-            IContentDefinitionManager contentDefinitionManager) {
-            _contentDefinitionManager = contentDefinitionManager;
-            _contentMetadataService = contentMetadataService;
+            ILayoutManager layoutManager, 
+            ISettingsFormatter settingsFormatter) {
+            _layoutManager = layoutManager;
+            _settingsFormatter = settingsFormatter;
             Services = coeveryServices;
             T = NullLocalizer.Instance;
         }
@@ -33,37 +36,41 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
             if (string.IsNullOrEmpty(id)) {
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
             }
-            if (!_contentMetadataService.CheckEntityPublished(id)) {
-                return Content(T("The \"{0}\" hasn't been published!", id).Text);
-            }
-            var contentItem = Services.ContentManager.New(id);
-            dynamic model = Services.ContentManager.BuildEditor(contentItem);
-            var contentTypeDefinition = contentItem.TypeDefinition;
 
-            var viewModel = Services.New.ViewModel();
-            viewModel.Layout = contentTypeDefinition.Settings.ContainsKey("Layout")
-                ? JsonConvert.DeserializeObject<IList<Section>>(contentTypeDefinition.Settings["Layout"])
-                : Enumerable.Empty<Section>();
-            viewModel.DisplayName = contentItem.TypeDefinition.DisplayName;
-            var templates = new List<dynamic>();
-            var fields = _contentDefinitionManager.GetPartDefinition(id.ToPartName()).Fields
-                .Select(x => new FieldViewModel {DisplayName = x.DisplayName, Name = x.Name})
-                .ToList();
-            foreach (var item in model.Fields.Items) {
-                if (item.TemplateName != null && item.TemplateName.StartsWith("Fields/")) {
-                    templates.Add(item);
-                }
-                else if (item.TemplateName == "Parts/Relationship.Edit") {
-                    templates.Add(item);
-                    var name = item.ContentPart.GetType().Name;
-                    fields.Add(new FieldViewModel {
-                        Name = name,
-                        DisplayName = _contentDefinitionManager.GetPartDefinition(name).Settings["DisplayName"]
-                    });
-                }
+            var entityMetadataPart = Services.ContentManager
+                .Query<EntityMetadataPart>(VersionOptions.Latest, "EntityMetadata")
+                .List().FirstOrDefault(x => x.Name == id);
+            if (entityMetadataPart == null) {
+                return Content(T("The \"{0}\" does not exist in the database!", id).Text);
             }
-            viewModel.Templates = templates;
-            viewModel.Fields = fields;
+
+            var typeBuilder = new ContentTypeDefinitionBuilder();
+            typeBuilder.Named(entityMetadataPart.Name).DisplayedAs(entityMetadataPart.DisplayName);
+            foreach (var pair in entityMetadataPart.EntitySetting) {
+                typeBuilder.WithSetting(pair.Key, pair.Value);
+            }
+            var partBuilder = new ContentPartDefinitionBuilder();
+            partBuilder.Named(entityMetadataPart.Name.ToPartName());
+            foreach (var field in entityMetadataPart.FieldMetadataRecords) {
+                string fieldTypeName = field.ContentFieldDefinitionRecord.Name;
+                var settings = _settingsFormatter.Parse(field.Settings);
+                partBuilder.WithField(field.Name, fieldBuilder => {
+                    fieldBuilder.OfType(fieldTypeName);
+                    foreach (var pair in settings) {
+                        fieldBuilder.WithSetting(pair.Key, pair.Value);
+                    }
+                });
+            }
+            var partDefinition = partBuilder.Build();
+            typeBuilder.WithPart(partDefinition, cfg => { });
+
+            var contentTypeDefinition = typeBuilder.Build();
+            var contentItem = Services.ContentManager.New(id, contentTypeDefinition);
+            var contentPart = contentItem.Parts.First(x => x.PartDefinition.Name == partDefinition.Name);
+            var viewModel = Services.New.ViewModel();
+            viewModel.Layout = _layoutManager.GetLayout(contentTypeDefinition);
+            viewModel.DisplayName = contentItem.TypeDefinition.DisplayName;
+            viewModel.ContentPart = contentPart;
 
             return View((object) viewModel);
         }

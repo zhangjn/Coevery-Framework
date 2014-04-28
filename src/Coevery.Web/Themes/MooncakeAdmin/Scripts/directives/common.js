@@ -41,14 +41,14 @@ angular.module('coevery.common', [])
             }
         };
     }])
-    .directive('helperText', function() {
+    .directive('helpText', function() {
         return {
             restrict: 'A',
             link: function(scope, element, attrs) {
                 element.attr('rel', 'popover');
                 element.attr('data-html', 'true');
                 element.attr('data-placement', 'top');
-                element.attr('data-content', '<p class="popoverTipContent">' + attrs.helperText + '</p>');
+                element.attr('data-content', '<p class="popoverTipContent">' + attrs.helpText + '</p>');
                 element.attr('original-title', '');
                 var icon = document.createElement("i");
                 icon.className = "icon-question-sign popoverTipIcon";

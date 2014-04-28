@@ -1,39 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using Coevery.ContentManagement;
-using Coevery.Core.Common.Extensions;
 using Coevery.Core.Projections.Models;
 
 namespace Coevery.Core.Projections.Controllers {
     public class ProjectionController : ApiController {
         private readonly IContentManager _contentManager;
-        private readonly IContentDefinitionExtension _contentDefinitionExtension;
 
         public ProjectionController(
             IContentManager contentManager,
-            IContentDefinitionExtension contentDefinitionExtension,
             ICoeveryServices coeveryServices) {
-            _contentDefinitionExtension = contentDefinitionExtension;
             _contentManager = contentManager;
             Services = coeveryServices;
         }
 
         public ICoeveryServices Services { get; private set; }
-
-        public IEnumerable<object> Get(string id) {
-            id = _contentDefinitionExtension.GetEntityNameFromCollectionName(id);
-
-            var query = Services.ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")
-                 .Where(v => v.ItemContentType == id).List().Select(record => new {
-                     ContentId = record.Id,
-                     EntityType = record.ItemContentType,
-                     DisplayName = record.Name,
-                     Default = record.IsDefault
-                 }).ToList();
-            return query;
-        }
 
         public object Get(string id, int page, int rows) {
             var query = Services.ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage")

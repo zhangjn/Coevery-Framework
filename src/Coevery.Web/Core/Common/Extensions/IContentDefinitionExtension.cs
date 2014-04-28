@@ -17,7 +17,6 @@ namespace Coevery.Core.Common.Extensions {
         IEnumerable<ContentTypeDefinition> ListUserDefinedTypeDefinitions();
         IEnumerable<ContentPartDefinition> ListUserDefinedPartDefinitions();
         EntityNames GetEntityNames(string entityName);
-        string GetEntityNameFromCollectionName(string collectionname, bool isDisplayName = false);
     }
 
     public class ContentDefinitionExtension : IContentDefinitionExtension {
@@ -81,17 +80,6 @@ namespace Coevery.Core.Common.Extensions {
                     CollectionDisplayName = setting["CollectionDisplayName"]
                 }
                 : null;
-        }
-
-        public string GetEntityNameFromCollectionName(string collectionname, bool isDisplayName) {
-            var entity = _contentDefinitionQuery.ListTypeDefinitions().FirstOrDefault(type => {
-                var setting = type.Settings;
-                if (isDisplayName && setting.ContainsKey("CollectionDisplayName")) {
-                    return setting["CollectionDisplayName"] == collectionname;
-                }
-                return false;
-            });
-            return entity != null ? entity.Name : null;
         }
 
         private void MonitorContentDefinitionSignal(AcquireContext<string> ctx) {

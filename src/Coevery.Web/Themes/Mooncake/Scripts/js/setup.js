@@ -93,6 +93,28 @@
                 return $(em).attr("decimalplaces");
             }
         };
+        
+        // FIeld help text
+        $('[help-text]').each(function () {
+            var element = $(this);
+            element.attr('rel', 'popover');
+            element.attr('data-html', 'true');
+            element.attr('data-placement', 'top');
+            element.attr('data-content', '<p class="popoverTipContent">' + element.attr('help-text') + '</p>');
+            element.attr('original-title', '');
+            var icon = document.createElement("i");
+            icon.className = "icon-question-sign popoverTipIcon";
+            element.parents("div").first().get(0).appendChild(icon);
+            $(icon).mouseover(function () {
+                element.popover('show');
+                element.focus();
+            });
+
+            $(icon).mouseout(function () {
+                element.popover('destroy');
+                element.blur();
+            });
+        });
     });
 
 }) (jQuery, window, document);

@@ -35,12 +35,10 @@
             }
         });
 <#
-	var projectionService = Services.WorkContext.Resolve<IProjectionService>();
-	var listViewPart = Services.ContentManager.Query<ListViewPart, ListViewPartRecord>("ListViewPage").Where(v => v.IsDefault && v.ItemContentType == EntityName).List().FirstOrDefault();
-	var viewModel = projectionService.GetProjectionViewModel(listViewPart.Id);
-    int pageSize = string.IsNullOrEmpty(viewModel.State["PageRowCount"]) ? 10 : int.Parse(viewModel.State["PageRowCount"]);
-	string sortedBy = string.IsNullOrEmpty(viewModel.State["SortedBy"]) ? string.Empty : viewModel.State["SortedBy"];
-    string sortOrder = string.IsNullOrEmpty(viewModel.State["SortMode"]) ? "asc" : viewModel.State["SortMode"];
+	var gridInfo = GetDefaultGridInfo(EntityName);
+    int pageSize = string.IsNullOrEmpty(gridInfo.GridSettings[GridInfoSettings.PageRowCount]) ? 10 : int.Parse(gridInfo.GridSettings[GridInfoSettings.PageRowCount]);
+	string sortedBy = string.IsNullOrEmpty(gridInfo.GridSettings[GridInfoSettings.SortColumn]) ? string.Empty : gridInfo.GridSettings[GridInfoSettings.SortColumn];
+    string sortOrder = string.IsNullOrEmpty(gridInfo.GridSettings[GridInfoSettings.SortMode]) ? "asc" : gridInfo.GridSettings[GridInfoSettings.SortMode];
 #>
         $('#<#=EntityName.ToLower()#>Grid').jqGrid({
             url: '@Url.Action("List")',
@@ -127,7 +125,7 @@
         var columns = GetColumns(EntityName);
         var partDefinition = GetContentPartDefinition(EntityName);
         foreach (var col in columns) {
-            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col.Name);
+            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col);
             if (field != null ) {
                 var column = new JObject();
                 column["name"] = field.Name;

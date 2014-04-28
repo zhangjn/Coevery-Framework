@@ -55,11 +55,11 @@ if (!Model.DatabaseIsPreconfigured) {
                 <label>@T("Server authentication")</label>
                 <div>
                     @Html.RadioButtonFor(svm => svm.ServerAuthentication, Coevery.Setup.Controllers.DatabaseAuthenticationMode.Windows.ToString(), new { id = "windows" })
-                    <label for="ServerAuthentication" class="forcheckbox">@T("Windows Authentication mode")</label>
+                    <label for="windows" class="forcheckbox">@T("Windows Authentication mode")</label>
                 </div>
                 <div>
                     @Html.RadioButtonFor(svm => svm.ServerAuthentication, Coevery.Setup.Controllers.DatabaseAuthenticationMode.UserNamePassword.ToString(), new { id = "usernamepassword" })
-                    <label for="ServerAuthentication" class="forcheckbox">@T("User Name and Password")</label>
+                    <label for="usernamepassword" class="forcheckbox">@T("User Name and Password")</label>
                 </div>
                 <div data-controllerid="usernamepassword">
                     <div>
