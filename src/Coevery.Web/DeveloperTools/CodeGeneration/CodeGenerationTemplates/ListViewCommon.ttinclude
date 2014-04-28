@@ -5,16 +5,20 @@
 <#@ import namespace="Coevery.ContentManagement" #>
 <#@ import namespace="Coevery.DeveloperTools.ListViewDesigner.Models" #>
 <#+
+
     private IEnumerable<string> GetColumns(string entityTypeName) {
         var gridInfo = GetDefaultGridInfo(entityTypeName);
-		return gridInfo.GridSettings[GridInfoSettings.Columns].Split(';');
+        return gridInfo.GridSettings[GridInfoSettings.Columns].Split(';');
     }
 
     private GridInfoPart GetDefaultGridInfo(string entityTypeName) {
         var contentManager = Services.ContentManager;
-        var gridInfo = contentManager.Query<GridInfoPart, GridInfoPartRecord>("GridInfo")
-            .Where(v => v.IsDefault && v.ItemContentType == entityTypeName).List().FirstOrDefault();
+        var gridInfos = contentManager.Query<GridInfoPart, GridInfoPartRecord>("GridInfo")
+            .Where(v => v.ItemContentType == entityTypeName)
+            .List().ToList();
 
+        var gridInfo = gridInfos.FirstOrDefault(x => x.IsDefault) ?? gridInfos.First();
         return gridInfo;
     }
+
 #>
