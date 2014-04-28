@@ -1,37 +1,17 @@
-﻿using System.Linq;
-using System.Net;
-using System.Web.Mvc;
-using Coevery.ContentManagement.MetaData;
-using Coevery.Core.Common.Extensions;
-using Coevery.Core.Forms.Services;
-using Coevery.Core.Projections.Services;
-using Coevery.Core.Projections.ViewModels;
-using Coevery.DeveloperTools.EntityManagement.Services;
+﻿using System.Web.Mvc;
 using Coevery.DeveloperTools.ListViewDesigner.ViewModels;
 using Coevery.Localization;
-using Coevery.Mvc;
 using Coevery.Security;
+using IGridService = Coevery.DeveloperTools.ListViewDesigner.Services.IGridService;
 
 namespace Coevery.DeveloperTools.ListViewDesigner.Controllers {
     public class AdminController : Controller {
-        private readonly IProjectionService _projectionService;
-        private readonly IContentMetadataService _contentMetadataService;
-        private readonly IProjectionManager _projectionManager;
-        private readonly IFormManager _formManager;
-        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IGridService _gridService;
 
         public AdminController(
             ICoeveryServices services,
-            IContentMetadataService contentMetadataService,
-            IFormManager formManager,
-            IProjectionManager projectionManager,
-            IProjectionService projectionService, 
-            IContentDefinitionManager contentDefinitionManager) {
-            _contentMetadataService = contentMetadataService;
-            _projectionService = projectionService;
-            _contentDefinitionManager = contentDefinitionManager;
-            _projectionManager = projectionManager;
-            _formManager = formManager;
+            IGridService gridService) {
+            _gridService = gridService;
             Services = services;
             T = NullLocalizer.Instance;
         }
@@ -39,37 +19,16 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Controllers {
         public ICoeveryServices Services { get; set; }
         public Localizer T { get; set; }
 
-        public ActionResult List(string id) {
-            //var model = new EntityViewListModel {
-            //    Layouts = _projectionManager.DescribeLayouts()
-            //        .SelectMany(type => type.Descriptors)
-            //        .Where(type => type.Category == "Grids")
-            //};
-            //return View(model);
+        public ActionResult List() {
             return View();
         }
 
-        public ActionResult Create(string id, string category, string type) { 
-            if (!_contentMetadataService.CheckEntityPublished(id)) {
-                return Content(T("The \"{0}\" hasn't been published!", id).Text);
-            }
-
-            var viewModel = new ProjectionEditViewModel {
-                ItemContentType = id.ToPartName(),
-                DisplayName = string.Empty,
-                Fields = _projectionService.GetFieldDescriptors(id, -1),
-                Layout = _projectionManager.DescribeLayouts()
-                    .SelectMany(descr => descr.Descriptors)
-                    .FirstOrDefault(descr => descr.Category == category && descr.Type == type),
-            };
-            if (viewModel.Layout == null) {
+        public ActionResult Create(string id) {
+            var viewModel = _gridService.GetGridViewModel(id);
+            if (viewModel == null) {
                 return HttpNotFound();
             }
-            viewModel.Form = _formManager.Build(viewModel.Layout.Form) ?? Services.New.EmptyForm();
-            viewModel.Form.Fields = _contentDefinitionManager.GetPartDefinition(id.ToPartName()).Fields.Select(x => new PicklistItemViewModel {
-                Value = x.Name,
-                Text = x.DisplayName
-            });
+
             return View("Edit", viewModel);
         }
 
@@ -77,25 +36,14 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Controllers {
             if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to edit queries"))) {
                 return new HttpUnauthorizedResult();
             }
-            ProjectionEditViewModel viewModel = _projectionService.GetProjectionViewModel(id);
 
+            var viewModel = _gridService.GetGridViewModel(id);
             return View(viewModel);
         }
 
         [HttpPost, ActionName("Edit")]
-        [FormValueRequired("submit.Save")]
-        public ActionResult EditPost(int id, ProjectionEditViewModel viewModel, string returnUrl) {
-            viewModel.Layout = _projectionManager.DescribeLayouts()
-                .SelectMany(descr => descr.Descriptors)
-                .FirstOrDefault(descr => descr.Category == viewModel.Layout.Category && descr.Type == viewModel.Layout.Type);
-            if (viewModel.Layout == null) {
-                return HttpNotFound();
-            }
-            _formManager.Validate(new ValidatingContext {FormName = viewModel.Layout.Form, ModelState = ModelState, ValueProvider = ValueProvider});
-            if (!ModelState.IsValid) {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            var viewid = _projectionService.EditPost(id, viewModel);
+        public ActionResult EditPost(int id, GridViewModel viewModel, string returnUrl) {
+            var viewid = _gridService.Save(id, viewModel);
             return Json(new {id = viewid});
         }
     }

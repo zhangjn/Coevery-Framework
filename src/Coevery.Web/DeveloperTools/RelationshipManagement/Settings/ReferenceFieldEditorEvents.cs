@@ -49,7 +49,8 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Settings {
                     throw new Exception("primary entity is null", new ArgumentNullException());
                 }
                 if (model.QueryId <= 0) {
-                    model.QueryId = _relationshipService.CreateEntityQuery(model.ContentTypeName);
+                    //model.QueryId = _relationshipService.CreateEntityQuery(model.ContentTypeName);
+                    model.QueryId = 1;
                 }
 
                 if (model.RelationshipId <= 0) {

@@ -43,7 +43,7 @@ namespace Coevery.Core.Projections.Services {
             var fieldDescriptors = _projectionManager.DescribeProperties()
                 .Where(x => x.Category == category).SelectMany(x => x.Descriptors)
                 .Select(element => new PicklistItemViewModel {
-                    Category = element.Category,
+                    //Category = element.Category,
                     Text = element.Name.Text,
                     Value = element.Type
                 }).ToList();
