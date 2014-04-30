@@ -14,7 +14,7 @@ define(['core/app/detourService', 'DeveloperTools/EntityManagement/Scripts/servi
                         formatter: $rootScope.cellLinkTemplate,
                         formatoptions: { hasView: true }
                     },
-                    { name: 'Id', label: $i18next('Id'), hidden: true, sorttype: 'int' },
+                    //{ name: 'Id', label: $i18next('Id'), hidden: true, sorttype: 'int' },
                     { name: 'DisplayName', label: $i18next('Display Name') },
                     { name: 'Modified', label: $i18next('Has Unpublished Modification') },
                     { name: 'HasPublished', label: $i18next('Has Ever Published') }
@@ -29,7 +29,7 @@ define(['core/app/detourService', 'DeveloperTools/EntityManagement/Scripts/servi
                 angular.extend($scope.gridOptions, $rootScope.defaultGridOptions);
 
                 $scope['delete'] = function() {
-                    var deleteEntity = !!$scope.selectedRow ? $scope.selectedRow.Id : null;
+                    var deleteEntity = !!$scope.selectedRow ? $scope.selectedRow.Name : null;
                     if (!deleteEntity) return;
                     entityDataService['delete']({ name: deleteEntity }, function() {
                         if ($scope.selectedItems.length !== 0) {

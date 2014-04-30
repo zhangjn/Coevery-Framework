@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 
@@ -21,19 +20,6 @@ namespace Coevery.Core.Fields.Settings {
                 settingsDictionary["TextFieldSettings.MaxLength"] = model.MaxLength.ToString();
                 settingsDictionary["TextFieldSettings.PlaceHolderText"] = model.PlaceHolderText;
                 settingsDictionary["TextFieldSettings.IsUnique"] = model.IsUnique.ToString();
-            }
-        }
-
-        public override void UpdateFieldSettings(ContentPartFieldDefinitionBuilder builder, SettingsDictionary settingsDictionary) {
-            if (builder.FieldType != "TextField") {
-                return;
-            }
-            var model = settingsDictionary.TryGetModel<TextFieldSettings>();
-            if (model != null) {
-                UpdateSettings(model, builder, "TextFieldSettings");
-                builder.WithSetting("TextFieldSettings.MaxLength", model.MaxLength.ToString());
-                builder.WithSetting("TextFieldSettings.PlaceHolderText", model.PlaceHolderText);
-                builder.WithSetting("TextFieldSettings.IsUnique", model.IsUnique.ToString());
             }
         }
 

@@ -10,7 +10,7 @@ namespace Coevery.Core.Settings.Metadata.Records {
 
         public virtual string Name { get; set; }
         public virtual string DisplayName { get; set; }
-        public virtual bool Hidden { get; set; }
+        public virtual bool Customized { get; set; }
 
         [StringLengthMax]
         public virtual string Settings { get; set; }

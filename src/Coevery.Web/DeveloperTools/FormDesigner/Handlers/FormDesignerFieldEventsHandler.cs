@@ -1,4 +1,5 @@
-﻿using Coevery.Core.Entities.Events;
+﻿using Coevery.ContentManagement.MetaData.Models;
+using Coevery.Core.Entities.Events;
 using Coevery.DeveloperTools.FormDesigner.Services;
 
 namespace Coevery.DeveloperTools.FormDesigner.Handlers {
@@ -7,6 +8,10 @@ namespace Coevery.DeveloperTools.FormDesigner.Handlers {
 
         public FormDesignerFieldEventsHandler(ILayoutManager layoutManager) {
             _layoutManager = layoutManager;
+        }
+
+        public void OnAdding(string entityName, string fieldName, SettingsDictionary settings) {
+            _layoutManager.AddField(fieldName, settings);
         }
 
         public void OnDeleting(string entityName, string fieldName) {

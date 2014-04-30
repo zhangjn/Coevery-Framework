@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData.Services;
-using Coevery.Core.Entities.Models;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.ListViewDesigner.Models;
 using Coevery.DeveloperTools.ListViewDesigner.ViewModels;
@@ -16,29 +14,23 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
 
     public class GridService : IGridService {
         private readonly IContentManager _contentManager;
-        private readonly ISettingsFormatter _settingsFormatter;
-        private readonly IContentMetadataService _contentMetadataService;
+        private readonly IEntityMetadataService _entityMetadataService;
 
         public GridService(
-            IContentManager contentManager, 
-            ISettingsFormatter settingsFormatter,
-            IContentMetadataService contentMetadataService) {
+            IContentManager contentManager,
+            IEntityMetadataService entityMetadataService) {
             _contentManager = contentManager;
-            _settingsFormatter = settingsFormatter;
-            _contentMetadataService = contentMetadataService;
+            _entityMetadataService = entityMetadataService;
         }
 
         public GridViewModel GetGridViewModel(string entityName) {
-            var entityMetadataPart = _contentMetadataService.GetEntity(entityName);
-            if (entityMetadataPart == null) {
-                return null;
-            }
+            var fieldDefinitions = _entityMetadataService.GetFields(entityName);
 
             var viewModel = new GridViewModel {
                 ItemContentType = entityName,
-                Fields = entityMetadataPart.FieldMetadataRecords.Select(x =>
+                Fields = fieldDefinitions.Select(x =>
                     new GridColumnViewModel {
-                        Text = _settingsFormatter.Parse(x.Settings)["DisplayName"],
+                        Text = x.DisplayName,
                         Value = x.Name
                     })
             };
@@ -48,22 +40,12 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
 
         public GridViewModel GetGridViewModel(int id) {
             var gridInfo = _contentManager.Get<GridInfoPart>(id, VersionOptions.Latest);
-
             if (gridInfo == null) {
                 return null;
             }
 
             string typeName = gridInfo.ItemContentType;
-            var entityMetadataPart = _contentManager
-                .Query<EntityMetadataPart, EntityMetadataRecord>(VersionOptions.Latest)
-                .Where(x => x.Name == typeName)
-                .List()
-                .FirstOrDefault();
-
-            if (entityMetadataPart == null) {
-                return null;
-            }
-
+            var fieldDefinitions = _entityMetadataService.GetFields(typeName);
             var settings = gridInfo.GridSettings;
             var columns = settings[GridInfoSettings.Columns].Split(';');
 
@@ -71,9 +53,9 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
                 Id = gridInfo.Id,
                 ItemContentType = gridInfo.ItemContentType,
                 DisplayName = gridInfo.DisplayName,
-                Fields = entityMetadataPart.FieldMetadataRecords.Select(x =>
+                Fields = fieldDefinitions.Select(x =>
                     new GridColumnViewModel {
-                        Text = _settingsFormatter.Parse(x.Settings)["DisplayName"],
+                        Text = x.DisplayName,
                         Value = x.Name,
                         Selected = columns.Contains(x.Name)
                     }).ToList(),
@@ -112,7 +94,7 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
             settings[GridInfoSettings.PageRowCount] = viewModel.PageRowCount.ToString();
             gridInfo.GridSettings = settings;
 
-            _contentMetadataService.GetDraftEntity(gridInfo.ItemContentType);
+            _entityMetadataService.GetEntity(gridInfo.ItemContentType, VersionOptions.DraftRequired);
             return id;
         }
     }

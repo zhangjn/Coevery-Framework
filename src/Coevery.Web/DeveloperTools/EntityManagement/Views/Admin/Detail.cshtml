@@ -1,8 +1,8 @@
-﻿@model Coevery.DeveloperTools.EntityManagement.ViewModels.EntityDetailViewModel
+﻿@model Coevery.DeveloperTools.EntityManagement.ViewModels.EditTypeViewModel
 <header id="page-title">
     <h1 class="pull-left">Entity Detail <span>show entity detail information</span></h1>
 </header>
-<section id="main-content" data-ng-init="metaId='@Model.Id';isPublished='@Model.HasPublished'">
+<section id="main-content">
     <div id="page-actions" class="clearfix">
         <div btn-actions>
             <button type="button" class="btn btn-small" data-ng-click="exit()">Back</button>
@@ -12,7 +12,7 @@
             <button class="btn btn-small" data-ng-click="publish()" data-cobusy="'publishEntity'">
                 Publish
             </button>
-            <button type="button" class="btn btn-small" co-delete-button data-confirm-message="@T("You really want to delete this entity?")" delete-action="delete(@Model.Id)">
+            <button type="button" class="btn btn-small" co-delete-button data-confirm-message="@T("You really want to delete this entity?")" delete-action="delete()">
                 <i class="icon-remove"></i>&nbsp;Delete
             </button>
             <button type="button" class="btn btn-small" data-ng-click="formDesigner()">

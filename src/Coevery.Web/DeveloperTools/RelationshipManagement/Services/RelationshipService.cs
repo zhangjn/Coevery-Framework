@@ -26,7 +26,7 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly ISchemaUpdateService _schemaUpdateService;
         private readonly IContentManager _contentManager;
-        private readonly IContentMetadataService _contentMetadataService;
+        private readonly IEntityMetadataService _entityMetadataService;
 
         public RelationshipService(
             IRepository<RelationshipRecord> relationshipRepository,
@@ -36,14 +36,14 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
             IContentDefinitionManager contentDefinitionManager,
             ISchemaUpdateService schemaUpdateService,
             IContentManager contentManager,
-            IContentMetadataService contentMetadataService) {
+            IEntityMetadataService entityMetadataService) {
             _relationshipRepository = relationshipRepository;
             _oneToManyRepository = oneToManyRepository;
             _manyToManyRepository = manyToManyRepository;
             _contentDefinitionManager = contentDefinitionManager;
             _schemaUpdateService = schemaUpdateService;
             _contentManager = contentManager;
-            _contentMetadataService = contentMetadataService;
+            _entityMetadataService = entityMetadataService;
             _contentDefinitionExtension = contentDefinitionExtension;
         }
 
@@ -104,15 +104,17 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
         }
 
         public RelationshipRecord[] GetRelationships(string entityName) {
-            var entity = _contentMetadataService.GetEntity(entityName);
-            if (entity == null) {
-                return null;
-            }
-            return (from record in _relationshipRepository.Table
-                where record.PrimaryEntity.ContentItemVersionRecord.Latest
-                    && record.RelatedEntity.ContentItemVersionRecord.Latest
-                    && (record.PrimaryEntity == entity.Record || record.RelatedEntity == entity.Record)
-                select record).ToArray();
+            //var entity = _contentMetadataService.GetEntity(entityName);
+            //if (entity == null) {
+            //    return null;
+            //}
+            //return (from record in _relationshipRepository.Table
+            //    where record.PrimaryEntity.ContentItemVersionRecord.Latest
+            //        && record.RelatedEntity.ContentItemVersionRecord.Latest
+            //        && (record.PrimaryEntity == entity.Record || record.RelatedEntity == entity.Record)
+            //    select record).ToArray();
+
+            return null;
         }
 
         #endregion
@@ -120,124 +122,130 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
         #region CreateMethods
 
         public int CreateOneToManyRelationship(string fieldName, string relationName, string primaryEntityName, string relatedEntityName) {
-            var primaryEntity = _contentMetadataService.GetEntity(primaryEntityName);
-            var relatedEntity = _contentMetadataService.GetEntity(relatedEntityName);
+            //var primaryEntity = _contentMetadataService.GetEntity(primaryEntityName);
+            //var relatedEntity = _contentMetadataService.GetEntity(relatedEntityName);
 
-            var fieldRecord = relatedEntity.FieldMetadataRecords.FirstOrDefault(field => field.Name == fieldName);
-            if (fieldRecord == null) {
-                return -1;
-            }
-            var relationship = CreateRelation(new RelationshipRecord {
-                Name = relationName,
-                PrimaryEntity = primaryEntity.Record,
-                RelatedEntity = relatedEntity.Record,
-                Type = (byte) RelationshipType.OneToMany
-            });
+            //var fieldRecord = relatedEntity.FieldMetadataRecords.FirstOrDefault(field => field.Name == fieldName);
+            //if (fieldRecord == null) {
+            //    return -1;
+            //}
+            //var relationship = CreateRelation(new RelationshipRecord {
+            //    Name = relationName,
+            //    PrimaryEntity = primaryEntity.Record,
+            //    RelatedEntity = relatedEntity.Record,
+            //    Type = (byte) RelationshipType.OneToMany
+            //});
 
-            //var projectionPart = CreateProjection(relatedEntityName, null);
+            ////var projectionPart = CreateProjection(relatedEntityName, null);
 
-            var oneToMany = new OneToManyRelationshipRecord {
-                DeleteOption = (byte) OneToManyDeleteOption.CascadingDelete,
-                LookupField = fieldRecord,
-                //RelatedListProjection = projectionPart.Record,
-                RelatedListLabel = relatedEntityName,
-                Relationship = relationship,
-                ShowRelatedList = false
-            };
-            _oneToManyRepository.Create(oneToMany);
-            return oneToMany.Id;
+            //var oneToMany = new OneToManyRelationshipRecord {
+            //    DeleteOption = (byte) OneToManyDeleteOption.CascadingDelete,
+            //    LookupField = fieldRecord,
+            //    //RelatedListProjection = projectionPart.Record,
+            //    RelatedListLabel = relatedEntityName,
+            //    Relationship = relationship,
+            //    ShowRelatedList = false
+            //};
+            //_oneToManyRepository.Create(oneToMany);
+            //return oneToMany.Id;
+
+            return 0;
         }
 
         public string CreateRelationship(OneToManyRelationshipModel oneToMany) {
-            if (oneToMany == null) {
-                return "Invalid model.";
-            }
-            var primaryEntity = _contentMetadataService.GetEntity(oneToMany.PrimaryEntity);
-            var relatedEntity = _contentMetadataService.GetDraftEntity(oneToMany.RelatedEntity);
-            if (primaryEntity == null || relatedEntity == null
-                || !primaryEntity.HasPublished()) {
-                return "Invalid entity";
-            }
-            if (RelationshipExists(oneToMany.Name)) {
-                return "Name already exist.";
-            }
+            //if (oneToMany == null) {
+            //    return "Invalid model.";
+            //}
+            //var primaryEntity = _contentMetadataService.GetEntity(oneToMany.PrimaryEntity);
+            //var relatedEntity = _contentMetadataService.GetDraftEntity(oneToMany.RelatedEntity);
+            //if (primaryEntity == null || relatedEntity == null
+            //    || !primaryEntity.HasPublished()) {
+            //    return "Invalid entity";
+            //}
+            //if (RelationshipExists(oneToMany.Name)) {
+            //    return "Name already exist.";
+            //}
 
-            var relationship = CreateRelation(new RelationshipRecord {
-                Name = oneToMany.Name,
-                PrimaryEntity = primaryEntity.Record,
-                RelatedEntity = relatedEntity.Record,
-                Type = (byte) RelationshipType.OneToMany
-            });
+            //var relationship = CreateRelation(new RelationshipRecord {
+            //    Name = oneToMany.Name,
+            //    PrimaryEntity = primaryEntity.Record,
+            //    RelatedEntity = relatedEntity.Record,
+            //    Type = (byte) RelationshipType.OneToMany
+            //});
 
-            var updateModel = new ReferenceUpdateModel(new ReferenceFieldSettings {
-                AlwaysInLayout = oneToMany.AlwaysInLayout,
-                ContentTypeName = oneToMany.PrimaryEntity,
-                DisplayAsLink = oneToMany.DisplayAsLink,
-                HelpText = oneToMany.HelpText,
-                IsAudit = oneToMany.IsAudit,
-                Required = oneToMany.Required,
-                RelationshipId = relationship.Id,
-                RelationshipName = relationship.Name
-            });
-            var fieldViewModel = new AddFieldViewModel {
-                AddInLayout = true,
-                Name = oneToMany.FieldName,
-                DisplayName = oneToMany.FieldLabel,
-                FieldTypeName = "ReferenceField"
-            };
-            _contentMetadataService.CreateField(relatedEntity, fieldViewModel, updateModel);
+            //var updateModel = new ReferenceUpdateModel(new ReferenceFieldSettings {
+            //    AlwaysInLayout = oneToMany.AlwaysInLayout,
+            //    ContentTypeName = oneToMany.PrimaryEntity,
+            //    DisplayAsLink = oneToMany.DisplayAsLink,
+            //    HelpText = oneToMany.HelpText,
+            //    IsAudit = oneToMany.IsAudit,
+            //    Required = oneToMany.Required,
+            //    RelationshipId = relationship.Id,
+            //    RelationshipName = relationship.Name
+            //});
+            //var fieldViewModel = new AddFieldViewModel {
+            //    AddInLayout = true,
+            //    Name = oneToMany.FieldName,
+            //    DisplayName = oneToMany.FieldLabel,
+            //    FieldTypeName = "ReferenceField"
+            //};
+            //_contentMetadataService.CreateField(relatedEntity, fieldViewModel, updateModel);
 
-            var fieldRecord = relatedEntity.FieldMetadataRecords.FirstOrDefault(field => field.Name == oneToMany.FieldName);
-            var projectionPart = CreateProjection(oneToMany.RelatedEntity, oneToMany.ColumnFieldList);
+            //var fieldRecord = relatedEntity.FieldMetadataRecords.FirstOrDefault(field => field.Name == oneToMany.FieldName);
+            //var projectionPart = CreateProjection(oneToMany.RelatedEntity, oneToMany.ColumnFieldList);
 
-            _oneToManyRepository.Create(new OneToManyRelationshipRecord {
-                DeleteOption = (byte) oneToMany.DeleteOption,
-                LookupField = fieldRecord,
-                RelatedListProjection = projectionPart.Record,
-                RelatedListLabel = oneToMany.RelatedListLabel,
-                Relationship = relationship,
-                ShowRelatedList = oneToMany.ShowRelatedList
-            });
+            //_oneToManyRepository.Create(new OneToManyRelationshipRecord {
+            //    DeleteOption = (byte) oneToMany.DeleteOption,
+            //    LookupField = fieldRecord,
+            //    RelatedListProjection = projectionPart.Record,
+            //    RelatedListLabel = oneToMany.RelatedListLabel,
+            //    Relationship = relationship,
+            //    ShowRelatedList = oneToMany.ShowRelatedList
+            //});
 
-            return relationship.Id.ToString();
+            //return relationship.Id.ToString();
+
+            return null;
         }
 
         public string CreateRelationship(ManyToManyRelationshipModel manyToMany) {
-            if (manyToMany == null) {
-                return "Invalid model.";
-            }
-            var primaryEntity = _contentMetadataService.GetEntity(manyToMany.PrimaryEntity);
-            var relatedEntity = _contentMetadataService.GetEntity(manyToMany.RelatedEntity);
-            if (primaryEntity == null || relatedEntity == null
-                || !primaryEntity.HasPublished() || !relatedEntity.HasPublished()) {
-                return "Invalid entity";
-            }
-            if (RelationshipExists(manyToMany.Name)) {
-                return "Name already exist.";
-            }
+            //if (manyToMany == null) {
+            //    return "Invalid model.";
+            //}
+            //var primaryEntity = _contentMetadataService.GetEntity(manyToMany.PrimaryEntity);
+            //var relatedEntity = _contentMetadataService.GetEntity(manyToMany.RelatedEntity);
+            //if (primaryEntity == null || relatedEntity == null
+            //    || !primaryEntity.HasPublished() || !relatedEntity.HasPublished()) {
+            //    return "Invalid entity";
+            //}
+            //if (RelationshipExists(manyToMany.Name)) {
+            //    return "Name already exist.";
+            //}
 
-            var relationship = CreateRelation(new RelationshipRecord {
-                Name = manyToMany.Name,
-                PrimaryEntity = primaryEntity.Record,
-                RelatedEntity = relatedEntity.Record,
-                Type = (byte) RelationshipType.ManyToMany
-            });
+            //var relationship = CreateRelation(new RelationshipRecord {
+            //    Name = manyToMany.Name,
+            //    PrimaryEntity = primaryEntity.Record,
+            //    RelatedEntity = relatedEntity.Record,
+            //    Type = (byte) RelationshipType.ManyToMany
+            //});
 
-            var primaryProjectionPart = CreateProjection(manyToMany.PrimaryEntity, manyToMany.PrimaryColumnList);
-            var relatedProjectionPart = CreateProjection(manyToMany.RelatedEntity, manyToMany.RelatedColumnList);
+            //var primaryProjectionPart = CreateProjection(manyToMany.PrimaryEntity, manyToMany.PrimaryColumnList);
+            //var relatedProjectionPart = CreateProjection(manyToMany.RelatedEntity, manyToMany.RelatedColumnList);
 
-            _manyToManyRepository.Create(new ManyToManyRelationshipRecord {
-                PrimaryListProjection = primaryProjectionPart.Record,
-                PrimaryListLabel = manyToMany.PrimaryListLabel,
-                RelatedListProjection = relatedProjectionPart.Record,
-                RelatedListLabel = manyToMany.RelatedListLabel,
-                Relationship = relationship,
-                ShowPrimaryList = manyToMany.ShowPrimaryList,
-                ShowRelatedList = manyToMany.ShowRelatedList
-            });
+            //_manyToManyRepository.Create(new ManyToManyRelationshipRecord {
+            //    PrimaryListProjection = primaryProjectionPart.Record,
+            //    PrimaryListLabel = manyToMany.PrimaryListLabel,
+            //    RelatedListProjection = relatedProjectionPart.Record,
+            //    RelatedListLabel = manyToMany.RelatedListLabel,
+            //    Relationship = relationship,
+            //    ShowPrimaryList = manyToMany.ShowPrimaryList,
+            //    ShowRelatedList = manyToMany.ShowRelatedList
+            //});
 
-            GenerateManyToManyParts(manyToMany);
-            return relationship.Id.ToString();
+            //GenerateManyToManyParts(manyToMany);
+            //return relationship.Id.ToString();
+
+            return null;
         }
 
         public int CreateEntityQuery(string entityName) {
@@ -260,22 +268,22 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
         #region Delete And Edit
 
         public void DeleteRelationship(RelationshipRecord relationship) {
-            if (relationship == null) {
-                return;
-            }
+            //if (relationship == null) {
+            //    return;
+            //}
 
-            if (relationship.Type == (byte) RelationshipType.OneToMany) {
-                var entity = _contentMetadataService.GetDraftEntity(relationship.RelatedEntity.Name);
-                var record = _oneToManyRepository.Get(x => x.Relationship.Name == relationship.Name
-                    && x.Relationship.RelatedEntity.ContentItemVersionRecord.Latest);
-                var field = entity.FieldMetadataRecords.First(x => x.Name == record.LookupField.Name);
-                entity.FieldMetadataRecords.Remove(field);
-                DeleteRelationship(record);
-            }
-            else if (relationship.Type == (byte) RelationshipType.ManyToMany) {
-                var record = _manyToManyRepository.Get(x => x.Relationship == relationship);
-                DeleteRelationship(record);
-            }
+            //if (relationship.Type == (byte) RelationshipType.OneToMany) {
+            //    var entity = _contentMetadataService.GetDraftEntity(relationship.RelatedEntity.Name);
+            //    var record = _oneToManyRepository.Get(x => x.Relationship.Name == relationship.Name
+            //        && x.Relationship.RelatedEntity.ContentItemVersionRecord.Latest);
+            //    var field = entity.FieldMetadataRecords.First(x => x.Name == record.LookupField.Name);
+            //    entity.FieldMetadataRecords.Remove(field);
+            //    DeleteRelationship(record);
+            //}
+            //else if (relationship.Type == (byte) RelationshipType.ManyToMany) {
+            //    var record = _manyToManyRepository.Get(x => x.Relationship == relationship);
+            //    DeleteRelationship(record);
+            //}
         }
 
         public void DeleteRelationship(OneToManyRelationshipRecord record) {

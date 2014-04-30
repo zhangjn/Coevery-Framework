@@ -3,15 +3,15 @@ using Coevery.UI.Navigation;
 
 namespace Coevery.DeveloperTools.EntityManagement.Services {
     public class AdminMenu : INavigationProvider {
-        private readonly IContentMetadataService _contentDefinitionManager;
+        private readonly IEntityMetadataService _entityDefinitionManager;
         public Localizer T { get; set; }
 
         public string MenuName {
             get { return "admin"; }
         }
 
-        public AdminMenu(IContentMetadataService contentDefinitionManager) {
-            _contentDefinitionManager = contentDefinitionManager;
+        public AdminMenu(IEntityMetadataService entityDefinitionManager) {
+            _entityDefinitionManager = entityDefinitionManager;
         }
 
         public void GetNavigation(NavigationBuilder builder) {
@@ -22,7 +22,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
                     menu => {
                         int menuIdex = 0;
                         menu.Add(T("All Entities"), (++menuIdex).ToString(), item => item.Url("DevTools#/Entities"));
-                        var userDefinedTypes = _contentDefinitionManager.GetRawEntities();
+                        var userDefinedTypes = _entityDefinitionManager.GetEntities();
                         foreach (var type in userDefinedTypes) {
                             var typeModel = type;
                             menu.Add(T(typeModel.DisplayName), (++menuIdex).ToString(), item => item.Url("DevTools#/Entities/" + typeModel.Name));

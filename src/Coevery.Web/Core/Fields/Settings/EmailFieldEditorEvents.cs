@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 
@@ -20,19 +19,6 @@ namespace Coevery.Core.Fields.Settings {
                 UpdateSettings(model, settingsDictionary, "EmailFieldSettings");
                 settingsDictionary["EmailFieldSettings.DefaultValue"] = model.DefaultValue;
                 settingsDictionary["EmailFieldSettings.IsUnique"] = model.IsUnique.ToString();
-            }
-        }
-
-        public override void UpdateFieldSettings(ContentPartFieldDefinitionBuilder builder, SettingsDictionary settingsDictionary) {
-            if (builder.FieldType != "EmailField") {
-                return;
-            }
-
-            var model = settingsDictionary.TryGetModel<EmailFieldSettings>();
-            if (model != null) {
-                UpdateSettings(model, builder, "EmailFieldSettings");
-                builder.WithSetting("EmailFieldSettings.DefaultValue", model.DefaultValue);
-                builder.WithSetting("EmailFieldSettings.IsUnique", model.IsUnique.ToString());
             }
         }
 

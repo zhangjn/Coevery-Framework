@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 
@@ -22,20 +21,6 @@ namespace Coevery.Core.Fields.Settings {
                 settingsDictionary["MultilineTextFieldSettings.MaxLength"] = model.MaxLength.ToString();
                 settingsDictionary["MultilineTextFieldSettings.PlaceHolderText"] = model.PlaceHolderText;
                 settingsDictionary["MultilineTextFieldSettings.IsUnique"] = model.IsUnique.ToString();
-            }
-        }
-
-        public override void UpdateFieldSettings(ContentPartFieldDefinitionBuilder builder, SettingsDictionary settingsDictionary) {
-            if (builder.FieldType != "MultilineTextField") {
-                return;
-            }
-            var model = settingsDictionary.TryGetModel<MultilineTextFieldSettings>();
-            if (model != null) {
-                UpdateSettings(model, builder, "MultilineTextFieldSettings");
-                builder.WithSetting("MultilineTextFieldSettings.RowNumber", model.RowNumber.ToString());
-                builder.WithSetting("MultilineTextFieldSettings.MaxLength", model.MaxLength.ToString());
-                builder.WithSetting("MultilineTextFieldSettings.PlaceHolderText", model.PlaceHolderText);
-                builder.WithSetting("MultilineTextFieldSettings.IsUnique", model.IsUnique.ToString());
             }
         }
 

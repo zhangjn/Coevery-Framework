@@ -22,7 +22,6 @@ namespace Coevery.Core.Entities {
                     .Column<string>("Settings", column => column.Unlimited())
                 );
 
-            ContentDefinitionManager.AlterPartDefinition("EntityMetadataPart", cfg => { });
             ContentDefinitionManager.AlterTypeDefinition("EntityMetadata", cfg => cfg
                 .WithPart("EntityMetadataPart")
                 );

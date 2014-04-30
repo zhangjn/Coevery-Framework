@@ -17,7 +17,7 @@ define(['core/app/detourService', 'DeveloperTools/EntityManagement/Scripts/servi
                 ];
 
                 $scope.gridOptions = {
-                    url: "api/EntityManagement/field?name=" + $scope.metaId,
+                    url: "api/EntityManagement/field?name=" + entityName,
                     rowIdName: "Name",
                     colModel: fieldColumnDefs
                 };

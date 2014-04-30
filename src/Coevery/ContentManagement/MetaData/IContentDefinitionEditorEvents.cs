@@ -9,7 +9,6 @@ namespace Coevery.ContentManagement.MetaData {
     public interface IContentDefinitionEditorEvents : IEventHandler {
         IEnumerable<TemplateViewModel> FieldTypeDescriptor();
         void UpdateFieldSettings(string fieldType, string fieldName, SettingsDictionary settingsDictionary, IUpdateModel updateModel);
-        void UpdateFieldSettings(ContentPartFieldDefinitionBuilder builder, SettingsDictionary settingsDictionary);
         void FieldDeleted(string fieldType, string fieldName, SettingsDictionary settingsDictionary);
 
         IEnumerable<TemplateViewModel> TypeEditor(ContentTypeDefinition definition);
@@ -29,8 +28,6 @@ namespace Coevery.ContentManagement.MetaData {
         }
 
         public virtual void UpdateFieldSettings(string fieldType, string fieldName, SettingsDictionary settingsDictionary, IUpdateModel updateModel) { }
-
-        public virtual void UpdateFieldSettings(ContentPartFieldDefinitionBuilder builder, SettingsDictionary settingsDictionary) { }
 
         public virtual void FieldDeleted(string fieldType, string fieldName, SettingsDictionary settingsDictionary) { }
 

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 
@@ -20,19 +19,6 @@ namespace Coevery.Core.Fields.Settings {
                 UpdateSettings(model, settingsDictionary, "UrlFieldSettings");
                 settingsDictionary["UrlFieldSettings.DefaultValue"] = model.DefaultValue;
                 settingsDictionary["UrlFieldSettings.IsUnique"] = model.IsUnique.ToString();
-            }
-        }
-
-        public override void UpdateFieldSettings(ContentPartFieldDefinitionBuilder builder, SettingsDictionary settingsDictionary) {
-            if (builder.FieldType != "UrlField") {
-                return;
-            }
-
-            var model = settingsDictionary.TryGetModel<UrlFieldSettings>();
-            if (model != null) {
-                UpdateSettings(model, builder, "UrlFieldSettings");
-                builder.WithSetting("UrlFieldSettings.DefaultValue", model.DefaultValue);
-                builder.WithSetting("UrlFieldSettings.IsUnique", model.IsUnique.ToString());
             }
         }
 

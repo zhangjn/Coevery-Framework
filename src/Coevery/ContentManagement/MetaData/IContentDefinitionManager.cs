@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.Utility.Extensions;

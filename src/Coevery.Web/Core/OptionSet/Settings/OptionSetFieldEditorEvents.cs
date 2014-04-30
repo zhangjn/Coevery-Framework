@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 using Coevery.Core.Fields.Settings;
@@ -47,20 +46,6 @@ namespace Coevery.Core.OptionSet.Settings {
                 settingsDictionary["OptionSetFieldSettings.OptionSetId"] = model.OptionSetId.ToString("D");
                 settingsDictionary["OptionSetFieldSettings.ListMode"] = model.ListMode.ToString();
                 settingsDictionary["OptionSetFieldSettings.IsUnique"] = model.IsUnique.ToString();
-            }
-        }
-
-        public override void UpdateFieldSettings(ContentPartFieldDefinitionBuilder builder, SettingsDictionary settingsDictionary) {
-            if (builder.FieldType != "OptionSetField") {
-                return;
-            }
-
-            var model = settingsDictionary.TryGetModel<OptionSetFieldSettings>();
-            if (model != null) {
-                UpdateSettings(model, builder, "OptionSetFieldSettings");
-                builder.WithSetting("OptionSetFieldSettings.OptionSetId", model.OptionSetId.ToString());
-                builder.WithSetting("OptionSetFieldSettings.ListMode", model.ListMode.ToString());
-                builder.WithSetting("OptionSetFieldSettings.IsUnique", model.IsUnique.ToString());
             }
         }
 

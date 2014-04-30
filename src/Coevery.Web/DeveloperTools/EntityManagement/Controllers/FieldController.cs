@@ -3,52 +3,37 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Coevery.ContentManagement.MetaData.Models;
-using Coevery.ContentManagement.MetaData.Services;
-using Coevery.Core.Common.Services;
-using Coevery.Core.Fields.Settings;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.Localization;
 using Coevery.Utility.Extensions;
 
 namespace Coevery.DeveloperTools.EntityManagement.Controllers {
     public class FieldController : ApiController {
-        private readonly IContentMetadataService _contentMetadataService;
-        private readonly ISettingsFormatter _settingsFormatter;
+        private readonly IEntityMetadataService _entityMetadataService;
 
-        public FieldController(
-            IContentMetadataService contentMetadataService, 
-            ISettingsFormatter settingsFormatter) {
-            _contentMetadataService = contentMetadataService;
-            _settingsFormatter = settingsFormatter;
+        public FieldController(IEntityMetadataService entityMetadataService) {
+            _entityMetadataService = entityMetadataService;
             T = NullLocalizer.Instance;
         }
 
         public Localizer T { get; set; }
 
         // GET api/metadata/field
-        public object Get(int name, int page, int rows) {
-            var metadataTypes = _contentMetadataService.GetFieldsList(name);
+        public object Get(string name, int page, int rows) {
+            var fields = _entityMetadataService.GetFields(name)
+                .Select(x => new {
+                    Name = x.Name,
+                    DisplayName = x.DisplayName,
+                    FieldType = x.FieldType.CamelFriendly(),
+                })
+                .ToList();
 
-            var query = from field in metadataTypes
-                let fieldType = field.ContentFieldDefinitionRecord.Name
-                let setting = _settingsFormatter.Parse(field.Settings)
-                select new {
-                    field.Name,
-                    field.Id,
-                    DisplayName = setting[ContentPartFieldDefinition.DisplayNameKey],
-                    FieldType = fieldType.CamelFriendly(),
-                    //Type = setting.GetModel<FieldSettings>(fieldType + "Settings").IsSystemField
-                    //    ? "System Field" : "User Field",
-                    ControllField = string.Empty
-                };
-
-            var totalRecords = query.Count();
+            var totalRecords = fields.Count();
             return new {
                 total = Convert.ToInt32(Math.Ceiling((double) totalRecords/rows)),
                 page = page,
                 records = totalRecords,
-                rows = query
+                rows = fields
             };
         }
 
@@ -56,7 +41,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         public virtual HttpResponseMessage Delete([FromUri] string[] name, string entityName) {
             var state = true;
             foreach (var n in name) {
-                var stateService = _contentMetadataService.DeleteField(n, entityName);
+                var stateService = _entityMetadataService.DeleteField(n, entityName);
                 state = state && stateService;
             }
             return state

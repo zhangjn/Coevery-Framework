@@ -7,6 +7,7 @@ using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.MetaData.Services;
+using Coevery.Core.Settings.Metadata.Parts;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data;
 

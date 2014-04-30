@@ -19,16 +19,16 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Controllers {
     public class AdminController : Controller, IUpdateModel {
         private readonly IRelationshipService _relationshipService;
         private readonly IContentDefinitionManager _contentDefinitionManager;
-        private readonly IContentMetadataService _contentMetadataService;
+        private readonly IEntityMetadataService _entityMetadataService;
 
         public AdminController(
             ICoeveryServices coeveryServices,
             IRelationshipService relationshipService,
-            IContentMetadataService contentMetadataService,
+            IEntityMetadataService entityMetadataService,
             IContentDefinitionManager contentDefinitionManager) {
             Services = coeveryServices;
             _relationshipService = relationshipService;
-            _contentMetadataService = contentMetadataService;
+            _entityMetadataService = entityMetadataService;
             _contentDefinitionManager = contentDefinitionManager;
             T = NullLocalizer.Instance;
         }
@@ -71,9 +71,9 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Controllers {
                 return new HttpUnauthorizedResult();
             }
 
-            if (!_contentMetadataService.CheckEntityPublished(id)) {
-                return Content(T("The \"{0}\" hasn't been published!", id).Text);
-            }
+            //if (!_contentMetadataService.CheckEntityPublished(id)) {
+            //    return Content(T("The \"{0}\" hasn't been published!", id).Text);
+            //}
 
             return View(new OneToManyRelationshipModel {
                 EntityList = _relationshipService.GetEntityNames(id),
@@ -157,9 +157,9 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Controllers {
             if (!Services.Authorizer.Authorize(Permissions.PublishContent, T("Not allowed to edit a content."))) {
                 return new HttpUnauthorizedResult();
             }
-            if (!_contentMetadataService.CheckEntityPublished(id)) {
-                return Content(T("The \"{0}\" hasn't been published!", id).Text);
-            }
+            //if (!_contentMetadataService.CheckEntityPublished(id)) {
+            //    return Content(T("The \"{0}\" hasn't been published!", id).Text);
+            //}
 
             var primaryFields = _contentDefinitionManager
                 .GetPartDefinition(id.ToPartName()).Fields

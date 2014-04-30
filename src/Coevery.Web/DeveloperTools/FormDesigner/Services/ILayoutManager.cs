@@ -1,9 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.Core.Common.Extensions;
+using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.FormDesigner.Models;
 using Coevery.Localization;
 using Newtonsoft.Json;
@@ -12,27 +11,28 @@ using Column = Coevery.DeveloperTools.FormDesigner.Models.Column;
 namespace Coevery.DeveloperTools.FormDesigner.Services {
     public interface ILayoutManager : IDependency {
         void DeleteField(string typeName, string fieldName);
-        void AddField(SettingsDictionary settings, string fieldName);
+        void AddField(string fieldName, SettingsDictionary settings);
         IEnumerable<Section> GetLayout(ContentTypeDefinition typeDefinition);
     }
 
     public class LayoutManager : ILayoutManager {
-        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IEntityMetadataService _entityMetadataService;
 
-        public LayoutManager(IContentDefinitionManager contentDefinitionManager) {
-            _contentDefinitionManager = contentDefinitionManager;
+        public LayoutManager(IEntityMetadataService entityMetadataService) {
+            _entityMetadataService = entityMetadataService;
             T = NullLocalizer.Instance;
         }
 
         public Localizer T { get; set; }
 
         public void DeleteField(string typeName, string fieldName) {
-            var typeDefinition = _contentDefinitionManager.GetTypeDefinition(typeName);
-            if (typeDefinition == null || !typeDefinition.Settings.ContainsKey("Layout")) {
+            var entity = _entityMetadataService.GetEntity(typeName);
+            if (entity == null) {
                 return;
             }
 
-            var layout = JsonConvert.DeserializeObject<IList<Section>>(typeDefinition.Settings["Layout"]);
+            var settings = entity.EntitySettings;
+            var layout = JsonConvert.DeserializeObject<IList<Section>>(settings["Layout"]);
             foreach (var section in layout) {
                 foreach (var row in section.Rows) {
                     var fieldColumn = row.Columns.FirstOrDefault(column => column.Field != null && column.Field.FieldName == fieldName);
@@ -44,15 +44,15 @@ namespace Coevery.DeveloperTools.FormDesigner.Services {
                             section.Rows.Remove(row);
                         }
 
-                        typeDefinition.Settings["Layout"] = JsonConvert.SerializeObject(layout);
-                        _contentDefinitionManager.StoreTypeDefinition(typeDefinition, VersionOptions.DraftRequired);
+                        settings["Layout"] = JsonConvert.SerializeObject(layout);
+                        entity.EntitySettings = settings;
                         break;
                     }
                 }
             }
         }
 
-        public void AddField(SettingsDictionary settings, string fieldName) {
+        public void AddField(string fieldName, SettingsDictionary settings) {
             string layoutAttribute;
             IList<Section> layout = new List<Section>(new[] {
                 new Section {
