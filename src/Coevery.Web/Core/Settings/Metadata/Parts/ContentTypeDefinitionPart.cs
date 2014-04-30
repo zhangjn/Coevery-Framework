@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.Core.Common.Utilities;
@@ -26,10 +25,6 @@ namespace Coevery.Core.Settings.Metadata.Parts {
         public SettingsDictionary EntitySettings {
             get { return _entitySettings.Value; }
             set { _entitySettings.Value = value; }
-        }
-
-        public IList<ContentTypePartDefinitionRecord> ContentTypePartDefinitionRecords {
-            get { return Record.ContentTypePartDefinitionRecords; }
         }
     }
 }

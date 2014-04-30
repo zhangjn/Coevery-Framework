@@ -1,5 +1,4 @@
-﻿using Coevery.ContentManagement.Records;
-using Coevery.Data.Conventions;
+﻿using Coevery.Data.Conventions;
 
 namespace Coevery.Core.Settings.Metadata.Records {
     public class ContentPartFieldDefinitionRecord {

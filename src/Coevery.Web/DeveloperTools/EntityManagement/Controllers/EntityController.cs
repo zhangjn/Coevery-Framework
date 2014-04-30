@@ -25,8 +25,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
                     Id = x.Id,
                     Name = x.Name,
                     DisplayName = x.DisplayName,
-                    Modified = !x.IsPublished(),
-                    HasPublished = x.HasPublished()
+                    Modified = !x.IsPublished()
                 })
                 .ToList();
 

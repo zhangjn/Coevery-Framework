@@ -13,18 +13,15 @@ using JetBrains.Annotations;
 namespace Coevery.Core.Settings.Metadata.Handlers {
     [UsedImplicitly]
     public class ContentTypeDefinitionPartHandler : ContentHandler {
-        private readonly IRepository<ContentTypePartDefinitionRecord> _typePartDefinitionRepository;
         private readonly ISettingsFormatter _settingsFormatter;
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;
 
         public ContentTypeDefinitionPartHandler(
             IRepository<ContentTypeDefinitionRecord> typeDefinitionRepository,
-            IRepository<ContentTypePartDefinitionRecord> typePartDefinitionRepository,
             ISettingsFormatter settingsFormatter,
             IContentManager contentManager,
             IContentDefinitionEditorEvents contentDefinitionEditorEvents) {
-            _typePartDefinitionRepository = typePartDefinitionRepository;
             _settingsFormatter = settingsFormatter;
             _contentManager = contentManager;
             _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
@@ -35,6 +32,12 @@ namespace Coevery.Core.Settings.Metadata.Handlers {
             OnVersioning<ContentTypeDefinitionPart>(OnVersioning);
             OnCreating<ContentTypeDefinitionPart>(OnCreating);
             OnRemoving<ContentTypeDefinitionPart>(OnRemoving);
+            OnPublishing<ContentTypeDefinitionPart>(OnPublishing);
+        }
+
+        private void OnPublishing(PublishContentContext context, ContentTypeDefinitionPart part) {
+            var partDefinition = GetPartDefinition(part.Name, VersionOptions.Latest);
+            _contentManager.Publish(partDefinition.ContentItem);
         }
 
         private void LazyLoadHandlers(ContentTypeDefinitionPart part) {
@@ -46,13 +49,12 @@ namespace Coevery.Core.Settings.Metadata.Handlers {
         }
 
         private void OnVersioning(VersionContentContext context, ContentTypeDefinitionPart existing, ContentTypeDefinitionPart building) {
-            //var typePartDefinitionRecords = new List<ContentTypePartDefinitionRecord>();
-            //foreach (var existingPart in existing.Record.ContentTypePartDefinitionRecords) {
-            //    var buildingPart = new ContentTypePartDefinitionRecord();
-            //    _typePartDefinitionRepository.Copy(existingPart, buildingPart);
-            //    typePartDefinitionRecords.Add(buildingPart);
-            //}
-            //building.Record.ContentTypePartDefinitionRecords = typePartDefinitionRecords;
+            building.Record.ContentTypePartDefinitionRecords = new List<ContentTypePartDefinitionRecord>();
+            var partDefinition = GetPartDefinition(existing.Name, VersionOptions.DraftRequired);
+
+            building.Record.ContentTypePartDefinitionRecords.Add(new ContentTypePartDefinitionRecord {
+                ContentPartDefinitionRecord = partDefinition.Record
+            });
         }
 
         private void OnCreating(CreateContentContext context, ContentTypeDefinitionPart part) {
@@ -60,7 +62,7 @@ namespace Coevery.Core.Settings.Metadata.Handlers {
             partDefinition.Name = part.Name.ToPartName();
             _contentManager.Create(partDefinition, VersionOptions.Draft);
 
-            part.ContentTypePartDefinitionRecords.Add(new ContentTypePartDefinitionRecord {
+            part.Record.ContentTypePartDefinitionRecords.Add(new ContentTypePartDefinitionRecord {
                 ContentPartDefinitionRecord = partDefinition.Record
             });
         }
@@ -71,7 +73,7 @@ namespace Coevery.Core.Settings.Metadata.Handlers {
                 _contentDefinitionEditorEvents.FieldDeleted(field.FieldType, field.Name, field.Settings);
             }
 
-            part.ContentTypePartDefinitionRecords.Clear();
+            part.Record.ContentTypePartDefinitionRecords.Clear();
             _contentManager.Remove(partDefinition.ContentItem);
         }
 

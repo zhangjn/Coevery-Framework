@@ -15,6 +15,5 @@ namespace Coevery.Core.Settings.Metadata.Records {
 
         [CascadeAllDeleteOrphan]
         public virtual IList<ContentPartFieldDefinitionRecord> ContentPartFieldDefinitionRecords { get; set; }
-
     }
 }

@@ -14,10 +14,8 @@ define(['core/app/detourService', 'DeveloperTools/EntityManagement/Scripts/servi
                         formatter: $rootScope.cellLinkTemplate,
                         formatoptions: { hasView: true }
                     },
-                    //{ name: 'Id', label: $i18next('Id'), hidden: true, sorttype: 'int' },
                     { name: 'DisplayName', label: $i18next('Display Name') },
-                    { name: 'Modified', label: $i18next('Has Unpublished Modification') },
-                    { name: 'HasPublished', label: $i18next('Has Ever Published') }
+                    { name: 'Modified', label: $i18next('Has Draft Version') },
                 ];
 
                 $scope.gridOptions = {
