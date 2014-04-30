@@ -72,13 +72,13 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Settings {
             if (fieldType != "ReferenceField") {
                 return;
             }
-            var relationshipName = settingsDictionary["ReferenceFieldSettings.RelationshipName"];
-            var record = _repository.Table
-                .FirstOrDefault(x => x.Relationship.Name == relationshipName
-                                     && x.Relationship.RelatedEntity.ContentItemVersionRecord.Latest);
-            if (record != null) {
-                _relationshipService.DeleteRelationship(record);
-            }
+            //var relationshipName = settingsDictionary["ReferenceFieldSettings.RelationshipName"];
+            //var record = _repository.Table
+            //    .FirstOrDefault(x => x.Relationship.Name == relationshipName
+            //                         && x.Relationship.RelatedEntity.ContentItemVersionRecord.Latest);
+            //if (record != null) {
+            //    _relationshipService.DeleteRelationship(record);
+            //}
         }
 
         public override IEnumerable<TemplateViewModel> PartFieldEditor(ContentPartFieldDefinition definition) {

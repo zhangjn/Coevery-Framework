@@ -1,19 +1,14 @@
 ﻿using System.Web.Mvc;
 using Coevery.ContentManagement;
-using Coevery.Core.Common.Extensions;
 using Coevery.Core.Projections.Providers.Properties;
 using Coevery.Core.Relationships.Fields;
 
 namespace Coevery.Core.Relationships.Projections {
     public class ReferenceFieldValueProvider : ContentFieldValueProvider<ReferenceField> {
         private readonly IContentManager _contentManager;
-        private readonly IContentDefinitionExtension _contentDefinitionExtension;
 
-        public ReferenceFieldValueProvider(
-            IContentManager contentManager,
-            IContentDefinitionExtension contentDefinitionExtension) {
+        public ReferenceFieldValueProvider(IContentManager contentManager) {
             _contentManager = contentManager;
-            _contentDefinitionExtension = contentDefinitionExtension;
         }
 
         public override object GetValue(ContentItem contentItem, ContentField field) {

@@ -44,8 +44,8 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Controllers {
                 select new {
                     ContentId = record.Id,
                     Name = record.Name,
-                    PrimaryEntity = record.PrimaryEntity.Name,
-                    RelatedEntity = record.RelatedEntity.Name,
+                    //PrimaryEntity = record.PrimaryEntity.Name,
+                    //RelatedEntity = record.RelatedEntity.Name,
                     Type = ((RelationshipType) record.Type).ToString()
                 };
             var totalRecords = query.Count();

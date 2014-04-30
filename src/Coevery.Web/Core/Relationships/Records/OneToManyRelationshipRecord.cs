@@ -1,5 +1,4 @@
-﻿using Coevery.Core.Entities.Models;
-using Coevery.Core.Projections.Models;
+﻿using Coevery.Core.Projections.Models;
 
 namespace Coevery.Core.Relationships.Records {
     public enum OneToManyDeleteOption {
@@ -11,7 +10,7 @@ namespace Coevery.Core.Relationships.Records {
     public class OneToManyRelationshipRecord : IRelationshipRecord {
         public virtual int Id { get; set; }
         public virtual RelationshipRecord Relationship { get; set; }
-        public virtual FieldMetadataRecord LookupField { get; set; }
+        //public virtual FieldMetadataRecord LookupField { get; set; }
         public virtual ProjectionPartRecord RelatedListProjection { get; set; }
         public virtual string RelatedListLabel { get; set; }
         public virtual bool ShowRelatedList { get; set; }

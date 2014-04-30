@@ -94,7 +94,6 @@
     <Compile Include="Common\Controllers\ErrorController.cs" />
     <Compile Include="Common\Controllers\HomeController.cs" />
     <Compile Include="Common\DynamicPermissions.cs" />
-    <Compile Include="Common\Extensions\IContentDefinitionExtension.cs" />
     <Compile Include="Common\Extensions\CoeveryStringExtension.cs" />
     <Compile Include="Common\FrontMenuFilter.cs">
       <SubType>Code</SubType>
@@ -115,10 +114,6 @@
     <Compile Include="Entities\Events\IEntityDataEvents.cs" />
     <Compile Include="Entities\Events\IEntityEvents.cs" />
     <Compile Include="Entities\Events\IFieldEvents.cs" />
-    <Compile Include="Entities\Migrations.cs" />
-    <Compile Include="Entities\Models\EntityMetadataPart.cs" />
-    <Compile Include="Entities\Models\EntityMetadataRecord.cs" />
-    <Compile Include="Entities\Models\FieldMetadataRecord.cs" />
     <Compile Include="Fields\Drivers\BooleanFieldDriver.cs" />
     <Compile Include="Fields\Drivers\CurrencyFieldDriver.cs" />
     <Compile Include="Fields\Drivers\DateFieldDriver.cs" />

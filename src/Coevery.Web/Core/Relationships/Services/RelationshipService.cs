@@ -2,7 +2,6 @@
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.Core.Common.Extensions;
-using Coevery.Core.Entities.Models;
 using Coevery.Core.Relationships.Records;
 using Coevery.Core.Relationships.Settings;
 using Coevery.Data;
@@ -47,18 +46,20 @@ namespace Coevery.Core.Relationships.Services {
         }
 
         public RelationshipRecord[] GetRelationships(string entityName) {
-            var entity = _contentManager
-                .Query<EntityMetadataPart>(VersionOptions.Latest, "EntityMetadata")
-                .List().FirstOrDefault(x => x.Name == entityName);
+            //var entity = _contentManager
+            //    .Query<EntityMetadataPart>(VersionOptions.Latest, "EntityMetadata")
+            //    .List().FirstOrDefault(x => x.Name == entityName);
 
-            if (entity == null) {
-                return null;
-            }
-            return (from record in _relationshipRepository.Table
-                where record.PrimaryEntity.ContentItemVersionRecord.Latest
-                      && record.RelatedEntity.ContentItemVersionRecord.Latest
-                      && (record.PrimaryEntity == entity.Record || record.RelatedEntity == entity.Record)
-                select record).ToArray();
+            //if (entity == null) {
+            //    return null;
+            //}
+            //return (from record in _relationshipRepository.Table
+            //    where record.PrimaryEntity.ContentItemVersionRecord.Latest
+            //          && record.RelatedEntity.ContentItemVersionRecord.Latest
+            //          && (record.PrimaryEntity == entity.Record || record.RelatedEntity == entity.Record)
+            //    select record).ToArray();
+
+            return null;
         }
     }
 }

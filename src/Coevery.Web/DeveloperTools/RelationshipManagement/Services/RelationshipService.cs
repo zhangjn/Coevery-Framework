@@ -9,9 +9,7 @@ using Coevery.Core.Relationships.Models;
 using Coevery.Core.Relationships.Records;
 using Coevery.Core.Relationships.Settings;
 using Coevery.Data;
-using Coevery.DeveloperTools.CodeGeneration.Services;
 using Coevery.DeveloperTools.EntityManagement.Services;
-using Coevery.DeveloperTools.EntityManagement.ViewModels;
 using Coevery.Utility.Extensions;
 
 namespace Coevery.DeveloperTools.RelationshipManagement.Services {
@@ -22,7 +20,6 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
         private readonly IRepository<OneToManyRelationshipRecord> _oneToManyRepository;
         private readonly IRepository<ManyToManyRelationshipRecord> _manyToManyRepository;
 
-        private readonly IContentDefinitionExtension _contentDefinitionExtension;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly ISchemaUpdateService _schemaUpdateService;
         private readonly IContentManager _contentManager;
@@ -32,7 +29,6 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
             IRepository<RelationshipRecord> relationshipRepository,
             IRepository<OneToManyRelationshipRecord> oneToManyRepository,
             IRepository<ManyToManyRelationshipRecord> manyToManyRepository,
-            IContentDefinitionExtension contentDefinitionExtension,
             IContentDefinitionManager contentDefinitionManager,
             ISchemaUpdateService schemaUpdateService,
             IContentManager contentManager,
@@ -44,7 +40,6 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
             _schemaUpdateService = schemaUpdateService;
             _contentManager = contentManager;
             _entityMetadataService = entityMetadataService;
-            _contentDefinitionExtension = contentDefinitionExtension;
         }
 
         #endregion
@@ -54,7 +49,7 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
         public string CheckRelationName(string name) {
             string errorMessage = null;
             if (!string.Equals(name, name.ToSafeName())) {
-                errorMessage += "The name:\""+ name +"\" is not legal!\n";
+                errorMessage += "The name:\"" + name + "\" is not legal!\n";
             }
             if (_relationshipRepository.Fetch(relation => relation.Name == name).FirstOrDefault() != null) {
                 errorMessage += "The name:\"" + name + "\" already exists!\n";
@@ -66,7 +61,7 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
             var reference = _contentDefinitionManager
                 .GetPartDefinition(entityName.ToPartName())
                 .Fields.FirstOrDefault(field => field.FieldDefinition.Name == "ReferenceField"
-                    && field.Settings.TryGetModel<ReferenceFieldSettings>().RelationshipName == relationName);
+                                                && field.Settings.TryGetModel<ReferenceFieldSettings>().RelationshipName == relationName);
             return reference == null ? null : reference.Name;
         }
 
@@ -83,16 +78,13 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
         }
 
         public SelectListItem[] GetEntityNames(string excludeEntity) {
-            var entities = _contentDefinitionExtension.ListUserDefinedTypeDefinitions();
-            return entities == null
-                ? null
-                : (from entity in entities
-                    where entity.Name != excludeEntity
-                    select new SelectListItem {
-                        Value = entity.Name,
-                        Text = entity.DisplayName,
-                        Selected = false
-                    }).ToArray();
+            return _entityMetadataService.GetEntities()
+                .Select(x => new SelectListItem {
+                    Value = x.Name,
+                    Text = x.DisplayName,
+                    Selected = false
+                })
+                .ToArray();
         }
 
         public OneToManyRelationshipRecord GetOneToMany(int id) {
@@ -312,14 +304,14 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
                 _relationshipRepository.Delete(relationRecord);
             }
 
-            string primaryName = record.Relationship.PrimaryEntity.Name;
-            string relatedName = record.Relationship.RelatedEntity.Name;
-            _schemaUpdateService.DropCustomTable(string.Format("Coevery_DynamicTypes_{0}ContentLinkRecord", record.Relationship.Name));
-            _schemaUpdateService.DropCustomTable(string.Format("Coevery_DynamicTypes_{0}{1}PartRecord", record.Relationship.Name, primaryName));
-            _schemaUpdateService.DropCustomTable(string.Format("Coevery_DynamicTypes_{0}{1}PartRecord", record.Relationship.Name, relatedName));
+            //string primaryName = record.Relationship.PrimaryEntity.Name;
+            //string relatedName = record.Relationship.RelatedEntity.Name;
+            //_schemaUpdateService.DropCustomTable(string.Format("Coevery_DynamicTypes_{0}ContentLinkRecord", record.Relationship.Name));
+            //_schemaUpdateService.DropCustomTable(string.Format("Coevery_DynamicTypes_{0}{1}PartRecord", record.Relationship.Name, primaryName));
+            //_schemaUpdateService.DropCustomTable(string.Format("Coevery_DynamicTypes_{0}{1}PartRecord", record.Relationship.Name, relatedName));
 
-            _contentDefinitionManager.DeletePartDefinition(record.Relationship.Name + primaryName.ToPartName());
-            _contentDefinitionManager.DeletePartDefinition(record.Relationship.Name + relatedName.ToPartName());
+            //_contentDefinitionManager.DeletePartDefinition(record.Relationship.Name + primaryName.ToPartName());
+            //_contentDefinitionManager.DeletePartDefinition(record.Relationship.Name + relatedName.ToPartName());
         }
 
         /// <summary>
@@ -339,22 +331,22 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
             manyToManyRecord.ShowRelatedList = manyToMany.ShowRelatedList;
             manyToManyRecord.RelatedListLabel = manyToMany.RelatedListLabel;
 
-            var primaryPart = _contentDefinitionManager.GetPartDefinition(relationshipRecord.Name + relationshipRecord.PrimaryEntity.Name.ToPartName());
-            primaryPart.Settings["DisplayName"] = manyToMany.RelatedListLabel;
-            _contentDefinitionManager.StorePartDefinition(primaryPart, VersionOptions.DraftRequired);
-            var relatedPart = _contentDefinitionManager.GetPartDefinition(relationshipRecord.Name + relationshipRecord.RelatedEntity.Name.ToPartName());
-            relatedPart.Settings["DisplayName"] = manyToMany.PrimaryListLabel;
-            _contentDefinitionManager.StorePartDefinition(relatedPart, VersionOptions.DraftRequired);
+            //var primaryPart = _contentDefinitionManager.GetPartDefinition(relationshipRecord.Name + relationshipRecord.PrimaryEntity.Name.ToPartName());
+            //primaryPart.Settings["DisplayName"] = manyToMany.RelatedListLabel;
+            //_contentDefinitionManager.StorePartDefinition(primaryPart, VersionOptions.DraftRequired);
+            //var relatedPart = _contentDefinitionManager.GetPartDefinition(relationshipRecord.Name + relationshipRecord.RelatedEntity.Name.ToPartName());
+            //relatedPart.Settings["DisplayName"] = manyToMany.PrimaryListLabel;
+            //_contentDefinitionManager.StorePartDefinition(relatedPart, VersionOptions.DraftRequired);
 
-            _manyToManyRepository.Update(manyToManyRecord);
+            //_manyToManyRepository.Update(manyToManyRecord);
 
-            UpdateLayoutProperties(relationshipRecord.PrimaryEntity.Name,
-                manyToManyRecord.PrimaryListProjection.LayoutRecord,
-                manyToMany.PrimaryColumnList);
+            //UpdateLayoutProperties(relationshipRecord.PrimaryEntity.Name,
+            //    manyToManyRecord.PrimaryListProjection.LayoutRecord,
+            //    manyToMany.PrimaryColumnList);
 
-            UpdateLayoutProperties(relationshipRecord.RelatedEntity.Name,
-                manyToManyRecord.RelatedListProjection.LayoutRecord,
-                manyToMany.RelatedColumnList);
+            //UpdateLayoutProperties(relationshipRecord.RelatedEntity.Name,
+            //    manyToManyRecord.RelatedListProjection.LayoutRecord,
+            //    manyToMany.RelatedColumnList);
             return null;
         }
 
@@ -368,9 +360,9 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
             oneToManyRecord.RelatedListLabel = oneToMany.RelatedListLabel;
             _oneToManyRepository.Update(oneToManyRecord);
 
-            UpdateLayoutProperties(oneToManyRecord.Relationship.RelatedEntity.Name,
-                oneToManyRecord.RelatedListProjection.LayoutRecord,
-                oneToMany.ColumnFieldList);
+            //UpdateLayoutProperties(oneToManyRecord.Relationship.RelatedEntity.Name,
+            //    oneToManyRecord.RelatedListProjection.LayoutRecord,
+            //    oneToMany.ColumnFieldList);
             return null;
         }
 
@@ -468,10 +460,12 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Services {
         }
 
         private bool RelationshipExists(string name) {
-            return _relationshipRepository.Table
-                .Where(x => x.PrimaryEntity.ContentItemVersionRecord.Latest
-                            && x.RelatedEntity.ContentItemVersionRecord.Latest)
-                .Any(record => record.Name == name);
+            //return _relationshipRepository.Table
+            //    .Where(x => x.PrimaryEntity.ContentItemVersionRecord.Latest
+            //                && x.RelatedEntity.ContentItemVersionRecord.Latest)
+            //    .Any(record => record.Name == name);
+            
+            return true;
         }
 
         private static string GetContentTypeFilterState(string entityType) {
