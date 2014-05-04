@@ -40,36 +40,53 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
             _contentManager.Publish(lastPartDefinition.ContentItem);
 
             if (context.PreviousItemVersionRecord == null) {
-                _schemaUpdateService.CreateTable(part.Name, ctx => {
-                    foreach (var fieldDefinition in lastPartDefinition.FieldDefinitions) {
-                        var length = GetMaxLength(fieldDefinition.Settings);
-                        Action<CreateColumnCommand> columnAction = x => x.WithLength(length);
-                        ctx.FieldColumn(fieldDefinition.Name, fieldDefinition.FieldType, columnAction);
-                    }
-                });
+                CreateTable(part.Name, lastPartDefinition.FieldDefinitions);
             }
             else {
-                var newFieldDefinitions = lastPartDefinition.FieldDefinitions;
-                var oldFieldDefinitions = publishedPartDefinition.FieldDefinitions;
-                foreach (var fieldDefinition in oldFieldDefinitions) {
-                    var exist = newFieldDefinitions.Any(x => x.Name == fieldDefinition.Name);
-                    if (!exist) {
-                        _schemaUpdateService.DropColumn(part.Name, fieldDefinition.Name);
-                    }
-                }
+                AlterTable(part.Name, publishedPartDefinition.FieldDefinitions, lastPartDefinition.FieldDefinitions);
+            }
+        }
 
-                foreach (var fieldDefinition in newFieldDefinitions) {
-                    var exist = oldFieldDefinitions.Any(x => x.Name == fieldDefinition.Name);
-                    if (!exist) {
-                        var length = GetMaxLength(fieldDefinition.Settings);
-                        _schemaUpdateService.CreateColumn(part.Name, fieldDefinition.Name, fieldDefinition.FieldType, length);
-                    }
-                    else {
-                        var length = GetMaxLength(fieldDefinition.Settings);
-                        _schemaUpdateService.AlterColumn(part.Name, fieldDefinition.Name, fieldDefinition.FieldType, length);
-                    }
+        private void CreateTable(string tableName, IEnumerable<FieldDefinition> fieldDefinitions) {
+            _schemaUpdateService.CreateTable(tableName, ctx => {
+                foreach (var fieldDefinition in fieldDefinitions) {
+                    var length = GetMaxLength(fieldDefinition.Settings);
+                    Action<CreateColumnCommand> columnAction = x => x.WithLength(length);
+                    ctx.FieldColumn(fieldDefinition.Name, fieldDefinition.FieldType, columnAction);
+                }
+            });
+        }
+
+        private void AlterTable(string tableName, IEnumerable<FieldDefinition> oldFieldDefinitions, IEnumerable<FieldDefinition> newFieldDefinitions) {
+            foreach (var fieldDefinition in oldFieldDefinitions) {
+                var exist = newFieldDefinitions.Any(x => x.Name == fieldDefinition.Name);
+                if (!exist) {
+                    _schemaUpdateService.DropColumn(tableName, fieldDefinition.Name);
                 }
             }
+
+            foreach (var fieldDefinition in newFieldDefinitions) {
+                var exist = oldFieldDefinitions.Any(x => x.Name == fieldDefinition.Name);
+                if (!exist) {
+                    var length = GetMaxLength(fieldDefinition.Settings);
+                    _schemaUpdateService.CreateColumn(tableName, fieldDefinition.Name, fieldDefinition.FieldType, length);
+                }
+                else {
+                    var length = GetMaxLength(fieldDefinition.Settings);
+                    _schemaUpdateService.AlterColumn(tableName, fieldDefinition.Name, fieldDefinition.FieldType, length);
+                }
+            }
+        }
+
+        private int? GetMaxLength(SettingsDictionary settings) {
+            string maxLengthSetting;
+            if (settings.TryGetValue("TextFieldSettings.MaxLength", out maxLengthSetting)) {
+                int length;
+                if (int.TryParse(maxLengthSetting, out length)) {
+                    return length;
+                }
+            }
+            return null;
         }
 
         private void OnVersioning(VersionContentContext context, ContentTypeDefinitionPart existing, ContentTypeDefinitionPart building) {
@@ -124,17 +141,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
                 .Where(x => x.Name == partName)
                 .List()
                 .FirstOrDefault();
-        }
-
-        private int? GetMaxLength(SettingsDictionary settings) {
-            string maxLengthSetting;
-            if (settings.TryGetValue("TextFieldSettings.MaxLength", out maxLengthSetting)) {
-                int length;
-                if (int.TryParse(maxLengthSetting, out length)) {
-                    return length;
-                }
-            }
-            return null;
         }
     }
 }

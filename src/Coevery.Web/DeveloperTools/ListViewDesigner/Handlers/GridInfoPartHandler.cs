@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData.Services;
@@ -21,7 +20,6 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Handlers {
             Filters.Add(StorageFilter.For(repository));
             OnActivated<GridInfoPart>((context, part) => LazyLoadHandlers(part));
             OnPublished<ContentTypeDefinitionPart>((context, part) => PublishGridInfo(part));
-            OnVersioned<ContentTypeDefinitionPart>((context, existing, building) => GetDraftGridInfo(building));
             OnRemoved<ContentTypeDefinitionPart>((context, part) => RemoveGridInfo(part));
         }
 
@@ -43,15 +41,6 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Handlers {
             foreach (var item in items) {
                 _contentManager.Publish(item.ContentItem);
             }
-        }
-
-        private void GetDraftGridInfo(ContentTypeDefinitionPart part) {
-            if (!part.Customized) {
-                return;
-            }
-
-            // Create draft version
-            GetGridInfoParts(part.Name, VersionOptions.DraftRequired).ToList();
         }
 
         private void RemoveGridInfo(ContentTypeDefinitionPart part) {
