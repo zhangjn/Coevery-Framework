@@ -1,7 +1,9 @@
 ﻿<#@ template debug="false" language="C#" hostspecific="true"#>
 <#@ include file="ListViewCommon.ttinclude" #>
+<#@ import namespace="Coevery.Core.Relationships.Settings" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="EntityName" #>
+using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net;
@@ -57,7 +59,8 @@ namespace <#=Namespace#>.Controllers {
 <#  var columns = GetColumns(EntityName);
     var partDefinition = GetContentPartDefinition(EntityName);
 	foreach (var field in GetPrimaryFields(columns, partDefinition)) {#>
-					<#=field.Name#> = item.Record.<#=field.Name#>,
+					<#=field.Name#> = <# if (field.FieldDefinition.Name == "DateField" || field.FieldDefinition.Name == "DatetimeField") {#>SpecifyDateTimeKind(item.Record.<#=field.Name#>)<#}
+else {#>item.Record.<#=field.Name#><#} #>,
 <#}#>
 				}).ToList();
 <#	
@@ -80,7 +83,8 @@ namespace <#=Namespace#>.Controllers {
             foreach (var record in records) {
 <#
 		foreach (var field in item.Value) {
-		    var displayField = field.Settings["ReferenceFieldSettings.DisplayFieldName"];
+		    var settings = field.Settings.TryGetModel<ReferenceFieldSettings>();
+		    var displayField = settings.DisplayFieldName;
 		    var fieldName = field.Name;#>
 				if (record.<#=fieldName#>.HasValue && <#=recordsName#>.ContainsKey(record.<#=fieldName#>.Value)) {
 					record.<#=fieldName#>_Name = <#=recordsName#>[record.<#=fieldName#>.Value].<#=displayField#>;
@@ -97,6 +101,12 @@ namespace <#=Namespace#>.Controllers {
 	            rows = records
 	        };
 	        return Json(result);
+	    }
+
+		private DateTime? SpecifyDateTimeKind(DateTime? utcDateTime) {
+            if (utcDateTime != null)
+                return DateTime.SpecifyKind(utcDateTime.Value, DateTimeKind.Utc);
+	        return null;
 	    }
 
 		private string GetOptionSetFieldValue(int id, string fieldName) {
@@ -213,7 +223,8 @@ namespace <#=Namespace#>.Controllers {
         foreach (var col in columns) {
             var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col);
             if (field != null && field.FieldDefinition.Name == "ReferenceField") {
-				var typeName = field.Settings["ReferenceFieldSettings.ContentTypeName"];
+				var settings = field.Settings.TryGetModel<ReferenceFieldSettings>();
+                var typeName = settings.ContentTypeName;
                 if (!fieldsDictionary.ContainsKey(typeName)) {
                     fieldsDictionary[typeName] = new List<ContentPartFieldDefinition>();
                 }

@@ -4,121 +4,27 @@
 <#@ import namespace="Newtonsoft.Json" #>
 <#@ import namespace="Newtonsoft.Json.Linq" #>
 <#@ parameter type="System.String" name="EntityName" #>
-@using Coevery.Utility.Extensions;
 @{
-    Style.Require("jqGrid");
-    Style.Require("jqGridCustom");
-    Script.Require("jqGrid");
-	Script.Require("jqGrid_i18n");
+    var url = Url.Action("List");
+    var gridId = "<#=EntityName.ToLower()#>Grid";
+    var columns = "<#=GetGridColumnJSONString()#>";
+    var listViewModel = new {
+        CallbackUrl = url,
+        GridId = gridId,
+        Columns = columns
+    };
 }
 
-<div class="row-fluid">
-    <table id="<#=EntityName.ToLower()#>Grid"></table>
-    <section id="<#=EntityName.ToLower()#>GridPager"></section>
-</div>
-@Html.AntiForgeryToken()
+@Display.Parts_ListViewActions__<#=EntityName#>(GridId: gridId)
 
-@using (Script.Foot()) {
-    <script type="text/javascript">
-		function updateButtonStatus() {
-            var selectedRowIds = $('#<#=EntityName.ToLower()#>Grid').jqGrid('getGridParam', 'selarrrow');
-            $("#btnEdit").toggle(selectedRowIds.length == 1);
-            $("#btnDelete").toggle(selectedRowIds.length > 0);
-        }
-
-        $.extend(jQuery.jgrid.defaults, {
-            prmNames: {
-                page: 'page',
-                rows: 'pageSize',
-                sort: 'sortBy',
-                order: 'sortOrder'
-            }
-        });
-<#
-	var gridInfo = GetDefaultGridInfo(EntityName);
-    int pageSize = string.IsNullOrEmpty(gridInfo.GridSettings[GridInfoSettings.PageRowCount]) ? 10 : int.Parse(gridInfo.GridSettings[GridInfoSettings.PageRowCount]);
-	string sortedBy = string.IsNullOrEmpty(gridInfo.GridSettings[GridInfoSettings.SortColumn]) ? string.Empty : gridInfo.GridSettings[GridInfoSettings.SortColumn];
-    string sortOrder = string.IsNullOrEmpty(gridInfo.GridSettings[GridInfoSettings.SortMode]) ? "asc" : gridInfo.GridSettings[GridInfoSettings.SortMode];
-#>
-        $('#<#=EntityName.ToLower()#>Grid').jqGrid({
-            url: '@Url.Action("List")',
-            datatype: 'json',
-			mtype: 'POST',
-            postData: {
-                __RequestVerificationToken: function () {
-                var magicToken = $("input[name=__RequestVerificationToken]").first();
-                if (magicToken.length == 0) { return null; } // no sense in continuing if form POSTS will fail
-                return magicToken.val();
-                }
-            },
-            colModel: <#=GetGridColumnJSONString()#>,
-            rowNum: <#=pageSize#>,
-            rowList: [<#=pageSize#>, <#=pageSize*2#>, <#=pageSize*3#>],
-            pager: '#<#=EntityName.ToLower()#>GridPager',
-            viewrecords: true,
-            height: '100%',
-            pagerpos: 'right',
-            recordpos: 'left',
-            sortable: true,
-			sortname: '<#=sortedBy#>', 
-			sortorder: '<#=sortOrder#>',
-            headertitles: true,
-            multiselect: true,
-            multiboxonly: true,
-            autowidth: true,
-            jsonReader: {
-                page: 'page',
-                total: 'totalPages',
-                records: 'totalRecords',
-                repeatitems: false
-            },
-            onSelectRow: function() {
-                updateButtonStatus();
-            },
-            gridComplete: function() {
-                updateButtonStatus();
-            }
-        });
-        $('#btnEdit').click(function() {
-            var selectedRowIds = $('#<#=EntityName.ToLower()#>Grid').jqGrid('getGridParam', 'selarrrow');
-            if (selectedRowIds.length == 0) return;
-            window.location.href = '@Url.Action("Edit")/' + selectedRowIds[0]+'?returnUrl=@ViewContext.RequestContext.HttpContext.Request.ToUrlString()';
-        });
-        $('#btnDelete').click(function () {
-            var selectedIds = $('#<#=EntityName.ToLower()#>Grid').jqGrid('getGridParam', 'selarrrow');
-		    if (selectedIds.length == 0) return;
-		    var magicToken = $("input[name=__RequestVerificationToken]").first();
-		    if (magicToken.length == 0) {
-		        return;
-		    } // no sense in continuing if form POSTS will fail
-		    var confirm = window.confirm($.jgrid.del.msg);
-		    if (!confirm) return;
-
-			$.ajax({
-		            url: '@Url.Action("Delete")',
-		            data: { selectedIds: selectedIds, __RequestVerificationToken: magicToken.val() },
-		            type: "POST",
-		            traditional: true
-		        })
-		        .done(function(response) {
-		            $('#<#=EntityName.ToLower()#>Grid').trigger('reloadGrid');
-		        })
-		        .fail(function(jqXHR, textStatus, errorThrown) {
-		            alert(textStatus);
-		        });
-        });
-        $('#btnRefresh').click(function () {
-            $('#<#=EntityName.ToLower()#>Grid').trigger('reloadGrid');
-        });
-    </script>
-}
-
+@Display.Parts_ListViewGrid__<#=EntityName#>(listViewModel)
 
 <#+
 
     private string GetGridColumnJSONString() {
         var columns = GetFieldObjects().ToArray();
-        return JsonConvert.SerializeObject(columns);
+        var json = JsonConvert.SerializeObject(columns);
+        return json.Replace("\"", "\\\"");
     }
 
 	private IEnumerable<JObject> GetFieldObjects() {
@@ -139,6 +45,25 @@
 					refernceNameColumn["label"] = field.DisplayName;
                     refernceNameColumn["sortable"] = false;
                     yield return refernceNameColumn;
+                }
+                switch (field.FieldDefinition.Name) {
+                    case "BooleanField":
+                        column["formatter"] = "checkbox";
+                        break;
+                    case "CurrencyField":
+                        column["formatter"] = "currency";
+                        break;
+                    case "DateField":
+						column["formatter"] = new JRaw("utcDateFormatter");
+						column["sorttype"] = "date";
+						break;
+                    case "DatetimeField":
+                        column["formatter"] = new JRaw("utcDateTimeFormatter");
+                        column["sorttype"] = "date";
+                        break;
+                    case "NumberField":
+                        column["formatter"] = "number";
+                        break;
                 }
                 yield return column;
             }

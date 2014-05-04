@@ -533,6 +533,8 @@
     <Content Include="Common\Scripts\jQuery\jquery.ui.widget.min.js" />
     <Content Include="Common\Scripts\jQuery\jquery.validate.js" />
     <Content Include="Common\Scripts\jQuery\jquery.validate.min.js" />
+    <Content Include="Common\Scripts\moment-with-langs.js" />
+    <Content Include="Common\Scripts\moment-with-langs.min.js" />
     <Content Include="Common\Scripts\require.js" />
     <Content Include="Common\Scripts\require.min.js" />
     <Content Include="Common\Scripts\spin.js" />

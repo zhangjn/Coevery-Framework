@@ -1,0 +1,63 @@
+﻿@using Coevery.Utility.Extensions
+<div id="page-actions" class="clearfix">
+    <div class="btn-toolbar pull-left">
+        <a class="btn btn-small btn-success" href="@Url.Action("Create", new{returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString()})"><i class="icon-plus"></i>&nbsp;Add</a>
+        <button id="btnEdit" class="btn btn-small btn-primary hide" type="button"><i class="icon-edit"></i>&nbsp;Edit</button>
+        <button id="btnDelete" class="btn btn-small btn-warning hide" type="button"><i class="icon-trash"></i>&nbsp;Delete</button>
+        <button id="btnRefresh" class="btn btn-small" type="button"><i class="icon-refresh"></i>&nbsp;Refresh</button>
+    </div>
+</div>
+
+@{
+    var gridId = Model.GridId;
+}
+
+@using (Script.Foot()) {
+    <script type="text/javascript">
+        $(function() {
+            var grid = $('#@gridId');
+
+            function updateButtonStatus() {
+                var selectedRowIds = grid.jqGrid('getGridParam', 'selarrrow');
+                $("#btnEdit").toggle(selectedRowIds.length == 1);
+                $("#btnDelete").toggle(selectedRowIds.length > 0);
+            }
+
+            grid.jqGrid('setGridParam', { onSelectRow: function() { updateButtonStatus(); } });
+            grid.jqGrid('setGridParam', { gridComplete: function() { updateButtonStatus(); } });
+
+            $('#btnEdit').click(function() {
+                var selectedRowIds = grid.jqGrid('getGridParam', 'selarrrow');
+                if (selectedRowIds.length == 0) return;
+                window.location.href = '@Url.Action("Edit")/' + selectedRowIds[0] + '?returnUrl=@ViewContext.RequestContext.HttpContext.Request.ToUrlString()';
+            });
+            $('#btnDelete').click(function() {
+                var selectedIds = grid.jqGrid('getGridParam', 'selarrrow');
+                if (selectedIds.length == 0) return;
+                var magicToken = $("input[name=__RequestVerificationToken]").first();
+                if (magicToken.length == 0) {
+                    return;
+                } // no sense in continuing if form POSTS will fail
+                var confirm = window.confirm($.jgrid.del.msg);
+                if (!confirm) return;
+
+                $.ajax({
+                        url: '@Url.Action("Delete")',
+                        data: { selectedIds: selectedIds, __RequestVerificationToken: magicToken.val() },
+                        type: "POST",
+                        traditional: true
+                    })
+                    .done(function(response) {
+                        grid.trigger('reloadGrid');
+                    })
+                    .fail(function(jqXHR, textStatus, errorThrown) {
+                        alert(textStatus);
+                    });
+            });
+            $('#btnRefresh').click(function() {
+                grid.trigger('reloadGrid');
+            });
+        });
+        
+    </script>
+}

@@ -1,0 +1,18 @@
+﻿@if (WorkContext.CurrentUser == null) {
+    <div style="margin-top: 21px;" class="clearfix">
+        <a style="text-decoration: none" href="@Url.Action("LogOn", new {Controller = "Account", Area = "Coevery.Users", ReturnUrl = Context.Request.RawUrl})">
+            <span style="color: #ccc; font-size: 20px">@T("Login")</span>
+        </a>
+    </div>
+}
+else {
+    <div id="user-info" class="clearfix">
+        <span class="info">Welcome
+            <span class="name">@WorkContext.CurrentUser.UserName</span>
+        </span>
+    </div>
+    <div id="logout-ribbon">
+        <a href="@Url.Action("LogOff", new {Controller = "Account", Area = "Coevery.Users", ReturnUrl = Context.Request.RawUrl})" rel="nofollow">
+            <i class="icon-off"></i></a>
+    </div>
+}

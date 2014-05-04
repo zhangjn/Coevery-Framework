@@ -171,6 +171,14 @@
         string partsListViewTemplate = TransformText("PartsListView.tt", partsListViewSession);
         AddFile<Content>(csProjFile, partsListViewFilePath, partsListViewTemplate);
 
+		string partsListViewActionsFilePath = Path.Combine(partsViewPath, string.Format("ListViewActions-{0}.cshtml", entityName));
+        string partsListViewActionsTemplate = TransformText("PartsListViewActions.tt", partsListViewSession);
+        AddFile<Content>(csProjFile, partsListViewActionsFilePath, partsListViewActionsTemplate);
+
+		string partsListViewGridFilePath = Path.Combine(partsViewPath, string.Format("ListViewGrid-{0}.cshtml", entityName));
+        string partsListViewGridTemplate = TransformText("PartsListViewGrid.tt", partsListViewSession);
+        AddFile<Content>(csProjFile, partsListViewGridFilePath, partsListViewGridTemplate);
+
         //ViewModels/{EntityName}ListViewModel.cs
         var listViewModelSession = new TextTemplatingSession();
         listViewModelSession["EntityName"] = entityName;

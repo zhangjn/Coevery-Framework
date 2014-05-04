@@ -3727,6 +3727,9 @@
     <Content Include="SafeMode\Views\Document.cshtml" />
     <Content Include="SafeMode\Views\Layout.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Mooncake\Views\LoginStatus.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

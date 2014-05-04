@@ -14,6 +14,8 @@ namespace Coevery.Core.Common {
             manifest.DefineScript("require").SetUrl("require.min.js", "require.js").SetVersion("2.1.6");
             manifest.DefineScript("spin").SetUrl("spin.js", "spin.js").SetVersion("1.3.2");
 
+            manifest.DefineScript("moment").SetUrl("moment-with-langs.min.js", "moment-with-langs.js").SetVersion("2.6.0");
+
             RegisterJQuery(manifest);
         }
 

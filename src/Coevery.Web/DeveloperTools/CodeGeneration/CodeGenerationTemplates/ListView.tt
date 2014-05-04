@@ -1,16 +1,8 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
-@using Coevery.Utility.Extensions;
 @{
     Layout.Title = Model.ContentItem.TypeDefinition.DisplayName;
 }
-<div id="page-actions" class="clearfix">
-    <div class="btn-toolbar pull-left">
-		<a class="btn btn-small btn-success" href="@Url.Action("Create", new{returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString()})"><i class="icon-plus"></i>&nbsp;Add</a>
-        <button id="btnEdit" class="btn btn-small btn-primary hide" type="button"><i class="icon-edit"></i>&nbsp;Edit</button>
-        <button id="btnDelete" class="btn btn-small btn-warning hide" type="button"><i class="icon-trash"></i>&nbsp;Delete</button>
-        <button id="btnRefresh" class="btn btn-small" type="button"><i class="icon-refresh"></i>&nbsp;Refresh</button>
-    </div>
-</div>
+
 @Display(Model.Content)
 
 @if (Model.Footer != null) {
