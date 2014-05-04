@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Coevery.ContentManagement;
 using Coevery.DeveloperTools.EntityManagement.Services;
@@ -10,11 +11,14 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
         GridViewModel GetGridViewModel(string entityName);
         GridViewModel GetGridViewModel(int id);
         int Save(int id, GridViewModel viewModel);
+        string ParseColumns(IEnumerable<string> columns);
+        IEnumerable<string> ParseColumns(string columns);
     }
 
     public class GridService : IGridService {
         private readonly IContentManager _contentManager;
         private readonly IEntityMetadataService _entityMetadataService;
+        private const string ColumnSplitter = ";";
 
         public GridService(
             IContentManager contentManager,
@@ -47,7 +51,7 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
             string typeName = gridInfo.ItemContentType;
             var fieldDefinitions = _entityMetadataService.GetFields(typeName);
             var settings = gridInfo.GridSettings;
-            var columns = settings[GridInfoSettings.Columns].Split(';');
+            var columns = ParseColumns(settings[GridInfoSettings.Columns]);
 
             var viewModel = new GridViewModel {
                 Id = gridInfo.Id,
@@ -88,7 +92,7 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
             gridInfo.ItemContentType = viewModel.ItemContentType;
 
             var settings = gridInfo.GridSettings;
-            settings[GridInfoSettings.Columns] = viewModel.SelectedColumns.Join(";");
+            settings[GridInfoSettings.Columns] = ParseColumns(viewModel.SelectedColumns);
             settings[GridInfoSettings.SortColumn] = viewModel.SortColumn ?? string.Empty;
             settings[GridInfoSettings.SortMode] = viewModel.SortMode ?? string.Empty;
             settings[GridInfoSettings.PageRowCount] = viewModel.PageRowCount.ToString();
@@ -96,6 +100,14 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Services {
 
             _entityMetadataService.GetEntity(gridInfo.ItemContentType, VersionOptions.DraftRequired);
             return id;
+        }
+
+        public string ParseColumns(IEnumerable<string> columns) {
+            return columns.Where(x => !string.IsNullOrEmpty(x)).Join(ColumnSplitter);
+        }
+
+        public IEnumerable<string> ParseColumns(string columns) {
+            return columns.Split(new[] {ColumnSplitter}, StringSplitOptions.RemoveEmptyEntries);
         }
     }
 }

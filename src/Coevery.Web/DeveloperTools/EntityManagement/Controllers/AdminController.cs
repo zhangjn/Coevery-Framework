@@ -131,7 +131,11 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             }
 
             entity.DisplayName = viewModel.DisplayName;
-            entity.EntitySettings = viewModel.Settings;
+            var entitySettings = entity.EntitySettings;
+            foreach (var setting in  viewModel.Settings) {
+                entitySettings[setting.Key] = setting.Value;
+            }
+            entity.EntitySettings = entitySettings;
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
