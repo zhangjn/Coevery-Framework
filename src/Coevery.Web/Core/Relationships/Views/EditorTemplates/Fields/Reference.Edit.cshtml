@@ -3,6 +3,7 @@
 @using Coevery.Core.Relationships.Settings
 @using Coevery.Mvc.Html
 @{
+    Script.Require("Bootstrap-Modal").AtFoot();
     var settings = Model.Field.PartFieldDefinition.Settings.GetModel<ReferenceFieldSettings>();
     var required = settings.Required ? "required" : null;
     var selectAttributes = new Dictionary<string, object> { { "class", "textMedium span12" } };
@@ -18,6 +19,6 @@
 <label class="span3 control-label @required" for="@Html.FieldIdFor(m => m.ContentId)">@Model.Field.DisplayName</label>
 <div class="control controls errortips">
     @Html.DropDownListFor(m => m.ContentId, Model.ItemList,string.Empty, selectAttributes)
-    <span class="button add">@T("Select...")</span>
+    <a data-toggle="modal" class="button add" href="#ajax-modal" data-remote="@Url.Action("Index","EntityPicker")">@T("Select...")</a>
 </div>
-
+<div id="ajax-modal" class="modal fade" tabindex="-1" style="display: none;"></div>

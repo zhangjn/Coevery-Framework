@@ -384,6 +384,7 @@
     <Compile Include="Relationships\DynamicTypeGeneration\DynamicRelationshipPartDriver.cs" />
     <Compile Include="Relationships\DynamicTypeGeneration\DynamicRelationshipService.cs" />
     <Compile Include="Relationships\DynamicTypeGeneration\RelationshipInfoAttribute.cs" />
+    <Compile Include="Relationships\Controllers\EntityPickerController.cs" />
     <Compile Include="Relationships\Fields\ReferenceField.cs" />
     <Compile Include="Relationships\Handlers\ReferenceHandler.cs" />
     <Compile Include="Relationships\Migrations.cs" />
@@ -450,6 +451,8 @@
     <Content Include="Common\Scripts\app\couchPotatoService.js" />
     <Content Include="Common\Scripts\app\detourService.js" />
     <Content Include="Common\Scripts\app\logger.js" />
+    <Content Include="Common\Scripts\bootstrap-modal.js" />
+    <Content Include="Common\Scripts\bootstrap-modalmanager.js" />
     <Content Include="Common\Scripts\jQuery\jqGrid\i18n\grid.locale.ar.js" />
     <Content Include="Common\Scripts\jQuery\jqGrid\i18n\grid.locale.bg-BG.js" />
     <Content Include="Common\Scripts\jQuery\jqGrid\i18n\grid.locale.bg.js" />
@@ -582,6 +585,7 @@
     <Content Include="Projections\Styles\images\menu.queries.png" />
     <Content Include="Projections\Styles\menu.projector-admin.css" />
     <Content Include="Relationships\Module.txt" />
+    <Content Include="Relationships\Scripts\entitypicker.js" />
     <Content Include="Settings\Module.txt" />
     <Content Include="Settings\Placement.info" />
   </ItemGroup>

@@ -16,6 +16,10 @@ namespace Coevery.Core.Common {
 
             manifest.DefineScript("moment").SetUrl("moment-with-langs.min.js", "moment-with-langs.js").SetVersion("2.6.0");
 
+            manifest.DefineScript("Bootstrap_ModalManager").SetUrl("bootstrap-modalmanager.js", "bootstrap-modalmanager.js").SetVersion("2.2.5");
+
+            manifest.DefineScript("Bootstrap_Modal").SetUrl("bootstrap-modal.js", "bootstrap-modal.js").SetVersion("2.2.5").SetDependencies("Bootstrap_ModalManager");
+
             RegisterJQuery(manifest);
         }
 
