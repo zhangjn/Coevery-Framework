@@ -175,6 +175,7 @@
     <Compile Include="CodeGeneration\Services\DynamicAssemblyBuilder.cs" />
     <Compile Include="CodeGeneration\Services\DynamicDefinition.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicAssemblyBuilder.cs" />
+    <Compile Include="EntityManagement\Handlers\ContentTypeDefinitionPartHandler.cs" />
     <Compile Include="ListViewDesigner\Controllers\GridInfoController.cs" />
     <Compile Include="ListViewDesigner\Drivers\GridInfoPartDriver.cs" />
     <Compile Include="ListViewDesigner\Handlers\GridInfoFieldEventsHandler.cs" />

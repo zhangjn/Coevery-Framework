@@ -1,4 +1,5 @@
 ﻿<#@ include file="EntityDefinition.ttinclude" #>
+<#@ import namespace="Coevery.DeveloperTools.ListViewDesigner.Services" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
@@ -7,15 +8,17 @@
 <#+
 
     private IEnumerable<string> GetColumns(string entityTypeName) {
+        var gridService = Services.WorkContext.Resolve<IGridService>();
         var gridInfo = GetDefaultGridInfo(entityTypeName);
-        return gridInfo.GridSettings[GridInfoSettings.Columns].Split(';');
+        return gridService.ParseColumns(gridInfo.GridSettings[GridInfoSettings.Columns]);
     }
 
     private GridInfoPart GetDefaultGridInfo(string entityTypeName) {
         var contentManager = Services.ContentManager;
-        var gridInfos = contentManager.Query<GridInfoPart, GridInfoPartRecord>("GridInfo")
+        var gridInfos = contentManager.Query<GridInfoPart, GridInfoPartRecord>()
             .Where(v => v.ItemContentType == entityTypeName)
-            .List().ToList();
+            .List()
+			.ToList();
 
         var gridInfo = gridInfos.FirstOrDefault(x => x.IsDefault) ?? gridInfos.First();
         return gridInfo;

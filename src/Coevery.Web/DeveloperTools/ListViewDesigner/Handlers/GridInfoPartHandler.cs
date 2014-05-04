@@ -1,4 +1,6 @@
-﻿using Coevery.ContentManagement;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Coevery.ContentManagement;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData.Services;
 using Coevery.Core.Settings.Metadata.Parts;
@@ -19,6 +21,8 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Handlers {
             Filters.Add(StorageFilter.For(repository));
             OnActivated<GridInfoPart>((context, part) => LazyLoadHandlers(part));
             OnPublished<ContentTypeDefinitionPart>((context, part) => PublishGridInfo(part));
+            OnVersioned<ContentTypeDefinitionPart>((context, existing, building) => GetDraftGridInfo(building));
+            OnRemoved<ContentTypeDefinitionPart>((context, part) => RemoveGridInfo(part));
         }
 
         private void LazyLoadHandlers(GridInfoPart part) {
@@ -34,15 +38,38 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Handlers {
                 return;
             }
 
-            var typeName = part.Name;
-            var items = _contentManager.Query("GridInfo")
-                .ForVersion(VersionOptions.Draft)
-                .Where<GridInfoPartRecord>(v => v.ItemContentType == typeName)
-                .List();
+            var items = GetGridInfoParts(part.Name, VersionOptions.Latest);
 
             foreach (var item in items) {
-                _contentManager.Publish(item);
+                _contentManager.Publish(item.ContentItem);
             }
+        }
+
+        private void GetDraftGridInfo(ContentTypeDefinitionPart part) {
+            if (!part.Customized) {
+                return;
+            }
+
+            // Create draft version
+            GetGridInfoParts(part.Name, VersionOptions.DraftRequired).ToList();
+        }
+
+        private void RemoveGridInfo(ContentTypeDefinitionPart part) {
+            if (!part.Customized) {
+                return;
+            }
+
+            var items = GetGridInfoParts(part.Name, VersionOptions.Latest);
+
+            foreach (var item in items) {
+                _contentManager.Remove(item.ContentItem);
+            }
+        }
+
+        private IEnumerable<GridInfoPart> GetGridInfoParts(string entityName, VersionOptions options) {
+            return _contentManager.Query<GridInfoPart, GridInfoPartRecord>(options)
+                .Where(v => v.ItemContentType == entityName)
+                .List();
         }
     }
 }
