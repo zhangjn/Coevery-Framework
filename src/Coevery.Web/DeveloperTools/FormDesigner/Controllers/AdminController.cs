@@ -44,6 +44,9 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
                 partBuilder.WithField(field.Name, fieldBuilder => {
                     fieldBuilder.OfType(fieldTypeName);
                     foreach (var pair in field.Settings) {
+                        if (pair.Key == "Storage") {
+                            continue;
+                        }
                         fieldBuilder.WithSetting(pair.Key, pair.Value);
                     }
                 });

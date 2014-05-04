@@ -10,7 +10,9 @@
     private IEnumerable<string> GetColumns(string entityTypeName) {
         var gridService = Services.WorkContext.Resolve<IGridService>();
         var gridInfo = GetDefaultGridInfo(entityTypeName);
-        return gridService.ParseColumns(gridInfo.GridSettings[GridInfoSettings.Columns]);
+        return gridInfo == null
+            ? Enumerable.Empty<string>()
+            : gridService.ParseColumns(gridInfo.GridSettings[GridInfoSettings.Columns]);
     }
 
     private GridInfoPart GetDefaultGridInfo(string entityTypeName) {
@@ -20,7 +22,7 @@
             .List()
 			.ToList();
 
-        var gridInfo = gridInfos.FirstOrDefault(x => x.IsDefault) ?? gridInfos.First();
+        var gridInfo = gridInfos.FirstOrDefault(x => x.IsDefault) ?? gridInfos.FirstOrDefault();
         return gridInfo;
     }
 

@@ -13,6 +13,11 @@
         GridId = gridId,
         Columns = columns
     };
+    if (gridInfo != null) {
+        pageSize = int.Parse(gridInfo.GridSettings[GridInfoSettings.PageRowCount]);
+        sortedBy = gridInfo.GridSettings[GridInfoSettings.SortColumn];
+        sortOrder = gridInfo.GridSettings[GridInfoSettings.SortMode];
+    }
 }
 
 @Display.Parts_ListViewActions__<#=EntityName#>(GridId: gridId)
