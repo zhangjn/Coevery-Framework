@@ -6,41 +6,29 @@ using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
-using Coevery.ContentManagement.MetaData.Services;
-using Coevery.Core.Common.Services;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.EntityManagement.ViewModels;
 using Coevery.Localization;
-using Coevery.Logging;
-using Coevery.Themes;
-using Coevery.UI.Notify;
 using Coevery.Utility.Extensions;
 using System.Data.Entity.Design.PluralizationServices;
 
 namespace Coevery.DeveloperTools.EntityManagement.Controllers {
     public class AdminController : Controller, IUpdateModel {
-        private readonly IContentDefinitionService _contentDefinitionService;
         private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;
-        private readonly IContentMetadataService _contentMetadataService;
-        private readonly ISettingsFormatter _settingsFormatter;
+        private readonly IEntityMetadataService _entityMetadataService;
 
         public AdminController(
             ICoeveryServices coeveryServices,
-            IContentDefinitionService contentDefinitionService,
             IContentDefinitionEditorEvents contentDefinitionEditorEvents,
-            IContentMetadataService contentMetadataService,
-            ISettingsFormatter settingsFormatter) {
+            IEntityMetadataService entityMetadataService) {
             Services = coeveryServices;
-            _contentDefinitionService = contentDefinitionService;
             T = NullLocalizer.Instance;
             _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
-            _contentMetadataService = contentMetadataService;
-            _settingsFormatter = settingsFormatter;
+            _entityMetadataService = entityMetadataService;
         }
 
         public ICoeveryServices Services { get; private set; }
         public Localizer T { get; set; }
-        public ILogger Logger { get; set; }
 
         #region Entity Methods
 
@@ -53,10 +41,10 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to create a content type."))) {
                 return new HttpUnauthorizedResult();
             }
-            var typeViewModel = _contentDefinitionService.GetType(string.Empty);
-            typeViewModel.Settings.Add("CollectionDisplayName", string.Empty);
 
-            return View(typeViewModel);
+            var viewModel = new EditTypeViewModel();
+            viewModel.Settings.Add("CollectionDisplayName", string.Empty);
+            return View(viewModel);
         }
 
         public ActionResult EntityName(string entityName, int version) {
@@ -69,7 +57,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
 
         [HttpPost]
         public ActionResult Publish(string id) {
-            var entity = _contentMetadataService.GetEntity(id);
+            var entity = _entityMetadataService.GetEntity(id);
             Services.ContentManager.Publish(entity.ContentItem);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
@@ -91,8 +79,9 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
                 ModelState.AddModelError("Name", T("The Content Type Id can't be empty.").ToString());
             }
 
-            if (!_contentMetadataService.CheckEntityCreationValid(viewModel.Name, viewModel.DisplayName, viewModel.Settings)) {
-                ModelState.AddModelError("Name", T("A type with the same Name or DisplayName already exists.").ToString());
+            var existEntity = _entityMetadataService.GetEntity(viewModel.Name);
+            if (existEntity != null) {
+                ModelState.AddModelError("Name", T("A type with the same Name already exists.").ToString());
             }
 
             if (!ModelState.IsValid) {
@@ -104,7 +93,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
                 return Content(string.Concat(temp));
             }
 
-            _contentMetadataService.CreateEntity(viewModel, this);
+            _entityMetadataService.CreateEntity(viewModel.Name, viewModel.DisplayName, viewModel.Settings);
             return Json(new {entityName = viewModel.Name});
         }
 
@@ -113,7 +102,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
                 return new HttpUnauthorizedResult();
             }
 
-            var entity = _contentMetadataService.GetEntity(id);
+            var entity = _entityMetadataService.GetEntity(id);
 
             if (entity == null) {
                 return HttpNotFound();
@@ -121,7 +110,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             var viewModel = new EditTypeViewModel {
                 Name = entity.Name,
                 DisplayName = entity.DisplayName,
-                Settings = entity.EntitySetting
+                Settings = entity.EntitySettings
             };
             return View(viewModel);
         }
@@ -131,17 +120,18 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to edit a content type."))) {
                 return new HttpUnauthorizedResult();
             }
-            var entity = _contentMetadataService.GetDraftEntity(id);
 
+            if (string.IsNullOrWhiteSpace(viewModel.DisplayName)) {
+                return new HttpStatusCodeResult(HttpStatusCode.MethodNotAllowed);
+            }
+
+            var entity = _entityMetadataService.GetEntity(id, VersionOptions.DraftRequired);
             if (entity == null) {
                 return HttpNotFound();
             }
-            bool valid = _contentMetadataService.CheckEntityDisplayValid(id, viewModel.DisplayName, viewModel.Settings);
-            if (!valid) {
-                return new HttpStatusCodeResult(HttpStatusCode.MethodNotAllowed);
-            }
+
             entity.DisplayName = viewModel.DisplayName;
-            entity.EntitySetting = viewModel.Settings;
+            entity.EntitySettings = viewModel.Settings;
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
@@ -150,18 +140,16 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
                 return new HttpUnauthorizedResult();
             }
 
-            var entity = _contentMetadataService.GetEntity(id);
+            var entity = _entityMetadataService.GetEntity(id);
 
             if (entity == null) {
                 return HttpNotFound();
             }
 
-            var viewModel = new EntityDetailViewModel {
-                Id = entity.Id,
+            var viewModel = new EditTypeViewModel {
                 Name = entity.Name,
                 DisplayName = entity.DisplayName,
-                HasPublished = entity.HasPublished(),
-                Settings = entity.EntitySetting
+                Settings = entity.EntitySettings
             };
 
             return View(viewModel);
@@ -177,7 +165,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             }
 
             var viewModel = new AddFieldViewModel {
-                Fields = _contentDefinitionService.GetFields().OrderBy(x => x.TemplateName),
+                Fields = _contentDefinitionEditorEvents.FieldTypeDescriptor().OrderBy(x => x.TemplateName),
             };
 
             return View(viewModel);
@@ -213,16 +201,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
                 return new HttpUnauthorizedResult();
             }
 
-            var entity = _contentMetadataService.GetDraftEntity(id);
-            if (entity == null) {
-                Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                return Content(string.Format("The entity with name \"{0}\" doesn't exist!", id));
-            }
-
-            viewModel.DisplayName = string.IsNullOrWhiteSpace(viewModel.DisplayName)
-                ? String.Empty : viewModel.DisplayName.Trim();
-            viewModel.Name = (viewModel.Name ?? viewModel.DisplayName).ToSafeName();
-
             if (String.IsNullOrWhiteSpace(viewModel.DisplayName)) {
                 ModelState.AddModelError("DisplayName", T("The Display Name name can't be empty.").ToString());
             }
@@ -235,28 +213,17 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
                 ModelState.AddModelError("Name", T("The Field Name can't be any case of 'Id'.").ToString());
             }
 
-            if (!_contentMetadataService.CheckFieldCreationValid(entity, viewModel.Name, viewModel.DisplayName)) {
-                ModelState.AddModelError("Name", T("A field with the same name or displayName already exists.").ToString());
-            }
+            viewModel.DisplayName = viewModel.DisplayName.Trim();
+            viewModel.Name = viewModel.Name.ToSafeName();
 
-            try {
-                _contentMetadataService.CreateField(entity, viewModel, this);
-                if (!ModelState.IsValid) {
-                    Services.TransactionManager.Cancel();
-                    Response.StatusCode = (int) HttpStatusCode.BadRequest;
-                    var errors = ModelState.Keys.SelectMany(k => ModelState[k].Errors)
-                        .Select(m => m.ErrorMessage).ToArray();
-                    return Content(string.Concat(errors));
-                }
-            }
-            catch (Exception ex) {
-                var message = T("The \"{0}\" field was not added. {1}", viewModel.DisplayName, ex.Message);
-                Services.Notifier.Information(message);
+            _entityMetadataService.AddField(id, viewModel.Name, viewModel.DisplayName, viewModel.FieldTypeName, viewModel.AddInLayout, this);
+            if (!ModelState.IsValid) {
                 Services.TransactionManager.Cancel();
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, message.ToString());
+                Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                var errors = ModelState.Keys.SelectMany(k => ModelState[k].Errors)
+                    .Select(m => m.ErrorMessage).ToArray();
+                return Content(string.Concat(errors));
             }
-
-            Services.Notifier.Information(T("The \"{0}\" field has been added.", viewModel.DisplayName));
 
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
@@ -269,7 +236,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
                 });
             }
             return Json(new {
-                result = _contentMetadataService.ConstructFieldName(entityName, displayName.ToSafeName()),
+                result = displayName.ToSafeName(),
                 version = version
             });
         }
@@ -278,22 +245,17 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to edit a content type."))) {
                 return new HttpUnauthorizedResult();
             }
-            var entity = _contentMetadataService.GetEntity(id);
-            if (entity == null) {
-                return HttpNotFound();
-            }
-            var field = entity.FieldMetadataRecords.FirstOrDefault(x => x.Name == fieldName);
+            var field = _entityMetadataService.GetFields(id).FirstOrDefault(x => x.Name == fieldName);
             if (field == null) {
                 return HttpNotFound();
             }
-            var settings = _settingsFormatter.Parse(field.Settings);
-            var fieldDefinition = new ContentFieldDefinition(field.ContentFieldDefinitionRecord.Name);
+            var fieldDefinition = new ContentFieldDefinition(field.FieldType);
             var viewModel = new EditPartFieldViewModel {
                 Name = field.Name,
-                DisplayName = settings[ContentPartFieldDefinition.DisplayNameKey],
-                Settings = settings,
+                DisplayName = field.DisplayName,
+                Settings = field.Settings,
                 FieldDefinition = new EditFieldViewModel(fieldDefinition),
-                Templates = _contentDefinitionEditorEvents.PartFieldEditor(new ContentPartFieldDefinition(fieldDefinition, field.Name, settings))
+                Templates = _contentDefinitionEditorEvents.PartFieldEditor(new ContentPartFieldDefinition(fieldDefinition, field.Name, field.Settings))
             };
             return View(viewModel);
         }
@@ -304,33 +266,12 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
                 return new HttpUnauthorizedResult();
             }
 
-            var entity = _contentMetadataService.GetDraftEntity(id);
-            if (viewModel == null || entity == null) {
-                return HttpNotFound();
-            }
-            var field = entity.FieldMetadataRecords.FirstOrDefault(x => x.Name == viewModel.Name);
-            if (field == null) {
-                return HttpNotFound();
-            }
-
-            // prevent null reference exception in validation
-            viewModel.DisplayName = viewModel.DisplayName ?? String.Empty;
-
-            // remove extra spaces
-            viewModel.DisplayName = viewModel.DisplayName.Trim();
-
             if (String.IsNullOrWhiteSpace(viewModel.DisplayName)) {
                 ModelState.AddModelError("DisplayName", T("The Display Name name can't be empty.").ToString());
             }
 
-            bool displayNameExist = entity.FieldMetadataRecords.Any(t => {
-                string displayName = _settingsFormatter.Parse(t.Settings)[ContentPartFieldDefinition.DisplayNameKey];
-                return t.Name != viewModel.Name && String.Equals(displayName.Trim(), viewModel.DisplayName.Trim(), StringComparison.OrdinalIgnoreCase);
-            });
-            if (displayNameExist) {
-                ModelState.AddModelError("DisplayName", T("A field with the same Display Name already exists.").ToString());
-            }
-            _contentMetadataService.UpdateField(field, viewModel.DisplayName, this);
+            _entityMetadataService.UpdateField(id, viewModel.Name, viewModel.DisplayName.Trim(), this);
+
             if (!ModelState.IsValid) {
                 Services.TransactionManager.Cancel();
                 Response.StatusCode = (int) HttpStatusCode.BadRequest;

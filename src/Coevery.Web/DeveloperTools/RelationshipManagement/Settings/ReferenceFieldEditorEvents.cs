@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 using Coevery.Core.Fields.Settings;
@@ -17,19 +16,19 @@ using Coevery.Localization;
 
 namespace Coevery.DeveloperTools.RelationshipManagement.Settings {
     public class ReferenceFieldEditorEvents : FieldEditorEvents {
-        private readonly IContentDefinitionService _contentDefinitionService;
         private readonly IRelationshipService _relationshipService;
         private readonly IRepository<OneToManyRelationshipRecord> _repository;
+        private readonly IEntityMetadataService _entityMetadataService;
 
         public Localizer T { get; set; }
 
         public ReferenceFieldEditorEvents(
-            IContentDefinitionService contentDefinitionService,
             IRelationshipService relationshipService,
-            IRepository<OneToManyRelationshipRecord> repository) {
-            _contentDefinitionService = contentDefinitionService;
+            IRepository<OneToManyRelationshipRecord> repository,
+            IEntityMetadataService entityMetadataService) {
             _relationshipService = relationshipService;
             _repository = repository;
+            _entityMetadataService = entityMetadataService;
             T = NullLocalizer.Instance;
         }
 
@@ -69,46 +68,28 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Settings {
             }
         }
 
-        public override void UpdateFieldSettings(ContentPartFieldDefinitionBuilder builder, SettingsDictionary settingsDictionary) {
-            if (builder.FieldType != "ReferenceField") {
-                return;
-            }
-
-            var model = settingsDictionary.TryGetModel<ReferenceFieldSettings>();
-            if (model != null) {
-                UpdateSettings(model, builder, "ReferenceFieldSettings");
-                builder.WithSetting("ReferenceFieldSettings.DisplayAsLink", model.DisplayAsLink.ToString());
-                builder.WithSetting("ReferenceFieldSettings.ContentTypeName", model.ContentTypeName);
-                builder.WithSetting("ReferenceFieldSettings.RelationshipName", model.RelationshipName);
-                builder.WithSetting("ReferenceFieldSettings.RelationshipId", model.RelationshipId.ToString(CultureInfo.InvariantCulture));
-                builder.WithSetting("ReferenceFieldSettings.QueryId", model.QueryId.ToString(CultureInfo.InvariantCulture));
-                builder.WithSetting("ReferenceFieldSettings.IsUnique", model.IsUnique.ToString());
-                builder.WithSetting("ReferenceFieldSettings.DisplayFieldName", model.DisplayFieldName);
-            }
-        }
-
         public override void FieldDeleted(string fieldType, string fieldName, SettingsDictionary settingsDictionary) {
             if (fieldType != "ReferenceField") {
                 return;
             }
-            var relationshipName = settingsDictionary["ReferenceFieldSettings.RelationshipName"];
-            var record = _repository.Table
-                .FirstOrDefault(x => x.Relationship.Name == relationshipName
-                                     && x.Relationship.RelatedEntity.ContentItemVersionRecord.Latest);
-            if (record != null) {
-                _relationshipService.DeleteRelationship(record);
-            }
+            //var relationshipName = settingsDictionary["ReferenceFieldSettings.RelationshipName"];
+            //var record = _repository.Table
+            //    .FirstOrDefault(x => x.Relationship.Name == relationshipName
+            //                         && x.Relationship.RelatedEntity.ContentItemVersionRecord.Latest);
+            //if (record != null) {
+            //    _relationshipService.DeleteRelationship(record);
+            //}
         }
 
         public override IEnumerable<TemplateViewModel> PartFieldEditor(ContentPartFieldDefinition definition) {
             if (definition.FieldDefinition.Name == "ReferenceField" ||
                 definition.FieldDefinition.Name == "ReferenceFieldCreate") {
-                var metadataTypes = _contentDefinitionService.GetUserDefinedTypes().ToList();
+                var entities = _entityMetadataService.GetEntities().OrderBy(x => x.Name);
                 var model = definition.Settings.GetModel<ReferenceFieldSettings>();
 
-                model.Entities = metadataTypes.Select(item => new EntityViewModel {
+                model.Entities = entities.Select(item => new EntityViewModel {
                     Name = item.Name,
-                    Fields = item.Fields.Where(x => x.FieldDefinition.Name == "TextField").Select(x => x.Name).ToList(),
+                    Fields = _entityMetadataService.GetFields(item.Name).Where(x => x.FieldType == "TextField").Select(x => x.Name).ToList(),
                     Selected = item.Name == model.ContentTypeName
                 }).ToList();
 

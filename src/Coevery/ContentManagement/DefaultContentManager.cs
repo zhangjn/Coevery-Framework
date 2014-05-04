@@ -29,7 +29,7 @@ namespace Coevery.ContentManagement {
         private readonly IRepository<ContentTypeRecord> _contentTypeRepository;
         private readonly IRepository<ContentItemRecord> _contentItemRepository;
         private readonly IRepository<ContentItemVersionRecord> _contentItemVersionRepository;
-        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IContentDefinitionQuery _contentDefinitionQuery;
         private readonly ICacheManager _cacheManager;
         private readonly Func<IContentManagerSession> _contentManagerSession;
         private readonly Lazy<IContentDisplay> _contentDisplay;
@@ -48,7 +48,7 @@ namespace Coevery.ContentManagement {
             IRepository<ContentTypeRecord> contentTypeRepository,
             IRepository<ContentItemRecord> contentItemRepository,
             IRepository<ContentItemVersionRecord> contentItemVersionRepository,
-            IContentDefinitionManager contentDefinitionManager,
+            IContentDefinitionQuery contentDefinitionQuery,
             ICacheManager cacheManager,
             Func<IContentManagerSession> contentManagerSession,
             Lazy<IContentDisplay> contentDisplay,
@@ -62,7 +62,7 @@ namespace Coevery.ContentManagement {
             _contentTypeRepository = contentTypeRepository;
             _contentItemRepository = contentItemRepository;
             _contentItemVersionRepository = contentItemVersionRepository;
-            _contentDefinitionManager = contentDefinitionManager;
+            _contentDefinitionQuery = contentDefinitionQuery;
             _cacheManager = cacheManager;
             _contentManagerSession = contentManagerSession;
             _identityResolverSelectors = identityResolverSelectors;
@@ -82,12 +82,12 @@ namespace Coevery.ContentManagement {
         }
 
         public IEnumerable<ContentTypeDefinition> GetContentTypeDefinitions() {
-            return _contentDefinitionManager.ListTypeDefinitions();
+            return _contentDefinitionQuery.ListTypeDefinitions();
         }
 
         public virtual ContentItem New(string contentType, ContentTypeDefinition contentTypeDefinition = null) {
             if (contentTypeDefinition == null) {
-                contentTypeDefinition = _contentDefinitionManager.GetTypeDefinition(contentType)
+                contentTypeDefinition = _contentDefinitionQuery.GetTypeDefinition(contentType)
                                         ?? new ContentTypeDefinitionBuilder().Named(contentType).Build();
             }
 

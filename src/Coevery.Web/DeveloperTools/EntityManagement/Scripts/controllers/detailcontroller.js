@@ -19,8 +19,8 @@ define(['core/app/detourService', 'DeveloperTools/EntityManagement/Scripts/servi
                     $state.transitionTo('EntityEdit', { Id: $stateParams.Id });
                 };
 
-                $scope['delete'] = function (id) {
-                    entityDataService['delete']({ name: id }, function () {
+                $scope['delete'] = function () {
+                    entityDataService['delete']({ name: $stateParams.Id }, function () {
                         $state.transitionTo('EntityList');
                         logger.success("Delete the entity successful.");
                     }, function (reason) {

@@ -13,7 +13,6 @@ namespace Coevery.DeveloperTools.ListViewDesigner {
                     .Column<string>("Settings", column => column.Unlimited())
                 );
 
-            ContentDefinitionManager.AlterPartDefinition("GridInfoPart", cfg => { });
             ContentDefinitionManager.AlterTypeDefinition("GridInfo", cfg => cfg.WithPart("GridInfoPart"));
             return 1;
         }

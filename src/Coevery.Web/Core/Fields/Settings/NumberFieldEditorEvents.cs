@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 
@@ -21,20 +20,6 @@ namespace Coevery.Core.Fields.Settings {
                 settingsDictionary["NumberFieldSettings.Length"] = model.Length.ToString("D");
                 settingsDictionary["NumberFieldSettings.DecimalPlaces"] = model.DecimalPlaces.ToString("D");
                 settingsDictionary["NumberFieldSettings.DefaultValue"] = model.DefaultValue.ToString();
-            }
-        }
-
-        public override void UpdateFieldSettings(ContentPartFieldDefinitionBuilder builder, SettingsDictionary settingsDictionary) {
-            if (builder.FieldType != "NumberField") {
-                return;
-            }
-
-            var model = settingsDictionary.TryGetModel<NumberFieldSettings>();
-            if (model != null) {
-                UpdateSettings(model, builder, "NumberFieldSettings");
-                builder.WithSetting("NumberFieldSettings.Length", model.Length.ToString());
-                builder.WithSetting("NumberFieldSettings.DecimalPlaces", model.DecimalPlaces.ToString());
-                builder.WithSetting("NumberFieldSettings.DefaultValue", model.DefaultValue.ToString());
             }
         }
 

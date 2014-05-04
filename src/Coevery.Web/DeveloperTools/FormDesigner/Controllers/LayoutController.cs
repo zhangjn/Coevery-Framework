@@ -1,18 +1,16 @@
-﻿using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Coevery.ContentManagement;
-using Coevery.Core.Entities.Models;
+using Coevery.DeveloperTools.EntityManagement.Services;
 
 namespace Coevery.DeveloperTools.FormDesigner.Controllers {
     public class LayoutController : ApiController {
+        private readonly IEntityMetadataService _entityMetadataService;
 
-        public LayoutController(ICoeveryServices coeveryServices) {
-            Services = coeveryServices;
+        public LayoutController(IEntityMetadataService entityMetadataService) {
+            _entityMetadataService = entityMetadataService;
         }
-
-        public ICoeveryServices Services { get; private set; }
 
         // POST api/metadata/field
         public virtual HttpResponseMessage Post(string id, Data data) {
@@ -20,17 +18,16 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
                 return Request.CreateResponse(HttpStatusCode.MethodNotAllowed);
             }
 
-            var entityMetadataPart = Services.ContentManager
-                .Query<EntityMetadataPart>(VersionOptions.DraftRequired, "EntityMetadata")
-                .List().FirstOrDefault(x => x.Name == id);
-            if (entityMetadataPart == null) {
+            var entity = _entityMetadataService.GetEntity(id, VersionOptions.DraftRequired);
+
+            if (entity == null) {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            // computed field trick, the property have to be setted again when something changed.
-            var settings = entityMetadataPart.EntitySetting;
+            // lazy field trick, the property have to be setted again when something changed.
+            var settings = entity.EntitySettings;
             settings["Layout"] = data.Layout;
-            entityMetadataPart.EntitySetting = settings;
+            entity.EntitySettings = settings;
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

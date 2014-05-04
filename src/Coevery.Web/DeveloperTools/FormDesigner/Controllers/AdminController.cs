@@ -1,30 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web.Http;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Builders;
-using Coevery.ContentManagement.MetaData.Models;
-using Coevery.ContentManagement.MetaData.Services;
 using Coevery.Core.Common.Extensions;
-using Coevery.Core.Entities.Models;
+using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.FormDesigner.Services;
 using Coevery.Localization;
-using Newtonsoft.Json;
 
 namespace Coevery.DeveloperTools.FormDesigner.Controllers {
     public class AdminController : Controller {
         private readonly ILayoutManager _layoutManager;
-        private readonly ISettingsFormatter _settingsFormatter;
+        private readonly IEntityMetadataService _entityMetadataService;
+
 
         public AdminController(
             ICoeveryServices coeveryServices,
-            ILayoutManager layoutManager, 
-            ISettingsFormatter settingsFormatter) {
+            ILayoutManager layoutManager,
+            IEntityMetadataService entityMetadataService) {
             _layoutManager = layoutManager;
-            _settingsFormatter = settingsFormatter;
+            _entityMetadataService = entityMetadataService;
             Services = coeveryServices;
             T = NullLocalizer.Instance;
         }
@@ -33,30 +26,24 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
         public Localizer T { get; set; }
 
         public ActionResult Index(string id, string returnUrl) {
-            if (string.IsNullOrEmpty(id)) {
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
-            }
-
-            var entityMetadataPart = Services.ContentManager
-                .Query<EntityMetadataPart>(VersionOptions.Latest, "EntityMetadata")
-                .List().FirstOrDefault(x => x.Name == id);
-            if (entityMetadataPart == null) {
+            var entity = _entityMetadataService.GetEntity(id);
+            if (entity == null) {
                 return Content(T("The \"{0}\" does not exist in the database!", id).Text);
             }
 
             var typeBuilder = new ContentTypeDefinitionBuilder();
-            typeBuilder.Named(entityMetadataPart.Name).DisplayedAs(entityMetadataPart.DisplayName);
-            foreach (var pair in entityMetadataPart.EntitySetting) {
+            typeBuilder.Named(entity.Name).DisplayedAs(entity.DisplayName);
+            foreach (var pair in entity.EntitySettings) {
                 typeBuilder.WithSetting(pair.Key, pair.Value);
             }
             var partBuilder = new ContentPartDefinitionBuilder();
-            partBuilder.Named(entityMetadataPart.Name.ToPartName());
-            foreach (var field in entityMetadataPart.FieldMetadataRecords) {
-                string fieldTypeName = field.ContentFieldDefinitionRecord.Name;
-                var settings = _settingsFormatter.Parse(field.Settings);
+            partBuilder.Named(entity.Name.ToPartName());
+            var fieldDefinitions = _entityMetadataService.GetFields(id);
+            foreach (var field in fieldDefinitions) {
+                string fieldTypeName = field.FieldType;
                 partBuilder.WithField(field.Name, fieldBuilder => {
                     fieldBuilder.OfType(fieldTypeName);
-                    foreach (var pair in settings) {
+                    foreach (var pair in field.Settings) {
                         fieldBuilder.WithSetting(pair.Key, pair.Value);
                     }
                 });
@@ -67,9 +54,9 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
             var contentTypeDefinition = typeBuilder.Build();
             var contentItem = Services.ContentManager.New(id, contentTypeDefinition);
             var contentPart = contentItem.Parts.First(x => x.PartDefinition.Name == partDefinition.Name);
+
             var viewModel = Services.New.ViewModel();
             viewModel.Layout = _layoutManager.GetLayout(contentTypeDefinition);
-            viewModel.DisplayName = contentItem.TypeDefinition.DisplayName;
             viewModel.ContentPart = contentPart;
 
             return View((object) viewModel);

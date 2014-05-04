@@ -175,9 +175,9 @@
     <Compile Include="CodeGeneration\Services\DynamicAssemblyBuilder.cs" />
     <Compile Include="CodeGeneration\Services\DynamicDefinition.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicAssemblyBuilder.cs" />
-    <Compile Include="EntityManagement\Drivers\EntityMetadataPartDriver.cs" />
     <Compile Include="ListViewDesigner\Controllers\GridInfoController.cs" />
     <Compile Include="ListViewDesigner\Drivers\GridInfoPartDriver.cs" />
+    <Compile Include="ListViewDesigner\Handlers\GridInfoFieldEventsHandler.cs" />
     <Compile Include="ListViewDesigner\Handlers\GridInfoPartHandler.cs" />
     <Compile Include="ListViewDesigner\Migrations.cs" />
     <Compile Include="ListViewDesigner\Models\GridInfoPart.cs" />
@@ -188,15 +188,12 @@
     <Compile Include="ListViewDesigner\ViewModels\GridViewModel.cs" />
     <Compile Include="RelationshipManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicTypeGenerationEvents.cs" />
-    <Compile Include="EntityManagement\Handlers\EntityMetadataPartHandler.cs" />
     <Compile Include="EntityManagement\Permissions.cs" />
     <Compile Include="EntityManagement\Routes.cs" />
     <Compile Include="EntityManagement\Services\AdminMenu.cs" />
     <Compile Include="EntityManagement\Services\ClientRouteProvider.cs" />
-    <Compile Include="EntityManagement\Services\ContentDefinitionService.cs" />
-    <Compile Include="EntityManagement\Services\ContentMetadataService.cs" />
+    <Compile Include="EntityManagement\Services\EntityMetadataService.cs" />
     <Compile Include="EntityManagement\Services\DefaultDataMigrationInterpreter.cs" />
-    <Compile Include="EntityManagement\Services\IContentDefinitionService.cs" />
     <Compile Include="EntityManagement\Services\SchemaUpdateService.cs" />
     <Compile Include="EntityManagement\ViewModels\AddFieldViewModel.cs" />
     <Compile Include="EntityManagement\ViewModels\EditFieldViewModel.cs" />
@@ -204,7 +201,6 @@
     <Compile Include="EntityManagement\ViewModels\EditPartViewModel.cs" />
     <Compile Include="EntityManagement\ViewModels\EditTypePartViewModel.cs" />
     <Compile Include="EntityManagement\ViewModels\EditTypeViewModel.cs" />
-    <Compile Include="EntityManagement\ViewModels\EntityDetailViewModel.cs" />
     <Compile Include="FormDesigner\Controllers\AdminController.cs">
       <SubType>Code</SubType>
     </Compile>

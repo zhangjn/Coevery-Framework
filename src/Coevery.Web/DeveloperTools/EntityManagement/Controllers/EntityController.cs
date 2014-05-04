@@ -9,10 +9,10 @@ using Coevery.Localization;
 
 namespace Coevery.DeveloperTools.EntityManagement.Controllers {
     public class EntityController : ApiController {
-        private readonly IContentMetadataService _contentMetadataService;
+        private readonly IEntityMetadataService _entityMetadataService;
 
-        public EntityController(IContentMetadataService contentMetadataService) {
-            _contentMetadataService = contentMetadataService;
+        public EntityController(IEntityMetadataService entityMetadataService) {
+            _entityMetadataService = entityMetadataService;
             T = NullLocalizer.Instance;
         }
 
@@ -20,34 +20,31 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
 
         //GET api/Entities/Entity
         public object Get(int rows, int page) {
-            var metadataTypes = _contentMetadataService.GetRawEntities();
+            var entities = _entityMetadataService.GetEntities()
+                .Select(x => new {
+                    Id = x.Id,
+                    Name = x.Name,
+                    DisplayName = x.DisplayName,
+                    Modified = !x.IsPublished()
+                })
+                .ToList();
 
-            var query = from type in metadataTypes
-                select new {
-                    Id = type.Id,
-                    Name = type.Name,
-                    DisplayName = type.DisplayName,
-                    Modified = !type.IsPublished(),
-                    HasPublished = type.HasPublished()
-                };
-
-            var totalRecords = query.Count();
+            var totalRecords = entities.Count();
 
             return new {
                 total = Convert.ToInt32(Math.Ceiling((double) totalRecords/rows)),
                 page = page,
                 records = totalRecords,
-                rows = query
+                rows = entities
             };
         }
 
         // DELETE api/Entities/Entity/:entityName
-        public virtual HttpResponseMessage Delete(int name) {
-            var errormessage = _contentMetadataService.DeleteEntity(name);
-            if (string.IsNullOrWhiteSpace(errormessage)) {
-                return Request.CreateResponse(HttpStatusCode.OK);
-            }
-            return Request.CreateResponse(HttpStatusCode.ExpectationFailed, errormessage);
+        public virtual HttpResponseMessage Delete(string name) {
+            bool result = _entityMetadataService.DeleteEntity(name);
+            return result
+                ? Request.CreateResponse(HttpStatusCode.OK)
+                : Request.CreateResponse(HttpStatusCode.NotFound);
         }
     }
 }

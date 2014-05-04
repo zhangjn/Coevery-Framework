@@ -28,17 +28,17 @@ namespace Coevery.Core.Common {
             {Permissions.ViewOwnContent.Name, ViewOwnContent}
         };
 
-        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IContentDefinitionQuery _contentDefinitionQuery;
 
         public virtual Feature Feature { get; set; }
 
-        public DynamicPermissions(IContentDefinitionManager contentDefinitionManager) {
-            _contentDefinitionManager = contentDefinitionManager;
+        public DynamicPermissions(IContentDefinitionQuery contentDefinitionQuery) {
+            _contentDefinitionQuery = contentDefinitionQuery;
         }
 
         public IEnumerable<Permission> GetPermissions() {
             // manage rights only for Creatable types
-            var creatableTypes = _contentDefinitionManager.ListTypeDefinitions();
+            var creatableTypes = _contentDefinitionQuery.ListTypeDefinitions();
 
             foreach (var typeDefinition in creatableTypes) {
                 foreach (var permissionTemplate in PermissionTemplates.Values) {

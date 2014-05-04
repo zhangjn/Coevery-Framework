@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 
@@ -19,18 +18,6 @@ namespace Coevery.Core.Fields.Settings {
             if (updateModel.TryUpdateModel(model, "DatetimeFieldSettings", null, null)) {
                 UpdateSettings(model, settingsDictionary, "DatetimeFieldSettings");
                 settingsDictionary["DatetimeFieldSettings.DefaultValue"] = model.DefaultValue.ToString();
-            }
-        }
-
-        public override void UpdateFieldSettings(ContentPartFieldDefinitionBuilder builder, SettingsDictionary settingsDictionary) {
-            if (builder.FieldType != "DatetimeField") {
-                return;
-            }
-
-            var model = settingsDictionary.TryGetModel<DatetimeFieldSettings>();
-            if (model != null) {
-                UpdateSettings(model, builder, "DatetimeFieldSettings");
-                builder.WithSetting("DatetimeFieldSettings.DefaultValue", model.DefaultValue.ToString());
             }
         }
 

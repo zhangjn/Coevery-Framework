@@ -38,7 +38,7 @@ namespace Coevery.Tests.ContentManagement {
         private IContentManager _manager;
         private ISessionFactory _sessionFactory;
         private ISession _session;
-        private Mock<IContentDefinitionManager> _contentDefinitionManager;
+        private Mock<IContentDefinitionQuery> _contentDefinitionQuery;
 
         [TestFixtureSetUp]
         public void InitFixture() {
@@ -56,7 +56,7 @@ namespace Coevery.Tests.ContentManagement {
 
         [SetUp]
         public void Init() {
-            _contentDefinitionManager = new Mock<IContentDefinitionManager>();
+            _contentDefinitionQuery = new Mock<IContentDefinitionQuery>();
 
             var builder = new ContainerBuilder();
             builder.RegisterType<DefaultContentQuery>().As<IContentQuery>();
@@ -64,7 +64,7 @@ namespace Coevery.Tests.ContentManagement {
             builder.RegisterType<StubCacheManager>().As<ICacheManager>();
             builder.RegisterType<Signals>().As<ISignals>();
             builder.RegisterType<DefaultContentManagerSession>().As<IContentManagerSession>();
-            builder.RegisterInstance(_contentDefinitionManager.Object);
+            builder.RegisterInstance(_contentDefinitionQuery.Object);
             builder.RegisterInstance(new Mock<IContentDisplay>().Object);
             builder.RegisterInstance(new ShellSettings {Name = ShellSettings.DefaultName, DataProvider = "SqlCe"});
 
@@ -271,7 +271,7 @@ namespace Coevery.Tests.ContentManagement {
                 .Named(DefaultDeltaName)
                 .Build();
 
-            _contentDefinitionManager.Setup(contentDefinitionManager => contentDefinitionManager.ListTypeDefinitions())
+            _contentDefinitionQuery.Setup(contentDefinitionManager => contentDefinitionManager.ListTypeDefinitions())
                 .Returns(new List<ContentTypeDefinition> { alphaType, betaType, gammaType, deltaType });
             
             var types = _manager.GetContentTypeDefinitions();
@@ -674,7 +674,7 @@ namespace Coevery.Tests.ContentManagement {
                 .WithPart("FlavoredPart", part => part.WithSetting("spin", "clockwise"))
                 .Build();
 
-            _contentDefinitionManager
+            _contentDefinitionQuery
                 .Setup(x => x.GetTypeDefinition(DefaultAlphaName))
                 .Returns(alphaType);
 

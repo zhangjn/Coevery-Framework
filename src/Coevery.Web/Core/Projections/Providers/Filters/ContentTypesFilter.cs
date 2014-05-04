@@ -45,15 +45,15 @@ namespace Coevery.Core.Projections.Providers.Filters {
     }
 
     public class ContentTypesFilterForms : IFormProvider {
-        private readonly IContentDefinitionManager _contentDefinitionManager;
+        private readonly IContentDefinitionQuery _contentDefinitionQuery;
         protected dynamic Shape { get; set; }
         public Localizer T { get; set; }
 
         public ContentTypesFilterForms(
-            IShapeFactory shapeFactory,
-            IContentDefinitionManager contentDefinitionManager) {
-            _contentDefinitionManager = contentDefinitionManager;
+            IShapeFactory shapeFactory, 
+            IContentDefinitionQuery contentDefinitionQuery) {
             Shape = shapeFactory;
+            _contentDefinitionQuery = contentDefinitionQuery;
             T = NullLocalizer.Instance;
         }
 
@@ -74,8 +74,8 @@ namespace Coevery.Core.Projections.Providers.Filters {
 
                     f._Parts.Add(new SelectListItem { Value = "", Text = T("Any").Text });
 
-                    foreach (var contentType in _contentDefinitionManager.ListTypeDefinitions().OrderBy(x => x.DisplayName)) {
-                        f._Parts.Add(new SelectListItem { Value = contentType.Name, Text = contentType.DisplayName });
+                    foreach (var contentType in _contentDefinitionQuery.ListTypeDefinitions().OrderBy(x => x.DisplayName)) {
+                        f._Parts.Add(new SelectListItem {Value = contentType.Name, Text = contentType.DisplayName});
                     }
 
                     return f;

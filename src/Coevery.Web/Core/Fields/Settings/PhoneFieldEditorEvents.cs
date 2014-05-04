@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement;
-using Coevery.ContentManagement.MetaData.Builders;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.ViewModels;
 
@@ -20,19 +19,6 @@ namespace Coevery.Core.Fields.Settings {
                 UpdateSettings(model, settingsDictionary, "PhoneFieldSettings");
                 settingsDictionary["PhoneFieldSettings.DefaultValue"] = model.DefaultValue;
                 settingsDictionary["PhoneFieldSettings.IsUnique"] = model.IsUnique.ToString();
-            }
-        }
-
-        public override void UpdateFieldSettings(ContentPartFieldDefinitionBuilder builder, SettingsDictionary settingsDictionary) {
-            if (builder.FieldType != "PhoneField") {
-                return;
-            }
-
-            var model = settingsDictionary.TryGetModel<PhoneFieldSettings>();
-            if (model != null) {
-                UpdateSettings(model, builder, "PhoneFieldSettings");
-                builder.WithSetting("PhoneFieldSettings.DefaultValue", model.DefaultValue);
-                builder.WithSetting("PhoneFieldSettings.IsUnique", model.IsUnique.ToString());
             }
         }
 
