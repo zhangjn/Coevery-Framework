@@ -30,6 +30,10 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Handlers {
         }
 
         private void PublishGridInfo(ContentTypeDefinitionPart part) {
+            if (!part.Customized) {
+                return;
+            }
+
             var typeName = part.Name;
             var items = _contentManager.Query("GridInfo")
                 .ForVersion(VersionOptions.Draft)

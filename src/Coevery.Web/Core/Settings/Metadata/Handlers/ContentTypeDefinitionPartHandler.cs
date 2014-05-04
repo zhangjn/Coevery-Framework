@@ -36,6 +36,10 @@ namespace Coevery.Core.Settings.Metadata.Handlers {
         }
 
         private void OnPublishing(PublishContentContext context, ContentTypeDefinitionPart part) {
+            if (!part.Customized) {
+                return;
+            }
+
             var partDefinition = GetPartDefinition(part.Name, VersionOptions.Latest);
             _contentManager.Publish(partDefinition.ContentItem);
         }
@@ -49,6 +53,10 @@ namespace Coevery.Core.Settings.Metadata.Handlers {
         }
 
         private void OnVersioning(VersionContentContext context, ContentTypeDefinitionPart existing, ContentTypeDefinitionPart building) {
+            if (!existing.Customized) {
+                return;
+            }
+
             building.Record.ContentTypePartDefinitionRecords = new List<ContentTypePartDefinitionRecord>();
             var partDefinition = GetPartDefinition(existing.Name, VersionOptions.DraftRequired);
 
@@ -58,6 +66,10 @@ namespace Coevery.Core.Settings.Metadata.Handlers {
         }
 
         private void OnCreating(CreateContentContext context, ContentTypeDefinitionPart part) {
+            if (!part.Customized) {
+                return;
+            }
+
             var partDefinition = _contentManager.New<ContentPartDefinitionPart>("ContentPartDefinition");
             partDefinition.Name = part.Name.ToPartName();
             _contentManager.Create(partDefinition, VersionOptions.Draft);
@@ -68,6 +80,10 @@ namespace Coevery.Core.Settings.Metadata.Handlers {
         }
 
         private void OnRemoving(RemoveContentContext context, ContentTypeDefinitionPart part) {
+            if (!part.Customized) {
+                return;
+            }
+
             var partDefinition = GetPartDefinition(part.Name, VersionOptions.Latest);
             foreach (var field in partDefinition.FieldDefinitions) {
                 _contentDefinitionEditorEvents.FieldDeleted(field.FieldType, field.Name, field.Settings);
