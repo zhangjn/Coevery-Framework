@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Xml.Linq;
 using Coevery.Caching;
 using Coevery.ContentManagement;
@@ -14,8 +12,6 @@ using Coevery.Data;
 namespace Coevery.Core.Settings.Metadata {
     public class ContentDefinitionManager : Component, IContentDefinitionManager {
         private readonly ISignals _signals;
-        //private readonly IRepository<ContentTypeDefinitionRecord> _typeDefinitionRepository;
-        //private readonly IRepository<ContentPartDefinitionRecord> _partDefinitionRepository;
         private readonly IRepository<ContentFieldDefinitionRecord> _fieldDefinitionRepository;
         private readonly ISettingsFormatter _settingsFormatter;
         private readonly IContentDefinitionQuery _contentDefinitionQuery;
@@ -23,15 +19,11 @@ namespace Coevery.Core.Settings.Metadata {
 
         public ContentDefinitionManager(
             ISignals signals,
-            //IRepository<ContentTypeDefinitionRecord> typeDefinitionRepository,
-            //IRepository<ContentPartDefinitionRecord> partDefinitionRepository,
             IRepository<ContentFieldDefinitionRecord> fieldDefinitionRepository,
             ISettingsFormatter settingsFormatter, 
             IContentDefinitionQuery contentDefinitionQuery, 
             IContentManager contentManager) {
             _signals = signals;
-            //_typeDefinitionRepository = typeDefinitionRepository;
-            //_partDefinitionRepository = partDefinitionRepository;
             _fieldDefinitionRepository = fieldDefinitionRepository;
             _settingsFormatter = settingsFormatter;
             _contentDefinitionQuery = contentDefinitionQuery;
@@ -92,8 +84,7 @@ namespace Coevery.Core.Settings.Metadata {
             _signals.Trigger(ContentDefinitionQuery.ContentDefinitionSignal);
         }
 
-        private ContentTypeDefinitionRecord Acquire(ContentTypeDefinition contentTypeDefinition, VersionOptions options)
-        {
+        private ContentTypeDefinitionRecord Acquire(ContentTypeDefinition contentTypeDefinition, VersionOptions options) {
             var part = _contentManager.Query<ContentTypeDefinitionPart, ContentTypeDefinitionRecord>()
                 .ForVersion(VersionOptions.DraftRequired)
                 .Where(x => x.Name == contentTypeDefinition.Name).List().SingleOrDefault();
@@ -190,5 +181,4 @@ namespace Coevery.Core.Settings.Metadata {
             return map.ToString();
         }
     }
-
 }

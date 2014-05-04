@@ -12,13 +12,13 @@
 <#@ import namespace="System.Text" #>
 <#@ parameter name="ProjFile" type="FubuCsProjFile.CsProjFile" #>
 <#
-    var entityDefinitions = GetContentPartDefinitions().ToList();
+    var entityDefinitions = GetEntities().ToList();
     if (entityDefinitions.Any()) {
         AddRoute(ProjFile, entityDefinitions);
 		AddFrontMenuFile(ProjFile, entityDefinitions);
     }
     foreach (var definition in entityDefinitions) {
-        var entityName = definition.Name.RemovePartSuffix();
+        var entityName = definition.Name;
         AddModelClassFile(ProjFile, entityName);
         AddControllerFile(ProjFile, entityName);
         AddDriverFile(ProjFile, entityName);
@@ -34,22 +34,22 @@
         return output;
     }
 
-    private void AddRoute(CsProjFile csProjFile, IEnumerable<ContentPartDefinition> typeDefinitions) {
+    private void AddRoute(CsProjFile csProjFile, IEnumerable<ContentTypeDefinitionPart> typeDefinitions) {
         string routePath = csProjFile.ProjectDirectory;
 
         // Route
         var routeSession = new TextTemplatingSession();
         routeSession["Namespace"] = csProjFile.RootNamespace;
         routeSession["AreaName"] = csProjFile.AssemblyName;
-        routeSession["DefaultController"] = typeDefinitions.First().Name.RemovePartSuffix();
+        routeSession["DefaultController"] = typeDefinitions.First().Name;
 		
         string routeFilePath = Path.Combine(routePath, "Route.cs");
         string routeTemplate = TransformText("Route.tt", routeSession);
         AddFile<CodeFile>(csProjFile, routeFilePath, routeTemplate);
     }
 
-    private void AddFrontMenuFile(CsProjFile csProjFile, IEnumerable<ContentPartDefinition> typeDefinitions) {
-        var entities = typeDefinitions.Select(definition => definition.Name.RemovePartSuffix()).ToList();
+    private void AddFrontMenuFile(CsProjFile csProjFile, IEnumerable<ContentTypeDefinitionPart> typeDefinitions) {
+        var entities = typeDefinitions.Select(definition => definition.Name).ToList();
         var frontMenuSession = new TextTemplatingSession();
         frontMenuSession["Namespace"] = csProjFile.RootNamespace;
         frontMenuSession["Entities"] = entities;

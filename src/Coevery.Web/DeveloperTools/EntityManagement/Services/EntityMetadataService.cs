@@ -16,6 +16,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         void CreateEntity(string name, string displayName, SettingsDictionary settings);
         bool DeleteEntity(string name);
         IEnumerable<ContentTypeDefinitionPart> GetEntities();
+        IEnumerable<ContentTypeDefinitionPart> GetEntities(VersionOptions options);
         ContentTypeDefinitionPart GetEntity(string name);
         ContentTypeDefinitionPart GetEntity(string name, VersionOptions options);
 
@@ -29,20 +30,14 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         private readonly ISettingsFormatter _settingsFormatter;
         private readonly IRepository<ContentFieldDefinitionRecord> _fieldDefinitionRepository;
         private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;
-        private readonly ISchemaUpdateService _schemaUpdateService;
-        private readonly IEntityEvents _entityEvents;
         private readonly IFieldEvents _fieldEvents;
 
         public EntityMetadataService(
             ICoeveryServices services,
-            ISchemaUpdateService schemaUpdateService,
-            IEntityEvents entityEvents,
             IRepository<ContentFieldDefinitionRecord> fieldDefinitionRepository,
             IContentDefinitionEditorEvents contentDefinitionEditorEvents,
             ISettingsFormatter settingsFormatter,
             IFieldEvents fieldEvents) {
-            _schemaUpdateService = schemaUpdateService;
-            _entityEvents = entityEvents;
             _fieldDefinitionRepository = fieldDefinitionRepository;
             _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
             _settingsFormatter = settingsFormatter;
@@ -57,8 +52,11 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         #region Entity Methods
 
         public IEnumerable<ContentTypeDefinitionPart> GetEntities() {
-            return Services.ContentManager.Query<ContentTypeDefinitionPart, ContentTypeDefinitionRecord>()
-                .ForVersion(VersionOptions.Latest)
+            return GetEntities(VersionOptions.Latest);
+        }
+
+        public IEnumerable<ContentTypeDefinitionPart> GetEntities(VersionOptions options) {
+            return Services.ContentManager.Query<ContentTypeDefinitionPart, ContentTypeDefinitionRecord>(options)
                 .Where(x => x.Customized)
                 .List();
         }
@@ -87,12 +85,6 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             var entity = GetEntity(name);
             if (entity == null) {
                 return false;
-            }
-
-            var hasPublished = entity.HasPublished();
-            if (hasPublished) {
-                _schemaUpdateService.DropTable(entity.Name);
-                _entityEvents.OnDeleting(entity.Name);
             }
 
             Services.ContentManager.Remove(entity.ContentItem);
@@ -132,6 +124,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             var settingsDictionary = new SettingsDictionary();
             settingsDictionary["DisplayName"] = fieldDisplayName;
             settingsDictionary["EntityName"] = entityName;
+            settingsDictionary["Storage"] = "Part";
             _contentDefinitionEditorEvents.UpdateFieldSettings(fieldType, fieldName, settingsDictionary, updateModel);
             fieldRecord.Settings = _settingsFormatter.Parse(settingsDictionary);
             partDefinition.ContentPartFieldDefinitionRecords.Add(fieldRecord);

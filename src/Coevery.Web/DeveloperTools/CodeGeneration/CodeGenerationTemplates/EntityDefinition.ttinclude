@@ -2,28 +2,29 @@
 <#@ assembly name="System.Web" #>
 <#@ assembly name="Coevery.Core" #>
 <#@ assembly name="Coevery.DeveloperTools" #>
+<#@ import namespace="Coevery.ContentManagement" #>
 <#@ import namespace="Coevery.ContentManagement.Drivers" #>
 <#@ import namespace="Coevery.ContentManagement.Handlers" #>
+<#@ import namespace="Coevery.ContentManagement.MetaData" #>
 <#@ import namespace="Coevery.ContentManagement.MetaData.Models" #>
 <#@ import namespace="Coevery.Core.Common.Extensions" #>
+<#@ import namespace="Coevery.Core.Settings.Metadata.Parts" #>
 <#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Services" #>
 <#@ import namespace="Coevery.DeveloperTools.CodeGeneration.Utils" #>
+<#@ import namespace="Coevery.DeveloperTools.EntityManagement.Services" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.Linq" #>
 <#@ parameter type="Coevery.ICoeveryServices" name="Services" #>
 <#+
 
-    public IEnumerable<ContentPartDefinition> GetContentPartDefinitions() {
-        var contentDefinitionExtension = Services.WorkContext.Resolve<IContentDefinitionExtension>();
-        var partDefinitions = contentDefinitionExtension
-            .ListUserDefinedPartDefinitions();
-        return partDefinitions;
+    public IEnumerable<ContentTypeDefinitionPart> GetEntities() {
+        var entityMetadataService = Services.WorkContext.Resolve<IEntityMetadataService>();
+        return entityMetadataService.GetEntities(VersionOptions.Published);
     }
 
     public ContentPartDefinition GetContentPartDefinition(string entityName) {
-        var contentDefinitionExtension = Services.WorkContext.Resolve<IContentDefinitionExtension>();
-        var partDefinition = contentDefinitionExtension
-            .ListUserDefinedPartDefinitions().FirstOrDefault(part => part.Name == entityName + "Part");
+        var contentDefinitionManager = Services.WorkContext.Resolve<IContentDefinitionManager>();
+        var partDefinition = contentDefinitionManager.GetPartDefinition(entityName + "Part");
         return partDefinition;
     }
 
