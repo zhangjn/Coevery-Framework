@@ -3,9 +3,14 @@
 <#@ parameter type="System.String" name="EntityName" #>
 <#
 	var gridInfo = GetDefaultGridInfo(EntityName);
-    int pageSize = string.IsNullOrEmpty(gridInfo.GridSettings[GridInfoSettings.PageRowCount]) ? 10 : int.Parse(gridInfo.GridSettings[GridInfoSettings.PageRowCount]);
-	string sortedBy = string.IsNullOrEmpty(gridInfo.GridSettings[GridInfoSettings.SortColumn]) ? string.Empty : gridInfo.GridSettings[GridInfoSettings.SortColumn];
-    string sortOrder = string.IsNullOrEmpty(gridInfo.GridSettings[GridInfoSettings.SortMode]) ? "asc" : gridInfo.GridSettings[GridInfoSettings.SortMode];
+    int pageSize = 50;
+    string sortedBy = string.Empty;
+    string sortOrder = "asc";
+    if (gridInfo != null) {
+        pageSize = int.Parse(gridInfo.GridSettings[GridInfoSettings.PageRowCount]);
+        sortedBy = gridInfo.GridSettings[GridInfoSettings.SortColumn];
+        sortOrder = gridInfo.GridSettings[GridInfoSettings.SortMode];
+    }
 #>
 @{
     Style.Require("jqGrid");
