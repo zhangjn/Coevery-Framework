@@ -18,5 +18,6 @@
 <label class="span3 control-label @required" for="@Html.FieldIdFor(m => m.ContentId)">@Model.Field.DisplayName</label>
 <div class="control controls errortips">
     @Html.DropDownListFor(m => m.ContentId, Model.ItemList,string.Empty, selectAttributes)
+    <span class="button add">@T("Select...")</span>
 </div>
 
