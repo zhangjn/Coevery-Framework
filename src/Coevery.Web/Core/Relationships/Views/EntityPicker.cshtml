@@ -5,10 +5,8 @@
     if (string.IsNullOrWhiteSpace(relatedEntityName) || string.IsNullOrWhiteSpace(fieldName)) {
         return;
     }
-    var url = Url.Action("List", relatedEntityName, new { area = Request.QueryString["relatedEntityArea"] });
     var gridId = relatedEntityName.ToLower() + fieldName + "Grid";
     var listViewModel = new {
-        CallbackUrl = url,
         GridId = gridId,
         GridOptions = new {
             multiselect = false,

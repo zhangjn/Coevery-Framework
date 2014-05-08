@@ -1,15 +1,17 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ parameter type="System.String" name="EntityName" #>
-<#@ parameter type="System.String" name="Namespace" #>
+@using Coevery.DisplayManagement.Shapes
 @{
-    var url = Url.Action("List","<#=EntityName#>",  new { area = "<#=Namespace#>" });
     var gridId = "<#=EntityName.ToLower()#>Grid";
     var listViewModel = new {
-        CallbackUrl = url,
         GridId = gridId
     };
+    Shape actionShape = New.Parts_ListViewActions(GridId: gridId);
+    actionShape.Metadata.Alternates.Add("Parts_ListViewActions__<#=EntityName#>");
+
+    Shape viewShape = New.Parts_ListViewGrid(listViewModel);
+    viewShape.Metadata.Alternates.Add("Parts_ListViewGrid__<#=EntityName#>");
 }
 
-@Display.Parts_ListViewActions__<#=EntityName#>(GridId: gridId)
-
-@Display.Parts_ListViewGrid__<#=EntityName#>(listViewModel)
+@Display(actionShape)
+@Display(viewShape)

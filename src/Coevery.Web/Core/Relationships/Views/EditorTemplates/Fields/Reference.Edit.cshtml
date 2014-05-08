@@ -23,8 +23,7 @@
        data-modal-url="@Url.Action("Index", "EntityPicker",  new { 
                            area = "Relationships", 
                            relatedEntityName=Model.RelatedEntityDefinition.Name, 
-                           fieldName = Model.Field.Name,
-                           relatedEntityArea = ViewContext.RouteData.DataTokens["area"]
+                           fieldName = Model.Field.Name                  
                   })" class="btn" href="#">@T("Select...")</a>
     <div class="modal hide" tabindex="-1">
         <div class="modal-header">

@@ -4,6 +4,7 @@
 <#@ import namespace="Newtonsoft.Json" #>
 <#@ import namespace="Newtonsoft.Json.Linq" #>
 <#@ parameter type="System.String" name="EntityName" #>
+<#@ parameter type="System.String" name="Namespace" #>
 <#
 	var gridInfo = GetDefaultGridInfo(EntityName);
     int pageSize = 50;
@@ -86,7 +87,7 @@
 		});
 
 		var gridOptions = {
-		    url: '@Model.CallbackUrl',
+		    url: '@Url.Action("List","<#=EntityName#>",  new { area = "<#=Namespace#>" })',
 		    colModel: <#=GetGridColumnJSONString()#>,
 		    pager: '#@gridPagerId',
 		    rowNum: <#=pageSize#>,
