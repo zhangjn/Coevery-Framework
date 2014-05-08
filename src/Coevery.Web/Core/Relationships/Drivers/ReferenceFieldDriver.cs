@@ -5,6 +5,7 @@ using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
+using Coevery.ContentManagement.MetaData;
 using Coevery.Core.Common.Extensions;
 using Coevery.Core.Relationships.Fields;
 using Coevery.Core.Relationships.Models;
@@ -14,11 +15,14 @@ using Coevery.Localization;
 namespace Coevery.Core.Relationships.Drivers {
     public class ReferenceFieldDriver : ContentFieldDriver<ReferenceField> {
         private readonly IContentManager _contentManager;
+        private readonly IContentDefinitionQuery _contentDefinitionQuery;
 
         private const string TemplateName = "Fields/Reference.Edit";
 
-        public ReferenceFieldDriver(IContentManager contentManager) {
+        public ReferenceFieldDriver(IContentManager contentManager, 
+            IContentDefinitionQuery contentDefinitionQuery) {
             _contentManager = contentManager;
+            _contentDefinitionQuery = contentDefinitionQuery;
             T = NullLocalizer.Instance;
         }
 
@@ -52,6 +56,7 @@ namespace Coevery.Core.Relationships.Drivers {
             return ContentShape("Fields_Reference_Edit", GetDifferentiator(field, part),
                 () => {
                     var settings = field.PartFieldDefinition.Settings.GetModel<ReferenceFieldSettings>();
+                    var relatedTypeDefinition = _contentDefinitionQuery.GetTypeDefinition(settings.ContentTypeName);
                     string partName = settings.ContentTypeName.ToPartName();
                     var fieldValue = field.Value;
                     var selectedText = string.Empty;
@@ -65,7 +70,8 @@ namespace Coevery.Core.Relationships.Drivers {
                     var model = new ReferenceFieldViewModel {
                         ContentId = field.Value,
                         Field = field,
-                        SelectedText = selectedText
+                        SelectedText = selectedText,
+                        RelatedEntityDefinition = relatedTypeDefinition
                     };
                     return shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: model, Prefix: GetPrefix(field, part));
                 });

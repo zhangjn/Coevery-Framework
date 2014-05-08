@@ -1,18 +1,25 @@
-﻿@{
-    var url = Url.Action("List", "Lead", new {area = "Nova.Sales"});
-    var gridId = "leadGrid";
+﻿@using Coevery.DisplayManagement.Shapes
+@{
+    var relatedEntityName = Request.QueryString["relatedEntityName"];
+    var fieldName = Request.QueryString["fieldName"];
+    if (string.IsNullOrWhiteSpace(relatedEntityName) || string.IsNullOrWhiteSpace(fieldName)) {
+        return;
+    }
+    var url = Url.Action("List", relatedEntityName, new { area = Request.QueryString["relatedEntityArea"] });
+    var gridId = relatedEntityName.ToLower() + fieldName + "Grid";
     var listViewModel = new {
         CallbackUrl = url,
         GridId = gridId,
         GridOptions = new {
             multiselect = false,
             scroll = 1,
-            height = 300,
-            
+            height = 300
         }
     };
+    Shape shape = New.Parts_ListViewGrid(listViewModel);
+    shape.Metadata.Alternates.Add("Parts_ListViewGrid__" + relatedEntityName);
 }
-@Display.Parts_ListViewGrid__Lead(listViewModel)
+@Display(shape)
 @using(Script.Foot()) {
 <script type="text/javascript">
     //<![CDATA[
