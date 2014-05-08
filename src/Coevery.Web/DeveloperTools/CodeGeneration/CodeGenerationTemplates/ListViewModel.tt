@@ -8,6 +8,7 @@ using System.Collections.Generic;
 namespace <#=Namespace#>.ViewModels {
     public sealed class <#=EntityName#>ListViewModel {
 		public int Id { get; set; }
+		public int VersionId { get; set; }
 <#foreach (var field in GetFields()) {#>
 		public <#= field.Item2.GetFriendlyName() #> <#=field.Item1 #>{ get; set; }
 <# } #>

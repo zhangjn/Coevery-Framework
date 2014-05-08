@@ -56,6 +56,7 @@ namespace <#=Namespace#>.Controllers {
 	            .Slice((page - 1)*pageSize, pageSize)
 	            .Select(item => new <#=EntityName#>ListViewModel{
 					Id = item.Record.ContentItemRecord.Id,
+					VersionId = item.Record.Id,
 <#  var columns = GetColumns(EntityName);
     var partDefinition = GetContentPartDefinition(EntityName);
 	foreach (var field in GetPrimaryFields(columns, partDefinition)) {#>
@@ -68,7 +69,7 @@ else {#>item.Record.<#=field.Name#><#} #>,
     if (optionSetFields.Any()) { #>
 			foreach (var model in records) {
 <# foreach (var field in optionSetFields) { #>
-	            model.<#=field.Name #> = GetOptionSetFieldValue(model.Id, "<#=field.Name #>");
+	            model.<#=field.Name #> = GetOptionSetFieldValue(model.VersionId, "<#=field.Name #>");
 <# } #>
 	        }
 <# } #>
