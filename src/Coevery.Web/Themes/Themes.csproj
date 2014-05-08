@@ -2256,6 +2256,8 @@
     <Content Include="MooncakeBase\Styles\widget.css" />
     <Content Include="MooncakeBase\Theme.png" />
     <Content Include="MooncakeBase\Theme.txt" />
+    <Content Include="Mooncake\Scripts\js\bootstrap-modal.js" />
+    <Content Include="Mooncake\Scripts\js\bootstrap-modalmanager.js" />
     <Content Include="Mooncake\Scripts\bootstrap\bootstrap.js" />
     <Content Include="Mooncake\Scripts\bootstrap\bootstrap.min.js" />
     <Content Include="Mooncake\Scripts\js\jquery.placeholder.js" />
@@ -3625,6 +3627,7 @@
     <Content Include="Mooncake\Styles\main-style.css" />
     <Content Include="Mooncake\Styles\misc.css" />
     <Content Include="Mooncake\Styles\perfect-scrollbar.css" />
+    <Content Include="Mooncake\Styles\plugins\bootstrap-modal.css" />
     <Content Include="Mooncake\Styles\plugins\bootstrap-select\bootstrap-select.css" />
     <Content Include="Mooncake\Styles\plugins\bootstrap-select\bootstrap-select.min.css" />
     <Content Include="Mooncake\Styles\plugins\fullcalendar.css" />
@@ -3729,6 +3732,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Mooncake\Views\LoginStatus.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Mooncake\Views\Layout__Relationships__EntityPicker.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

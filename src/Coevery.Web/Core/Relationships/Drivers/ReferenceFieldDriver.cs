@@ -53,21 +53,19 @@ namespace Coevery.Core.Relationships.Drivers {
                 () => {
                     var settings = field.PartFieldDefinition.Settings.GetModel<ReferenceFieldSettings>();
                     string partName = settings.ContentTypeName.ToPartName();
-                    var items = _contentManager.Query(settings.ContentTypeName).List().Select(contentItem => {
+                    var fieldValue = field.Value;
+                    var selectedText = string.Empty;
+                    if (fieldValue.HasValue) {
+                        var contentItem = _contentManager.Get(fieldValue.Value);
                         var contentPart = contentItem.Parts.First(x => x.PartDefinition.Name == partName);
                         var displayField = contentPart.Fields.First(x => x.Name == settings.DisplayFieldName);
-
-                        return new SelectListItem {
-                            Text = displayField.Storage.Get<dynamic>(null),
-                            Value = contentItem.Id.ToString(CultureInfo.InvariantCulture),
-                            Selected = field.Value == contentItem.Id
-                        };
-                    });
+                        selectedText = displayField.Storage.Get<dynamic>(null);
+                    }
 
                     var model = new ReferenceFieldViewModel {
                         ContentId = field.Value,
                         Field = field,
-                        ItemList = new SelectList(items, "Value", "Text", field.Value)
+                        SelectedText = selectedText
                     };
                     return shapeHelper.EditorTemplate(TemplateName: TemplateName, Model: model, Prefix: GetPrefix(field, part));
                 });

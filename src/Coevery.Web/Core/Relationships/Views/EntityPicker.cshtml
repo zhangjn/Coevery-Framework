@@ -1,1 +1,44 @@
-﻿@Display.Parts_ListView_Lead()
+﻿@{
+    var url = Url.Action("List", "Lead", new {area = "Nova.Sales"});
+    var gridId = "leadGrid";
+    var listViewModel = new {
+        CallbackUrl = url,
+        GridId = gridId,
+        GridOptions = new {
+            multiselect = false,
+            scroll = 1,
+            height = 300,
+            
+        }
+    };
+}
+@Display.Parts_ListViewGrid__Lead(listViewModel)
+@using(Script.Foot()) {
+<script type="text/javascript">
+    //<![CDATA[
+    var grid = $('#@gridId');
+    grid.jqGrid('setGridParam', {
+        onSelectRow: function() {
+            var rowId = grid.jqGrid('getGridParam', 'selrow');
+            var result = grid.getRowData(rowId);
+            window.parent.jQuery[query("callback")](result);
+        }
+    });
+    
+    // get a querystring value
+    function query(name, querystring) {
+        name = name.toLowerCase();
+        var search = querystring || location.search;
+        var parts = search.replace("?", "").replace("#", "").split("&");
+        for (var i = 0, l = parts.length; i < l; i++) {
+            var part = parts[i];
+            var eqIndex = part.indexOf("=");
+            if (eqIndex !== -1 && part.substr(0, eqIndex).toLowerCase() === name) {
+                return part.substr(eqIndex + 1);
+            }
+        }
+        return [];
+    }
+//]]>
+</script>
+}

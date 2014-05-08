@@ -3,22 +3,84 @@
 @using Coevery.Core.Relationships.Settings
 @using Coevery.Mvc.Html
 @{
-    Script.Require("Bootstrap-Modal").AtFoot();
     var settings = Model.Field.PartFieldDefinition.Settings.GetModel<ReferenceFieldSettings>();
     var required = settings.Required ? "required" : null;
     var selectAttributes = new Dictionary<string, object> { { "class", "textMedium span12" } };
-    if (settings.Required) {
-       selectAttributes.Add("required","");
+    if (settings.Required)
+    {
+        selectAttributes.Add("required", "");
     }
-    
-    if(!string.IsNullOrWhiteSpace(settings.HelpText))
+
+    if (!string.IsNullOrWhiteSpace(settings.HelpText))
     {
         selectAttributes.Add("help-text", settings.HelpText);
     }
 }
 <label class="span3 control-label @required" for="@Html.FieldIdFor(m => m.ContentId)">@Model.Field.DisplayName</label>
 <div class="control controls errortips">
-    @Html.DropDownListFor(m => m.ContentId, Model.ItemList,string.Empty, selectAttributes)
-    <a data-toggle="modal" class="button add" href="#ajax-modal" data-remote="@Url.Action("Index","EntityPicker")">@T("Select...")</a>
+    @Html.HiddenFor(m => m.ContentId)<span id="@Html.IdFor(m=>m.SelectedText)">@Model.SelectedText</span>
+    @*@Html.DropDownListFor(m => m.ContentId, Model.ItemList, string.Empty, selectAttributes)*@
+    <a data-toggle="modal" data-backdrop="static"
+       data-reference-model="toggle" 
+       data-display-field="@settings.DisplayFieldName"
+       data-modal-url="@Url.Action("Index", "EntityPicker", new { area = "Relationships"})" 
+       class="btn" href="#">@T("Select...")</a>
+
+    <div class="modal hide" tabindex="-1">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>Please a Lead</h3>
+        </div>
+        <div class="modal-body">
+            <iframe width="100%" height="380px" frameborder="0" scrolling="yes" allowtransparency="true"></iframe>
+        </div>
+        <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn">Cancel</button>
+            <button type="button" class="btn btn-primary btn-ok">OK</button>
+        </div>
+    </div>
 </div>
-<div id="ajax-modal" class="modal fade" tabindex="-1" style="display: none;"></div>
+@using(Script.Foot()) {
+<script type="text/javascript">
+    //<![CDATA[
+    (function($) {
+        $(function () {
+            $(document).off('click.modal.data-api').on('click.modal.iframe', '[data-reference-model="toggle"]', function(e) {
+                var $this = $(this),
+                    href = $this.attr('href'),
+                    $target = $this.next('.modal'),
+                    option = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data());
+
+                e.preventDefault();
+                var baseUrl = $this.data("modal-url");
+                var callbackName = "_entitypicker_" + new Date().getTime();
+                $target.find('iframe').attr('src', baseUrl + '?callback=' + callbackName);
+                $[callbackName] = function(returnData) {
+                    $this.data('result', returnData);
+                };
+
+                $target.find('.btn-ok').click(function () {
+                    var result = $this.data("result");
+                    var displayField = $this.data('display-field');
+                    if (result && displayField) {
+                        $('#@Html.IdFor(m => m.SelectedText)').text(result[displayField]);
+                        $('#@Html.IdFor(m => m.ContentId)').val(result['Id']);
+                    }
+                    $target.modal('hide');
+                });
+
+                $target.one('hide', function() {
+                    delete $[callbackName];
+                });
+                $target
+                    .modal(option)
+                    .one('hide', function() {
+                        $this.focus();
+                    });
+            });
+
+        });
+    })(window.jQuery);
+    //]]>
+</script>
+}

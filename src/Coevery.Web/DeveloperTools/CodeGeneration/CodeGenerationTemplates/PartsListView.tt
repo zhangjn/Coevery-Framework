@@ -1,83 +1,15 @@
 ﻿<#@ template debug="false" hostspecific="true" language="C#" #>
-<#@ assembly name="Newtonsoft.Json" #>
-<#@ include file="ListViewCommon.ttinclude" #>
-<#@ import namespace="Newtonsoft.Json" #>
-<#@ import namespace="Newtonsoft.Json.Linq" #>
 <#@ parameter type="System.String" name="EntityName" #>
+<#@ parameter type="System.String" name="Namespace" #>
 @{
-    var url = Url.Action("List");
+    var url = Url.Action("List","<#=EntityName#>",  new { area = "<#=Namespace#>" });
     var gridId = "<#=EntityName.ToLower()#>Grid";
-    var columns = "<#=GetGridColumnJSONString()#>";
     var listViewModel = new {
         CallbackUrl = url,
-        GridId = gridId,
-        Columns = columns
+        GridId = gridId
     };
-    if (gridInfo != null) {
-        pageSize = int.Parse(gridInfo.GridSettings[GridInfoSettings.PageRowCount]);
-        sortedBy = gridInfo.GridSettings[GridInfoSettings.SortColumn];
-        sortOrder = gridInfo.GridSettings[GridInfoSettings.SortMode];
-    }
 }
 
 @Display.Parts_ListViewActions__<#=EntityName#>(GridId: gridId)
 
 @Display.Parts_ListViewGrid__<#=EntityName#>(listViewModel)
-
-<#+
-
-    private string GetGridColumnJSONString() {
-        var columns = GetFieldObjects().ToArray();
-        var json = JsonConvert.SerializeObject(columns);
-        return json.Replace("\"", "\\\"");
-    }
-
-	private IEnumerable<JObject> GetFieldObjects() {
-        var columns = GetColumns(EntityName);
-        var partDefinition = GetContentPartDefinition(EntityName);
-        foreach (var col in columns) {
-            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col);
-            if (field != null ) {
-                var column = new JObject();
-                column["name"] = field.Name;
-                column["index"] = field.Name;
-                column["label"] = field.DisplayName;
-                column["sortable"] = (field.FieldDefinition.Name != "OptionSetField" && field.FieldDefinition.Name != "ReferenceField");
-                if (field.FieldDefinition.Name == "ReferenceField") {
-                    column["hidden"] = true;
-                    var refernceNameColumn = new JObject();
-                    refernceNameColumn["name"] = field.Name + "_Name";
-					refernceNameColumn["label"] = field.DisplayName;
-                    refernceNameColumn["sortable"] = false;
-                    yield return refernceNameColumn;
-                }
-                switch (field.FieldDefinition.Name) {
-                    case "BooleanField":
-                        column["formatter"] = "checkbox";
-                        break;
-                    case "CurrencyField":
-                        column["formatter"] = "currency";
-                        break;
-                    case "DateField":
-						column["formatter"] = new JRaw("utcDateFormatter");
-						column["sorttype"] = "date";
-						break;
-                    case "DatetimeField":
-                        column["formatter"] = new JRaw("utcDateTimeFormatter");
-                        column["sorttype"] = "date";
-                        break;
-                    case "NumberField":
-                        column["formatter"] = "number";
-                        break;
-                }
-                yield return column;
-            }
-        }
-		var keyColumn = new JObject();
-        keyColumn["name"] = "Id";
-        keyColumn["hidden"] = true;
-        keyColumn["key"] = true;
-	    yield return keyColumn;
-	}
-
-#>

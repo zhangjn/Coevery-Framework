@@ -451,8 +451,6 @@
     <Content Include="Common\Scripts\app\couchPotatoService.js" />
     <Content Include="Common\Scripts\app\detourService.js" />
     <Content Include="Common\Scripts\app\logger.js" />
-    <Content Include="Common\Scripts\bootstrap-modal.js" />
-    <Content Include="Common\Scripts\bootstrap-modalmanager.js" />
     <Content Include="Common\Scripts\jQuery\jqGrid\i18n\grid.locale.ar.js" />
     <Content Include="Common\Scripts\jQuery\jqGrid\i18n\grid.locale.bg-BG.js" />
     <Content Include="Common\Scripts\jQuery\jqGrid\i18n\grid.locale.bg.js" />

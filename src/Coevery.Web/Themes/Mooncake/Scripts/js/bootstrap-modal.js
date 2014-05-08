@@ -40,7 +40,7 @@
 			this.$element = $(element)
 				.delegate('[data-dismiss="modal"]', 'click.dismiss.modal', $.proxy(this.hide, this));
 
-			this.options.remote && this.$element.find('.modal-body').load(this.options.remote, function () {
+			this.options.remote && this.$element.load(this.options.remote, function () {
 				var e = $.Event('loaded');
 				that.$element.trigger(e);
 			});
@@ -362,15 +362,15 @@
 		$(document).off('click.modal').on('click.modal.data-api', '[data-toggle="modal"]', function ( e ) {
 			var $this = $(this),
 				href = $this.attr('href'),
-				$target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))), //strip for ie7
+				$target = $($this.attr('data-target') || $this.next('.modal') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))), //strip for ie7
 				option = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data());
 
 			e.preventDefault();
-			$target
-				.modal(option)
-				.one('hide', function () {
-					$this.focus();
-				})
+		    $target
+		        .modal(option)
+		        .one('hide', function() {
+		            $this.focus();
+		        });
 		});
 	});
 

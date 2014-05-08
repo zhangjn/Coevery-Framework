@@ -1,7 +1,9 @@
 ﻿using System.Web.Mvc;
 using Coevery.Mvc;
+using Coevery.Themes;
 
 namespace Coevery.Core.Relationships.Controllers {
+    [Themed]
     public class EntityPickerController : Controller {
 
         public EntityPickerController(ICoeveryServices services) {
