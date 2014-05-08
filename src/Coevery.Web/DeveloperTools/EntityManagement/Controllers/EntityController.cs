@@ -21,6 +21,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         //GET api/Entities/Entity
         public object Get(int rows, int page) {
             var entities = _entityMetadataService.GetEntities()
+                .OrderBy(x => x.Name)
                 .Select(x => new {
                     Id = x.Id,
                     Name = x.Name,
