@@ -154,9 +154,6 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services
         //This method can be called 0, 1, or more times.
         //---------------------------------------------------------------------
         public string ResolveAssemblyReference(string assemblyReference) {
-            var assembly = _assemblyLoader.Load(assemblyReference);
-            if (assembly != null)
-                return assembly.Location;
             //If the argument is the fully qualified path of an existing file,
             //then we are done. (This does not do any work.)
             //----------------------------------------------------------------
@@ -164,6 +161,9 @@ namespace Coevery.DeveloperTools.CodeGeneration.Services
             {
                 return assemblyReference;
             }
+            var assembly = _assemblyLoader.Load(assemblyReference);
+            if (assembly != null)
+                return assembly.Location;
             //Maybe the assembly is in the same folder as the text template that 
             //called the directive.
             //----------------------------------------------------------------
