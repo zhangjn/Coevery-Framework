@@ -77,38 +77,38 @@
         <div id="login-inner" class="login-inset">
             <div id="login-circle">
                 <section id="login-form" class="login-inner-form">
-                    <h1>Login</h1>
+                    <h1>@T("Login")</h1>
                     @using (Html.BeginFormAntiForgeryPost(Url.Action("LogOn", new { ReturnUrl = Request.QueryString["ReturnUrl"] }))) {
                         <div class="control-group-merged">
                             <div class="control-group">
-                                <input type="text" placeholder="Username" name="userNameOrEmail" id="input-username" class="big required">
+                                <input type="text" placeholder="@T("Username")" name="userNameOrEmail" id="input-username" class="big required">
                             </div>
                             <div class="control-group">
-                                <input type="password" placeholder="Password" name="password" id="input-password" class="big required">
+                                <input type="password" placeholder="@T("Password")" name="password" id="input-password" class="big required">
                             </div>
                         </div>
                         <div class="control-group">
                             <label class="checkbox">
                                 <input id="remember-me" name="rememberMe" type="checkbox" class="uniform" value="true" /><input name="rememberMe" type="hidden" value="false" />
-                                Remember me
+                                @T("Remember me")
                             </label>
                         </div>
                         @Html.ValidationSummary(T("Login was unsuccessful. Please correct the errors and try again.").ToString(), new { @class = "alert alert-danger fade in" })
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-success btn-block btn-large">Login</button>
+                            <button type="submit" class="btn btn-success btn-block btn-large">@T("Login")</button>
                         </div>
                     }
                 </section>
                 <section id="forget-form" class="login-inner-form">
-                    <h1>Reset Password</h1>
+                    <h1>@T("Reset Password")</h1>
                     <form class="form-vertical" action="#">
                         <div class="control-group">
                             <div class="controls">
-                                <input type="text" name="Reset[email]" class="big required email" placeholder="Enter Your Email...">
+                                <input type="text" name="Reset[email]" class="big required email" placeholder="@T("Enter Your Email...")">
                             </div>
                         </div>
                         <div class="form-actions">
-                            <button type="submit" class="btn btn-danger btn-block btn-large">Reset</button>
+                            <button type="submit" class="btn btn-danger btn-block btn-large">@T("Reset")</button>
                         </div>
                     </form>
                 </section>

@@ -12,7 +12,7 @@
 <# foreach (var layoutSection in SectionList) { #>
 <# var widths = layoutSection.SectionColumnsWidth.Split(':').ToArray(); #>
     <section>
-        <header><h5><#= layoutSection.SectionTitle #></h5></header>
+        <header><h5>@T("<#= layoutSection.SectionTitle #>")</h5></header>
 <# foreach (var row in layoutSection.Rows) { #>
 <# int i = 0; #>
 		<div class="data-row clearfix">

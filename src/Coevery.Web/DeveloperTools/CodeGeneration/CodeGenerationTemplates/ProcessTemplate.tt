@@ -49,10 +49,9 @@
     }
 
     private void AddFrontMenuFile(CsProjFile csProjFile, IEnumerable<ContentTypeDefinitionPart> typeDefinitions) {
-        var entities = typeDefinitions.Select(definition => definition.Name).ToList();
         var frontMenuSession = new TextTemplatingSession();
         frontMenuSession["Namespace"] = csProjFile.RootNamespace;
-        frontMenuSession["Entities"] = entities;
+        frontMenuSession["Entities"] = typeDefinitions;
 
         string frontMenuClassFilePath = Path.Combine(csProjFile.ProjectDirectory, "FrontMenu.cs");
         string frontMenuTemplate = TransformText("FrontMenu.tt", frontMenuSession);

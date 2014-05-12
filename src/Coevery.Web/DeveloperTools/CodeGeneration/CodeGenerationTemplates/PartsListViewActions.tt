@@ -1,10 +1,10 @@
 ﻿@using Coevery.Utility.Extensions
 <div id="page-actions" class="clearfix">
     <div class="btn-toolbar pull-left">
-        <a class="btn btn-small btn-success" href="@Url.Action("Create", new{returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString()})"><i class="icon-plus"></i>&nbsp;Add</a>
-        <button id="btnEdit" class="btn btn-small btn-primary hide" type="button"><i class="icon-edit"></i>&nbsp;Edit</button>
-        <button id="btnDelete" class="btn btn-small btn-warning hide" type="button"><i class="icon-trash"></i>&nbsp;Delete</button>
-        <button id="btnRefresh" class="btn btn-small" type="button"><i class="icon-refresh"></i>&nbsp;Refresh</button>
+        <a class="btn btn-small btn-success" href="@Url.Action("Create", new{returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString()})"><i class="icon-plus"></i>&nbsp;@T("Add")</a>
+        <button id="btnEdit" class="btn btn-small btn-primary hide" type="button"><i class="icon-edit"></i>&nbsp;@T("Edit")</button>
+        <button id="btnDelete" class="btn btn-small btn-warning hide" type="button"><i class="icon-trash"></i>&nbsp;@T("Delete")</button>
+        <button id="btnRefresh" class="btn btn-small" type="button"><i class="icon-refresh"></i>&nbsp;@T("Refresh")</button>
     </div>
 </div>
 

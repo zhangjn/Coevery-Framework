@@ -7,7 +7,7 @@
 }
 else {
     <div id="user-info" class="clearfix">
-        <span class="info">Welcome
+        <span class="info">@T("Welcome")
             <span class="name">@WorkContext.CurrentUser.UserName</span>
         </span>
         <div class="avatar">
@@ -15,7 +15,7 @@ else {
                 <img src="@Href("~/Themes/Mooncake/Styles/images/user.jpg")" alt="Avatar">
             </a>
             <ul class="dropdown-menu pull-right">
-                <li><a href="#"><i class="icol-user"></i>&nbsp;My Profile</a></li>
+                <li><a href="#"><i class="icol-user"></i>&nbsp;@T("My Profile")</a></li>
                 <li><a href="@Href("~/DevTools#/Entities")"><i class="icol-application-key"></i>&nbsp;Developer Tools</a></li>
                 <li class="divider"></li>
                 <li>

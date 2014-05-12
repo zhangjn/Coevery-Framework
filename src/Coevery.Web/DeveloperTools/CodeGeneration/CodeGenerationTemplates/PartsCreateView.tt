@@ -14,7 +14,7 @@
 <# foreach (var layoutSection in SectionList) { #>
 <# var widths = layoutSection.SectionColumnsWidth.Split(':').ToArray(); #>
 		<fieldset>
-			<legend><#= layoutSection.SectionTitle #></legend>
+			<legend>@T("<#= layoutSection.SectionTitle #>")</legend>
 <# foreach (var row in layoutSection.Rows) { #>
 <# int i = 0; #>
 			<div class="data-row clearfix">
@@ -32,7 +32,7 @@
 <# } #>
 		<div class="data-row clearfix">
             <div class="control controls">
-                <button type="submit" class="btn btn-small btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-small btn-primary">@T("Save changes")</button>
                 @{
                     var returnUrl = Request.QueryString["returnUrl"];
                 }
