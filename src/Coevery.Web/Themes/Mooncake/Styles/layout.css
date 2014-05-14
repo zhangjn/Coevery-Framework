@@ -649,7 +649,8 @@ ul.menu-level-0 > li {
 
 #wrapper #sidebar #navigation {
     position: absolute;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     top: 47px;
     bottom: 40px;
     right: 0;
