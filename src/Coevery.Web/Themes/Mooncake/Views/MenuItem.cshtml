@@ -12,12 +12,7 @@
     <span>
         @if (hasChildren) {
             <span class="nav-title vertical-middle">@menuText</span>
-            <i class="@if (!menu.Selected) {
-                          <text>icos-play collapsed</text>
-                      }
-                      else {
-                          <text>icos-eject</text>
-                      }"
+            <i class="icos-eject @if (!menu.Selected) {<text>collapsed</text>}"
                data-toggle="collapse" data-target=".@levelClass.@idClass"></i>
         }
         else {
