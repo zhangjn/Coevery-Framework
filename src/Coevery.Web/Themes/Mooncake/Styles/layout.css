@@ -602,19 +602,19 @@ ul.menu-level-0 > li {
     border-bottom: 1px solid #C8C8C8;
 }
 
-#wrapper #sidebar #navigation ul.menu-level-1 > li > span > a {
+#wrapper #sidebar #navigation ul.menu-level-1 > li > a {
     padding-left: 5px;
 }
 
-#wrapper #sidebar #navigation ul.menu-level-2 > li > span > a {
+#wrapper #sidebar #navigation ul.menu-level-2 > li > a {
     padding-left: 40px;
 }
 
-#wrapper #sidebar #navigation ul.menu-level-3 > li > span > a {
+#wrapper #sidebar #navigation ul.menu-level-3 > li > a {
     padding-left: 65px;
 }
 
-#wrapper #sidebar #navigation ul.menu-level-4 > li > span > a {
+#wrapper #sidebar #navigation ul.menu-level-4 > li > a {
     padding-left: 80px;
 }
 

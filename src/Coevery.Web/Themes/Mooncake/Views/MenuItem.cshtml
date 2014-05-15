@@ -9,11 +9,12 @@
 }
 
 <li @if (menu.Selected && !hasChildren) {<text>class="active"</text>}>
-    <span>
         @if (hasChildren) {
-            <span class="nav-title vertical-middle">@menuText</span>
-            <i class="icos-eject @if (!menu.Selected) {<text>collapsed</text>}"
-               data-toggle="collapse" data-target=".@levelClass.@idClass"></i>
+            <span>
+                <span class="nav-title vertical-middle">@menuText</span>
+                <i class="icos-eject @if (!menu.Selected) {<text>collapsed</text>}"
+                   data-toggle="collapse" data-target=".@levelClass.@idClass"></i>
+            </span>
         }
         else {
             <a href="@menu.Href" title="@menuText">
@@ -21,7 +22,6 @@
                 <span class="nav-title vertical-middle">@menuText</span>
             </a>
         }
-    </span>
     @if (hasChildren) {
         <ul class="collapse @levelClass @idClass @if (menu.Selected) {<text>in</text>}">
             @foreach (var childMenu in menu.Items) {
