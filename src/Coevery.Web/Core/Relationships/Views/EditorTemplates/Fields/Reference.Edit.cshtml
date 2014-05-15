@@ -18,12 +18,14 @@
 <div class="control controls errortips">
     @Html.HiddenFor(m => m.ContentId)<span id="@Html.IdFor(m=>m.SelectedText)">@Model.SelectedText</span>
     <a data-toggle="modal" data-backdrop="static"
-       data-reference-model="toggle" 
+       data-reference-model="toggle"
        data-display-field="@settings.DisplayFieldName"
-       data-modal-url="@Url.Action("Index", "EntityPicker",  new { 
-                           area = "Relationships", 
-                           relatedEntityName=Model.RelatedEntityDefinition.Name, 
-                           fieldName = Model.Field.Name                  
+       data-valude-field-id="@Html.IdFor(m=>m.ContentId)"
+       data-dsiplay-field-id="@Html.IdFor(m => m.SelectedText)"
+       data-modal-url="@Url.Action("Index", "EntityPicker",  new {
+                           area = "Relationships",
+                           relatedEntityName=Model.RelatedEntityDefinition.Name,
+                           fieldName = Model.Field.Name
                   })" class="btn" href="#">@T("Select...")</a>
     <div class="modal hide" tabindex="-1">
         <div class="modal-header">
@@ -39,47 +41,55 @@
         </div>
     </div>
 </div>
-@using(Script.Foot()) {
-<script type="text/javascript">
-    //<![CDATA[
-    (function($) {
-        $(function () {
-            $(document).off('click.modal.data-api').on('click.modal.iframe', '[data-reference-model="toggle"]', function(e) {
-                var $this = $(this),
-                    href = $this.attr('href'),
-                    $target = $this.next('.modal'),
-                    option = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data());
+@using (Script.Foot()) {
+    // prevent the shape from being rendered twice in a page
+    if (WorkContext.GetState<object>("ReferenceEditScript") != null) {
+        return;
+    }
 
-                e.preventDefault();
-                var baseUrl = $this.data("modal-url");
-                var callbackName = "_entitypicker_" + new Date().getTime();
-                $target.find('iframe').attr('src', baseUrl + '&callback=' + callbackName);
-                $[callbackName] = function(returnData) {
-                    $this.data('result', returnData);
-                };
+    WorkContext.SetState("ReferenceEditScript", new object());
+    <script type="text/javascript">
+        //<![CDATA[
+        (function($) {
+            $(function() {
+                $(document).off('click.modal.data-api').on('click.modal.iframe', '[data-reference-model="toggle"]', function(e) {
+                    var $this = $(this),
+                        href = $this.attr('href'),
+                        $target = $this.next('.modal'),
+                        option = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data());
 
-                $target.find('.btn-ok').click(function () {
-                    var result = $this.data("result");
-                    var displayField = $this.data('display-field');
-                    if (result && displayField) {
-                        $('#@Html.IdFor(m => m.SelectedText)').text(result[displayField]);
-                        $('#@Html.IdFor(m => m.ContentId)').val(result['Id']);
-                    }
-                    $target.modal('hide');
-                });
+                    e.preventDefault();
+                    var baseUrl = $this.data("modal-url");
+                    var callbackName = "_entitypicker_" + new Date().getTime();
+                    $target.find('iframe').attr('src', baseUrl + '&callback=' + callbackName);
+                    $[callbackName] = function(returnData) {
+                        $this.data('result', returnData);
+                    };
 
-                $target.one('hide', function() {
-                    delete $[callbackName];
-                });
-                $target
-                    .modal(option)
-                    .one('hide', function() {
-                        $this.focus();
+                    $target.find('.btn-ok').click(function() {
+                        var result = $this.data("result");
+                        var displayField = $this.data('display-field');
+                        if (result && displayField) {
+                            var valueFieldId = $this.data("valude-field-id");
+                            var displayFieldId = $this.data("dsiplay-field-id");
+                            $('#' + displayFieldId).text(result[displayField]);
+                            $('#' + valueFieldId).val(result['Id']);
+                        }
+                        $target.modal('hide');
                     });
-            });
 
-        });
-    })(window.jQuery);
-    //]]>
-</script>
+                    $target.one('hide', function() {
+                        delete $[callbackName];
+                    });
+                    $target
+                        .modal(option)
+                        .one('hide', function() {
+                            $this.focus();
+                        });
+                });
+
+            });
+        })(window.jQuery);
+        //]]>
+    </script>
 }
