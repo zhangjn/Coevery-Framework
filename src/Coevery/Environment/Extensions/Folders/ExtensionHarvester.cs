@@ -30,6 +30,7 @@ namespace Coevery.Environment.Extensions.Folders {
         private const string FeaturesSection = "features";
         private const string SessionStateSection = "sessionstate";
         private const string TablePrefixSection = "tableprefix";
+        private const string DisabledSection = "disabled";
 
         private readonly ICacheManager _cacheManager;
         private readonly IWebSiteFolder _webSiteFolder;
@@ -125,7 +126,8 @@ namespace Coevery.Environment.Extensions.Folders {
                 Zones = GetValue(manifest, ZonesSection),
                 BaseTheme = GetValue(manifest, BaseThemeSection),
                 SessionState = GetValue(manifest, SessionStateSection),
-                TablePrefix = GetValue(manifest, TablePrefixSection)
+                TablePrefix = GetValue(manifest, TablePrefixSection),
+                Disabled = GetValue(manifest, DisabledSection)
             };
             extensionDescriptor.Features = GetFeaturesForExtension(manifest, extensionDescriptor);
 
@@ -169,9 +171,6 @@ namespace Coevery.Environment.Extensions.Folders {
                     switch (field[0].ToLowerInvariant()) {
                         case NameSection:
                             manifest.Add(NameSection, field[1]);
-                            break;
-                        case TablePrefixSection:
-                            manifest.Add(TablePrefixSection, field[1]);
                             break;
                         case PathSection:
                             manifest.Add(PathSection, field[1]);
@@ -224,6 +223,12 @@ namespace Coevery.Environment.Extensions.Folders {
                         case FeaturesSection:
                             manifest.Add(FeaturesSection, reader.ReadToEnd());
                             break;
+                        case TablePrefixSection:
+                            manifest.Add(TablePrefixSection, field[1]);
+                            break;
+                        case DisabledSection:
+                            manifest.Add(DisabledSection, field[1]);
+                            break;
                     }
                 }
             }
@@ -242,7 +247,8 @@ namespace Coevery.Environment.Extensions.Folders {
                 Description = GetValue(manifest, FeatureDescriptionSection) ?? GetValue(manifest, DescriptionSection) ?? string.Empty,
                 Dependencies = ParseFeatureDependenciesEntry(GetValue(manifest, DependenciesSection)),
                 Extension = extensionDescriptor,
-                Category = GetValue(manifest, CategorySection)
+                Category = GetValue(manifest, CategorySection),
+                Disabled = GetValue(manifest, DisabledSection) ?? extensionDescriptor.Disabled
             };
 
             featureDescriptors.Add(defaultFeature);
@@ -301,6 +307,9 @@ namespace Coevery.Environment.Extensions.Folders {
                                         break;
                                     case DependenciesSection:
                                         featureDescriptor.Dependencies = ParseFeatureDependenciesEntry(featureField[1]);
+                                        break;
+                                    case DisabledSection:
+                                        featureDescriptor.Disabled = featureField[1];
                                         break;
                                 }
                             }

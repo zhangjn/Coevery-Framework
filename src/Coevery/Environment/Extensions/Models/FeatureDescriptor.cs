@@ -14,6 +14,7 @@ namespace Coevery.Environment.Extensions.Models {
         public string Description { get; set; }
         public string Category { get; set; }
         public int Priority { get; set; }
+        public string Disabled { get; set; }
         public IEnumerable<string> Dependencies { get; set; }
     }
 }

@@ -31,13 +31,19 @@ namespace Coevery.Data.Migration {
                 "Settings", "Common"
             };
 
+            var theseFeaturesShouldAlwaysBeDisabled = _featureManager.GetAvailableFeatures().Where(f => String.Equals(f.Disabled, "true", StringComparison.OrdinalIgnoreCase)).Select(f => f.Id);
+
             theseFeaturesShouldAlwaysBeActive = theseFeaturesShouldAlwaysBeActive.Concat(
-                _featureManager.GetAvailableFeatures().Where(f=>f.Id != "Coevery.Setup").Select(f => f.Id)).ToArray();
+                _featureManager.GetAvailableFeatures().Where(f=>f.Id != "Coevery.Setup" && !theseFeaturesShouldAlwaysBeDisabled.Contains(f.Id)).Select(f => f.Id)).ToArray();
 
             var enabledFeatures = _featureManager.GetEnabledFeatures().Select(f => f.Id).ToList();
             var featuresToEnable = theseFeaturesShouldAlwaysBeActive.Where(shouldBeActive => !enabledFeatures.Contains(shouldBeActive)).ToList();
             if (featuresToEnable.Any()) {
                 _featureManager.EnableFeatures(featuresToEnable, true);
+            }
+            var featuresToDisable = theseFeaturesShouldAlwaysBeDisabled.Where(enabledFeatures.Contains).ToList();
+            if (featuresToDisable.Any()) {
+                _featureManager.DisableFeatures(featuresToDisable, true);
             }
 
             foreach (var feature in _dataMigrationManager.GetFeaturesThatNeedUpdate()) {

@@ -31,7 +31,7 @@ namespace Coevery.Environment.Extensions.Models {
         public string BaseTheme { get; set; }
         public string SessionState { get; set; }
         public string TablePrefix { get; set; }
-
+        public string Disabled { get; set; }
         public IEnumerable<FeatureDescriptor> Features { get; set; }
     }
 }
