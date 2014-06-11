@@ -99,8 +99,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             }
             _schemaBuilder.CreateTable(tableName,
                 table => {
-                    table.Column<int>("Id", column => column.PrimaryKey())
-                        .Column<int>("ContentItemRecord_id");
+                    table.Column<int>("Id", column => column.PrimaryKey());
+                        //.Column<int>("ContentItemRecord_id");
                     if (action != null) {
                         var context = new CreateTableContext(_dynamicAssemblyBuilder, table);
                         action(context);
