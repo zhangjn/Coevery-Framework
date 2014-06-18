@@ -17,5 +17,5 @@
            class="textMedium span12 number" 
         @if (!string.IsNullOrWhiteSpace(settings.HelpText)){<text>help-text='@settings.HelpText'</text> } 
         />
-    @Html.ValidationMessageFor(m => m.Value)
+    @Html.ValidationMessageFor(m => m, null, new { @class = "error" })
 </div>

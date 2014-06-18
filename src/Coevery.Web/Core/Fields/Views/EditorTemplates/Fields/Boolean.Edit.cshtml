@@ -32,5 +32,5 @@
             </div>
                                                                                                        break;
     }
-    @Html.ValidationMessageFor(m => m.Value)
+    @Html.ValidationMessageFor(m => m, null, new { @class = "error" })
 </div>

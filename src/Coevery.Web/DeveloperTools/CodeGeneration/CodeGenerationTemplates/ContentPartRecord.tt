@@ -9,7 +9,7 @@ using Coevery.ContentManagement.Records;
 
 namespace <#=Namespace#>.Models {
 	[Table("<#=EntityName#>")]
-    public class <#=EntityName#>PartRecord : ContentPartVersionRecord {
+    public class <#=EntityName#>PartRecord : ContentPartRecord {
 <# 
 	var definition = GetContentPartDefinition(EntityName);
     if (definition != null) {

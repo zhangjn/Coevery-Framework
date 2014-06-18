@@ -25,7 +25,7 @@
            data-date-weekstart="@dateTimeLocalization.FirstDay"
            @if (required != null) { <text> required data-msg-required="Please fill this field!" </text>  }
            @if (!string.IsNullOrWhiteSpace(settings.HelpText)) { <text> help-text='@settings.HelpText' </text>  } />
-    @Html.ValidationMessageFor(m => m.Value)
+    @Html.ValidationMessageFor(m => m, null, new { @class = "error" })
 </div>
 
 @using (Script.Foot()) {

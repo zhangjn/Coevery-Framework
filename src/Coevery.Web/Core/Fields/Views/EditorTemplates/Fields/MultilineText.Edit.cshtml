@@ -19,5 +19,5 @@
         @if (!string.IsNullOrWhiteSpace(settings.HelpText)) {
             <text>help-text='@settings.HelpText'</text>
         } >@Model.Value</textarea>
-    @Html.ValidationMessageFor(m => m.Value)
+    @Html.ValidationMessageFor(m => m, null, new { @class = "error" })
 </div>

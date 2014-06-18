@@ -71,7 +71,7 @@ namespace Coevery.Core.Fields.Drivers {
         private void HandleUniqueValue(ContentPart part, TextField field, IUpdateModel updater) {
             var recordType = part.GetType().GetProperty("Record").PropertyType;
             Action<IAliasFactory> alias = x => x.ContentPartRecord(recordType);
-            Action<IHqlExpressionFactory> notCurrentItem = x => x.Not(y => y.Eq("ContentItemRecord", part.Id));
+            Action<IHqlExpressionFactory> notCurrentItem = x => x.Not(y => y.Eq("ContentItemRecord.Id", part.Id));
             Action<IHqlExpressionFactory> predicate = x => x.And(notCurrentItem, y => y.Eq(field.Name, field.Value));
 
             var count = Services.ContentManager.HqlQuery()
