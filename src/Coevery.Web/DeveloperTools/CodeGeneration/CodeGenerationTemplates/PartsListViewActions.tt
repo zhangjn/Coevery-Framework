@@ -3,11 +3,24 @@
     <div class="btn-toolbar pull-left">
         <a class="btn btn-small btn-success" href="@Url.Action("Create", new{returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString()})"><i class="icon-plus"></i>&nbsp;@T("Add")</a>
         <button id="btnEdit" class="btn btn-small btn-primary hide" type="button"><i class="icon-edit"></i>&nbsp;@T("Edit")</button>
-        <button id="btnDelete" class="btn btn-small btn-warning hide" type="button"><i class="icon-trash"></i>&nbsp;@T("Delete")</button>
+        <button id="btnDelete" data-toggle="modal" data-target="#deleteModal" class="btn btn-small btn-warning hide" type="button"><i class="icon-trash"></i>&nbsp;@T("Delete")</button>
         <button id="btnRefresh" class="btn btn-small" type="button"><i class="icon-refresh"></i>&nbsp;@T("Refresh")</button>
     </div>
 </div>
-
+<div class="modal-backdrop hide"></div>
+<div id="deleteModal" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3><span>Delete Confirm</span></h3>
+    </div>
+    <div class="modal-body">
+        <p>You really want to delete?</p>
+    </div>
+    <div class="modal-footer">
+        <button id="deleteRowData" class="btn btn-primary"><span>Yes</span></button>
+        <button class="btn" data-dismiss="modal"><span>No</span></button>
+    </div>
+</div>
 @{
     var gridId = Model.GridId;
 }
@@ -31,26 +44,24 @@
                 if (selectedRowIds.length == 0) return;
                 window.location.href = '@Url.Action("Edit")/' + selectedRowIds[0] + '?returnUrl=@ViewContext.RequestContext.HttpContext.Request.ToUrlString()';
             });
-            $('#btnDelete').click(function() {
+            $('#deleteRowData').click(function () {
                 var selectedIds = grid.jqGrid('getGridParam', 'selarrrow');
                 if (selectedIds.length == 0) return;
                 var magicToken = $("input[name=__RequestVerificationToken]").first();
                 if (magicToken.length == 0) {
                     return;
                 } // no sense in continuing if form POSTS will fail
-                var confirm = window.confirm($.jgrid.del.msg);
-                if (!confirm) return;
-
+                $('#deleteModal').modal('hide');
                 $.ajax({
-                        url: '@Url.Action("Delete")',
-                        data: { selectedIds: selectedIds, __RequestVerificationToken: magicToken.val() },
-                        type: "POST",
-                        traditional: true
-                    })
-                    .done(function(response) {
+                    url: '@Url.Action("Delete")',
+                    data: { selectedIds: selectedIds, __RequestVerificationToken: magicToken.val() },
+                    type: "POST",
+                    traditional: true
+                })
+                    .done(function (response) {
                         grid.trigger('reloadGrid');
                     })
-                    .fail(function(jqXHR, textStatus, errorThrown) {
+                    .fail(function (jqXHR, textStatus, errorThrown) {
                         alert(textStatus);
                     });
             });
