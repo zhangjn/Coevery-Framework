@@ -163,6 +163,7 @@
     <Compile Include="CodeGeneration\Commands\CodeGenerationCommands.cs" />
     <Compile Include="CodeGeneration\Services\CodeGenerationCommandInterpreter.cs" />
     <Compile Include="CodeGeneration\Services\ITemplateGenerator.cs" />
+    <Compile Include="CodeGeneration\Services\JsonNotifyFilter.cs" />
     <Compile Include="CodeGeneration\Services\SimpleTextTemplatingHost.cs" />
     <Compile Include="CodeGeneration\Services\DefaultTemplateGenerator.cs" />
     <Compile Include="CodeGeneration\Utils\CSharpTypeNameProvider.cs" />

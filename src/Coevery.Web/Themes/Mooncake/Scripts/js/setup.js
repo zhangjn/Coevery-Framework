@@ -115,6 +115,39 @@
                 element.blur();
             });
         });
+        
+        //ajax-pnotify
+        $.pnotify.defaults.history = false;
+        $.pnotify.defaults.delay = 2000;
+        $.pnotify.defaults.before_open = function (pnotify) {
+            pnotify.css({
+                //"top": ($(window).height() / 2) - (pnotify.height() / 2),
+                "top": 75,
+                "left": ($(window).width() / 2) - (pnotify.width() / 2)
+            });
+        };
+
+        $(document).ajaxComplete(function (event, xhr, settings) {
+            var data = JSON.parse(xhr.responseText);
+            var getOption = function (type) {
+                switch (type) {
+                    case 0:
+                        return { type: 'info', title: 'Information' };
+                    case 1:
+                        return { type: 'notice', title: 'Warnning' };
+                    case 2:
+                        return { type: 'error', title: 'Error' };
+                    default:
+                        return { type: 'success', title: 'Success' };
+                }
+            };
+            if (data.__Messages && $.isArray(data.__Messages)) {
+                $.each(data.__Messages, function (index, value) {
+                    var option = getOption(value.Type);
+                    $.pnotify($.extend(option, { text: value.Message }));
+                });
+            }
+        });
     });
 
 }) (jQuery, window, document);

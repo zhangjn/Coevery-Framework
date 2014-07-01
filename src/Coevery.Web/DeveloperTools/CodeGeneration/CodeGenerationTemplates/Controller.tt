@@ -182,9 +182,11 @@ else {#>item.Record.<#=field.Name#><#} #>,
                 foreach (var item in items) {
                     Services.ContentManager.Remove(item);
                 }
+				Services.Notifier.Information(T("Delete succeeded!"));
                 return new HttpStatusCodeResult(HttpStatusCode.OK, T("Delete succeeded").Text);
             }
             catch {
+			    Services.Notifier.Error(T("Delete failed!"));
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest, T("Delete failed").Text);
             }
         }
