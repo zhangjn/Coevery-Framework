@@ -422,6 +422,9 @@ namespace Coevery.ContentManagement {
 
             Handlers.Invoke(handler => handler.Removing(context), Logger);
 
+            if(context.Cancel)
+                return;
+
             foreach (var version in activeVersions) {
                 if (version.Published) {
                     version.Published = false;

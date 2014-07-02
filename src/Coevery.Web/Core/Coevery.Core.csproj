@@ -98,6 +98,7 @@
     <Compile Include="Common\FrontMenuFilter.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Common\Handlers\ContentDeletingHandler.cs" />
     <Compile Include="Common\Permissions.cs" />
     <Compile Include="Common\Routes.cs" />
     <Compile Include="Common\Services\AutoLoadResourceFilter.cs" />

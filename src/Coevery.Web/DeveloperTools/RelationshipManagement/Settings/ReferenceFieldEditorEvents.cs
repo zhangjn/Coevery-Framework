@@ -65,6 +65,7 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Settings {
                 settingsDictionary["ReferenceFieldSettings.RelationshipId"] = model.RelationshipId.ToString(CultureInfo.InvariantCulture);
                 settingsDictionary["ReferenceFieldSettings.IsUnique"] = model.IsUnique.ToString();
                 settingsDictionary["ReferenceFieldSettings.DisplayFieldName"] = model.DisplayFieldName;
+                settingsDictionary["ReferenceFieldSettings.DeleteAction"] = model.DeleteAction.ToString();
             }
         }
 
