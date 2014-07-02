@@ -1,7 +1,16 @@
-﻿using Coevery.Data.Migration;
+﻿using Coevery.ContentManagement;
+using Coevery.ContentManagement.MetaData;
+using Coevery.ContentManagement.MetaData.Models;
+using Coevery.Core.Relationships.Settings;
+using Coevery.Data.Migration;
 
 namespace Coevery.Core.Relationships {
     public class Migrations : DataMigrationImpl {
+        private readonly IContentDefinitionQuery _contentDefinitionQuery;
+        public Migrations(IContentDefinitionQuery contentDefinitionQuery) {
+            _contentDefinitionQuery = contentDefinitionQuery;
+        }
+
         public int Create() {
             SchemaBuilder.CreateTable("RelationshipRecord",
                 table => table
@@ -35,7 +44,25 @@ namespace Coevery.Core.Relationships {
                     .Column<bool>("ShowPrimaryList", column => column.NotNull())
                 );
 
+
+
             return 1;
+        }
+
+        public int UpdateFrom1() {
+            var parts = _contentDefinitionQuery.ListPartDefinitions();
+            foreach (var part in parts) {
+                ContentPartDefinition partDefinition = part;
+                ContentDefinitionManager.AlterPartDefinition(part.Name, VersionOptions.Published, cfg => {
+                    foreach (var field in partDefinition.Fields) {
+                        var settings = field.Settings.GetModel<ReferenceFieldSettings>();
+                        if (settings != null) {
+                            field.Settings["ReferenceFieldSettings.DeleteAction"] = DeleteAction.NotAllowed.ToString();
+                        }
+                    }
+                });
+            }
+            return 2;
         }
     }
 }
