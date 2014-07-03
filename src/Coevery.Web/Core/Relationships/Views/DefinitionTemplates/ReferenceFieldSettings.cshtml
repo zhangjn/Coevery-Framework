@@ -40,12 +40,10 @@
     <label class="control-label required">
         @T("What to do if the referenced record is deleted?")
     </label>
-    <div class="controls errortips">
-        <select id="@Html.FieldIdFor(m => m.DeleteAction)" name="@Html.FieldNameFor(m => m.DeleteAction)" class="span12" required="">
-            @Html.SelectOption(Model.DeleteAction, DeleteAction.NotAllowed, T("Don’t allow deletion of the referenced record").Text)
-            @Html.SelectOption(Model.DeleteAction, DeleteAction.Clear, T("Clear the value of this field").Text)
-            @Html.SelectOption(Model.DeleteAction, DeleteAction.Cascade, T("Delete this record also").Text)
-        </select>
+    <div class="controls">
+        <label class="radio">@Html.RadioButtonFor(m => m.DeleteAction, DeleteAction.NotAllowed) @T("Don’t allow deletion of the referenced record")</label>
+        <label class="radio">@Html.RadioButtonFor(m => m.DeleteAction, DeleteAction.Clear) @T("Clear the value of this field")</label>
+        <label class="radio">@Html.RadioButtonFor(m => m.DeleteAction, DeleteAction.Cascade) @T("Delete this record also")</label>
     </div>
 </section>
 <section class="control-group data-row">
