@@ -8,11 +8,11 @@
         $(function() {
             var getOption = function (type,message) {
                     switch (type) {
-                        case "Information":
+                        case 'Information':
                             return { type: 'info', title: 'Information',text: message };
-                        case "Warnning":
+                        case 'Warnning':
                             return { type: 'notice', title: 'Warnning',text: message };
-                        case "Error":
+                        case 'Error':
                             return { type: 'error', title: 'Error',text: message };
                         default:
                             return { type: 'success', title: 'Success',text: message };
