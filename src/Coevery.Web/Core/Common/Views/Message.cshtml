@@ -1,1 +1,25 @@
-﻿<div class="message message-@Model.Type">@Html.Raw(Html.Encode(Model.Message).Replace("\n", "<br />"))</div>
+﻿@{
+    var messageType = Model.Type;
+    var messageText = Html.Raw(Html.Encode(Model.Message).Replace("\n", "<br />"));
+}
+
+@using (Script.Foot()) {
+    <script>
+        $(function() {
+            var getOption = function (type,message) {
+                    switch (type) {
+                        case "Information":
+                            return { type: 'info', title: 'Information',text: message };
+                        case "Warnning":
+                            return { type: 'notice', title: 'Warnning',text: message };
+                        case "Error":
+                            return { type: 'error', title: 'Error',text: message };
+                        default:
+                            return { type: 'success', title: 'Success',text: message };
+                    }
+                };
+            var option = getOption('@messageType.ToString()','@messageText');
+            $.pnotify(option);
+        });
+    </script>
+}
