@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Web.Mvc;
 using Coevery.Localization;
 using Coevery.Logging;
@@ -10,15 +11,18 @@ using Coevery.Roles.Models;
 using Coevery.Roles.Services;
 using Coevery.Roles.ViewModels;
 using Coevery.Security;
+using Coevery.Themes;
+using Coevery.UI.Navigation;
 using Coevery.UI.Notify;
 
 namespace Coevery.Roles.Controllers {
     [ValidateInput(false)]
-    public class AdminController : Controller {
+    [Themed]
+    public class RoleController : Controller {
         private readonly IRoleService _roleService;
         private readonly IAuthorizationService _authorizationService;
 
-        public AdminController(
+        public RoleController(
             ICoeveryServices services,
             IRoleService roleService,
             INotifier notifier,
@@ -36,26 +40,39 @@ namespace Coevery.Roles.Controllers {
         public ILogger Logger { get; set; }
 
         public ActionResult Index() {
-            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage roles")))
-                return new HttpUnauthorizedResult();
-
-            var model = new RolesIndexViewModel { Rows = _roleService.GetRoles().OrderBy(r => r.Name).ToList() };
-
-            return View(model);
+            return List();
         }
 
-        [HttpPost, ActionName("Index")]
-        public ActionResult IndexPOST() {
+        public ActionResult List() {
             if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage roles")))
                 return new HttpUnauthorizedResult();
 
-            foreach (string key in Request.Form.Keys) {
-                if (key.StartsWith("Checkbox.") && Request.Form[key] == "true") {
-                    int roleId = Convert.ToInt32(key.Substring("Checkbox.".Length));
-                    _roleService.DeleteRole(roleId);
-                }
-            }
-            return RedirectToAction("Index");
+            return View("List");
+        }
+
+        [HttpPost, ActionName("List")]
+        public ActionResult List(int page = 1, int pageSize = 10, string sortBy = null, string sortOrder = "asc")
+        {
+            var query = _roleService.GetRoles().ToList();
+            var pager = new Pager(Services.WorkContext.CurrentSite, page, pageSize);
+
+            var totalRecords = query.Count();
+            var records = query
+                .Skip(pager.GetStartIndex())
+                .Take(pageSize)
+                .Select(x => new RolesListViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                });
+            var result = new
+            {
+                page,
+                totalPages = totalRecords / pageSize,
+                totalRecords,
+                rows = records
+            };
+            return Json(result);
         }
 
         public ActionResult Create() {
@@ -96,7 +113,7 @@ namespace Coevery.Roles.Controllers {
                                                             permissionName);
                 }
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("List");
         }
 
         public ActionResult Edit(int id) {
@@ -124,7 +141,6 @@ namespace Coevery.Roles.Controllers {
         }
 
         [HttpPost, ActionName("Edit")]
-        [FormValueRequired("submit.Save")]
         public ActionResult EditSavePOST(int id) {
             if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage roles")))
                 return new HttpUnauthorizedResult();
@@ -159,21 +175,18 @@ namespace Coevery.Roles.Controllers {
             return RedirectToAction("Edit", new { id });
         }
 
-        [HttpPost, ActionName("Edit")]
-        [FormValueRequired("submit.Delete")]
-        public ActionResult EditDeletePOST(int id) {
-            return Delete(id, null);
-        }
-
         [HttpPost]
-        public ActionResult Delete(int id, string returnUrl) {
+        public ActionResult Delete(List<int> selectedIds)
+        {
             if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage roles")))
                 return new HttpUnauthorizedResult();
-
-            _roleService.DeleteRole(id);
+            foreach (var id in selectedIds)
+            {
+                _roleService.DeleteRole(id);
+            }
             Services.Notifier.Information(T("Role was successfully deleted."));
 
-            return this.RedirectLocal(returnUrl, () => RedirectToAction("Index"));
+            return new HttpStatusCodeResult(HttpStatusCode.OK, T("Delete succeeded").Text);
         }
     }
 }

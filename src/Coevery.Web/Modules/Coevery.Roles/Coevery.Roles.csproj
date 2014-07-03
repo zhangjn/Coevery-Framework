@@ -66,7 +66,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\RoleCommands.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="FrontMenu.cs" />
     <Compile Include="ImportExport\RolesCustomExportStep.cs" />
     <Compile Include="ImportExport\RolesExportEventHandler.cs" />
     <Compile Include="ImportExport\RolesRecipeHandler.cs" />
@@ -82,12 +83,13 @@
     <Compile Include="Models\RolesPermissionsRecord.cs" />
     <Compile Include="Models\UserRolesPartRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\DynamicPermissions.cs" />
     <Compile Include="Services\IRoleService.cs" />
     <Compile Include="Services\RolesBasedAuthorizationService.cs" />
     <Compile Include="Services\RoleService.cs" />
     <Compile Include="ViewModels\RoleCreateViewModel.cs" />
     <Compile Include="ViewModels\RoleEditViewModel.cs" />
-    <Compile Include="ViewModels\RolesIndexViewModel.cs" />
+    <Compile Include="ViewModels\RolesListViewModel.cs" />
     <Compile Include="ViewModels\UserRolesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -96,9 +98,6 @@
     <Content Include="Styles\workflows-activity-assign-role.css" />
     <Content Include="Styles\workflows-activity-isinrole.css" />
     <Content Include="Styles\workflows-activity-usertask.css" />
-    <Content Include="Views\Admin\Create.cshtml" />
-    <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\EditorTemplates\Parts\Roles.UserRoles.cshtml" />
     <Content Include="Content\Site.css" />
   </ItemGroup>
@@ -114,16 +113,28 @@
     <Content Include="web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Activity-IsInRole.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Styles\Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Activity-UserTask.cshtml" />
+    <Content Include="Views\UserTask.ActionButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\UserTask.ActionButton.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Role\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Role\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListView-Role.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListViewActions-Role.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListViewGrid-Role.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Coevery\Coevery.Framework.csproj">

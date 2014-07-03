@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Web.Security;
+using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.Users.Models;
+using Coevery.Users.ViewModels;
 
 namespace Coevery.Users.Drivers {
     /// <summary>
@@ -9,6 +11,16 @@ namespace Coevery.Users.Drivers {
     /// Content Item display methods.
     /// </summary>
     public class UserPartDriver : ContentPartDriver<UserPart> {
+
+        protected override DriverResult Display(UserPart part, string displayType, dynamic shapeHelper)
+        {
+            return Combined(
+                ContentShape("Parts_ListView",
+                    () => shapeHelper.Parts_ListView()),
+                ContentShape("Parts_DetailView",
+                    () => shapeHelper.Parts_DetailView())
+                );
+        }
 
         protected override void Importing(UserPart part, ContentManagement.Handlers.ImportContentContext context) {
             part.Email = context.Attribute(part.PartDefinition.Name, "Email");

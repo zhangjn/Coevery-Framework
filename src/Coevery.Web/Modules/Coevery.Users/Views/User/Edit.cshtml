@@ -1,0 +1,12 @@
+﻿@{
+	string displayName = Model.ContentItem.TypeDefinition.DisplayName;
+    Layout.Title = displayName;
+    Layout.TitleDescription = string.Format(T("edit the {0}").Text, displayName);
+}
+<div class="row-fluid edit-mode">
+    @using (Html.BeginFormAntiForgeryPost())
+    {
+        @Html.ValidationSummary()
+        @Display(Model)
+    }
+</div>

@@ -3,24 +3,34 @@
 
 <fieldset>
     <legend>@T("Roles")</legend>
-    @if (Model.Roles.Count > 0) {
-        var index = 0;
-        foreach (var entry in Model.Roles) {
-            if (string.Equals(entry.Name, "Authenticated", StringComparison.OrdinalIgnoreCase) || string.Equals(entry.Name, "Anonymous", StringComparison.OrdinalIgnoreCase)) {
-                continue;
-            }
+    <div class="data-row clearfix">
+        <div class="span12 control-group">
+            <label class="title control-label">@T("Roles")</label>
+            <div class="controls">
+                @if (Model.Roles.Count > 0)
+                {
+                    var index = 0;
+                    foreach (var entry in Model.Roles)
+                    {
+                        if (string.Equals(entry.Name, "Authenticated", StringComparison.OrdinalIgnoreCase) || string.Equals(entry.Name, "Anonymous", StringComparison.OrdinalIgnoreCase))
+                        {
+                            continue;
+                        }
 
-            @Html.Hidden("Roles[" + index + "].RoleId", entry.RoleId)
-            @Html.Hidden("Roles[" + index + "].Name", entry.Name)
-
-    <div>
+                        @Html.Hidden("Roles[" + index + "].RoleId", entry.RoleId)
+                        @Html.Hidden("Roles[" + index + "].Name", entry.Name)
+    <label class="checkbox" for="@Html.FieldIdFor(m => m.Roles[index].Granted)">
         @Html.CheckBox("Roles[" + index + "].Granted", entry.Granted)
-        <label class="forcheckbox" for="@Html.FieldIdFor(m => m.Roles[index].Granted)">@entry.Name</label>
+        @entry.Name
+    </label>
+                        index++;
+                    }
+                }
+                else
+                {
+                    <p>@T("There are no roles.")</p>
+                }
+            </div>
+        </div>
     </div>
-            index++;
-        }
-    }
-    else {
-    <p>@T("There are no roles.")</p>
-    }
 </fieldset>

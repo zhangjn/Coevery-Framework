@@ -1,0 +1,55 @@
+﻿@model RoleCreateViewModel
+@using Coevery.Roles.ViewModels;
+
+@{ Layout.Title = T("Add Role").ToString(); }
+<div class="row-fluid edit-mode">
+    @using (Html.BeginFormAntiForgeryPost())
+    {
+        @Html.ValidationSummary();
+        <fieldset>
+            <legend>@T("General Information")</legend>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Html.LabelFor(m => m.Name, T("Role Name").Text, new { @class = "title control-label required" })
+                    <div class="control controls errortips">
+                        <input class="span12" type="text" id="@Html.IdFor(m => m.Name)" name="@Html.NameFor(m => m.Name)" required="" data-msg-required="This field is required." maxlength="100" value="@Model.Name" placeholder="">
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <fieldset>
+            <legend>@T("Permissions")</legend>
+            <div class="data-row clearfix">
+                @foreach (var featureName in Model.FeaturePermissions.Keys)
+                {
+                    <div class="span12 control-group">
+                        <h5 class="control-label">@T("{0} Module", featureName)</h5>
+                        <label class="control-label"></label>
+                        <div class="controls">
+                            <table class="table table-condensed">
+                                <colgroup>
+                                    <col id="Allow" />
+                                    <col id="Permission" />
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th scope="col">@T("Allow")</th>
+                                        <th scope="col">@T("Permission")</th>
+                                    </tr>
+                                </thead>
+                                @foreach (var permission in Model.FeaturePermissions[featureName])
+                                {
+                                    <tr>
+                                        <td style="width:60px;"><input type="checkbox" value="true" name="Checkbox.@permission.Name" /></td>
+                                        <td>@permission.Description</td>
+                                    </tr>
+                                }
+                            </table>
+                        </div>
+                    </div>
+                }
+            </div>
+        </fieldset>
+        @Display.EditViewAction()
+    }
+</div>

@@ -1,0 +1,19 @@
+﻿@{
+    Layout.Title = T("Roles");
+}
+@using Coevery.DisplayManagement.Shapes
+@{
+    var gridId = "roleGrid";
+    var listViewModel = new
+    {
+        GridId = gridId
+    };
+    Shape actionShape = New.Parts_ListViewActions(GridId: gridId);
+    actionShape.Metadata.Alternates.Add("Parts_ListViewActions__Role");
+
+    Shape viewShape = New.Parts_ListViewGrid(listViewModel);
+    viewShape.Metadata.Alternates.Add("Parts_ListViewGrid__Role");
+}
+
+@Display(actionShape)
+@Display(viewShape)

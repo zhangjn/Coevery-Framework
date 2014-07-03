@@ -3,9 +3,8 @@ using Coevery.Data.Migration;
 
 namespace Coevery.Users {
     public class UsersDataMigration : DataMigrationImpl {
-
         public int Create() {
-            SchemaBuilder.CreateTable("User", 
+            SchemaBuilder.CreateTable("User",
                 table => table
                     .ContentPartRecord()
                     .Column<string>("UserName")
@@ -23,10 +22,13 @@ namespace Coevery.Users {
             return 1;
         }
 
-        //public int UpdateFrom1() {
-        //    ContentDefinitionManager.AlterTypeDefinition("User", cfg => cfg.Creatable(false));
+        public int UpdateFrom1() {
+            ContentDefinitionManager.AlterTypeDefinition("User",
+                cfg => cfg
+                    .WithPart("UserPart")
+                    .WithSetting("CollectionDisplayName", "Users"));
 
-        //    return 2;
-        //}
+            return 2;
+        }
     }
 }

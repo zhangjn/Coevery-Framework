@@ -15,7 +15,6 @@ namespace Coevery.Users.ViewModels {
             get { return User.As<UserPart>().Email; }
             set { User.As<UserPart>().Email = value; }
         }
-
         public IContent User { get; set; }
     }
 }

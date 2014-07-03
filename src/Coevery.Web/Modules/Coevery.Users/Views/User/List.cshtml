@@ -1,0 +1,11 @@
+﻿@{
+    Layout.Title = Model.ContentItem.TypeDefinition.DisplayName;
+}
+
+@Display(Model.Content)
+
+@if (Model.Footer != null) {
+    <footer>
+        @Display(Model.Footer)
+    </footer>
+}
