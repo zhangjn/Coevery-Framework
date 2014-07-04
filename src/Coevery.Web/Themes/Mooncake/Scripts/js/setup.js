@@ -128,24 +128,26 @@
         };
 
         $(document).ajaxComplete(function (event, xhr, settings) {
-            var data = JSON.parse(xhr.responseText);
-            var getOption = function (type) {
-                switch (type) {
-                    case 0:
-                        return { type: 'info', title: 'Information' };
-                    case 1:
-                        return { type: 'notice', title: 'Warnning' };
-                    case 2:
-                        return { type: 'error', title: 'Error' };
-                    default:
-                        return { type: 'success', title: 'Success' };
+            if (settings.dataTypes.length > 1 && settings.dataTypes[1] == "json") {
+                var data = JSON.parse(xhr.responseText);
+                var getOption = function(type) {
+                    switch (type) {
+                        case 0:
+                            return { type: 'info', title: 'Information' };
+                        case 1:
+                            return { type: 'notice', title: 'Warnning' };
+                        case 2:
+                            return { type: 'error', title: 'Error' };
+                        default:
+                            return { type: 'success', title: 'Success' };
+                    }
+                };
+                if (data.__Messages && $.isArray(data.__Messages)) {
+                    $.each(data.__Messages, function(index, value) {
+                        var option = getOption(value.Type);
+                        $.pnotify($.extend(option, { text: value.Message }));
+                    });
                 }
-            };
-            if (data.__Messages && $.isArray(data.__Messages)) {
-                $.each(data.__Messages, function (index, value) {
-                    var option = getOption(value.Type);
-                    $.pnotify($.extend(option, { text: value.Message }));
-                });
             }
         });
     });
