@@ -12,6 +12,7 @@ using Coevery.Core.OptionSet.Settings;
 using Coevery.Core.OptionSet.ViewModels;
 using Coevery.Data;
 using Coevery.Localization;
+using Coevery.Security;
 using Coevery.UI.Notify;
 using JetBrains.Annotations;
 
@@ -144,7 +145,7 @@ namespace Coevery.Core.OptionSet.Drivers {
             var optionItem = entry.Id > 0 ? _optionSetService.GetOptionItem(entry.Id) : default(OptionItemPart);
 
             if (optionItem == null) {
-                if (!Services.Authorizer.Authorize(Permissions.CreateTerm)) {
+                if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel)) {
                     Services.Notifier.Error(T("You're not allowed to create new terms for this taxonomy"));
                     return null;
                 }

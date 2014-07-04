@@ -93,13 +93,11 @@
     <Compile Include="Common\ClientRouteShape.cs" />
     <Compile Include="Common\Controllers\ErrorController.cs" />
     <Compile Include="Common\Controllers\HomeController.cs" />
-    <Compile Include="Common\DynamicPermissions.cs" />
     <Compile Include="Common\Extensions\CoeveryStringExtension.cs" />
     <Compile Include="Common\FrontMenuFilter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Common\Handlers\ContentDeletingHandler.cs" />
-    <Compile Include="Common\Permissions.cs" />
     <Compile Include="Common\Routes.cs" />
     <Compile Include="Common\Services\AutoLoadResourceFilter.cs" />
     <Compile Include="Common\Services\IAutoLoadResourceRegister.cs" />
@@ -165,6 +163,7 @@
     <Compile Include="Forms\Shapes\PropertyItemsBehavior.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="OptionSet\Permissions.cs" />
     <Compile Include="Projections\Controllers\ProjectionController.cs" />
     <Compile Include="Projections\PropertyEditors\IContentFieldFormatter.cs" />
     <Compile Include="Projections\Providers\Properties\IContentFieldValueProvider.cs" />
@@ -213,7 +212,6 @@
     <Compile Include="OptionSet\Models\OptionItemContainerPart.cs" />
     <Compile Include="OptionSet\Models\OptionSetPart.cs" />
     <Compile Include="OptionSet\Models\OptionSetPartRecord.cs" />
-    <Compile Include="OptionSet\Permissions.cs" />
     <Compile Include="OptionSet\Projections\OptionSetFieldValueProvider.cs" />
     <Compile Include="OptionSet\Services\IOptionSetService.cs" />
     <Compile Include="OptionSet\Services\OptionSetService.cs" />
@@ -305,7 +303,6 @@
     <Compile Include="Projections\Models\QueryPartRecord.cs" />
     <Compile Include="Projections\Models\SortCriteriaRecord.cs" />
     <Compile Include="Projections\Navigation\NavigationQueryProvider.cs" />
-    <Compile Include="Projections\Permissions.cs" />
     <Compile Include="Projections\PropertyEditors\DateTimePropertyEditor.cs" />
     <Compile Include="Projections\PropertyEditors\DefaultPropertyFormater.cs" />
     <Compile Include="Projections\PropertyEditors\Forms\DateTimePropertyForm.cs" />

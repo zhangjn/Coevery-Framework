@@ -3,7 +3,7 @@ using Coevery.Environment.Extensions.Models;
 using Coevery.Security.Permissions;
 
 namespace Coevery.Core.Common {
-    public class Permissions : IPermissionProvider {
+    public class Permissions {
 
         // Note - in code you should demand PublishContent, EditContent, or DeleteContent
         // Do not demand the "Own" variations - those are applied automatically when you demand the main ones

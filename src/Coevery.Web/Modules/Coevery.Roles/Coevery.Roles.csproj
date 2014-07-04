@@ -68,6 +68,7 @@
     <Compile Include="Commands\RoleCommands.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="FrontMenu.cs" />
+    <Compile Include="DynamicPermissions.cs" />
     <Compile Include="ImportExport\RolesCustomExportStep.cs" />
     <Compile Include="ImportExport\RolesExportEventHandler.cs" />
     <Compile Include="ImportExport\RolesRecipeHandler.cs" />

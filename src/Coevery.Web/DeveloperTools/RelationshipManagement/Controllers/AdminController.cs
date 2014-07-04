@@ -14,6 +14,7 @@ using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.RelationshipManagement.Services;
 using Coevery.Localization;
 using Coevery.Logging;
+using Coevery.Security;
 
 namespace Coevery.DeveloperTools.RelationshipManagement.Controllers {
     public class AdminController : Controller, IUpdateModel {
@@ -67,7 +68,7 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Controllers {
         #region OneToMany
 
         public ActionResult CreateOneToMany(string id) {
-            if (!Services.Authorizer.Authorize(Permissions.PublishContent, T("Not allowed to edit a content."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content."))) {
                 return new HttpUnauthorizedResult();
             }
 
@@ -115,7 +116,8 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Controllers {
 
         [HttpPost]
         public ActionResult CreateOneToMany(OneToManyRelationshipModel oneToMany) {
-            if (!Services.Authorizer.Authorize(Permissions.PublishContent, T("Not allowed to edit a content."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content.")))
+            {
                 return new HttpUnauthorizedResult();
             }
 
@@ -140,7 +142,8 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Controllers {
 
         [HttpPost]
         public ActionResult EditOneToMany(int relationId, OneToManyRelationshipModel oneToMany) {
-            if (!Services.Authorizer.Authorize(Permissions.EditContent, T("Not allowed to edit a content."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content.")))
+            {
                 return new HttpUnauthorizedResult();
             }
             var errorMessage = _relationshipService.EditRelationship(relationId, oneToMany);
@@ -156,7 +159,8 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Controllers {
         #region ManyToMany
 
         public ActionResult CreateManyToMany(string id) {
-            if (!Services.Authorizer.Authorize(Permissions.PublishContent, T("Not allowed to edit a content."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content.")))
+            {
                 return new HttpUnauthorizedResult();
             }
             //if (!_contentMetadataService.CheckEntityPublished(id)) {
@@ -210,7 +214,8 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Controllers {
 
         [HttpPost]
         public ActionResult CreateManyToMany(ManyToManyRelationshipModel manyToMany) {
-            if (!Services.Authorizer.Authorize(Permissions.PublishContent, T("Not allowed to edit a content."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content.")))
+            {
                 return new HttpUnauthorizedResult();
             }
 
@@ -236,7 +241,8 @@ namespace Coevery.DeveloperTools.RelationshipManagement.Controllers {
 
         [HttpPost]
         public ActionResult EditManyToMany(int relationId, ManyToManyRelationshipModel manyToMany) {
-            if (!Services.Authorizer.Authorize(Permissions.EditContent, T("Not allowed to edit a content."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content.")))
+            {
                 return new HttpUnauthorizedResult();
             }
             var errorMessage = _relationshipService.EditRelationship(relationId, manyToMany);

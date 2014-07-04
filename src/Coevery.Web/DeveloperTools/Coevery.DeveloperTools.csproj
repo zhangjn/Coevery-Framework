@@ -168,7 +168,9 @@
     <Compile Include="CodeGeneration\Utils\CSharpTypeNameProvider.cs" />
     <Compile Include="CodeGeneration\Utils\TypeExtensions.cs" />
     <Compile Include="CodeGeneration\Utils\TypeNameProvider.cs" />
-    <Compile Include="EntityManagement\Controllers\AdminController.cs" />
+    <Compile Include="EntityManagement\Controllers\AdminController.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="EntityManagement\Controllers\EntityController.cs" />
     <Compile Include="EntityManagement\Controllers\FieldController.cs" />
     <Compile Include="EntityManagement\Controllers\HomeController.cs" />
@@ -176,6 +178,7 @@
     <Compile Include="CodeGeneration\Services\DynamicDefinition.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicAssemblyBuilder.cs" />
     <Compile Include="EntityManagement\Handlers\ContentTypeDefinitionPartHandler.cs" />
+    <Compile Include="EntityManagement\Permissions.cs" />
     <Compile Include="ListViewDesigner\Controllers\GridInfoController.cs" />
     <Compile Include="ListViewDesigner\Drivers\GridInfoPartDriver.cs" />
     <Compile Include="ListViewDesigner\Handlers\GridInfoFieldEventsHandler.cs" />
@@ -189,7 +192,6 @@
     <Compile Include="ListViewDesigner\ViewModels\GridViewModel.cs" />
     <Compile Include="RelationshipManagement\DynamicTypeGeneration\RelationshipDynamicTypeGenerationEventsHandler.cs" />
     <Compile Include="CodeGeneration\Services\IDynamicTypeGenerationEvents.cs" />
-    <Compile Include="EntityManagement\Permissions.cs" />
     <Compile Include="EntityManagement\Routes.cs" />
     <Compile Include="EntityManagement\Services\AdminMenu.cs" />
     <Compile Include="EntityManagement\Services\ClientRouteProvider.cs" />

@@ -6,7 +6,22 @@ using Coevery.ContentManagement.MetaData.Models;
 using Coevery.Environment.Extensions.Models;
 using Coevery.Security.Permissions;
 
-namespace Coevery.Core.Common {
+namespace Coevery.Roles {
+    public class Permissions {
+
+        // Note - in code you should demand PublishContent, EditContent, or DeleteContent
+        // Do not demand the "Own" variations - those are applied automatically when you demand the main ones
+
+        public static readonly Permission PublishContent = new Permission {Description = "Publish or unpublish content for others", Name = "PublishContent"};
+        public static readonly Permission PublishOwnContent = new Permission {Description = "Publish or unpublish own content", Name = "PublishOwnContent", ImpliedBy = new[] {PublishContent}};
+        public static readonly Permission EditContent = new Permission {Description = "Edit content for others", Name = "EditContent", ImpliedBy = new[] {PublishContent}};
+        public static readonly Permission EditOwnContent = new Permission {Description = "Edit own content", Name = "EditOwnContent", ImpliedBy = new[] {EditContent, PublishOwnContent}};
+        public static readonly Permission DeleteContent = new Permission {Description = "Delete content for others", Name = "DeleteContent"};
+        public static readonly Permission DeleteOwnContent = new Permission {Description = "Delete own content", Name = "DeleteOwnContent", ImpliedBy = new[] {DeleteContent}};
+        public static readonly Permission ViewContent = new Permission {Description = "View all content", Name = "ViewContent", ImpliedBy = new[] {EditContent}};
+        public static readonly Permission ViewOwnContent = new Permission {Description = "View own content", Name = "ViewOwnContent", ImpliedBy = new[] {ViewContent}};
+    }
+
     public class DynamicPermissions : IPermissionProvider {
         private static readonly Permission PublishContent = new Permission { Description = "Publish or unpublish {0} for others", Name = "Publish_{0}", ImpliedBy = new[] { Permissions.PublishContent } };
         private static readonly Permission PublishOwnContent = new Permission { Description = "Publish or unpublish {0}", Name = "PublishOwn_{0}", ImpliedBy = new[] { PublishContent, Permissions.PublishOwnContent } };
