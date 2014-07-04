@@ -400,6 +400,7 @@
     <Compile Include="Relationships\Records\ManyToManyRelationshipRecord.cs" />
     <Compile Include="Relationships\Records\OneToManyRelationshipRecord.cs" />
     <Compile Include="Relationships\Records\RelationshipRecord.cs" />
+    <Compile Include="Relationships\ResourceManifest.cs" />
     <Compile Include="Relationships\Services\IRelationshipService.cs" />
     <Compile Include="Relationships\Services\RelationshipService.cs" />
     <Compile Include="Relationships\Settings\ReferenceFieldSettings.cs" />
@@ -585,7 +586,8 @@
     <Content Include="Projections\Styles\images\menu.queries.png" />
     <Content Include="Projections\Styles\menu.projector-admin.css" />
     <Content Include="Relationships\Module.txt" />
-    <Content Include="Relationships\Scripts\entitypicker.js" />
+    <Content Include="Relationships\Scripts\jquery.tagsinput.js" />
+    <Content Include="Relationships\Styles\jquery.tagsinput.css" />
     <Content Include="Settings\Module.txt" />
     <Content Include="Settings\Placement.info" />
   </ItemGroup>
@@ -946,6 +948,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Relationships\Views\EntityPicker.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relationships\Scripts\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Relationships\Styles\Web.config" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
