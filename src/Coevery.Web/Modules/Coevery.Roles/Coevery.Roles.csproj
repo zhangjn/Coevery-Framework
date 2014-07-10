@@ -67,8 +67,10 @@
   <ItemGroup>
     <Compile Include="Commands\RoleCommands.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="DynamicPermissions.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="FrontMenu.cs" />
-    <Compile Include="DynamicPermissions.cs" />
     <Compile Include="ImportExport\RolesCustomExportStep.cs" />
     <Compile Include="ImportExport\RolesExportEventHandler.cs" />
     <Compile Include="ImportExport\RolesRecipeHandler.cs" />
@@ -84,7 +86,6 @@
     <Compile Include="Models\RolesPermissionsRecord.cs" />
     <Compile Include="Models\UserRolesPartRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\DynamicPermissions.cs" />
     <Compile Include="Services\IRoleService.cs" />
     <Compile Include="Services\RolesBasedAuthorizationService.cs" />
     <Compile Include="Services\RoleService.cs" />

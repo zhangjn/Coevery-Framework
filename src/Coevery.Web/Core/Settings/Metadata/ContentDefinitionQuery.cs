@@ -118,11 +118,13 @@ namespace Coevery.Core.Settings.Metadata {
         }
 
         private ContentTypeDefinition Build(ContentTypeDefinitionRecord source) {
+            var settings = _settingsFormatter.Map(Parse(source.Settings));
+            settings["ContentTypeSettings.Customized"] = source.Customized.ToString();
             return new ContentTypeDefinition(
                 source.Name,
                 source.DisplayName,
                 source.ContentTypePartDefinitionRecords.Select(Build),
-                _settingsFormatter.Map(Parse(source.Settings)));
+                settings);
         }
 
         private ContentTypePartDefinition Build(ContentTypePartDefinitionRecord source) {
