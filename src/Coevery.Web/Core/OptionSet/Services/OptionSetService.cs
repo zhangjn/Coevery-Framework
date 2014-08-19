@@ -106,7 +106,7 @@ namespace Coevery.Core.OptionSet.Services {
 
         public bool CreateOptionItem(OptionItemPart termPart) {
             if (GetOptionItemByName(termPart.OptionSetId, termPart.Name) == null) {
-                _authorizationService.CheckAccess(Permissions.CreateTerm, _services.WorkContext.CurrentUser, null);
+                _authorizationService.CheckAccess(StandardPermissions.AccessAdminPanel, _services.WorkContext.CurrentUser, null);
 
                 _contentManager.Create(termPart);
                 return true;

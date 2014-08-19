@@ -6,6 +6,7 @@ using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.MetaData.Services;
 using Coevery.Core.Common.Extensions;
 using Coevery.Core.Entities.Events;
+using Coevery.Core.Settings.Metadata;
 using Coevery.Core.Settings.Metadata.Parts;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data;
@@ -31,17 +32,20 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
         private readonly IRepository<ContentFieldDefinitionRecord> _fieldDefinitionRepository;
         private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;
         private readonly IFieldEvents _fieldEvents;
+        private readonly IContentDefinitionManager _contentDefinitionManager;
 
         public EntityMetadataService(
             ICoeveryServices services,
             IRepository<ContentFieldDefinitionRecord> fieldDefinitionRepository,
             IContentDefinitionEditorEvents contentDefinitionEditorEvents,
             ISettingsFormatter settingsFormatter,
-            IFieldEvents fieldEvents) {
+            IFieldEvents fieldEvents, 
+            IContentDefinitionManager contentDefinitionManager) {
             _fieldDefinitionRepository = fieldDefinitionRepository;
             _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
             _settingsFormatter = settingsFormatter;
             _fieldEvents = fieldEvents;
+            _contentDefinitionManager = contentDefinitionManager;
             Services = services;
             T = NullLocalizer.Instance;
         }
@@ -57,8 +61,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
 
         public IEnumerable<ContentTypeDefinitionPart> GetEntities(VersionOptions options) {
             return Services.ContentManager.Query<ContentTypeDefinitionPart, ContentTypeDefinitionRecord>(options)
-                .Where(x => x.Customized)
-                .List();
+                .List().Where(x => x.Settings.GetModel<ContentTypeSettings>().Creatable);
         }
 
         public ContentTypeDefinitionPart GetEntity(string name) {
@@ -76,8 +79,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             var entityDraft = Services.ContentManager.New<ContentTypeDefinitionPart>("ContentTypeDefinition");
             entityDraft.DisplayName = displayName;
             entityDraft.Name = name;
-            entityDraft.EntitySettings = settings;
-            entityDraft.Customized = true;
+            settings["ContentTypeSettings.Creatable"] = bool.TrueString;
+            entityDraft.WithSetting(settings);
             Services.ContentManager.Create(entityDraft, VersionOptions.Draft);
         }
 
@@ -130,9 +133,9 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
             partDefinition.ContentPartFieldDefinitionRecords.Add(fieldRecord);
 
             if (addInLayout) {
-                var settings = entity.EntitySettings;
+                var settings = _settingsFormatter.Parse(entity.Record.Settings);
                 _fieldEvents.OnAdding(entityName, fieldName, settings);
-                entity.EntitySettings = settings;
+                entity.WithSetting(settings);
             }
         }
 

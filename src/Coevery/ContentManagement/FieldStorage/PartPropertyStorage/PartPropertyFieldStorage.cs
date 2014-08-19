@@ -16,19 +16,24 @@ namespace Coevery.ContentManagement.FieldStorage.PartPropertyStorage {
         }
 
         public T Get<T>(string name) {
-            var getter = _getters.GetOrAdd(_partFieldDefinition.Name, n =>
-                                                 CallSite<Func<CallSite, object, dynamic>>.Create(
-                                                     Binder.GetMember(CSharpBinderFlags.None, n, null,
-                                                                      new[] {CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null)})));
+            var getter = _getters.GetOrAdd(_partFieldDefinition.Name, n => {
+                var binder = Binder.GetMember(CSharpBinderFlags.None, n, null, new[] {CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, null)});
+                return CallSite<Func<CallSite, object, dynamic>>.Create(binder);
+            });
 
-            var result = getter.Target(getter, _contentPart);
+            try {
+                var result = getter.Target(getter, _contentPart);
 
-            if (result == null)
+                if (result == null)
+                    return default(T);
+
+                var converter = _converters.GetOrAdd(typeof (T), CompileConverter);
+                var argument = converter.Invoke(result);
+                return argument;
+            }
+            catch (RuntimeBinderException) {
                 return default(T);
-
-            var converter = _converters.GetOrAdd(typeof (T), CompileConverter);
-            var argument = converter.Invoke(result);
-            return argument;
+            }
         }
 
         public void Set<T>(string name, T value) {

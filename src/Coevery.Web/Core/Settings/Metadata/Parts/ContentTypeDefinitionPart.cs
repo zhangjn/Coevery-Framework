@@ -1,7 +1,11 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData.Models;
-using Coevery.Core.Common.Utilities;
+using Coevery.ContentManagement.MetaData.Services;
+using Coevery.ContentManagement.Utilities;
 using Coevery.Core.Settings.Metadata.Records;
+using Coevery.Utility.Extensions;
 
 namespace Coevery.Core.Settings.Metadata.Parts {
     public class ContentTypeDefinitionPart : ContentPart<ContentTypeDefinitionRecord> {
@@ -17,14 +21,21 @@ namespace Coevery.Core.Settings.Metadata.Parts {
             set { Record.DisplayName = value; }
         }
 
-        public bool Customized {
-            get { return Record.Customized; }
-            set { Record.Customized = value; }
+        public ReadOnlyDictionary<string, string> DefinitionSettings {
+            get {
+                var settings = new SettingsDictionary();
+                return new ReadOnlyDictionary<string, string>(settings);
+            }
         }
 
-        public SettingsDictionary EntitySettings {
-            get { return _entitySettings.Value; }
-            set { _entitySettings.Value = value; }
+        public void WithSetting(SettingsDictionary settings) {
+            _entitySettings.Value = settings;
+        }
+
+        public void WithSetting(string name, string value) {
+            var settings = new Dictionary<string, string>();
+            settings[name] = value;
+            WithSetting(new SettingsDictionary(settings));
         }
     }
 }

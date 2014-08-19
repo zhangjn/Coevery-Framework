@@ -6,9 +6,11 @@ using System.Web.Mvc;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
+using Coevery.ContentManagement.MetaData.Services;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.EntityManagement.ViewModels;
 using Coevery.Localization;
+using Coevery.Security;
 using Coevery.Utility.Extensions;
 using System.Data.Entity.Design.PluralizationServices;
 
@@ -16,15 +18,18 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
     public class AdminController : Controller, IUpdateModel {
         private readonly IContentDefinitionEditorEvents _contentDefinitionEditorEvents;
         private readonly IEntityMetadataService _entityMetadataService;
+        private readonly ISettingsFormatter _settingsFormatter;
 
         public AdminController(
             ICoeveryServices coeveryServices,
             IContentDefinitionEditorEvents contentDefinitionEditorEvents,
-            IEntityMetadataService entityMetadataService) {
+            IEntityMetadataService entityMetadataService, 
+            ISettingsFormatter settingsFormatter) {
             Services = coeveryServices;
             T = NullLocalizer.Instance;
             _contentDefinitionEditorEvents = contentDefinitionEditorEvents;
             _entityMetadataService = entityMetadataService;
+            _settingsFormatter = settingsFormatter;
         }
 
         public ICoeveryServices Services { get; private set; }
@@ -38,7 +43,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         }
 
         public ActionResult Create() {
-            if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to create a content type."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to create a content type.")))
+            {
                 return new HttpUnauthorizedResult();
             }
 
@@ -64,7 +70,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
 
         [HttpPost, ActionName("Create")]
         public ActionResult CreatePost(EditTypeViewModel viewModel) {
-            if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to create a content type."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to create a content type.")))
+            {
                 return new HttpUnauthorizedResult();
             }
 
@@ -98,7 +105,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         }
 
         public ActionResult Edit(string id) {
-            if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to edit a content type."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content type.")))
+            {
                 return new HttpUnauthorizedResult();
             }
 
@@ -110,14 +118,15 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             var viewModel = new EditTypeViewModel {
                 Name = entity.Name,
                 DisplayName = entity.DisplayName,
-                Settings = entity.EntitySettings
+                Settings = _settingsFormatter.Parse(entity.Record.Settings)
             };
             return View(viewModel);
         }
 
         [HttpPost, ActionName("Edit")]
         public ActionResult EditPost(string id, EditTypeViewModel viewModel) {
-            if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to edit a content type."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content type.")))
+            {
                 return new HttpUnauthorizedResult();
             }
 
@@ -131,16 +140,13 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             }
 
             entity.DisplayName = viewModel.DisplayName;
-            var entitySettings = entity.EntitySettings;
-            foreach (var setting in  viewModel.Settings) {
-                entitySettings[setting.Key] = setting.Value;
-            }
-            entity.EntitySettings = entitySettings;
+            entity.WithSetting(viewModel.Settings);
             return new HttpStatusCodeResult(HttpStatusCode.OK);
         }
 
         public ActionResult Detail(string id) {
-            if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to edit a content type."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content type.")))
+            {
                 return new HttpUnauthorizedResult();
             }
 
@@ -153,7 +159,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
             var viewModel = new EditTypeViewModel {
                 Name = entity.Name,
                 DisplayName = entity.DisplayName,
-                Settings = entity.EntitySettings
+                Settings = _settingsFormatter.Parse(entity.Record.Settings)
             };
 
             return View(viewModel);
@@ -164,7 +170,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         #region Field Methods
 
         public ActionResult ChooseFieldType(string id) {
-            if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to edit a content part."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content part.")))
+            {
                 return new HttpUnauthorizedResult();
             }
 
@@ -176,7 +183,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         }
 
         public ActionResult FillFieldInfo(string id, string fieldTypeName) {
-            if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to edit a content part."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content part.")))
+            {
                 return new HttpUnauthorizedResult();
             }
             var contentFieldDefinition = new ContentFieldDefinition(fieldTypeName);
@@ -193,7 +201,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         }
 
         public ActionResult ConfirmFieldInfo(string id) {
-            if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to edit a content part."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content part.")))
+            {
                 return new HttpUnauthorizedResult();
             }
             return View();
@@ -201,7 +210,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
 
         [HttpPost, ActionName("FillFieldInfo")]
         public ActionResult FillFieldInfoPost(string id, AddFieldViewModel viewModel) {
-            if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to edit a content part."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content part.")))
+            {
                 return new HttpUnauthorizedResult();
             }
 
@@ -246,7 +256,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
         }
 
         public ActionResult EditFields(string id, string fieldName) {
-            if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to edit a content type."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content type.")))
+            {
                 return new HttpUnauthorizedResult();
             }
             var field = _entityMetadataService.GetFields(id).FirstOrDefault(x => x.Name == fieldName);
@@ -266,7 +277,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Controllers {
 
         [HttpPost, ActionName("EditFields")]
         public ActionResult EditFieldsPost(EditPartFieldViewModel viewModel, string id) {
-            if (!Services.Authorizer.Authorize(Permissions.EditContentTypes, T("Not allowed to edit a content type."))) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.AccessAdminPanel, T("Not allowed to edit a content type.")))
+            {
                 return new HttpUnauthorizedResult();
             }
 

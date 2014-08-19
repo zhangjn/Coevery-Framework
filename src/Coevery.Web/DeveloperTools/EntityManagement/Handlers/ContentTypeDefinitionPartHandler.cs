@@ -6,6 +6,7 @@ using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.Core.Common.Extensions;
+using Coevery.Core.Settings.Metadata;
 using Coevery.Core.Settings.Metadata.Parts;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data.Migration.Schema;
@@ -31,7 +32,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
         }
 
         private void OnPublishing(PublishContentContext context, ContentTypeDefinitionPart part) {
-            if (!part.Customized) {
+            var settings = part.Settings.GetModel<ContentTypeSettings>();
+            if (!settings.Creatable) {
                 return;
             }
 
@@ -90,7 +92,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
         }
 
         private void OnVersioning(VersionContentContext context, ContentTypeDefinitionPart existing, ContentTypeDefinitionPart building) {
-            if (!existing.Customized) {
+            var settings = existing.Settings.GetModel<ContentTypeSettings>();
+            if (!settings.Creatable) {
                 return;
             }
 
@@ -103,7 +106,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
         }
 
         private void OnCreating(CreateContentContext context, ContentTypeDefinitionPart part) {
-            if (!part.Customized) {
+            var settings = part.Settings.GetModel<ContentTypeSettings>();
+            if (!settings.Creatable) {
                 return;
             }
 
@@ -117,7 +121,8 @@ namespace Coevery.DeveloperTools.EntityManagement.Handlers {
         }
 
         private void OnRemoving(RemoveContentContext context, ContentTypeDefinitionPart part) {
-            if (!part.Customized) {
+            var settings = part.Settings.GetModel<ContentTypeSettings>();
+            if (!settings.Creatable) {
                 return;
             }
 

@@ -40,7 +40,7 @@ namespace Coevery.Core.Relationships.Drivers {
             var settings = field.PartFieldDefinition.Settings.GetModel<ReferenceFieldSettings>();
             int? value = field.Value;
             string title = string.Empty;
-            if (value.HasValue) {
+            if (value.HasValue && field.ContentItem != null) {
                 string partName = settings.ContentTypeName.ToPartName();
                 var referenceItem = field.ContentItem.ContentItem;
                 var contentPart = referenceItem.Parts.First(x => x.PartDefinition.Name == partName);

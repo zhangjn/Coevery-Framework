@@ -31,8 +31,7 @@ namespace Coevery.DeveloperTools.FormDesigner.Services {
                 return;
             }
 
-            var settings = entity.EntitySettings;
-            var layout = JsonConvert.DeserializeObject<IList<Section>>(settings["Layout"]);
+            var layout = JsonConvert.DeserializeObject<IList<Section>>(entity.DefinitionSettings["Layout"]);
             foreach (var section in layout) {
                 foreach (var row in section.Rows) {
                     var fieldColumn = row.Columns.FirstOrDefault(column => column.Field != null && column.Field.FieldName == fieldName);
@@ -43,9 +42,7 @@ namespace Coevery.DeveloperTools.FormDesigner.Services {
                         else {
                             section.Rows.Remove(row);
                         }
-
-                        settings["Layout"] = JsonConvert.SerializeObject(layout);
-                        entity.EntitySettings = settings;
+                        entity.WithSetting("Layout", JsonConvert.SerializeObject(layout));
                         break;
                     }
                 }

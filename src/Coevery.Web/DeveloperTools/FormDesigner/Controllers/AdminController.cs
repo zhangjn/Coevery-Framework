@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
 using Coevery.ContentManagement.MetaData.Builders;
+using Coevery.ContentManagement.MetaData.Services;
 using Coevery.Core.Common.Extensions;
 using Coevery.DeveloperTools.EntityManagement.Services;
 using Coevery.DeveloperTools.FormDesigner.Services;
@@ -9,15 +10,18 @@ using Coevery.Localization;
 namespace Coevery.DeveloperTools.FormDesigner.Controllers {
     public class AdminController : Controller {
         private readonly ILayoutManager _layoutManager;
+        private readonly ISettingsFormatter _settingsFormatter;
         private readonly IEntityMetadataService _entityMetadataService;
 
 
         public AdminController(
             ICoeveryServices coeveryServices,
             ILayoutManager layoutManager,
-            IEntityMetadataService entityMetadataService) {
+            IEntityMetadataService entityMetadataService, 
+            ISettingsFormatter settingsFormatter) {
             _layoutManager = layoutManager;
             _entityMetadataService = entityMetadataService;
+            _settingsFormatter = settingsFormatter;
             Services = coeveryServices;
             T = NullLocalizer.Instance;
         }
@@ -33,7 +37,8 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
 
             var typeBuilder = new ContentTypeDefinitionBuilder();
             typeBuilder.Named(entity.Name).DisplayedAs(entity.DisplayName);
-            foreach (var pair in entity.EntitySettings) {
+            var settings = _settingsFormatter.Parse(entity.Record.Settings);
+            foreach (var pair in settings) {
                 typeBuilder.WithSetting(pair.Key, pair.Value);
             }
             var partBuilder = new ContentPartDefinitionBuilder();

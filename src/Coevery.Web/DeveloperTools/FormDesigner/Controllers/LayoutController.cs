@@ -24,10 +24,7 @@ namespace Coevery.DeveloperTools.FormDesigner.Controllers {
                 return Request.CreateResponse(HttpStatusCode.NotFound);
             }
 
-            // lazy field trick, the property have to be setted again when something changed.
-            var settings = entity.EntitySettings;
-            settings["Layout"] = data.Layout;
-            entity.EntitySettings = settings;
+            entity.WithSetting("Layout", data.Layout);
 
             return Request.CreateResponse(HttpStatusCode.OK);
         }

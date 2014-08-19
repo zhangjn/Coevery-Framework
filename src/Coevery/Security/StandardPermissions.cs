@@ -8,7 +8,11 @@ namespace Coevery.Security {
     public class StandardPermissions : IPermissionProvider {
         public static readonly Permission AccessAdminPanel = new Permission { Name = "AccessAdminPanel", Description = "Access admin panel" };
         public static readonly Permission AccessFrontEnd = new Permission { Name = "AccessFrontEnd", Description = "Access site front-end" };
-        public static readonly Permission SiteOwner = new Permission { Name = "SiteOwner", Description = "Site Owners Permission" }; 
+        public static readonly Permission SiteOwner = new Permission { Name = "SiteOwner", Description = "Site Owners Permission" };
+        public static readonly Permission Create = new Permission { Description = "Create", Name = "Create" };
+        public static readonly Permission Edit = new Permission { Description = "Edit", Name = "Edit", ImpliedBy = new[] { Create } };
+        public static readonly Permission Delete = new Permission { Description = "Delete", Name = "Delete" };
+        public static readonly Permission View = new Permission { Description = "View", Name = "View", ImpliedBy = new[] { Edit } };
 
         public Feature Feature {
             get {
@@ -30,9 +34,7 @@ namespace Coevery.Security {
 
         public IEnumerable<Permission> GetPermissions() {
             return new[] {
-                AccessAdminPanel,
-                AccessFrontEnd,
-                SiteOwner
+                AccessFrontEnd
             };
         }
 
@@ -40,11 +42,10 @@ namespace Coevery.Security {
             return new[] {
                 new PermissionStereotype {
                     Name = "Administrator",
-                    Permissions = new[] {SiteOwner, AccessAdminPanel}
+                    Permissions = new[] {AccessAdminPanel}
                 },
                 new PermissionStereotype {
-                    Name = "Anonymous",
-                    Permissions = new[] {AccessFrontEnd}
+                    Name = "Anonymous"
                 },
                 new PermissionStereotype {
                     Name = "Authenticated",

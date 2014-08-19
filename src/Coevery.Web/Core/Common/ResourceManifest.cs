@@ -17,6 +17,10 @@ namespace Coevery.Core.Common {
             manifest.DefineScript("moment").SetUrl("moment-with-langs.min.js", "moment-with-langs.js").SetVersion("2.6.0");
 
             RegisterJQuery(manifest);
+
+            manifest.DefineScript("select2").SetUrl("jQuery/select2/select2.min.js", "jQuery/select2/select2.js").SetVersion("3.5.1").SetDependencies("jQuery");
+            manifest.DefineStyle("select2").SetUrl("jQuery/select2/select2.css");
+            manifest.DefineStyle("select2-bootstrap").SetUrl("jQuery/select2/select2-bootstrap.css").SetDependencies("select2");
         }
 
         private void RegisterJQuery(UI.Resources.ResourceManifest manifest) {

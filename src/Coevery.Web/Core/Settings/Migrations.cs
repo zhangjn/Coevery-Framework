@@ -31,7 +31,6 @@ namespace Coevery.Core.Settings {
                     .ContentPartVersionRecord()
                     .Column<string>("Name")
                     .Column<string>("DisplayName")
-                    .Column<bool>("Customized")
                     .Column<string>("Settings", column => column.Unlimited())
                 );
 

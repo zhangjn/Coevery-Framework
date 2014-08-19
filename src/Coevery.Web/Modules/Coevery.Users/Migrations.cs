@@ -1,4 +1,5 @@
 ﻿using Coevery.ContentManagement.MetaData;
+using Coevery.Core.Settings.Metadata;
 using Coevery.Data.Migration;
 
 namespace Coevery.Users {
@@ -26,7 +27,8 @@ namespace Coevery.Users {
             ContentDefinitionManager.AlterTypeDefinition("User",
                 cfg => cfg
                     .WithPart("UserPart")
-                    .WithSetting("CollectionDisplayName", "Users"));
+                    .CollectionDisplayNameAs("Users")
+                    .Creatable());
 
             return 2;
         }
