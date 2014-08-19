@@ -9,7 +9,7 @@ using Coevery.Utility.Extensions;
 
 namespace Coevery.Core.Settings.Metadata.Parts {
     public class ContentTypeDefinitionPart : ContentPart<ContentTypeDefinitionRecord> {
-        public readonly LazyField<SettingsDictionary> _entitySettings = new LazyField<SettingsDictionary>();
+        public readonly LazyField<SettingsDictionary> _definitionSettings = new LazyField<SettingsDictionary>();
 
         public string Name {
             get { return Record.Name; }
@@ -23,13 +23,12 @@ namespace Coevery.Core.Settings.Metadata.Parts {
 
         public ReadOnlyDictionary<string, string> DefinitionSettings {
             get {
-                var settings = new SettingsDictionary();
-                return new ReadOnlyDictionary<string, string>(settings);
+                return new ReadOnlyDictionary<string, string>(_definitionSettings.Value);
             }
         }
 
         public void WithSetting(SettingsDictionary settings) {
-            _entitySettings.Value = settings;
+            _definitionSettings.Value = settings;
         }
 
         public void WithSetting(string name, string value) {

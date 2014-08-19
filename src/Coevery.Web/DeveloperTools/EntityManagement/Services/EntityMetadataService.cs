@@ -61,7 +61,7 @@ namespace Coevery.DeveloperTools.EntityManagement.Services {
 
         public IEnumerable<ContentTypeDefinitionPart> GetEntities(VersionOptions options) {
             return Services.ContentManager.Query<ContentTypeDefinitionPart, ContentTypeDefinitionRecord>(options)
-                .List().Where(x => x.Settings.GetModel<ContentTypeSettings>().Creatable);
+                .List().Where(x => new SettingsDictionary(x.DefinitionSettings).GetModel<ContentTypeSettings>().Creatable);
         }
 
         public ContentTypeDefinitionPart GetEntity(string name) {

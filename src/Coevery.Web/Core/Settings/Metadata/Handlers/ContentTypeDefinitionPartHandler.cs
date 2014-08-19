@@ -19,8 +19,9 @@ namespace Coevery.Core.Settings.Metadata.Handlers {
         }
 
         private void LazyLoadHandlers(ContentTypeDefinitionPart part) {
-            part._entitySettings.Loader(value => _settingsFormatter.Parse(part.Record.Settings));
-            part._entitySettings.Setter(value => {
+            part._definitionSettings.Loader(value => _settingsFormatter.Parse(part.Record.Settings));
+            part._definitionSettings.Setter(value =>
+            {
                 var settings = _settingsFormatter.Parse(part.Record.Settings);
                 foreach (var kvp in value) {
                     settings[kvp.Key] = kvp.Value;
