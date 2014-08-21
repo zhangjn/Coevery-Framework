@@ -862,8 +862,6 @@
     <Content Include="MooncakeBase\Scripts\plugins\bootstrap-select\bootstrap-select.js" />
     <Content Include="MooncakeBase\Scripts\plugins\bootstrap-select\bootstrap-select.min.js" />
     <Content Include="MooncakeBase\Scripts\plugins\jqGrid.tabledrag.js" />
-    <Content Include="MooncakeBase\Scripts\plugins\select2\select2.js" />
-    <Content Include="MooncakeBase\Scripts\plugins\select2\select2.min.js" />
     <Content Include="MooncakeBase\Scripts\uniform\jquery.uniform.js" />
     <Content Include="MooncakeBase\Scripts\uniform\jquery.uniform.min.js" />
     <Content Include="MooncakeBase\Styles\assets\draggable.png" />
@@ -2239,10 +2237,6 @@
     <Content Include="MooncakeBase\Styles\plugins\elfinder.css" />
     <Content Include="MooncakeBase\Styles\plugins\fullcalendar.css" />
     <Content Include="MooncakeBase\Styles\plugins\plugins.min.css" />
-    <Content Include="MooncakeBase\Styles\plugins\select2\select2.css" />
-    <Content Include="MooncakeBase\Styles\plugins\select2\select2.png" />
-    <Content Include="MooncakeBase\Styles\plugins\select2\select2x2.png" />
-    <Content Include="MooncakeBase\Styles\plugins\select2\spinner.gif" />
     <Content Include="MooncakeBase\Styles\site-systemAdmin.css" />
     <Content Include="MooncakeBase\Styles\site.css" />
     <Content Include="MooncakeBase\Styles\table.css" />

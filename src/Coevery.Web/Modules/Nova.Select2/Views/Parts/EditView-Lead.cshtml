@@ -1,0 +1,35 @@
+﻿@using Coevery.Utility.Extensions
+@{
+    var id = Guid.NewGuid().ToString();
+}
+<div class="row-fluid edit-mode">
+	@using (Html.BeginFormAntiForgeryPost(Url.Action("Edit", "Lead" , new { id = Model.ContentItem.Id, returnUrl = Request.QueryString["ReturnUrl"]}),
+		FormMethod.Post, new {@class = "form-horizontal", id = id})) {
+		<fieldset>
+			<legend>@T("General Information")</legend>
+			<div class="data-row clearfix">
+				<div class="span12 control-group">
+					@Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Subject")
+				</div>
+			</div>
+		</fieldset>
+		<div class="data-row clearfix">
+            <div class="control controls">
+                <button type="submit" class="btn btn-small btn-primary">@T("Save changes")</button>
+                @{
+                    var returnUrl = Request.QueryString["returnUrl"];
+                }
+                @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+                {
+                    <a class="btn btn-small"  href="@returnUrl">@T("Cancel")</a>
+                }
+            </div>
+        </div>
+	}
+</div>
+
+@using (Script.Foot()) {
+    <script>
+        $('#@id').validate();
+    </script>
+}

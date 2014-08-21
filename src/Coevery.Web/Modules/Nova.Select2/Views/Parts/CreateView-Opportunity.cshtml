@@ -1,0 +1,88 @@
+﻿@using Coevery.ContentManagement
+@using Coevery.Core.Forms.Services
+@using Coevery.Utility.Extensions
+@{
+    var id = Guid.NewGuid().ToString();
+    ContentPart part = Model.ContentPart;
+    part.StoreParameter("OriginatingLead","Url","were");
+}
+<div class="row-fluid edit-mode">
+	@using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "Opportunity", new { returnUrl = Request.QueryString["ReturnUrl"] }),
+		FormMethod.Post, new {@class = "form-horizontal", id = id})) {
+		<fieldset>
+		    <legend>@T("General Information")</legend>
+            
+            
+            
+
+		    <div class="data-row clearfix">
+				<div class="span12 control-group">
+					@Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Name")
+				</div>
+			</div>
+			<div class="data-row clearfix">
+				<div class="span12 control-group">
+					@Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "OriginatingLead")
+				</div>
+			</div>
+		</fieldset>
+		<div class="data-row clearfix">
+            <div class="control controls">
+                <button type="submit" class="btn btn-small btn-primary">@T("Save changes")</button>
+                @{
+                    var returnUrl = Request.QueryString["returnUrl"];
+                }
+                @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+                {
+                    <a class="btn btn-small"  href="@returnUrl">@T("Cancel")</a>
+                }
+            </div>
+        </div>
+	}
+</div>
+
+@using (Script.Foot()) {
+    <script>
+    $('#@id').validate();
+        $(document).ready(function () {
+            var griddata = {
+                "page": 1,
+                "totalPages": 1,
+                "totalRecords": 6,
+                "rows": [
+                    { "Id": 43, "VersionId": 43, "OrderNumber": "20140718001", "AccountName": "客户2", "AccountId": 37, "AccountNumber": "kh2", "CreatedOn": "\/Date(1405666298000)\/", "Status": "已审核", "CreatedBy_Name": "admin", "CreatedBy": 5, "AuditedBy_Name": "admin", "AuditedBy": 5, "AuditedOn": "\/Date(1405666424000)\/" },
+                    { "Id": 44, "VersionId": 44, "OrderNumber": "20140718001", "AccountName": "客户2", "AccountId": 37, "AccountNumber": "kh2", "CreatedOn": "\/Date(1405666375000)\/", "Status": "已审核", "CreatedBy_Name": "admin", "CreatedBy": 5, "AuditedBy_Name": "admin", "AuditedBy": 5, "AuditedOn": "\/Date(1405666428000)\/" },
+                    { "Id": 45, "VersionId": 45, "OrderNumber": "20140718002", "AccountName": "客户1", "AccountId": 36, "AccountNumber": "kh1", "CreatedOn": "\/Date(1405666405000)\/", "Status": "已审核", "CreatedBy_Name": "admin", "CreatedBy": 5, "AuditedBy_Name": "admin", "AuditedBy": 5, "AuditedOn": "\/Date(1405666431000)\/" },
+                    { "Id": 51, "VersionId": 51, "OrderNumber": "20140722001", "AccountName": "客户3", "AccountId": 38, "AccountNumber": "kh3", "CreatedOn": "\/Date(1406013672000)\/", "Status": "待审核", "CreatedBy_Name": "admin", "CreatedBy": 5, "AuditedBy_Name": null, "AuditedBy": null, "AuditedOn": null },
+                    { "Id": 52, "VersionId": 52, "OrderNumber": "20140722002", "AccountName": "客户2", "AccountId": 37, "AccountNumber": "kh2", "CreatedOn": "\/Date(1406013694000)\/", "Status": "待审核", "CreatedBy_Name": "admin", "CreatedBy": 5, "AuditedBy_Name": null, "AuditedBy": null, "AuditedOn": null },
+                    { "Id": 56, "VersionId": 56, "OrderNumber": "20140730001", "AccountName": "客户1", "AccountId": 36, "AccountNumber": "kh1", "CreatedOn": "\/Date(1406700852000)\/", "Status": "待审核", "CreatedBy_Name": "admin", "CreatedBy": 5, "AuditedBy_Name": null, "AuditedBy": null, "AuditedOn": null },
+                    { "OrderNumber": "更多选择。。。", "css":"more-data"}
+                ]
+            };
+
+            var leadSelect2 = $('#e24').select2({
+                id: "Id",
+                query: function(query) {
+                    var data = {
+                        results: griddata.rows
+                    };
+
+                    query.callback(data);
+                },
+                formatResult: function(result, container, query, escapeMarkup) {
+                    var markup = [];
+                    window.Select2.util.markMatch(result.OrderNumber, query.term, markup, escapeMarkup);
+                    return markup.join("");
+                },
+                formatSelection: function(data, container, escapeMarkup) {
+                    return data ? escapeMarkup(data.OrderNumber) : undefined;
+                }
+            }).data("select2");
+            leadSelect2.dropdown.on("mouseup", '.select2-results', leadSelect2.bind(function(e) {
+                if ($(e.target).closest(".more-data").length > 0) {
+                    alert('sss');
+                }
+            }));
+        });
+    </script>
+}

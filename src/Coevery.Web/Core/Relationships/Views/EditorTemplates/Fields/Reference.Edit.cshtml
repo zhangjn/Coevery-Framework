@@ -30,53 +30,52 @@
                data-valude-field-id="@Html.IdFor(m=>m.ContentId)"
                data-dsiplay-field-id="@Html.IdFor(m => m.SelectedText)"
                data-modal-url="@Url.Action("Index", "EntityPicker",  new {
-                           area = "Relationships",
-                           relatedEntityName=Model.RelatedEntityDefinition.Name,
-                           fieldName = Model.Field.Name
-                  })" class="btn" href="#">@T("Select...")</a>
-                <div class="modal hide" tabindex="-1">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h3>@T("Choose {0}", Model.RelatedEntityDefinition.DisplayName)</h3>
-                    </div>
-                    <div class="modal-body">
-                        <iframe width="100%" height="380px" frameborder="0" scrolling="yes" allowtransparency="true"></iframe>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-primary btn-ok">@T("OK")</button>
-                        <button type="button" data-dismiss="modal" class="btn">@T("Cancel")</button>
-                    </div>
+                                   area = "Relationships",
+                                   relatedEntityName=Model.RelatedEntityDefinition.Name,
+                                   fieldName = Model.Field.Name
+                               })" class="btn" href="#">@T("Select...")</a>
+            <div class="modal hide" tabindex="-1">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3>@T("Choose {0}", Model.RelatedEntityDefinition.DisplayName)</h3>
                 </div>
-            </span>
-        </div>
-        @Html.HiddenFor(m => m.ContentId)
-
+                <div class="modal-body">
+                    <iframe width="100%" height="380px" frameborder="0" scrolling="yes" allowtransparency="true"></iframe>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary btn-ok">@T("OK")</button>
+                    <button type="button" data-dismiss="modal" class="btn">@T("Cancel")</button>
+                </div>
+            </div>
+        </span>
     </div>
-    @using (Script.Foot())
-    {
+    @Html.HiddenFor(m => m.ContentId)
+
+</div>
+<input type="hidden" id="e24" style="width:300px;" />
+    @using (Script.Foot()) {
         <script>
-            $(function () {
-                $('#@Html.IdFor(m=>m.SelectedText)').tagsInput({
+            $(function() {
+                $('#@Html.IdFor(m => m.SelectedText)').tagsInput({
                     interactive: false,
                     height: '20px',
-                    onRemoveTag: function () {
-                        $('#@Html.IdFor(m=>m.ContentId)').val('');
+                    onRemoveTag: function() {
+                        $('#@Html.IdFor(m => m.ContentId)').val('');
                     }
                 });
             });
         </script>
         // prevent the shape from being rendered twice in a page
-        if (WorkContext.GetState<object>("ReferenceEditScript") != null)
-        {
+        if (WorkContext.GetState<object>("ReferenceEditScript") != null) {
             return;
         }
 
         WorkContext.SetState("ReferenceEditScript", new object());
         <script type="text/javascript">
             //<![CDATA[
-            (function ($) {
-                $(function () {
-                    $(document).off('click.modal.data-api').on('click.modal.iframe', '[data-reference-model="toggle"]', function (e) {
+            (function($) {
+                $(function() {
+                    $(document).off('click.modal.data-api').on('click.modal.iframe', '[data-reference-model="toggle"]', function(e) {
                         var $this = $(this),
                             href = $this.attr('href'),
                             $target = $this.next('.modal'),
@@ -86,11 +85,11 @@
                         var baseUrl = $this.data("modal-url");
                         var callbackName = "_entitypicker_" + new Date().getTime();
                         $target.find('iframe').attr('src', baseUrl + '&callback=' + callbackName);
-                        $[callbackName] = function (returnData) {
+                        $[callbackName] = function(returnData) {
                             $this.data('result', returnData);
                         };
 
-                        $target.find('.btn-ok').click(function () {
+                        $target.find('.btn-ok').click(function() {
                             var result = $this.data("result");
                             var displayField = $this.data('display-field');
                             if (result && displayField) {
@@ -102,16 +101,47 @@
                             $target.modal('hide');
                         });
 
-                        $target.one('hide', function () {
+                        $target.one('hide', function() {
                             delete $[callbackName];
                         });
                         $target
                             .modal(option)
-                            .one('hide', function () {
+                            .one('hide', function() {
                                 $this.focus();
                             });
                     });
 
+                    var leadSelect2 = $('#e24').select2({
+                        id: "Id",
+                        query: function(query) {
+                            var data = {
+                                results: [
+                                    { "Id": 43, "VersionId": 43, "OrderNumber": "20140718001", "AccountName": "客户2", "AccountId": 37, "AccountNumber": "kh2", "CreatedOn": "\/Date(1405666298000)\/", "Status": "已审核", "CreatedBy_Name": "admin", "CreatedBy": 5, "AuditedBy_Name": "admin", "AuditedBy": 5, "AuditedOn": "\/Date(1405666424000)\/" },
+                                    { "Id": 44, "VersionId": 44, "OrderNumber": "20140718001", "AccountName": "客户2", "AccountId": 37, "AccountNumber": "kh2", "CreatedOn": "\/Date(1405666375000)\/", "Status": "已审核", "CreatedBy_Name": "admin", "CreatedBy": 5, "AuditedBy_Name": "admin", "AuditedBy": 5, "AuditedOn": "\/Date(1405666428000)\/" },
+                                    { "Id": 45, "VersionId": 45, "OrderNumber": "20140718002", "AccountName": "客户1", "AccountId": 36, "AccountNumber": "kh1", "CreatedOn": "\/Date(1405666405000)\/", "Status": "已审核", "CreatedBy_Name": "admin", "CreatedBy": 5, "AuditedBy_Name": "admin", "AuditedBy": 5, "AuditedOn": "\/Date(1405666431000)\/" },
+                                    { "Id": 51, "VersionId": 51, "OrderNumber": "20140722001", "AccountName": "客户3", "AccountId": 38, "AccountNumber": "kh3", "CreatedOn": "\/Date(1406013672000)\/", "Status": "待审核", "CreatedBy_Name": "admin", "CreatedBy": 5, "AuditedBy_Name": null, "AuditedBy": null, "AuditedOn": null },
+                                    { "Id": 52, "VersionId": 52, "OrderNumber": "20140722002", "AccountName": "客户2", "AccountId": 37, "AccountNumber": "kh2", "CreatedOn": "\/Date(1406013694000)\/", "Status": "待审核", "CreatedBy_Name": "admin", "CreatedBy": 5, "AuditedBy_Name": null, "AuditedBy": null, "AuditedOn": null },
+                                    { "Id": 56, "VersionId": 56, "OrderNumber": "20140730001", "AccountName": "客户1", "AccountId": 36, "AccountNumber": "kh1", "CreatedOn": "\/Date(1406700852000)\/", "Status": "待审核", "CreatedBy_Name": "admin", "CreatedBy": 5, "AuditedBy_Name": null, "AuditedBy": null, "AuditedOn": null },
+                                    { "OrderNumber": "更多选择。。。", "css": "more-data" }
+                                ]
+                            };
+
+                            query.callback(data);
+                        },
+                        formatResult: function(result, container, query, escapeMarkup) {
+                            var markup = [];
+                            window.Select2.util.markMatch(result.OrderNumber, query.term, markup, escapeMarkup);
+                            return markup.join("");
+                        },
+                        formatSelection: function(data, container, escapeMarkup) {
+                            return data ? escapeMarkup(data.OrderNumber) : undefined;
+                        }
+                    }).data("select2");
+                    leadSelect2.dropdown.on("mouseup", '.select2-results', leadSelect2.bind(function(e) {
+                        if ($(e.target).closest(".more-data").length > 0) {
+                            alert('sss');
+                        }
+                    }));
                 });
             })(window.jQuery);
             //]]>

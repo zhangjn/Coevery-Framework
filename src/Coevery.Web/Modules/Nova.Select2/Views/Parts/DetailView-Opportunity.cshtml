@@ -1,0 +1,29 @@
+﻿@using Coevery.Utility.Extensions
+
+<div class="row-fluid view-mode">
+    <section>
+        <header><h5>@T("General Information")</h5></header>
+		<div class="data-row clearfix">
+			<div class="span12">
+				@Display.DisplayField(part: Model.ContentPart, fieldName: "Name")
+			</div>
+		</div>
+		<div class="data-row clearfix">
+			<div class="span12">
+				@Display.DisplayField(part: Model.ContentPart, fieldName: "OriginatingLead")
+			</div>
+		</div>
+	</section>
+	<div class="data-row clearfix">
+        <div class="control controls">
+			<a class="btn btn-small btn-primary"  href="@Url.Action("Edit", new {id = Model.ContentItem.Id})"><i class="icon-edit"></i>&nbsp;@T("Edit") </a>
+            @{
+                var returnUrl = Request.QueryString["returnUrl"];
+            }
+            @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+            {
+                <a class="btn btn-small"  href="@returnUrl">@T("Cancel")</a>
+            }
+        </div>
+    </div>
+</div>

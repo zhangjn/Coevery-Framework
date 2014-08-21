@@ -115,6 +115,7 @@
     <Compile Include="Entities\Events\IEntityDataEvents.cs" />
     <Compile Include="Entities\Events\IEntityEvents.cs" />
     <Compile Include="Entities\Events\IFieldEvents.cs" />
+    <Compile Include="Fields\ContentPartExtensions.cs" />
     <Compile Include="Fields\Drivers\BooleanFieldDriver.cs" />
     <Compile Include="Fields\Drivers\CurrencyFieldDriver.cs" />
     <Compile Include="Fields\Drivers\DateFieldDriver.cs" />

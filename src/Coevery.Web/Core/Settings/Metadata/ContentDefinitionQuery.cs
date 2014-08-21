@@ -6,7 +6,6 @@ using Coevery.Caching;
 using Coevery.ContentManagement.MetaData;
 using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.MetaData.Services;
-using Coevery.ContentManagement.Records;
 using Coevery.Core.Settings.Metadata.Records;
 using Coevery.Data;
 using Coevery.Logging;
@@ -19,7 +18,6 @@ namespace Coevery.Core.Settings.Metadata {
         private readonly IRepository<ContentTypeDefinitionRecord> _typeDefinitionRepository;
         private readonly IRepository<ContentPartDefinitionRecord> _partDefinitionRepository;
         private readonly IRepository<ContentFieldDefinitionRecord> _fieldDefinitionRepository;
-        private readonly IRepository<ContentItemVersionRecord> _contentItemVersionRepository;
         private readonly ISettingsFormatter _settingsFormatter;
 
         public ContentDefinitionQuery(

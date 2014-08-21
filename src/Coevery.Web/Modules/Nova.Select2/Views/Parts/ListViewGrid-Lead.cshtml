@@ -1,0 +1,91 @@
+﻿
+
+@{
+    Style.Require("jqGrid");
+    Style.Require("jqGridCustom");
+    Script.Require("jqGrid");
+	Script.Require("jqGrid_i18n");
+    Script.Require("moment");
+
+    var gridPagerId = Model.GridId + "Pager";
+}
+
+<div class="row-fluid">
+    <table id="@Model.GridId"></table>
+    <section id="@gridPagerId"></section>
+</div>
+@Html.AntiForgeryToken()
+
+@using (Script.Foot()) {
+    <script type="text/javascript">
+		moment.lang('@WorkContext.CurrentCulture.ToLower()');
+        function utcDateFormatter(cellvalue, options, rowObject) {
+            if (cellvalue) {
+                return moment(cellvalue).format('l');
+            } else {
+                return '';
+            }
+        }
+
+        function utcDateTimeFormatter(cellvalue, options, rowObject) {
+            if (cellvalue) {
+                return moment(cellvalue).format('l LT');
+            } else {
+                return '';
+            }
+        }
+
+        $.extend(jQuery.jgrid.defaults, {
+		    prmNames: {
+		        page: 'page',
+		        rows: 'pageSize',
+		        sort: 'sortBy',
+		        order: 'sortOrder'
+		    },
+		    datatype: 'json',
+		    mtype: 'POST',
+		    postData: {
+		        __RequestVerificationToken: function() {
+		            var magicToken = $("input[name=__RequestVerificationToken]").first();
+		            if (magicToken.length == 0) {
+		                return null;
+		            } // no sense in continuing if form POSTS will fail
+		            return magicToken.val();
+		        }
+		    },
+		    viewrecords: true,
+		    height: '100%',
+		    pagerpos: 'right',
+		    recordpos: 'left',
+		    sortable: true,
+		    headertitles: true,
+		    multiselect: true,
+		    multiboxonly: true,
+		    autowidth: true,
+		    jsonReader: {
+		        page: 'page',
+		        total: 'totalPages',
+		        records: 'totalRecords',
+		        repeatitems: false
+		    }
+		});
+
+		var gridOptions = {
+		    url: '@Url.Action("List","Lead",  new { area = "Nova.Select2" })',
+		    colModel: [{"name":"Id","hidden":true,"key":true}],
+		    pager: '#@gridPagerId',
+		    rowNum: 50,
+            rowList: [50, 100, 150],
+		    sortname: '', 
+			sortorder: 'asc'
+		};
+
+		@if (Model.GridOptions != null) {
+		    var json = Html.Raw(Json.Encode(Model.GridOptions));
+            WriteLiteral("		$.extend(gridOptions, " + json + ");");
+		}
+
+		$('#@Model.GridId').jqGrid(gridOptions);
+        
+    </script>
+}

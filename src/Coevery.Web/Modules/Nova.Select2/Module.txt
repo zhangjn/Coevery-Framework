@@ -1,0 +1,10 @@
+﻿Name: Nova.Select2
+AntiForgery: enabled
+Author: The Coevery Team
+Website: http://www.coevery.com
+Version: 1.0
+CoeveryVersion: 1.0
+Description: Description for the module
+Features:
+    Nova.Select2:
+        Description: Description for feature Nova.Select2
