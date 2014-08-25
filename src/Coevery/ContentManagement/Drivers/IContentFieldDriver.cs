@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData;
+using Coevery.ContentManagement.MetaData.Models;
 
 namespace Coevery.ContentManagement.Drivers {
     public interface IContentFieldDriver : IDependency {
@@ -14,5 +15,6 @@ namespace Coevery.ContentManagement.Drivers {
         void Describe(DescribeMembersContext context);
         IEnumerable<ContentFieldInfo> GetFieldInfo();
         void GetContentItemMetadata(GetContentItemMetadataContext context);
+        string GetColumnSettingsString(SettingsDictionary settings);
     }
 }

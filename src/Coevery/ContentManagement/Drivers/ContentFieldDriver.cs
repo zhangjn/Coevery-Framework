@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Coevery.ContentManagement.Handlers;
 using Coevery.ContentManagement.MetaData;
+using Coevery.ContentManagement.MetaData.Models;
 using Coevery.DisplayManagement;
 using Coevery.DisplayManagement.Shapes;
 using Coevery.Logging;
@@ -75,6 +76,10 @@ namespace Coevery.ContentManagement.Drivers {
             Describe(context);
         }
 
+        string IContentFieldDriver.GetColumnSettingsString(SettingsDictionary settings) {
+            return GetColumnSettingsString(settings);
+        }
+
         void Process(ContentItem item, Action<ContentPart, TField> effort, ILogger logger) {
             var occurences = item.Parts.SelectMany(part => part.Fields.OfType<TField>().Select(field => new { part, field }));
             occurences.Invoke(pf => effort(pf.part, pf.field), logger);
@@ -114,6 +119,10 @@ namespace Coevery.ContentManagement.Drivers {
         protected virtual void Exported(ContentPart part, TField field, ExportContentContext context) { }
 
         protected virtual void Describe(DescribeMembersContext context) { }
+
+        protected virtual string GetColumnSettingsString(SettingsDictionary settings) {
+            return null;
+        }
 
         public ContentShapeResult ContentShape(string shapeType, Func<dynamic> factory) {
             return ContentShapeImplementation(shapeType, null, ctx => factory());

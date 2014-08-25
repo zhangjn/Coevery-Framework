@@ -16,6 +16,7 @@
     if (entityDefinitions.Any()) {
         AddRoute(ProjFile, entityDefinitions);
 		AddFrontMenuFile(ProjFile, entityDefinitions);
+		AddMigrationsFile(ProjFile, entityDefinitions);
     }
     foreach (var definition in entityDefinitions) {
         var entityName = definition.Name;
@@ -221,4 +222,14 @@
         csProjFile.Add<T>(relativePath);
     }
 
+	private void AddMigrationsFile(CsProjFile csProjFile, IEnumerable<ContentTypeDefinitionPart> typeDefinitions) {
+		var migrationsSession = new TextTemplatingSession();
+		migrationsSession["Namespace"] = csProjFile.RootNamespace;
+		migrationsSession["Services"] = Services;
+		migrationsSession["Entities"] = typeDefinitions;
+
+		string filePath = Path.Combine(csProjFile.ProjectDirectory, "Migrations.cs");
+		string migrationsTemplate = TransformText("Migrations.tt", migrationsSession);
+		AddFile<CodeFile>(ProjFile, filePath, migrationsTemplate);
+    }
 #>

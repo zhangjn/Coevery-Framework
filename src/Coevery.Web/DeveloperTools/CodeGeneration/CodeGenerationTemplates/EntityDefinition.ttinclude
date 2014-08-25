@@ -40,4 +40,11 @@
         return defaultType;
     }
 
+    public string GetColumnSettingsString(ContentPartFieldDefinition field) {
+        var contentFieldDrivers = Services.WorkContext.Resolve<IEnumerable<IContentFieldDriver>>();
+        var fieldNameType = field.FieldDefinition.Name;
+        var driver = contentFieldDrivers.FirstOrDefault(x => x.GetFieldInfo().Any(fi => fi.FieldTypeName == fieldNameType));
+        return driver != null ? driver.GetColumnSettingsString(field.Settings) : null;
+    }
+
 #>

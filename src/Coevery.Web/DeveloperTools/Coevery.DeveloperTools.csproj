@@ -311,6 +311,9 @@
     <Content Include="CodeGeneration\CodeGenerationTemplates\PartsListViewGrid.tt" />
     <Content Include="CodeGeneration\CodeGenerationTemplates\PartsListViewActions.tt" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="CodeGeneration\CodeGenerationTemplates\Migrations.tt" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

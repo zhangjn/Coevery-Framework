@@ -1,0 +1,79 @@
+﻿<#@ template debug="false" language="C#" #>
+<#@ include file="EntityDefinition.ttinclude" #>
+<#@ parameter type="System.String" name="Namespace" #>
+<#@ parameter type="System.Collections.Generic.IList<ContentTypeDefinitionPart>" name="Entities" #>
+using System;
+using Coevery.Data.Migration;
+using Coevery.ContentManagement.MetaData;
+
+namespace <#=Namespace#> {
+    public class DataMigration : DataMigrationImpl {
+        public int Create() {
+<# 
+	foreach (var entity in Entities) { 
+		var part = GetContentPartDefinition(entity.Name);
+	    if (part == null) {
+	        continue;
+	    }
+	    if (entity.Name == "User") {
+#>
+			SchemaBuilder.AlterTable("User",
+                table => {
+<#
+	foreach (var field in part.Fields) {
+		var fieldType = GetFieldType(field.FieldDefinition.Name);
+	    fieldType = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
+#>
+                    table.AddColumn<<#=fieldType.GetFriendlyName()#>>("<#=field.Name#>");
+<# } #>
+                });
+<# 
+	    }
+	    else {
+#>
+			SchemaBuilder.CreateTable("<#=entity.Name#>",
+                table => table
+                    .ContentPartRecord()
+<#
+	foreach (var field in part.Fields) {
+		var fieldType = GetFieldType(field.FieldDefinition.Name);
+	    var settingsString = GetColumnSettingsString(field);
+	    fieldType = Nullable.GetUnderlyingType(fieldType) ?? fieldType;
+#>
+                    .Column<<#=fieldType.GetFriendlyName()#>>("<#=field.Name#>"<#if (settingsString != null) { #>, <#=settingsString#><# } #>)
+<# } #>
+                );	        
+<# 
+	    }
+#>
+
+            ContentDefinitionManager.AlterPartDefinition("<#=part.Name#>",
+<# if (part.Fields.Any()) { #>
+                part => part
+<# foreach (var field in part.Fields) { #>
+                    .WithField("<#=field.Name#>", column => column
+                        .OfType("<#=field.FieldDefinition.Name#>")
+<# foreach (var setting in field.Settings) { #>
+						.WithSetting("<#=setting.Key#>", "<#=setting.Value#>")
+<# } #>
+                    )
+<# } #>
+<# } #>
+<# else { #>
+                part => {}
+<# } #>
+                );
+
+			ContentDefinitionManager.AlterTypeDefinition("<#=entity.Name#>",
+                type => type
+                    .WithPart("<#=part.Name#>")
+<# foreach (var setting in entity.DefinitionSettings) { #>
+                    .WithSetting("<#=setting.Key#>", "<#=setting.Value.Replace("\"", "\\\"")#>")
+<# } #>
+                );
+
+<# } #>
+            return 1;
+        }
+    }
+}

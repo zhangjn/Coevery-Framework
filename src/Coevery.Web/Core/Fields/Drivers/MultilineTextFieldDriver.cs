@@ -2,6 +2,7 @@
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Drivers;
 using Coevery.ContentManagement.Handlers;
+using Coevery.ContentManagement.MetaData.Models;
 using Coevery.Core.Fields.Fields;
 using Coevery.Core.Fields.Settings;
 using Coevery.Localization;
@@ -66,6 +67,12 @@ namespace Coevery.Core.Fields.Drivers {
 
         protected override void Describe(DescribeMembersContext context) {
             context.Member(null, typeof(string), null, T("The value of the field."));
+        }
+
+        protected override string GetColumnSettingsString(SettingsDictionary settings) {
+            var fieldSettings = settings.GetModel<MultilineTextFieldSettings>();
+            string settingsString = string.Format("column => column.WithLength({0})", fieldSettings.MaxLength);
+            return settingsString;
         }
 
         private void HandleUniqueValue(ContentPart part, MultilineTextField field, IUpdateModel updater) {

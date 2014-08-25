@@ -94,6 +94,9 @@ namespace Coevery.Core.Settings.Metadata {
                 part.Record.DisplayName = contentTypeDefinition.DisplayName;
                 _contentManager.Create(part.ContentItem, options);
             }
+            else if (options.IsPublished) {
+                _contentManager.Publish(part.ContentItem);
+            }
             return part.Record;
         }
 
