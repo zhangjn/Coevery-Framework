@@ -14,19 +14,19 @@ using Coevery.Utility.Extensions;
 
 namespace Coevery.Core.OptionSet.Services {
     public class OptionSetService : IOptionSetService {
-        private readonly IRepository<OptionItemContentItem> _optionItemContentItemRepository;
+        //private readonly IRepository<OptionItemContentItem> _optionItemContentItemRepository;
         private readonly IContentManager _contentManager;
         private readonly INotifier _notifier;
         private readonly IAuthorizationService _authorizationService;
         private readonly ICoeveryServices _services;
 
         public OptionSetService(
-            IRepository<OptionItemContentItem> optionItemContentItemRepository,
+            //IRepository<OptionItemContentItem> optionItemContentItemRepository,
             IContentManager contentManager,
             INotifier notifier,
             IAuthorizationService authorizationService,
             ICoeveryServices services) {
-            _optionItemContentItemRepository = optionItemContentItemRepository;
+            //_optionItemContentItemRepository = optionItemContentItemRepository;
             _contentManager = contentManager;
             _notifier = notifier;
             _authorizationService = authorizationService;
@@ -90,11 +90,11 @@ namespace Coevery.Core.OptionSet.Services {
                 .Where(x => x.Id == id).List().FirstOrDefault();
         }
 
-        public IEnumerable<OptionItemPart> GetOptionItemsForContentItem(int contentItemId, string field = null) {
-            return String.IsNullOrEmpty(field)
-                ? _optionItemContentItemRepository.Fetch(x => x.OptionItemContainerPartRecord.Id == contentItemId).Select(t => GetOptionItem(t.OptionItemRecord.Id))
-                : _optionItemContentItemRepository.Fetch(x => x.OptionItemContainerPartRecord.Id == contentItemId && x.Field == field).Select(t => GetOptionItem(t.OptionItemRecord.Id));
-        }
+        //public IEnumerable<OptionItemPart> GetOptionItemsForContentItem(int contentItemId, string field = null) {
+        //    return String.IsNullOrEmpty(field)
+        //        ? _optionItemContentItemRepository.Fetch(x => x.OptionItemContainerPartRecord.Id == contentItemId).Select(t => GetOptionItem(t.OptionItemRecord.Id))
+        //        : _optionItemContentItemRepository.Fetch(x => x.OptionItemContainerPartRecord.Id == contentItemId && x.Field == field).Select(t => GetOptionItem(t.OptionItemRecord.Id));
+        //}
 
         public OptionItemPart GetOptionItemByName(int optionSetId, string name) {
             return _contentManager
@@ -129,65 +129,65 @@ namespace Coevery.Core.OptionSet.Services {
         public void DeleteOptionItem(OptionItemPart optionItemPart) {
             _contentManager.Remove(optionItemPart.ContentItem);
 
-            // delete termContentItems
-            var optionItemContentItems = _optionItemContentItemRepository
-                .Fetch(t => t.OptionItemRecord == optionItemPart.Record)
-                .ToList();
+            //// delete termContentItems
+            //var optionItemContentItems = _optionItemContentItemRepository
+            //    .Fetch(t => t.OptionItemRecord == optionItemPart.Record)
+            //    .ToList();
 
-            foreach (var item in optionItemContentItems) {
-                _optionItemContentItemRepository.Delete(item);
-            }
+            //foreach (var item in optionItemContentItems) {
+            //    _optionItemContentItemRepository.Delete(item);
+            //}
         }
 
-        public void UpdateSelectedItems(ContentItem contentItem, IEnumerable<OptionItemPart> items, string field) {
-            var containerPart = contentItem.As<OptionItemContainerPart>();
+        //public void UpdateSelectedItems(ContentItem contentItem, IEnumerable<OptionItemPart> items, string field) {
+        //    var containerPart = contentItem.As<OptionItemContainerPart>();
 
-            // removing current terms for specific field
-            var fieldIndexes = containerPart.OptionItems
-                .Where(t => t.Field == field)
-                .Select((t, i) => i)
-                .OrderByDescending(i => i)
-                .ToList();
+        //    // removing current terms for specific field
+        //    var fieldIndexes = containerPart.OptionItems
+        //        .Where(t => t.Field == field)
+        //        .Select((t, i) => i)
+        //        .OrderByDescending(i => i)
+        //        .ToList();
 
-            foreach (var x in fieldIndexes) {
-                containerPart.OptionItems.RemoveAt(x);
-            }
+        //    foreach (var x in fieldIndexes) {
+        //        containerPart.OptionItems.RemoveAt(x);
+        //    }
 
-            // adding new terms list
-            foreach (var item in items) {
-                containerPart.OptionItems.Add(
-                    new OptionItemContentItem {
-                        OptionItemContainerPartRecord = containerPart.Record,
-                        OptionItemRecord = item.Record,
-                        Field = field
-                    });
-            }
-        }
+        //    // adding new terms list
+        //    foreach (var item in items) {
+        //        containerPart.OptionItems.Add(
+        //            new OptionItemContentItem {
+        //                OptionItemContainerPartRecord = containerPart.Record,
+        //                OptionItemRecord = item.Record,
+        //                Field = field
+        //            });
+        //    }
+        //}
 
-        public IContentQuery<OptionItemContainerPart, OptionItemContainerPartRecord> GetContentItemsQuery(OptionItemPart term, string fieldName = null) {
-            var query = _contentManager
-                .Query<OptionItemContainerPart, OptionItemContainerPartRecord>();
+        //public IContentQuery<OptionItemContainerPart, OptionItemContainerPartRecord> GetContentItemsQuery(OptionItemPart term, string fieldName = null) {
+        //    var query = _contentManager
+        //        .Query<OptionItemContainerPart, OptionItemContainerPartRecord>();
 
-            if (String.IsNullOrWhiteSpace(fieldName)) {
-                query = query.Where(
-                    tpr => tpr.OptionItems.Any(tr =>
-                        tr.OptionItemRecord.Id == term.Id));
-            }
-            else {
-                query = query.Where(
-                    tpr => tpr.OptionItems.Any(tr =>
-                        tr.Field == fieldName
-                        && (tr.OptionItemRecord.Id == term.Id)));
-            }
+        //    if (String.IsNullOrWhiteSpace(fieldName)) {
+        //        query = query.Where(
+        //            tpr => tpr.OptionItems.Any(tr =>
+        //                tr.OptionItemRecord.Id == term.Id));
+        //    }
+        //    else {
+        //        query = query.Where(
+        //            tpr => tpr.OptionItems.Any(tr =>
+        //                tr.Field == fieldName
+        //                && (tr.OptionItemRecord.Id == term.Id)));
+        //    }
 
-            return query;
-        }
+        //    return query;
+        //}
 
-        public IEnumerable<IContent> GetContentItems(OptionItemPart term, int skip = 0, int count = 0, string fieldName = null) {
-            return GetContentItemsQuery(term, fieldName)
-                //.Join<CommonPartRecord>()
-                //.OrderByDescending(x => x.CreatedUtc)
-                .Slice(skip, count);
-        }
+        //public IEnumerable<IContent> GetContentItems(OptionItemPart term, int skip = 0, int count = 0, string fieldName = null) {
+        //    return GetContentItemsQuery(term, fieldName)
+        //        //.Join<CommonPartRecord>()
+        //        //.OrderByDescending(x => x.CreatedUtc)
+        //        .Slice(skip, count);
+        //}
     }
 }

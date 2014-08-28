@@ -3,9 +3,7 @@
 namespace Coevery.Core.OptionSet.Settings {
     public enum ListMode {
         Dropdown,
-        Radiobutton,
-        Listbox,
-        Checkbox
+        Radiobutton
     }
 
     public class OptionSetFieldSettings : FieldSettings {

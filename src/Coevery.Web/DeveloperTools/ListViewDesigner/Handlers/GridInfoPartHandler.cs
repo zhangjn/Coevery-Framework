@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Coevery.ContentManagement;
 using Coevery.ContentManagement.Handlers;
+using Coevery.ContentManagement.MetaData.Models;
 using Coevery.ContentManagement.MetaData.Services;
 using Coevery.Core.Settings.Metadata;
 using Coevery.Core.Settings.Metadata.Parts;
@@ -33,7 +34,7 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Handlers {
         }
 
         private void PublishGridInfo(ContentTypeDefinitionPart part) {
-            var settings = part.Settings.GetModel<ContentTypeSettings>();
+            var settings = new SettingsDictionary(part.DefinitionSettings).GetModel<ContentTypeSettings>();
             if (!settings.Creatable) {
                 return;
             }
@@ -46,7 +47,7 @@ namespace Coevery.DeveloperTools.ListViewDesigner.Handlers {
         }
 
         private void RemoveGridInfo(ContentTypeDefinitionPart part) {
-            var settings = part.Settings.GetModel<ContentTypeSettings>();
+            var settings = new SettingsDictionary(part.DefinitionSettings).GetModel<ContentTypeSettings>();
             if (!settings.Creatable) {
                 return;
             }

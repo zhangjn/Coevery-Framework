@@ -18,8 +18,8 @@ namespace Coevery.Core.OptionSet.Services {
         OptionItemPart NewOptionItem(OptionSetPart taxonomy);
         bool CreateOptionItem(OptionItemPart termPart);
         bool EditOptionItem(OptionItemEntry newItem);
-        IEnumerable<OptionItemPart> GetOptionItemsForContentItem(int contentItemId, string field = null);
-        void UpdateSelectedItems(ContentItem contentItem, IEnumerable<OptionItemPart> optionItems, string field);
-        IEnumerable<IContent> GetContentItems(OptionItemPart term, int skip = 0, int count = 0, string fieldName = null);
+        //IEnumerable<OptionItemPart> GetOptionItemsForContentItem(int contentItemId, string field = null);
+        //void UpdateSelectedItems(ContentItem contentItem, IEnumerable<OptionItemPart> optionItems, string field);
+        //IEnumerable<IContent> GetContentItems(OptionItemPart term, int skip = 0, int count = 0, string fieldName = null);
     }
 }

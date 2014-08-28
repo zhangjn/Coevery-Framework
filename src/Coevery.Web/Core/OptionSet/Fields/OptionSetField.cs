@@ -22,9 +22,9 @@ namespace Coevery.Core.OptionSet.Fields {
             get { return OptionItemsField.Value; }
         }
 
-        public string Value {
-            get { return Storage.Get<string>(Name); }
-            set { Storage.Set(value ?? string.Empty); }
+        public object Value {
+            get { return Storage.Get<object>(Name); }
+            set { Storage.Set(value); }
         }
     }
 }

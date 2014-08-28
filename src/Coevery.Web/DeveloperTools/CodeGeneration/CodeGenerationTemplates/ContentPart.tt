@@ -12,10 +12,16 @@ namespace <#=Namespace#>.Models {
 	var definition = GetContentPartDefinition(EntityName);
     if (definition != null) {
         foreach (var field in definition.Fields) {
-            var fieldType = GetFieldType(field.FieldDefinition.Name);
+			string fieldType;
+            if (field.FieldDefinition.Name == "OptionSetField") {
+				fieldType = field.Name + "Option?";
+            }
+            else {
+				fieldType = GetFieldType(field.FieldDefinition.Name).GetFriendlyName();
+            }
 #>
 
-		public <#= fieldType.GetFriendlyName() #> <#=field.Name #>{
+		public <#= fieldType #> <#=field.Name #>{
 			get{ return Record.<#=field.Name #>; }
 			set{ Record.<#=field.Name #> = value; }
 		}

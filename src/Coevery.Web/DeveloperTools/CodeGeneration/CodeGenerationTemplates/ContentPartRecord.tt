@@ -1,5 +1,6 @@
 <#@ template debug="false" language="C#" #>
 <#@ include file="EntityDefinition.ttinclude" #>
+<#@ import namespace="Coevery.Core.OptionSet.Services" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.String" name="EntityName" #>
 using System;
@@ -12,15 +13,42 @@ namespace <#=Namespace#>.Models {
     public class <#=EntityName#>PartRecord : ContentPartRecord {
 <# 
 	var definition = GetContentPartDefinition(EntityName);
+    var optionSetFields = new List<ContentPartFieldDefinition>();
     if (definition != null) {
         foreach (var field in definition.Fields) {
-            var fieldType = GetFieldType(field.FieldDefinition.Name);
+            string fieldType;
+            if (field.FieldDefinition.Name == "OptionSetField") {
+                optionSetFields.Add(field);
+				fieldType = field.Name + "Option?";
+            }
+            else {
+				fieldType = GetFieldType(field.FieldDefinition.Name).GetFriendlyName();
+            }
 #>
-		public virtual <#= fieldType.GetFriendlyName() #> <#=field.Name #> { get; set; }
+		public virtual <#= fieldType #> <#=field.Name #> { get; set; }
 <#
         }
     }
 #>
     }
+<#
+    var optionSetService = Services.WorkContext.Resolve<IOptionSetService>();
+    foreach (var field in optionSetFields) {
+#>
+
+    public enum <#=field.Name#>Option {
+<#
+        var optionSetId = int.Parse(field.Settings["OptionSetFieldSettings.OptionSetId"]);
+        var options = optionSetService.GetOptionItems(optionSetId);
+        foreach (var option in options) {
+#>
+		<#=option.Name#>,
+<#
+        }
+#>
+	}
+<#
+    }
+#>
 }
 

@@ -1,14 +1,14 @@
-﻿using System.Collections.Generic;
-using Coevery.ContentManagement.Records;
-using Coevery.Data.Conventions;
+﻿//using System.Collections.Generic;
+//using Coevery.ContentManagement.Records;
+//using Coevery.Data.Conventions;
 
-namespace Coevery.Core.OptionSet.Models {
-    public class OptionItemContainerPartRecord : ContentPartVersionRecord {
-        public OptionItemContainerPartRecord() {
-            OptionItems = new List<OptionItemContentItem>();
-        }
+//namespace Coevery.Core.OptionSet.Models {
+//    public class OptionItemContainerPartRecord : ContentPartVersionRecord {
+//        public OptionItemContainerPartRecord() {
+//            OptionItems = new List<OptionItemContentItem>();
+//        }
 
-        [CascadeAllDeleteOrphan]
-        public virtual IList<OptionItemContentItem> OptionItems { get; set; }
-    }
-}
+//        [CascadeAllDeleteOrphan]
+//        public virtual IList<OptionItemContentItem> OptionItems { get; set; }
+//    }
+//}

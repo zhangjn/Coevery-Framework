@@ -49,12 +49,12 @@ namespace Coevery.Core.OptionSet.Drivers {
 
                 // asign Taxonomy and Term to the content item shape (Content) in order to provide 
                 // alternates when those content items are displayed when they are listed on a term
-                var termContentItems = _optionSetService.GetContentItems(part, pager.GetStartIndex(), pager.PageSize)
-                    .Select(c => _contentManager.BuildDisplay(c, "Summary").Taxonomy(optionSet).Term(part));
+                //var termContentItems = _optionSetService.GetContentItems(part, pager.GetStartIndex(), pager.PageSize)
+                //    .Select(c => _contentManager.BuildDisplay(c, "Summary").Taxonomy(optionSet).Term(part));
 
                 var list = shapeHelper.List();
 
-                list.AddRange(termContentItems);
+                //list.AddRange(termContentItems);
 
                 var pagerShape = shapeHelper.Pager(pager)
                     .TotalItemCount(totalItemCount)

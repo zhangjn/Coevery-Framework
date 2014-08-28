@@ -1,97 +1,74 @@
-﻿
-
-using System;
+﻿using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
-using Coevery;
 using Coevery.Core.Settings.Models;
 using Coevery.Security;
 using Coevery.Settings;
 using Coevery.UI.Notify;
 using Coevery.ContentManagement;
-using Coevery.Data;
 using Coevery.Themes;
 using Coevery.Localization;
-using Coevery.Core.OptionSet.Services;
 using Coevery.Users.Models;
 using Coevery.Users.Services;
 using Coevery.Users.ViewModels;
 using Coevery.Mvc.Extensions;
 
 namespace Coevery.Users.Controllers {
-	[Themed]
-    public class UserController : Controller , IUpdateModel{
-        private readonly ITransactionManager _transactionManager;
-		private readonly IOptionSetService _optionSetService;
+    [Themed]
+    public class UserController : Controller, IUpdateModel {
         private readonly IMembershipService _membershipService;
         private readonly IUserService _userService;
         private readonly ISiteService _siteService;
 
-        public UserController(ICoeveryServices services, 
-			ITransactionManager transactionManager, 
-            IOptionSetService optionSetService, 
-            IMembershipService membershipService, 
-            IUserService userService, 
+        public UserController(ICoeveryServices services,
+            IMembershipService membershipService,
+            IUserService userService,
             ISiteService siteService) {
             Services = services;
-            _transactionManager = transactionManager;
-			_optionSetService = optionSetService;
             _membershipService = membershipService;
             _userService = userService;
             _siteService = siteService;
             T = NullLocalizer.Instance;
         }
 
-		public ICoeveryServices Services { get; set; }
-		public Localizer T { get; set; }
+        public ICoeveryServices Services { get; set; }
+        public Localizer T { get; set; }
 
-		public ActionResult Index() {
+        public ActionResult Index() {
             return List();
         }
 
-		public ActionResult List() {
+        public ActionResult List() {
             var contentItem = Services.ContentManager.New("User");
             contentItem.Weld(new UserPart());
             var model = Services.ContentManager.BuildDisplay(contentItem, "List");
             return View("List", model);
         }
 
-		[HttpPost]
-		public ActionResult List(int page = 1, int pageSize = 10, string sortBy = null, string sortOrder = "asc") {
+        [HttpPost]
+        public ActionResult List(int page = 1, int pageSize = 10, string sortBy = null, string sortOrder = "asc") {
             var query = Services.ContentManager.Query<UserPart, UserPartRecord>();
-	        var totalRecords = query.Count();
-		    var records = query
-		        .OrderBy(sortBy, sortOrder)
-		        .Slice((page - 1)*pageSize, pageSize)
-		        .Select(part => new UserListViewModel {
+            var totalRecords = query.Count();
+            var records = query
+                .OrderBy(sortBy, sortOrder)
+                .Slice((page - 1)*pageSize, pageSize)
+                .Select(part => new UserListViewModel {
                     Id = part.Id,
                     UserName = part.UserName,
                     Email = part.Email
-		        })
-		        .ToList();
-	        var result = new {
-	            page,
-	            totalPages = totalRecords/pageSize,
-	            totalRecords,
-	            rows = records
-	        };
-	        return Json(result);
-	    }
-
-		private DateTime? SpecifyDateTimeKind(DateTime? utcDateTime) {
-            if (utcDateTime != null)
-                return DateTime.SpecifyKind(utcDateTime.Value, DateTimeKind.Utc);
-	        return null;
-	    }
-
-		private string GetOptionSetFieldValue(int id, string fieldName) {
-            var optionItems = _optionSetService.GetOptionItemsForContentItem(id, fieldName).ToList();
-            var value = string.Join(", ", optionItems.Select(t => t.Name).ToArray());
-	        return value;
-	    }
+                })
+                .ToList();
+            var result = new {
+                page,
+                totalPages = totalRecords/pageSize,
+                totalRecords,
+                rows = records
+            };
+            return Json(result);
+        }
 
         public ActionResult Detail(int id) {
             var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
@@ -103,63 +80,58 @@ namespace Coevery.Users.Controllers {
             return View((object) model);
         }
 
-	    public ActionResult Create() {
-	        if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users")))
-	            return new HttpUnauthorizedResult();
+        public ActionResult Create() {
+            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users"))) {
+                return new HttpUnauthorizedResult();
+            }
 
-	        var user = Services.ContentManager.New<IUser>("User");
-	        var editor = Services.New.EditorTemplate(TemplateName: "Parts/User.Create", Model: new UserCreateViewModel(), Prefix: null);
-	        var actions = Services.New.EditViewAction();
-	        var model = Services.ContentManager.BuildEditor(user);
-	        model.Content.Add(editor, "2");
-	        model.Content.Add(actions, "100");
-	        return View(model);
-	    }
+            var user = Services.ContentManager.New<IUser>("User");
+            var editor = Services.New.EditorTemplate(TemplateName: "Parts/User.Create", Model: new UserCreateViewModel(), Prefix: null);
+            var actions = Services.New.EditViewAction();
+            var model = Services.ContentManager.BuildEditor(user);
+            model.Content.Add(editor, "2");
+            model.Content.Add(actions, "100");
+            return View(model);
+        }
 
         [HttpPost, ActionName("Create")]
-        public ActionResult CreatePOST(UserCreateViewModel createModel)
-        {
-            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users")))
+        public ActionResult CreatePOST(UserCreateViewModel createModel) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users"))) {
                 return new HttpUnauthorizedResult();
+            }
 
-            if (!string.IsNullOrEmpty(createModel.UserName))
-            {
-                if (!_userService.VerifyUserUnicity(createModel.UserName, createModel.Email))
-                {
+            if (!string.IsNullOrEmpty(createModel.UserName)) {
+                if (!_userService.VerifyUserUnicity(createModel.UserName, createModel.Email)) {
                     AddModelError("NotUniqueUserName", T("User with that username and/or email already exists."));
                 }
             }
 
-            if (!Regex.IsMatch(createModel.Email ?? "", UserPart.EmailPattern, RegexOptions.IgnoreCase))
-            {
+            if (!Regex.IsMatch(createModel.Email ?? "", UserPart.EmailPattern, RegexOptions.IgnoreCase)) {
                 // http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx    
                 ModelState.AddModelError("Email", T("You must specify a valid email address."));
             }
 
-            if (createModel.Password != createModel.ConfirmPassword)
-            {
+            if (createModel.Password != createModel.ConfirmPassword) {
                 AddModelError("ConfirmPassword", T("Password confirmation must match"));
             }
 
             var user = Services.ContentManager.New<IUser>("User");
-            if (ModelState.IsValid)
-            {
+            if (ModelState.IsValid) {
                 user = _membershipService.CreateUser(new CreateUserParams(
-                                                  createModel.UserName,
-                                                  createModel.Password,
-                                                  createModel.Email,
-                                                  null, null, true));
+                    createModel.UserName,
+                    createModel.Password,
+                    createModel.Email,
+                    null, null, true));
             }
 
             var model = Services.ContentManager.UpdateEditor(user, this);
             var userPart = user.As<UserPart>();
 
-            if (!ModelState.IsValid)
-            {
+            if (!ModelState.IsValid) {
                 Services.TransactionManager.Cancel();
 
                 var editor = Services.New.EditorTemplate(TemplateName: "Parts/User.Create", Model: createModel, Prefix: null);
-                model.Content.Add(editor,"2");
+                model.Content.Add(editor, "2");
                 var actions = Services.New.EditViewAction();
                 model.Content.Add(actions, "100");
                 return View(model);
@@ -170,12 +142,13 @@ namespace Coevery.Users.Controllers {
         }
 
         public ActionResult Edit(int id) {
-            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users")))
+            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users"))) {
                 return new HttpUnauthorizedResult();
+            }
 
             var user = Services.ContentManager.Get<UserPart>(id);
             var model = Services.ContentManager.BuildEditor(user);
-            var editor = Services.New.EditorTemplate(TemplateName: "Parts/User.Edit", Model: new UserEditViewModel { User = user }, Prefix: null);
+            var editor = Services.New.EditorTemplate(TemplateName: "Parts/User.Edit", Model: new UserEditViewModel {User = user}, Prefix: null);
             model.Content.Add(editor, "2");
             var actions = Services.New.EditViewAction();
             model.Content.Add(actions, "100");
@@ -185,31 +158,27 @@ namespace Coevery.Users.Controllers {
 
         [HttpPost, ActionName("Edit")]
         public ActionResult EditPost(int id, string returnUrl) {
-            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users")))
+            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users"))) {
                 return new HttpUnauthorizedResult();
+            }
 
             var user = Services.ContentManager.Get<UserPart>(id, VersionOptions.DraftRequired);
             string previousName = user.UserName;
 
             var model = Services.ContentManager.UpdateEditor(user, this);
 
-            var editModel = new UserEditViewModel { User = user };
-            if (TryUpdateModel(editModel))
-            {
-                if (!_userService.VerifyUserUnicity(id, editModel.UserName, editModel.Email))
-                {
+            var editModel = new UserEditViewModel {User = user};
+            if (TryUpdateModel(editModel)) {
+                if (!_userService.VerifyUserUnicity(id, editModel.UserName, editModel.Email)) {
                     AddModelError("NotUniqueUserName", T("User with that username and/or email already exists."));
                 }
-                else if (!Regex.IsMatch(editModel.Email ?? "", UserPart.EmailPattern, RegexOptions.IgnoreCase))
-                {
+                else if (!Regex.IsMatch(editModel.Email ?? "", UserPart.EmailPattern, RegexOptions.IgnoreCase)) {
                     // http://haacked.com/archive/2007/08/21/i-knew-how-to-validate-an-email-address-until-i.aspx    
                     ModelState.AddModelError("Email", T("You must specify a valid email address."));
                 }
-                else
-                {
+                else {
                     // also update the Super user if this is the renamed account
-                    if (String.Equals(Services.WorkContext.CurrentSite.SuperUser, previousName, StringComparison.Ordinal))
-                    {
+                    if (String.Equals(Services.WorkContext.CurrentSite.SuperUser, previousName, StringComparison.Ordinal)) {
                         _siteService.GetSiteSettings().As<SiteSettingsPart>().SuperUser = editModel.UserName;
                     }
 
@@ -238,25 +207,21 @@ namespace Coevery.Users.Controllers {
         }
 
         [HttpPost]
-        public ActionResult Delete(List<int> selectedIds){
-            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users")))
+        public ActionResult Delete(List<int> selectedIds) {
+            if (!Services.Authorizer.Authorize(StandardPermissions.SiteOwner, T("Not authorized to manage users"))) {
                 return new HttpUnauthorizedResult();
-            foreach (var id in selectedIds)
-            {
+            }
+            foreach (var id in selectedIds) {
                 var user = Services.ContentManager.Get<IUser>(id);
 
-                if (user != null)
-                {
-                    if (String.Equals(Services.WorkContext.CurrentSite.SuperUser, user.UserName, StringComparison.Ordinal))
-                    {
+                if (user != null) {
+                    if (String.Equals(Services.WorkContext.CurrentSite.SuperUser, user.UserName, StringComparison.Ordinal)) {
                         Services.Notifier.Error(T("The Super user can't be removed. Please disable this account or specify another Super user account"));
                     }
-                    else if (String.Equals(Services.WorkContext.CurrentUser.UserName, user.UserName, StringComparison.Ordinal))
-                    {
+                    else if (String.Equals(Services.WorkContext.CurrentUser.UserName, user.UserName, StringComparison.Ordinal)) {
                         Services.Notifier.Error(T("You can't remove your own account. Please log in with another account"));
                     }
-                    else
-                    {
+                    else {
                         Services.ContentManager.Remove(user.ContentItem);
                         Services.Notifier.Information(T("User {0} deleted", user.UserName));
                     }
@@ -275,4 +240,3 @@ namespace Coevery.Users.Controllers {
         }
     }
 }
-

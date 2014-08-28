@@ -14,7 +14,6 @@ using Coevery.ContentManagement;
 using Coevery.Data;
 using Coevery.Themes;
 using Coevery.Localization;
-using Coevery.Core.OptionSet.Services;
 using <#=Namespace#>.Models;
 using <#=Namespace#>.ViewModels;
 
@@ -22,14 +21,11 @@ namespace <#=Namespace#>.Controllers {
 	[Themed]
     public class <#=EntityName#>Controller : Controller , IUpdateModel{
         private readonly ITransactionManager _transactionManager;
-		private readonly IOptionSetService _optionSetService;
 
         public <#=EntityName#>Controller (ICoeveryServices services, 
-			ITransactionManager transactionManager, 
-            IOptionSetService optionSetService) {
+			ITransactionManager transactionManager) {
             Services = services;
             _transactionManager = transactionManager;
-			_optionSetService = optionSetService;
             T = NullLocalizer.Instance;
         }
 
@@ -61,18 +57,9 @@ namespace <#=Namespace#>.Controllers {
     var partDefinition = GetContentPartDefinition(EntityName);
 	foreach (var field in GetPrimaryFields(columns, partDefinition)) {#>
 					<#=field.Name#> = <# if (field.FieldDefinition.Name == "DateField" || field.FieldDefinition.Name == "DatetimeField") {#>SpecifyDateTimeKind(item.Record.<#=field.Name#>)<#}
-else {#>item.Record.<#=field.Name#><#} #>,
+else if(field.FieldDefinition.Name == "OptionSetField") {#>item.Record.<#=field.Name#>.ToString()<#} else {#>item.Record.<#=field.Name#><#} #>,
 <#}#>
 				}).ToList();
-<#	
-	var optionSetFields = GetOptionSetFields(columns, partDefinition).ToList();
-    if (optionSetFields.Any()) { #>
-			foreach (var model in records) {
-<# foreach (var field in optionSetFields) { #>
-	            model.<#=field.Name #> = GetOptionSetFieldValue(model.VersionId, "<#=field.Name #>");
-<# } #>
-	        }
-<# } #>
 <#	
 	var fieldsDictionary = GetReferenceFields(columns, partDefinition);
     if (fieldsDictionary.Count > 0) {
@@ -108,12 +95,6 @@ else {#>item.Record.<#=field.Name#><#} #>,
             if (utcDateTime != null)
                 return DateTime.SpecifyKind(utcDateTime.Value, DateTimeKind.Utc);
 	        return null;
-	    }
-
-		private string GetOptionSetFieldValue(int id, string fieldName) {
-            var optionItems = _optionSetService.GetOptionItemsForContentItem(id, fieldName).ToList();
-            var value = string.Join(", ", optionItems.Select(t => t.Name).ToArray());
-	        return value;
 	    }
 
         public ActionResult Detail(int id) {
@@ -206,20 +187,11 @@ else {#>item.Record.<#=field.Name#><#} #>,
     private IEnumerable<ContentPartFieldDefinition> GetPrimaryFields(IEnumerable<string> columns, ContentPartDefinition partDefinition) {
         foreach (var col in columns) {
             var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col);
-            if (field != null && field.FieldDefinition.Name != "OptionSetField") {
+            if (field != null) {
                 yield return field;
             }
         }
     }
-
-	private IEnumerable<ContentPartFieldDefinition> GetOptionSetFields(IEnumerable<string> columns, ContentPartDefinition partDefinition) {
-        foreach (var col in columns) {
-            var field = partDefinition.Fields.FirstOrDefault(f => f.Name == col);
-            if (field != null && field.FieldDefinition.Name == "OptionSetField") {
-                yield return field;
-            }
-        }
-	}
 
 	private Dictionary<string, List<ContentPartFieldDefinition>> GetReferenceFields(IEnumerable<string> columns, ContentPartDefinition partDefinition) {
 	    var fieldsDictionary = new Dictionary<string, List<ContentPartFieldDefinition>>();

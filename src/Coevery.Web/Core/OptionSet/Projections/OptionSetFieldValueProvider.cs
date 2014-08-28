@@ -1,22 +1,22 @@
-﻿using System.Linq;
-using Coevery.ContentManagement;
-using Coevery.Core.OptionSet.Fields;
-using Coevery.Core.OptionSet.Services;
-using Coevery.Core.Projections.Providers.Properties;
+﻿//using System.Linq;
+//using Coevery.ContentManagement;
+//using Coevery.Core.OptionSet.Fields;
+//using Coevery.Core.OptionSet.Services;
+//using Coevery.Core.Projections.Providers.Properties;
 
-namespace Coevery.Core.OptionSet.Projections {
-    public class OptionSetFieldValueProvider : ContentFieldValueProvider<OptionSetField> {
-        private readonly IOptionSetService _optionSetService;
+//namespace Coevery.Core.OptionSet.Projections {
+//    public class OptionSetFieldValueProvider : ContentFieldValueProvider<OptionSetField> {
+//        private readonly IOptionSetService _optionSetService;
 
-        public OptionSetFieldValueProvider(IOptionSetService optionSetService) {
-            _optionSetService = optionSetService;
-        }
+//        public OptionSetFieldValueProvider(IOptionSetService optionSetService) {
+//            _optionSetService = optionSetService;
+//        }
 
-        public override object GetValue(ContentItem contentItem, ContentField field) {
-            var optionItems = _optionSetService.GetOptionItemsForContentItem(contentItem.VersionRecord.Id, field.Name).ToList();
+//        public override object GetValue(ContentItem contentItem, ContentField field) {
+//            var optionItems = _optionSetService.GetOptionItemsForContentItem(contentItem.VersionRecord.Id, field.Name).ToList();
 
-            var value = string.Join(", ", optionItems.Select(t => t.Name).ToArray());
-            return value;
-        }
-    }
-}
+//            var value = string.Join(", ", optionItems.Select(t => t.Name).ToArray());
+//            return value;
+//        }
+//    }
+//}

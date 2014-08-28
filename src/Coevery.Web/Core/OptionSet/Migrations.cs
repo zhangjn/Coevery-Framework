@@ -19,17 +19,17 @@ namespace Coevery.Core.OptionSet {
                 .Column<bool>("Selectable")
                 );
 
-            SchemaBuilder.CreateTable("OptionItemContentItem", table => table
-                .Column<int>("Id", column => column.PrimaryKey().Identity())
-                .Column<string>("Field", column => column.WithLength(250))
-                .Column<int>("OptionItemRecord_id")
-                .Column<int>("OptionItemContainerPartRecord_id")
-                );
+            //SchemaBuilder.CreateTable("OptionItemContentItem", table => table
+            //    .Column<int>("Id", column => column.PrimaryKey().Identity())
+            //    .Column<string>("Field", column => column.WithLength(250))
+            //    .Column<int>("OptionItemRecord_id")
+            //    .Column<int>("OptionItemContainerPartRecord_id")
+            //    );
 
-            SchemaBuilder.CreateTable("OptionItemContainerPartRecord", table => table
-                .ContentPartRecord()
-                .Column<int>("ContentItemRecord_id")
-                );
+            //SchemaBuilder.CreateTable("OptionItemContainerPartRecord", table => table
+            //    .ContentPartRecord()
+            //    .Column<int>("ContentItemRecord_id")
+            //    );
 
             ContentDefinitionManager.AlterTypeDefinition("OptionSet", cfg => cfg
                 .WithPart("OptionSetPart")
