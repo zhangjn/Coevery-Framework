@@ -72,12 +72,15 @@
 
 		var gridOptions = {
 		    url: '@Url.Action("List","Lead",  new { area = "Nova.Select2" })',
-		    colModel: [{"name":"Id","hidden":true,"key":true}],
+		    colModel: [
+		        { "name": "Id", "hidden": true, "key": true },
+                { "name": "Subject", "index": "Subject", "label": "Subject", "sortable": true }
+		    ],
 		    pager: '#@gridPagerId',
 		    rowNum: 50,
-            rowList: [50, 100, 150],
-		    sortname: '', 
-			sortorder: 'asc'
+		    rowList: [50, 100, 150],
+		    sortname: '',
+		    sortorder: 'asc'
 		};
 
 		@if (Model.GridOptions != null) {

@@ -3,6 +3,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Net;
 using System.Web.Mvc;
 using Coevery;
@@ -44,7 +45,24 @@ namespace Nova.Select2.Controllers {
             return View("List", model);
         }
 
-		[HttpPost]
+	    [HttpPost]
+	    public ActionResult Dropdown(string term, int page = 1, int pageSize = 10, string sortBy = null, string sortOrder = "asc") {
+	        var query = Services.ContentManager.Query<LeadPart, LeadPartRecord>();
+	        if (!string.IsNullOrWhiteSpace(term)) {
+	            query = query.Where(x => x.Subject.Contains(term));
+	        }
+	        var totalRecords = query.Count();
+	        var records = query
+	            .OrderBy(sortBy, sortOrder)
+	            .Slice((page - 1)*pageSize, pageSize)
+	            .Select(item => new {
+	                id = item.Record.ContentItemRecord.Id,
+	                text = item.Subject
+	            }).ToList();
+	        return Json(new {records, total = totalRecords});
+	    }
+
+	    [HttpPost]
 		public ActionResult List(int page = 1, int pageSize = 10, string sortBy = null, string sortOrder = "asc") {
 	        var query = Services.ContentManager.Query<LeadPart, LeadPartRecord>();
 	        var totalRecords = query.Count();
@@ -54,6 +72,7 @@ namespace Nova.Select2.Controllers {
 	            .Select(item => new LeadListViewModel{
 					Id = item.Record.ContentItemRecord.Id,
 					VersionId = item.Record.Id,
+                    Subject = item.Subject
 				}).ToList();
 	        var result = new {
 	            page,

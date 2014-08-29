@@ -133,49 +133,33 @@
     <Content Include="Views\Opportunity\List.cshtml" />
     <Content Include="Views\Parts\CreateView-Lead.cshtml" />
     <Content Include="Views\Parts\CreateView-Opportunity.cshtml" />
-    <Content Include="Views\Parts\CreateView-User.cshtml" />
     <Content Include="Views\Parts\DetailView-Lead.cshtml" />
     <Content Include="Views\Parts\DetailView-Opportunity.cshtml" />
-    <Content Include="Views\Parts\DetailView-User.cshtml" />
     <Content Include="Views\Parts\EditView-Lead.cshtml" />
     <Content Include="Views\Parts\EditView-Opportunity.cshtml" />
-    <Content Include="Views\Parts\EditView-User.cshtml" />
     <Content Include="Views\Parts\ListViewActions-Lead.cshtml" />
     <Content Include="Views\Parts\ListViewActions-Opportunity.cshtml" />
-    <Content Include="Views\Parts\ListViewActions-User.cshtml" />
     <Content Include="Views\Parts\ListViewGrid-Lead.cshtml" />
     <Content Include="Views\Parts\ListViewGrid-Opportunity.cshtml" />
-    <Content Include="Views\Parts\ListViewGrid-User.cshtml" />
     <Content Include="Views\Parts\ListView-Lead.cshtml" />
     <Content Include="Views\Parts\ListView-Opportunity.cshtml" />
-    <Content Include="Views\Parts\ListView-User.cshtml" />
-    <Content Include="Views\User\Create.cshtml" />
-    <Content Include="Views\User\Detail.cshtml" />
-    <Content Include="Views\User\Edit.cshtml" />
-    <Content Include="Views\User\List.cshtml" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Compile Include="Controllers\LeadController.cs" />
     <Compile Include="Controllers\OpportunityController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Drivers\LeadPartDriver.cs" />
     <Compile Include="Drivers\OpportunityPartDriver.cs" />
-    <Compile Include="Drivers\UserPartDriver.cs" />
     <Compile Include="FrontMenu.cs" />
     <Compile Include="Handlers\LeadPartHandler.cs" />
     <Compile Include="Handlers\OpportunityPartHandler.cs" />
-    <Compile Include="Handlers\UserPartHandler.cs" />
     <Compile Include="Models\LeadPart.cs" />
     <Compile Include="Models\LeadPartRecord.cs" />
     <Compile Include="Models\OpportunityPart.cs" />
     <Compile Include="Models\OpportunityPartRecord.cs" />
-    <Compile Include="Models\UserPart.cs" />
-    <Compile Include="Models\UserPartRecord.cs" />
     <Compile Include="Route.cs" />
     <Compile Include="ViewModels\LeadListViewModel.cs" />
     <Compile Include="ViewModels\OpportunityListViewModel.cs" />
-    <Compile Include="ViewModels\UserListViewModel.cs" />
   </ItemGroup>
 </Project>

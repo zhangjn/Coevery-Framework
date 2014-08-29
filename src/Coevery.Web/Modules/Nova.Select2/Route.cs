@@ -12,7 +12,7 @@ namespace Nova.Select2 {
                     "{controller}/{action}/{id}",
                     new RouteValueDictionary {
                         {"area", "Nova.Select2"},
-						{"controller", "User"},
+						{"controller", "Lead"},
                         {"action", "Index"},
                         {"id", ""}
                     },

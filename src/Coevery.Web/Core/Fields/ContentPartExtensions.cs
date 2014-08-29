@@ -10,21 +10,31 @@ namespace Coevery.ContentManagement
     public static class ContentPartExtensions {
         private static readonly string _parameterKey= "__Paramter__";
 
-        public static void StoreParameter<TProperty>(this ContentPart contentPart, string fieldName, string name,
-            TProperty value) {
-            ContentField field = contentPart.Get(typeof (object), fieldName);
-            string parameter;
-            field.PartFieldDefinition.Settings.TryGetValue(_parameterKey, out parameter);
-            var state = FormParametersHelper.ToDynamic(parameter);
-            state[name] = value;
-            field.PartFieldDefinition.Settings[_parameterKey] = FormParametersHelper.ToString(state);
+        public static ContentField GetField(this ContentPart contentPart, string fieldName) {
+            return contentPart.Get(typeof (object), fieldName);
         }
 
-        public static TProperty RetrieveParameter<TProperty>(this ContentPart contentPart, string fieldName, string name) {
-            ContentField field = contentPart.Get(typeof(object), fieldName);
-            var parameter = field.PartFieldDefinition.Settings[_parameterKey];
+        public static void SetFieldParameter(this ContentPart contentPart, string fieldName, dynamic state) {
+            var field = contentPart.GetField(fieldName);
+            SetFieldParameter(field, state);
+        }
+
+        public static void SetFieldParameter(this ContentField contentField, dynamic state) {
+            string parameter;
+            contentField.PartFieldDefinition.Settings.TryGetValue(_parameterKey, out parameter);
+            var existing = FormParametersHelper.FromString(parameter);
+            IDictionary<string,string> stateDictionary = FormParametersHelper.FromString(FormParametersHelper.ToString(state));
+            foreach (var kv in stateDictionary) {
+                existing[kv.Key] = kv.Value;
+            }
+            contentField.PartFieldDefinition.Settings[_parameterKey] = FormParametersHelper.ToString(existing);
+        }
+
+        public static dynamic RetrieveParameters(this ContentField contentField)
+        {
+            var parameter = contentField.PartFieldDefinition.Settings[_parameterKey];
             var state = FormParametersHelper.ToDynamic(parameter);
-            return (TProperty)state[name];
+            return state;
         }
     }
 }

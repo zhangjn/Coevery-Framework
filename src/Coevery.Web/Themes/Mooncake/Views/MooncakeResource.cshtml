@@ -2,7 +2,7 @@
     Style.Include("bootstrap/bootstrap.min.css");
     Style.Include("bootstrap/bootstrap-responsive.min.css");
     Style.Require("jQueryUI_Coevery");
-    
+
     Style.Include("fonts/icomoon/style.css");
     Style.Include("fonts/fontello/fontello.css");
     Style.Include("fonts/fontello/fontello-ie7.css").UseCondition("IE 7");
@@ -16,7 +16,7 @@
     Script.Require("jQueryMousewheel");
     Style.Include("perfect-scrollbar.css");
     Script.Include("js/perfect-scrollbar.js");
-    
+
     // Bootstrap-select
     Style.Include("plugins/bootstrap-select/bootstrap-select.min.css");
     Script.Include("plugins/bootstrap-select/bootstrap-select.min.js");
@@ -24,7 +24,7 @@
     // Bootstrap_Datetimepicker
     Style.Require("Bootstrap_Datetimepicker");
     Script.Require("Bootstrap_Datetimepicker");
-    
+
     Script.Require("jQueryValidate");
 
     Style.Include("layout.css");
@@ -33,13 +33,17 @@
     //pnotify
     Script.Require("pnotify");
     Style.Require("pnotify");
-    
+
     Script.Include("js/setup.js");
     Script.Include("js/bootstrap-modalmanager.js");
     Script.Include("js/bootstrap-modal.js");
     Style.Include("plugins/bootstrap-modal.css");
-    
-    //select23
+
+    //select2
     Style.Require("select2-bootstrap");
     Script.Require("select2");
+
+    Style.Include("kendo-ui/kendo.common-bootstrap.core.css");
+    Style.Include("kendo-ui/kendo.bootstrap.css");
+    Script.Include("kendo-ui/kendo.ui.core.js");
 }
