@@ -156,6 +156,7 @@
         var partsCreateViewSession = new TextTemplatingSession();
         partsCreateViewSession["EntityName"] = entityName;
         partsCreateViewSession["SectionList"] = sectionList;
+		partsCreateViewSession["Services"] = Services;
 
         string partsCreateViewFilePath = Path.Combine(partsViewPath, string.Format("CreateView-{0}.cshtml", entityName));
         string partsCreateViewTemplate = TransformText("PartsCreateView.tt", partsCreateViewSession);
@@ -193,6 +194,7 @@
         var partsEditViewSession = new TextTemplatingSession();
         partsEditViewSession["EntityName"] = entityName;
         partsEditViewSession["SectionList"] = sectionList;
+		partsEditViewSession["Services"] = Services;
 
         string partsEditViewFilePath = Path.Combine(partsViewPath, string.Format("EditView-{0}.cshtml", entityName));
         string partsEditViewTemplate = TransformText("PartsEditView.tt", partsEditViewSession);

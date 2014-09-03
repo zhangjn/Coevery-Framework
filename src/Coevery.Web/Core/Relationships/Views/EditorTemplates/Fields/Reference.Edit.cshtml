@@ -132,6 +132,8 @@
                         dialog.close();
                     }
                 });
+                var gridContainer = $modal.find(".ui-jqgrid").parent();
+                gridContainer.find('div:not(.ui-jqgrid-titlebar,.ui-jqgrid-resize-mark,.loading),section').width("100%");
             });
         };
     })(window.jQuery);

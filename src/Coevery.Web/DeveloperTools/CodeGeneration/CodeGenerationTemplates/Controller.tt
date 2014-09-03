@@ -97,6 +97,31 @@ else if(field.FieldDefinition.Name == "OptionSetField") {#>item.Record.<#=field.
 	        return null;
 	    }
 
+<#	
+		var referenceFields = partDefinition.Fields.Where(f => f.FieldDefinition.Name == "ReferenceField").ToList();
+            foreach (var field in referenceFields) {
+                var settings = field.Settings.TryGetModel<ReferenceFieldSettings>();
+                var displayField = settings.DisplayFieldName;
+                var fieldName = field.Name;
+                var referencedEntityName = settings.ContentTypeName; #>
+		[HttpPost]
+	    public ActionResult <#=fieldName #>Dropdown(string term, int page = 1, int pageSize = 5, string sortBy = null, string sortOrder = "asc") {
+	        var query = Services.ContentManager.Query<<#=referencedEntityName #>Part, <#=referencedEntityName #>PartRecord>();
+	        if (!string.IsNullOrWhiteSpace(term)) {
+	            query = query.Where(x => x.<#=displayField #>.Contains(term));
+	        }
+	        var totalRecords = query.Count();
+	        var records = query
+	            .OrderBy(sortBy, sortOrder)
+	            .Slice((page - 1)*pageSize, pageSize)
+	            .Select(item => new {
+	                id = item.Record.ContentItemRecord.Id,
+	                text = item.<#=displayField #>
+	            }).ToList();
+	        return Json(new {records, total = totalRecords});
+	    }
+<# } #>
+
         public ActionResult Detail(int id) {
             var contentItem = Services.ContentManager.Get(id, VersionOptions.Latest);
             if (contentItem == null) {

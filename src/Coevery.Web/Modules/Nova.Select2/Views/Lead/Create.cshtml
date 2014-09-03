@@ -1,9 +1,0 @@
-﻿@{
-	string displayName = Model.ContentItem.TypeDefinition.DisplayName;
-    Layout.Title = displayName;
-    Layout.TitleDescription = string.Format(T("create a new {0}").Text, displayName);
-}
-@if (Model.Actions != null) {
-    @Display(Model.Actions)
-}
-@Display(Model.Content)
