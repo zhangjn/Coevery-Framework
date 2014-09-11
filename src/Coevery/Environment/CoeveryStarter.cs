@@ -159,6 +159,7 @@ namespace Coevery.Environment {
 
             GlobalConfiguration.Configuration.Filters.Add(new CoeveryApiActionFilterDispatcher());
             GlobalConfiguration.Configuration.Filters.Add(new CoeveryApiExceptionFilterDispatcher());
+            GlobalConfiguration.Configuration.Filters.Add(new CoeveryApiAuthorizationFilterDispatcher());
 
             ViewEngines.Engines.Clear();
             ViewEngines.Engines.Add(new ThemeAwareViewEngineShim());

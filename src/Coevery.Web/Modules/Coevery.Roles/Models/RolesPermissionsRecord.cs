@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Coevery.Data.Conventions;
 
 namespace Coevery.Roles.Models {
     [Table("RolesPermissions")]

@@ -128,7 +128,7 @@ namespace Coevery.Tests.Environment.AutofacUtil.DynamicProxy2 {
         }
     }
 
-    public class SimpleInterceptor : IInterceptor {
+    public class SimpleInterceptor : Castle.DynamicProxy.IInterceptor {
         public void Intercept(IInvocation invocation) {
             if (invocation.Method.Name == "SimpleMethod") {
                 invocation.ReturnValue = "different return value";

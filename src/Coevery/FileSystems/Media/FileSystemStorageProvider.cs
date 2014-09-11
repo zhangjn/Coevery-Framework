@@ -9,7 +9,7 @@ using Coevery.Validation;
 
 namespace Coevery.FileSystems.Media {
     public class FileSystemStorageProvider : IStorageProvider {
-        private readonly string _storagePath; // c:\Coevery\media\default
+        private readonly string _storagePath; // c:\coevery\media\default
         private readonly string _virtualPath; // ~/Media/Default/
         private readonly string _publicPath; // /Coevery/Media/Default/
 
@@ -298,6 +298,10 @@ namespace Coevery.FileSystems.Media {
         /// <returns>True if success; False otherwise.</returns>
         public bool TrySaveStream(string path, Stream inputStream) {
             try {
+                if (FileExists(path)) {
+                    return false;
+                }
+
                 SaveStream(path, inputStream);
             }
             catch {

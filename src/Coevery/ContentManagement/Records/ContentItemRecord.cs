@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
 using Coevery.ContentManagement.FieldStorage.InfosetStorage;
 using Coevery.Data.Conventions;
 

@@ -112,7 +112,7 @@ namespace Coevery.Security.Providers {
             // the cookie user data is {userId};{tenant}
             var userDataSegments = userData.Split(';');
             
-            if (userDataSegments.Length != 2) {
+            if (userDataSegments.Length < 2) {
                 return null;
             }
 

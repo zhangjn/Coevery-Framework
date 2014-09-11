@@ -66,10 +66,10 @@ namespace Coevery.Core.Common.Handlers {
                             var part = item.Parts.First(x => x.PartDefinition.Name == definition.Name);
                             var partRecordProperty = part.GetType().GetProperty("Record");
                             if (partRecordProperty != null) {
-                                var partRecord = partRecordProperty.GetValue(part);
+                                var partRecord = partRecordProperty.GetValue(part, null);
                                 var property = partRecord.GetType().GetProperty(field.Name);
                                 var nullValue = GetDefault(property.PropertyType);
-                                property.SetValue(partRecord, nullValue);
+                                property.SetValue(partRecord, nullValue, null);
                             }
                         }
                     }

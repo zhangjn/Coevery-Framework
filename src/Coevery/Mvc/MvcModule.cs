@@ -5,7 +5,6 @@ using System.Collections.Specialized;
 using System.Globalization;
 using System.Web;
 using System.Web.Caching;
-using System.Web.Instrumentation;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
@@ -107,12 +106,12 @@ namespace Coevery.Mvc {
                 get { return _items; }
             }
 
-            public override PageInstrumentationService PageInstrumentation {
-                get { return new PageInstrumentationService(); }
-            }
-
             public override Cache Cache {
                 get { return HttpRuntime.Cache; }
+            }
+
+            public override object GetService(Type serviceType) {
+                return null;
             }
         }
 

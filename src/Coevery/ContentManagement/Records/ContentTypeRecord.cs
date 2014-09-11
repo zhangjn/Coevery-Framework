@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Coevery.Data.Conventions;
 
 namespace Coevery.ContentManagement.Records {
     [Table("Framework_ContentTypeRecord")]

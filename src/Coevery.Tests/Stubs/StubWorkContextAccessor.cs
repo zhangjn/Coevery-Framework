@@ -89,6 +89,13 @@ namespace Coevery.Tests.Stubs {
                 public string BaseUrl { get; set;}
 
                 public string SiteTimeZone { get; set; }
+
+
+                public int MaxPagedCount
+                {
+                    get { throw new NotImplementedException(); }
+                    set { throw new NotImplementedException(); }
+                }
             }
 
             public class StubUser : IUser {

@@ -1,6 +1,6 @@
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Security;
 using Coevery.ContentManagement.Records;
+using Coevery.Data.Conventions;
 
 namespace Coevery.Users.Models {
     [Table("User")]

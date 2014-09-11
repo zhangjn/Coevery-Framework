@@ -50,5 +50,19 @@ namespace Coevery.ContentManagement.DataMigrations {
             return 2;
         }
 
+        public int UpdateFrom2() {
+            SchemaBuilder.AlterTable("Framework_ContentTypeRecord",
+               table => table
+                   .CreateIndex("IDX_ContentType_Name", "Name")
+               );
+
+            SchemaBuilder.AlterTable("Framework_ContentItemVersionRecord",
+               table => table
+                   .CreateIndex("IDX_ContentItemVersionRecord_Published_Latest", "Published", "Latest")
+               );
+
+            return 3;
+        }
+
     }
 }

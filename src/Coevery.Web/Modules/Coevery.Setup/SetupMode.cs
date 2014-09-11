@@ -102,7 +102,7 @@ namespace Coevery.Setup {
 
 
         [UsedImplicitly]
-        class SafeModeText : IText {
+        private class SafeModeText : IText {
             public LocalizedString Get(string textHint, params object[] args) {
                 if (args == null || args.Length == 0) {
                     return new LocalizedString(textHint);
@@ -112,29 +112,31 @@ namespace Coevery.Setup {
         }
 
         [UsedImplicitly]
-        class SafeModeThemeService : IThemeManager {
+        private class SafeModeThemeService : IThemeManager {
             private readonly ExtensionDescriptor _theme = new ExtensionDescriptor {
                 Id = "SafeMode",
                 Name = "SafeMode",
                 Location = "~/Themes",
             };
 
-            public ExtensionDescriptor GetRequestTheme(RequestContext requestContext) { return _theme; }
+            public ExtensionDescriptor GetRequestTheme(RequestContext requestContext) {
+                return _theme;
+            }
         }
 
         [UsedImplicitly]
-        class SafeModeSiteWorkContextProvider : IWorkContextStateProvider {
+        private class SafeModeSiteWorkContextProvider : IWorkContextStateProvider {
             public Func<WorkContext, T> Get<T>(string name) {
                 if (name == "CurrentSite") {
                     ISite safeModeSite = new SafeModeSite();
-                    return ctx => (T)safeModeSite;
+                    return ctx => (T) safeModeSite;
                 }
                 return null;
             }
         }
 
         [UsedImplicitly]
-        class SafeModeSiteService : ISiteService {
+        private class SafeModeSiteService : ISiteService {
             public ISite GetSiteSettings() {
                 var siteType = new ContentTypeDefinitionBuilder().Named("Site").Build();
                 var site = new ContentItemBuilder(siteType)
@@ -145,7 +147,7 @@ namespace Coevery.Setup {
             }
         }
 
-        class SafeModeSite : ContentPart, ISite {
+        private class SafeModeSite : ContentPart, ISite {
             public string PageTitleSeparator {
                 get { return " - "; }
             }
@@ -202,7 +204,13 @@ namespace Coevery.Setup {
 
             public string SiteTimeZone {
                 get { return TimeZoneInfo.Local.Id; }
-             }        
+            }
+
+
+            public int MaxPagedCount {
+                get { return 0; }
+                set { throw new NotImplementedException(); }
+            }
         }
     }
 }

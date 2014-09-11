@@ -188,7 +188,7 @@ namespace Coevery.ContentManagement {
                                x => x.ContentItemRecord.Id == id && x.Number == options.VersionNumber);
                 }
                 else {
-                    versionRecord = contentItemVersionRecords.FirstOrDefault();
+                    versionRecord = contentItemVersionRecords.LastOrDefault();
                 }
             }
 
@@ -539,7 +539,7 @@ namespace Coevery.ContentManagement {
         }
 
         public virtual ContentItem Clone(ContentItem contentItem) {
-            // Mostly taken from: http://Coevery.codeplex.com/discussions/396664
+            // Mostly taken from: http://coevery.codeplex.com/discussions/396664
             var importContentSession = new ImportContentSession(this);
 
             var element = Export(contentItem);
