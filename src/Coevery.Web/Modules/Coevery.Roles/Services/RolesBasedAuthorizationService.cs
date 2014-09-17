@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using Coevery.Environment.Extensions;
+using Coevery.Wcf;
 using JetBrains.Annotations;
 using Coevery.Localization;
 using Coevery.Logging;
@@ -11,6 +14,7 @@ using Coevery.Security.Permissions;
 
 namespace Coevery.Roles.Services {
     [UsedImplicitly]
+    [CoeverySuppressDependency("Coevery.Core.Common.Services.NullAuthorizationService")]
     public class RolesBasedAuthorizationService : IAuthorizationService {
         private readonly IRoleService _roleService;
         private readonly IWorkContextAccessor _workContextAccessor;
