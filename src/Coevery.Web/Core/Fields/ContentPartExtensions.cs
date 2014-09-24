@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Coevery.Core.Forms.Services;
+using Coevery.DisplayManagement.Shapes;
 
 namespace Coevery.ContentManagement
 {
@@ -30,11 +28,14 @@ namespace Coevery.ContentManagement
             contentField.PartFieldDefinition.Settings[_parameterKey] = FormParametersHelper.ToString(existing);
         }
 
-        public static dynamic RetrieveParameters(this ContentField contentField)
-        {
-            var parameter = contentField.PartFieldDefinition.Settings[_parameterKey];
-            var state = FormParametersHelper.ToDynamic(parameter);
-            return state;
+        public static dynamic RetrieveParameters(this ContentField contentField) {
+            string parameter;
+            if (contentField.PartFieldDefinition.Settings.TryGetValue(_parameterKey, out parameter)) {
+                var state = FormParametersHelper.ToDynamic(parameter);
+                return state;
+            }
+
+            return new Composite();
         }
     }
 }

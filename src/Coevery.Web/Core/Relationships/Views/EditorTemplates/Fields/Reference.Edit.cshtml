@@ -41,6 +41,8 @@
     }
     Shape shape = New.Parts_ListViewGrid(listViewModel);
     shape.Metadata.Alternates.Add("Parts_ListViewGrid__" + relatedEntityName);
+
+    bool hideGrid = parameters.HideGrid ?? false;
 }
 
 <label class="span3 control-label @required" for="@Html.FieldIdFor(m => m.ContentId)">@Model.Field.DisplayName</label>
@@ -48,7 +50,9 @@
     <div class="input-group">
         @Html.HiddenFor(x => x.ContentId, new { @class = "span12", data_text = Model.SelectedText })
         <div class="hide" tabindex="-1">
-            @Display(shape)
+            @if (!hideGrid) {
+                @Display(shape)
+            }
         </div>
     </div>
 
@@ -56,9 +60,14 @@
 @using (Script.Foot())
 {
     <script>
-        $(function () {
-            $('#@Html.FieldIdFor(m => m.ContentId)').referenceEditor();
+    $(function () {
+        $('#@Html.FieldIdFor(m => m.ContentId)').referenceEditor({
+            dropdownUrl: '@parameters.DropdownUrl',
+            gridId: '@gridId',
+            windowTitle: '@T("Choose {0}", Model.RelatedEntityDefinition.DisplayName)',
+            displayFieldName: '@settings.DisplayFieldName'
         });
+    });
     </script>
     // prevent the shape from being rendered twice in a page
     if (WorkContext.GetState<object>("ReferenceEditScript") != null)
@@ -70,13 +79,13 @@
     <script type="text/javascript">
     //<![CDATA[
     (function ($) {
-        $.fn.referenceEditor = function () {
+        $.fn.referenceEditor = function (options) {
             return this.each(function() {
                 var $this = $(this);
                 var $modal = $this.next('div.hide');
                 $this.select2({
                     ajax: {
-                        url: "@parameters.DropdownUrl",
+                        url: options.dropdownUrl,
                         dataType: 'json',
                         type: 'post',
                         data: function(term, page) {
@@ -113,7 +122,7 @@
                             $modal.kendoWindow({
                                 width: "600px",
                                 modal: true,
-                                title: "@T("Choose {0}", Model.RelatedEntityDefinition.DisplayName)",
+                                title: options.windowTitle,
                                 actions: ["Close"]
                             });
                         }
@@ -122,12 +131,12 @@
                     }
                 }));
 
-                $('#@gridId').jqGrid('setGridParam', {
+                $('#'+options.gridId).jqGrid('setGridParam', {
                     onSelectRow: function() {
                         var grid = $(this);
                         var rowId = grid.jqGrid('getGridParam', 'selrow');
                         var result = grid.getRowData(rowId);
-                        $select2.data({ "id": result.Id, "text": result['@settings.DisplayFieldName'] });
+                        $select2.data({ "id": result.Id, "text": result[options.displayFieldName] });
                         var dialog = $modal.data("kendoWindow");
                         dialog.close();
                     }
@@ -138,5 +147,5 @@
         };
     })(window.jQuery);
     //]]>
-    </script>
+</script>
 }
