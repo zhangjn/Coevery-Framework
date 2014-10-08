@@ -69,14 +69,23 @@ namespace Coevery.ContentManagement.MetaData.Builders {
         }
 
         public ContentTypeDefinitionBuilder WithPart(ContentPartDefinition partDefinition, Action<ContentTypePartDefinitionBuilder> configuration) {
+            return WithPart(partDefinition, configuration, part => { });
+        }
+
+        public ContentTypeDefinitionBuilder WithPart(ContentPartDefinition partDefinition, Action<ContentTypePartDefinitionBuilder> configuration, Action<ContentPartDefinitionBuilder> alteration)
+        {
             var existingPart = _parts.SingleOrDefault(x => x.PartDefinition.Name == partDefinition.Name);
-            if (existingPart != null) {
+            if (existingPart != null)
+            {
                 _parts.Remove(existingPart);
             }
-            else {
+            else
+            {
                 existingPart = new ContentTypePartDefinition(partDefinition, new SettingsDictionary());
             }
-            var configurer = new PartConfigurerImpl(existingPart);
+            var builder = new ContentPartDefinitionBuilder(existingPart.PartDefinition);
+            alteration(builder);
+            var configurer = new PartConfigurerImpl(new ContentTypePartDefinition(builder.Build(), existingPart.Settings));
             configuration(configurer);
             _parts.Add(configurer.Build());
             return this;

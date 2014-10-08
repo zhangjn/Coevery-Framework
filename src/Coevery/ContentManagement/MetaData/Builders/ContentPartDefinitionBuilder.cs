@@ -77,7 +77,7 @@ namespace Coevery.ContentManagement.MetaData.Builders {
             return this;
         }
 
-        class FieldConfigurerImpl : ContentPartFieldDefinitionBuilder {
+        internal class FieldConfigurerImpl : ContentPartFieldDefinitionBuilder {
             private ContentFieldDefinition _fieldDefinition;
             private readonly ContentPartDefinition _partDefinition;
             private readonly string _fieldName;

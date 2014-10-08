@@ -34,6 +34,7 @@ namespace Coevery.Security {
 
         public IEnumerable<Permission> GetPermissions() {
             return new[] {
+                AccessAdminPanel,
                 AccessFrontEnd
             };
         }

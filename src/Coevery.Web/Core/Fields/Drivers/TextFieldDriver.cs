@@ -50,7 +50,7 @@ namespace Coevery.Core.Fields.Drivers {
                 if (settings.Required && !hasValue) {
                     updater.AddModelError(GetPrefix(field, part), T("The field {0} is mandatory.", T(field.DisplayName)));
                 }
-                if (field.Value.Length > settings.MaxLength) {
+                if (hasValue && field.Value.Length > settings.MaxLength) {
                     updater.AddModelError(GetPrefix(field, part), T("The field {0} value exceed max length.", T(field.DisplayName)));
                 }
             }

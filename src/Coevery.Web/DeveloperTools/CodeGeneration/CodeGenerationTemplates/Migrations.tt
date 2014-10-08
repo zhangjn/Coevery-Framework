@@ -1,15 +1,29 @@
 ﻿<#@ template debug="false" language="C#" #>
 <#@ include file="EntityDefinition.ttinclude" #>
+<#@ import namespace="Coevery.Core.OptionSet.Models" #>
 <#@ parameter type="System.String" name="Namespace" #>
 <#@ parameter type="System.Collections.Generic.IList<ContentTypeDefinitionPart>" name="Entities" #>
 using System;
-using Coevery.Data.Migration;
+using System.Globalization;
+using Coevery.ContentManagement;
 using Coevery.ContentManagement.MetaData;
+using Coevery.ContentManagement.MetaData.Builders;
+using Coevery.ContentManagement.MetaData.Models;
+using Coevery.Core.OptionSet.Models;
+using Coevery.Data.Migration;
 
 namespace <#=Namespace#> {
     public class DataMigration : DataMigrationImpl {
+
+	    private readonly IContentManager _contentManager;
+
+        public DataMigration(IContentManager contentManager) {
+            _contentManager = contentManager;
+        }
+
         public int Create() {
-<# 
+<#
+    var optionSetFields = new Dictionary<string, int>();
 	foreach (var entity in Entities) { 
 		var part = GetContentPartDefinition(entity.Name);
 	    if (part == null) {
@@ -46,27 +60,32 @@ namespace <#=Namespace#> {
 <# 
 	    }
 #>
-
-            ContentDefinitionManager.AlterPartDefinition("<#=part.Name#>",
+			Action<ContentPartDefinitionBuilder> <#=part.Name.Substring(0,1).ToLower()+part.Name.Substring(1)#>Alteration =
 <# if (part.Fields.Any()) { #>
                 part => part
 <# foreach (var field in part.Fields) { #>
                     .WithField("<#=field.Name#>", column => column
                         .OfType("<#=field.FieldDefinition.Name#>")
-<# foreach (var setting in field.Settings) { #>
-						.WithSetting("<#=setting.Key#>", "<#=setting.Value#>")
+<# foreach (var setting in field.Settings) {
+    if (setting.Key == "OptionSetFieldSettings.OptionSetId") {
+        int optionSetId = Convert.ToInt32(setting.Value);
+        optionSetFields[part.Name + field.Name] = optionSetId; #>
+						.WithSetting("<#=setting.Key #>", Create<#=part.Name + field.Name #>OptionSetPart())
+<# }
+    else { #>
+						.WithSetting("<#=setting.Key #>", "<#=setting.Value #>")
+<# } #>
 <# } #>
                     )
 <# } #>
 <# } #>
 <# else { #>
                 part => {}
-<# } #>
-                );
+<# } #>;
 
 			ContentDefinitionManager.AlterTypeDefinition("<#=entity.Name#>",
                 type => type
-                    .WithPart("<#=part.Name#>")
+					.WithPart(new ContentPartDefinition("<#=part.Name#>"), configuration => { }, <#=part.Name.Substring(0,1).ToLower()+part.Name.Substring(1)#>Alteration)
 <# foreach (var setting in entity.DefinitionSettings) { #>
                     .WithSetting("<#=setting.Key#>", "<#=setting.Value.Replace("\"", "\\\"")#>")
 <# } #>
@@ -75,5 +94,27 @@ namespace <#=Namespace#> {
 <# } #>
             return 1;
         }
+
+	<# foreach (var optionSetField in optionSetFields) {
+    var optionSet = Services.ContentManager.Get<OptionSetPart>(optionSetField.Value);
+    var optionItems = string.Join(", ", optionSet.OptionItems.Select(x => string.Format("\"{0}\"", x.Name)));
+#>
+		private string Create<#=optionSetField.Key#>OptionSetPart(){
+            var optionSetPart = _contentManager.New<OptionSetPart>("OptionSet");
+            optionSetPart.Name = "<#=optionSet.Name#>";
+
+            _contentManager.Create(optionSetPart, VersionOptions.Published);
+
+            var options = new[] {<#=optionItems#>};
+            foreach (var option in options){
+                var optionItem = _contentManager.New<OptionItemPart>("OptionItem");
+                optionItem.OptionSetId = optionSetPart.Id;
+                optionItem.Name = option;
+                _contentManager.Create(optionItem, VersionOptions.Published);
+            }
+            return optionSetPart.Id.ToString(CultureInfo.InvariantCulture);
+        }
+    
+<#} #>
     }
 }

@@ -141,6 +141,7 @@ namespace Coevery.Core.Settings.Metadata {
                     record.ContentTypePartDefinitionRecords.Add(typePartRecord);
                 }
                 Apply(part, typePartRecord);
+                Apply(part.PartDefinition, typePartRecord.ContentPartDefinitionRecord);
             }
         }
 
