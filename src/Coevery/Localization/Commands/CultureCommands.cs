@@ -8,7 +8,8 @@ namespace Coevery.Localization.Commands {
         private readonly ICultureManager _cultureManager;
         private readonly ICoeveryServices _coeveryServices;
 
-        public CultureCommands(ICultureManager cultureManager, ICoeveryServices coeveryServices) {
+        public CultureCommands(ICultureManager cultureManager, 
+            ICoeveryServices coeveryServices) {
             _cultureManager = cultureManager;
             _coeveryServices = coeveryServices;
         }
