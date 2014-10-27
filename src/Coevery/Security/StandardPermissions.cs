@@ -35,7 +35,8 @@ namespace Coevery.Security {
         public IEnumerable<Permission> GetPermissions() {
             return new[] {
                 AccessAdminPanel,
-                AccessFrontEnd
+                AccessFrontEnd,
+                SiteOwner
             };
         }
 
@@ -43,7 +44,7 @@ namespace Coevery.Security {
             return new[] {
                 new PermissionStereotype {
                     Name = "Administrator",
-                    Permissions = new[] {AccessAdminPanel}
+                    Permissions = new[] {SiteOwner, AccessAdminPanel}
                 },
                 new PermissionStereotype {
                     Name = "Anonymous"

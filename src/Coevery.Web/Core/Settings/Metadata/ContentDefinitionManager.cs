@@ -176,6 +176,7 @@ namespace Coevery.Core.Settings.Metadata {
 
         private void Apply(ContentPartFieldDefinition model, ContentPartFieldDefinitionRecord record) {
             record.Settings = Compose(_settingsFormatter.Map(model.Settings));
+            record.ContentFieldDefinitionRecord = Acquire(model.FieldDefinition);
         }
 
         static string Compose(XElement map) {
