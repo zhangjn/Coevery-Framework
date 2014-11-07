@@ -62,9 +62,14 @@ namespace Coevery.Core.Relationships.Drivers {
                     var selectedText = string.Empty;
                     if (fieldValue.HasValue) {
                         var contentItem = _contentManager.Get(fieldValue.Value);
-                        var contentPart = contentItem.Parts.First(x => x.PartDefinition.Name == partName);
-                        var displayField = contentPart.Fields.First(x => x.Name == settings.DisplayFieldName);
-                        selectedText = displayField.Storage.Get<dynamic>(null);
+                        if (contentItem != null) {
+                            var displayFields = contentItem.Parts.Where(x => x.PartDefinition.Name == partName)
+                                .SelectMany(x => x.Fields).Where(x => x.Name == settings.DisplayFieldName).ToList();
+                            if (displayFields.Any()) {
+                                var displayField = displayFields.First();
+                                selectedText = displayField.Storage.Get<dynamic>(null);
+                            }
+                        }
                     }
 
                     var model = new ReferenceFieldViewModel {
