@@ -94,6 +94,7 @@ namespace Coevery.Data.Providers {
                 .Alterations(alt => {
                     foreach (var recordAssembly in recordDescriptors.Select(x => x.Type.Assembly).Distinct()) {
                         alt.Add(new AutoMappingOverrideAlteration(recordAssembly));
+                        alt.AddFromAssembly(recordAssembly);
                     }
                     alt.AddFromAssemblyOf<DataModule>();
                     alt.Add(new ContentItemAlteration(recordDescriptors));
