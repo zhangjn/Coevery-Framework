@@ -71,10 +71,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\nhibernate\FluentNHibernate.dll</HintPath>
     </Reference>
-    <Reference Include="Iesi.Collections, Version=1.0.1.0, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\nhibernate\Iesi.Collections.dll</HintPath>
-    </Reference>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\log4net\log4net.dll</HintPath>
@@ -87,10 +83,6 @@
       <HintPath>..\..\lib\nhibernate\NHibernate.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="NHibernate.Linq, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\lib\nhibernate.linq\NHibernate.Linq.dll</HintPath>
     </Reference>
     <Reference Include="NHibernate.SqlAzure, Version=1.0.0.37, Culture=neutral, PublicKeyToken=bb07ae0f952b17ee, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -621,6 +613,9 @@
     <Compile Include="IWorkContextAccessor.cs" />
     <Compile Include="Utility\Extensions\VirtualPathProviderExtensions.cs" />
     <Compile Include="Utility\ReflectionHelper.cs" />
+    <Compile Include="Validation\JetBrains.Annotations.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Validation\PathValidation.cs" />
     <Compile Include="Wcf\CoeveryDependencyInjectionServiceBehavior.cs" />
     <Compile Include="Wcf\CoeveryInstanceContext.cs" />
@@ -982,7 +977,6 @@
     <Compile Include="Utility\Position.cs" />
     <Compile Include="Utility\Reflect.cs" />
     <Compile Include="Utility\ReflectOn.cs" />
-    <Compile Include="Validation\JetBrains.Annotations.cs" />
     <Compile Include="IMapper.cs" />
   </ItemGroup>
   <ItemGroup>

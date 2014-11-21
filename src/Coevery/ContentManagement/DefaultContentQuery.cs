@@ -125,51 +125,25 @@ namespace Coevery.ContentManagement {
         }
 
         private void Where<TRecord>(Expression<Func<TRecord, bool>> predicate, ICriteria bindCriteria) {
-            // build a linq to nhibernate expression
-            var options = new QueryOptions();
-            var queryProvider = new NHibernateQueryProvider(BindSession(), options);
-            var queryable = new Query<TRecord>(queryProvider, options).Where(predicate);
-
             // translate it into the nhibernate ICriteria implementation
-            var criteria = (CriteriaImpl)queryProvider.TranslateExpression(queryable.Expression);
+            var criteria = ExpressionProcessor.ProcessExpression(predicate);
 
-            // attach the criterion from the predicate to this query's criteria for the record
-            var recordCriteria = bindCriteria;
-            foreach (var expressionEntry in criteria.IterateExpressionEntries()) {
-                recordCriteria.Add(expressionEntry.Criterion);
-            }
+            // attaching orderings to the query's criteria
+            bindCriteria.Add(criteria);
         }
 
         private void OrderBy<TRecord, TKey>(Expression<Func<TRecord, TKey>> keySelector) where TRecord : ContentPartRecord {
-            // build a linq to nhibernate expression
-            var options = new QueryOptions();
-            var queryProvider = new NHibernateQueryProvider(BindSession(), options);
-            var queryable = new Query<TRecord>(queryProvider, options).OrderBy(keySelector);
-
-            // translate it into the nhibernate ordering
-            var criteria = (CriteriaImpl)queryProvider.TranslateExpression(queryable.Expression);
-
+            var order = ExpressionProcessor.ProcessOrder(keySelector, Order.Asc);
             // attaching orderings to the query's criteria
             var recordCriteria = BindPartCriteria<TRecord>();
-            foreach (var ordering in criteria.IterateOrderings()) {
-                recordCriteria.AddOrder(ordering.Order);
-            }
+            recordCriteria.AddOrder(order);
         }
 
         private void OrderByDescending<TRecord, TKey>(Expression<Func<TRecord, TKey>> keySelector) where TRecord : ContentPartRecord {
-            // build a linq to nhibernate expression
-            var options = new QueryOptions();
-            var queryProvider = new NHibernateQueryProvider(BindSession(), options);
-            var queryable = new Query<TRecord>(queryProvider, options).OrderByDescending(keySelector);
-
-            // translate it into the nhibernate ICriteria implementation
-            var criteria = (CriteriaImpl)queryProvider.TranslateExpression(queryable.Expression);
-
+            var order = ExpressionProcessor.ProcessOrder(keySelector, Order.Desc);
             // attaching orderings to the query's criteria
             var recordCriteria = BindPartCriteria<TRecord>();
-            foreach (var ordering in criteria.IterateOrderings()) {
-                recordCriteria.AddOrder(ordering.Order);
-            }
+            recordCriteria.AddOrder(order);
         }
 
         private IEnumerable<ContentItem> Slice(int skip, int count) {
