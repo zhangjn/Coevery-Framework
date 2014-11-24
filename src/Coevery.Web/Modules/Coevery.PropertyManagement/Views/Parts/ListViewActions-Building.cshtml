@@ -1,0 +1,85 @@
+﻿@using Coevery.ContentManagement
+@using Coevery.Security
+@using Coevery.Utility.Extensions
+<div id="page-actions" class="clearfix">
+    <div class="btn-toolbar pull-left">
+        @if (Authorizer.Authorize(StandardPermissions.Create,Model.ContentItem))
+        {
+            <a class="btn btn-small btn-success" href="@Url.Action("Create", new {returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString()})"><i class="icon-plus"></i>&nbsp;@T("添加")</a>
+        }
+        @if (Authorizer.Authorize(StandardPermissions.Edit,Model.ContentItem))
+        {
+            <button id="btnEdit" class="btn btn-small btn-primary hide" type="button"><i class="icon-edit"></i>&nbsp;@T("编辑")</button>
+        }
+        @if (Authorizer.Authorize(StandardPermissions.Delete,Model.ContentItem))
+        {
+            <button id="btnDelete" data-toggle="modal" data-target="#deleteModal" class="btn btn-small btn-warning hide" type="button"><i class="icon-trash"></i>&nbsp;@T("删除")</button>
+        }
+        <button id="btnRefresh" class="btn btn-small" type="button"><i class="icon-refresh"></i>&nbsp;@T("刷新")</button>
+    </div>
+</div>
+<div class="modal-backdrop hide"></div>
+<div id="deleteModal" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3><span>删除确认</span></h3>
+    </div>
+    <div class="modal-body">
+        <p>真的想要删除吗？</p>
+    </div>
+    <div class="modal-footer">
+        <button id="deleteRowData" class="btn btn-primary"><span>是</span></button>
+        <button class="btn" data-dismiss="modal"><span>否</span></button>
+    </div>
+</div>
+@{
+    var gridId = Model.GridId;
+}
+
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(function () {
+            var grid = $('#@gridId');
+
+            function updateButtonStatus() {
+                var selectedRowIds = grid.jqGrid('getGridParam', 'selarrrow');
+                $("#btnEdit").toggle(selectedRowIds.length == 1);
+                $("#btnDelete").toggle(selectedRowIds.length > 0);
+            }
+
+            grid.jqGrid('setGridParam', { onSelectRow: updateButtonStatus, onSelectAll: updateButtonStatus, gridComplete: updateButtonStatus });
+
+            $('#btnEdit').click(function () {
+                var selectedRowIds = grid.jqGrid('getGridParam', 'selarrrow');
+                if (selectedRowIds.length == 0) return;
+                window.location.href = '@Url.Action("Edit")/' + selectedRowIds[0] + '?returnUrl=@ViewContext.RequestContext.HttpContext.Request.ToUrlString()';
+            });
+            $('#deleteRowData').click(function () {
+                var selectedIds = grid.jqGrid('getGridParam', 'selarrrow');
+                if (selectedIds.length == 0) return;
+                var magicToken = $("input[name=__RequestVerificationToken]").first();
+                if (magicToken.length == 0) {
+                    return;
+                } // no sense in continuing if form POSTS will fail
+                $('#deleteModal').modal('hide');
+                $.ajax({
+                    url: '@Url.Action("Delete")',
+                    data: { selectedIds: selectedIds, __RequestVerificationToken: magicToken.val() },
+                    type: "POST",
+                    traditional: true
+                })
+                    .done(function (response) {
+                        grid.trigger('reloadGrid');
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        alert(textStatus);
+                    });
+            });
+            $('#btnRefresh').click(function () {
+                grid.trigger('reloadGrid');
+            });
+        });
+
+    </script>
+}

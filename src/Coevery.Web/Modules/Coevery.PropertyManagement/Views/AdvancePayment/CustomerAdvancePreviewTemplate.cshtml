@@ -1,0 +1,103 @@
+﻿@{
+    Style.Include("Voucher.css");
+    Script.Require("handlebars");
+    Script.Require("chineseAmountConvert");
+}
+<hr />
+<h2>
+    收款收据<label>(成都润茂物业管理)</label>{{#if VoucherNo}}<span>单号：{{VoucherNo}}</span>{{/if}}
+</h2>
+<div id="oder-date">制单日期：<span>{{CurrentDate}}</span></div>
+<table border="1">
+    <tbody>
+        <tr>
+            <th>客户名称</th>
+            <th colspan="3">{{CustomerName}}</th>
+            
+        </tr>
+
+        <tr>
+            <th>序号</th>
+            <th>付款方式</th>
+            <th>付款金额</th>
+            <th>备注</th>
+        </tr>
+
+
+        {{#each List}}
+        <tr>
+            <td>{{Id}}</td>
+            <td>{{AdvancePaymentMethod}}</td>
+            <td>{{toFixed Amount 2}}</td>
+            <td>{{Description}}</td>
+        </tr>
+        {{/each}}
+        <tr class="money-disp">
+            <td>金额大写</td>
+            <td>{{toChineseCaptial TotalMoney}}</td>
+            <td>总计</td>
+            <td>{{toFixed TotalMoney 2}}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="sign">
+    <div class="sign-left"><label>收款人：</label><span> </span></div>
+    <div class="sign-right"><label>负责人签字：</label><span> </span></div>
+</div>
+<div class="sign-date"><label>日期：</label><span> </span></div>
+<hr />
+
+@using (Script.Foot())
+{
+    <script>
+        $(function () {
+            Handlebars.registerHelper('toChineseCaptial', function (number) {
+                return convertToChinese(number);
+            });
+            
+            Handlebars.registerHelper('toFixed', function (value, options) {
+                return new Handlebars.SafeString((value != null) ? (+value).toFixed(options) : "");
+            });
+
+            Handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options) {
+
+                var operators, result;
+
+                if (arguments.length < 3) {
+                    throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+                }
+
+                if (options === undefined) {
+                    options = rvalue;
+                    rvalue = operator;
+                    operator = "===";
+                }
+
+                operators = {
+                    '==': function (l, r) { return l == r; },
+                    '===': function (l, r) { return l === r; },
+                    '!=': function (l, r) { return l != r; },
+                    '!==': function (l, r) { return l !== r; },
+                    '<': function (l, r) { return l < r; },
+                    '>': function (l, r) { return l > r; },
+                    '<=': function (l, r) { return l <= r; },
+                    '>=': function (l, r) { return l >= r; },
+                    'typeof': function (l, r) { return typeof l == r; }
+                };
+
+                if (!operators[operator]) {
+                    throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
+                }
+
+                result = operators[operator](lvalue, rvalue);
+
+                if (result) {
+                    return options.fn(this);
+                } else {
+                    return options.inverse(this);
+                }
+
+            });
+        });
+    </script>
+}

@@ -1,0 +1,137 @@
+﻿@model Coevery.PropertyManagement.ViewModels.EntitySelectorViewModel
+@using System.Web.Mvc.Html
+@using Coevery.DisplayManagement.Shapes
+@using NPOI.SS.Formula.Functions
+@{
+    var required = Model.Required ? "required" : null;
+    var selectAttributes = new Dictionary<string, object> { { "class", "textMedium span12" } };
+    if (Model.Required)
+    {
+        selectAttributes.Add("required", "");
+    }
+
+    if (!string.IsNullOrWhiteSpace(Model.HelpText)) {
+        selectAttributes.Add("help-text", Model.HelpText);
+    }
+    var relatedEntityName = Model.RelatedEntityName;
+    var gridId = Model.ClientId + "Grid";
+    var listViewModel = new
+    {
+        GridId = gridId,
+        GridOptions = new Dictionary<string, object> {
+            {"multiselect", false},
+            {"scroll", 1},
+            {"height", 300},
+            {"autowidth", false}
+        }
+    };
+    IDictionary<string, object> gridOptions = Model.GridOptions;
+    if (gridOptions != null) {
+        foreach (var option in gridOptions) {
+            listViewModel.GridOptions[option.Key] = option.Value;
+        }
+    }
+    Shape shape = New.Parts_ListViewGrid(listViewModel);
+    shape.Metadata.Alternates.Add("Parts_ListViewGrid__" + relatedEntityName);
+}
+
+<label class="span3 control-label @required" for="@Model.ClientId">@Model.Label</label>
+<div class="control controls errortips">
+    <div class="input-group">
+        @Html.Hidden(Model.ClientName??Model.ClientId, Model.SelectedValue, new Dictionary<string, object>{
+            {"id",Model.ClientId},
+            {"class","span12"},
+            {"required",""},
+            {"data-text",Model.SelectedText},
+            {"data-msg-required",Model.RequiredMsg}})
+        <div class="hide" tabindex="-1">
+            @Display(shape)
+        </div>
+    </div>
+
+</div>
+@using (Script.Foot())
+{
+    <script>
+    $(function () {
+        $('#@Model.ClientId').referenceEditor({
+            dropdownUrl: '@Model.DropdownUrl',
+            gridId: '@gridId',
+            windowTitle: '@Model.PopupWindowCaption',
+            displayFieldName: '@Model.DisplayFieldName'
+        });
+    });
+</script>
+    // prevent the shape from being rendered twice in a page
+    if (WorkContext.GetState<object>("ReferenceEditScript") != null)
+    {
+        return;
+    }
+
+    WorkContext.SetState("ReferenceEditScript", new object());
+    <script type="text/javascript">
+    //<![CDATA[
+    (function ($) {
+        $.fn.referenceEditor = function (options) {
+            return this.each(function() {
+                var $this = $(this);
+                var $modal = $this.next('div.hide');
+                $this.select2({
+                    ajax: {
+                        url: options.dropdownUrl,
+                        dataType: 'json',
+                        type: 'post',
+                        data: function(term, page) {
+                            return {
+                                term: term, // search term
+                                page: page
+                            };
+                        },
+                        results: function(data, page) {
+                            //var more = (page * 10) < data.total;
+                            return { results: $.merge(data.records, [{ "text": "更多选择...", "css": "more-data" }]) };
+                        }
+                    },
+                    initSelection: function(element, callback) {
+                        if (element.val()) {
+                            var data = { id: element.val(), text: element.data('text') };
+                            callback(data);
+                        }
+                    }
+                });
+                var $select2 = $this.data("select2");
+                $select2.dropdown.on("mouseup", '.select2-results', $select2.bind(function(e) {
+                    if ($(e.target).closest(".more-data").length > 0) {
+                        $select2.close();
+                        if (!$modal.data("kendoWindow")) {
+                            $modal.kendoWindow({
+                                width: "600px",
+                                modal: true,
+                                title: options.windowTitle,
+                                actions: ["Close"]
+                            });
+                        }
+                        var dialog = $modal.data("kendoWindow");
+                        dialog.center().open();
+                    }
+                }));
+
+                $('#'+options.gridId).jqGrid('setGridParam', {
+                    onSelectRow: function() {
+                        var grid = $(this);
+                        var rowId = grid.jqGrid('getGridParam', 'selrow');
+                        var result = grid.getRowData(rowId);
+                        $select2.data({ "id": result.Id, "text": result[options.displayFieldName] });
+                        $select2.triggerChange();
+                        var dialog = $modal.data("kendoWindow");
+                        dialog.close();
+                    }
+                });
+                var gridContainer = $modal.find(".ui-jqgrid").parent();
+                gridContainer.find('div:not(.ui-jqgrid-titlebar,.ui-jqgrid-resize-mark,.loading),section').width("100%");
+            });
+        };
+    })(window.jQuery);
+    //]]>
+</script>
+}

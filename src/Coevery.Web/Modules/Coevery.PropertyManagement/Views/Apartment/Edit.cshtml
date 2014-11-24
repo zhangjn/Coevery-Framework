@@ -1,0 +1,9 @@
+﻿@{
+    string displayName = "楼盘";
+    Layout.Title = displayName;
+    Layout.TitleDescription = string.Format(T("编辑{0}").Text, displayName);
+}
+@if (Model.Actions != null) {
+    @Display(Model.Actions)
+}
+@Display(Model.Content)

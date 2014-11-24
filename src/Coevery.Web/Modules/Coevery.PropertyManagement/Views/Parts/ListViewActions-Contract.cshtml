@@ -1,0 +1,202 @@
+﻿@using Coevery.ContentManagement
+@using Coevery.PropertyManagement.Models
+@using Coevery.PropertyManagement.ViewModels
+@using Coevery.Security
+@using Coevery.Utility.Extensions
+@{
+    var customerViewModel = new EntitySelectorViewModel
+    {
+        ClientId = "Filter_RenterId",
+        ClientName = "Filter.RenterId",
+        DisplayFieldName = "Name",
+        DropdownUrl = Url.Action("OwnerDropdown", "House"),
+        Label = "租户",
+        PopupWindowCaption = "请选择租户",
+        RelatedEntityName = "Customer",
+        RequiredMsg = "请选择租户!",
+        Required = true
+    };
+}
+
+<div id="page-actions" class="clearfix">
+    <div class="btn-toolbar pull-left">
+        @if (Authorizer.Authorize(StandardPermissions.Create, Model.ContentItem))
+        {
+            <a class="btn btn-small btn-success" href="@Url.Action("Create", new {returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString()})"><i class="icon-plus"></i>&nbsp;添加</a>
+        }
+        @if (Authorizer.Authorize(StandardPermissions.Edit, Model.ContentItem))
+        {
+            <button id="btnEdit" class="btn btn-small btn-primary hide" type="button"><i class="icon-edit"></i>&nbsp;编辑</button>
+            <button id="btnChange" class="btn btn-small btn-warning hide" type="button">&nbsp;变更</button>
+            <button id="btnStop" class="btn btn-small btn-warning hide" type="button">&nbsp;终止</button>
+        }
+        @if (Authorizer.Authorize(StandardPermissions.Delete, Model.ContentItem))
+        {
+            <button id="btnDelete" data-toggle="modal" data-target="#deleteModal" class="btn btn-small btn-warning hide" type="button"><i class="icon-trash"></i>&nbsp;删除</button>
+        }
+        
+        <button id="btnSee" class="btn btn-small hide" type="button"><i class="icon-see"></i>&nbsp;查看</button>
+        <button id="btnRefresh" class="btn btn-small" type="button"><i class="icon-refresh"></i>&nbsp;@T("刷新")</button>
+    </div>
+</div>
+<div id="filters" class="form-inline">
+    <div class="searchbox">
+        <label class="lb-60" for="Filter_CustomerName">@T("合同编号:")</label>
+        @Html.TextBox("Filter.ContractNumber", null, new { @class = "text" })
+    </div>
+    <div class="searchbox">
+        <label class="lb-60" for="Filter_CustomerName">@T("合同名称:")</label>
+        @Html.TextBox("Filter.ContractName", null, new { @class = "text" })
+    </div>
+    <div class="row-fluid">
+        <div class="searchbox span4">
+            @Display.Partial(TemplateName: "EntitySelector", Model: customerViewModel)
+        </div>
+    </div>
+    <button id="btnFilter" class="btn btn-small"><i class="icos-looking-glass"></i>&nbsp;查找</button>
+    <button id="btnReset" class="btn btn-small btnReset" name="reset">重置</button>
+</div>
+
+    <div class="modal-backdrop hide"></div>
+    <div id="deleteModal" class="modal hide fade in">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3><span>删除确认</span></h3>
+        </div>
+        <div class="modal-body">
+            <p>真的要删除吗?</p>
+        </div>
+        <div class="modal-footer">
+            <button id="deleteRowData" class="btn btn-primary"><span>是的</span></button>
+            <button class="btn" data-dismiss="modal"><span>否</span></button>
+        </div>
+    </div>
+    @{
+        var gridId = Model.GridId;
+    }
+
+    @using (Script.Foot())
+    {
+        <script type="text/javascript">
+            $(function () {
+                var grid = $('#@gridId');
+
+                function updateButtonStatus() {
+                    var selectedRowIds = grid.jqGrid('getGridParam', 'selarrrow');
+                    $("#btnEdit").toggle(false);
+                    $("#btnChange").toggle(false);
+                    $('#btnStop').toggle(false);
+                    $("#btnSee").toggle(selectedRowIds.length == 1);
+                    $("#btnDelete").toggle(selectedRowIds.length > 0);
+                    if (selectedRowIds.length == 1) {
+                        var row = grid.getRowData(selectedRowIds[0]);
+                        if (row.ContractStatus == '@ContractStatusOption.签订.ToString()') {
+                            //签订的合同可以被编辑
+                            $('#btnEdit').toggle(true);
+                        }
+
+                        if (row.ContractStatus == '@ContractStatusOption.正在执行.ToString()') {
+                            //正在执行的合同可以被变更,可以终止 不可以被编辑 删除
+                            $("#btnChange").toggle(true);
+                            $('#btnStop').toggle(true);
+                            $("#btnEdit").toggle(false);
+                            $('#btnDelete').toggle(false);
+                        }
+
+                        if (row.ContractStatus == '@ContractStatusOption.终止.ToString()') {
+                            //终止的合同不可以被编辑，变更，删除
+                            //$("#btnEdit").toggle(false);
+                            //$("#btnChange").toggle(false);
+                            $('#btnDelete').toggle(false);
+                        }
+                    }
+                }
+
+                grid.jqGrid('setGridParam', { onSelectRow: function () { updateButtonStatus(); } });
+                grid.jqGrid('setGridParam', { gridComplete: function () { updateButtonStatus(); } });
+                $('#btnEdit').click(function () {
+                    var selectedRowIds = grid.jqGrid('getGridParam', 'selarrrow');
+                    if (selectedRowIds.length == 0) return;
+                    window.location.href = '@Url.Action("Edit")/' + selectedRowIds[0] + '?returnUrl=@ViewContext.RequestContext.HttpContext.Request.ToUrlString()';
+                });
+                $('#btnChange').click(function () {
+                    var selectedRowIds = grid.jqGrid('getGridParam', 'selarrrow');
+                    if (selectedRowIds.length == 0) return;
+                    window.location.href = '@Url.Action("Change")/' + selectedRowIds[0] + '?returnUrl=@ViewContext.RequestContext.HttpContext.Request.ToUrlString()';
+                });
+                $('#btnSee').click(function () {
+                    var selectedRowIds = grid.jqGrid('getGridParam', 'selarrrow');
+                    if (selectedRowIds.length == 0) return;
+                    window.location.href = '@Url.Action("See")/' + selectedRowIds[0] + '?returnUrl=@ViewContext.RequestContext.HttpContext.Request.ToUrlString()';
+                });
+                @*$('#btnStop').click(function () {
+                var selectedRowIds = grid.jqGrid('getGridParam', 'selarrrow');
+                if (selectedRowIds.length == 0) return;
+                window.location.href = '@Url.Action("StopContract")/' + selectedRowIds[0] + '?returnUrl=@ViewContext.RequestContext.HttpContext.Request.ToUrlString()';
+            });*@
+                $('#deleteRowData').click(function () {
+                    var selectedIds = grid.jqGrid('getGridParam', 'selarrrow');
+                    if (selectedIds.length == 0) return;
+                    var magicToken = $("input[name=__RequestVerificationToken]").first();
+                    if (magicToken.length == 0) {
+                        return;
+                    } // no sense in continuing if form POSTS will fail
+                    $('#deleteModal').modal('hide');
+                    $.ajax({
+                        url: '@Url.Action("Delete")',
+                        data: { selectedIds: selectedIds, __RequestVerificationToken: magicToken.val() },
+                        type: "POST",
+                        traditional: true
+                    })
+                        .done(function (response) {
+                            grid.trigger('reloadGrid');
+                        })
+                        .fail(function (jqXHR, textStatus, errorThrown) {
+                            alert(textStatus);
+                        });
+                });
+                $('#btnRefresh').click(function () {
+                    grid.trigger('reloadGrid');
+                });
+
+                $('#btnFilter').click(function () {
+                    var postData = grid.jqGrid('getGridParam', 'postData');
+                    $('#filters :input').serializeArray().map(function (x) { postData[x.name] = x.value; });
+                    grid.trigger("reloadGrid");
+                });
+
+                $('#btnReset').click(function () {
+                    $('#filters :input').each(function (index, value) {
+                        $(value).val('');
+                    });
+                    $('#btnFilter').trigger('click');
+                });
+                $('#btnStop').click(function (e) {
+                    var selectedRowIds = grid.jqGrid('getGridParam', 'selarrrow');
+                    if (selectedRowIds.length == 0) return;
+                    $.ajax({
+                        type: 'Post',
+                        url: "@Url.Action("StopContract", "Contract")",
+                        contentType: 'application/json: charset=utf-8',
+                        data: JSON.stringify({
+                            Id: selectedRowIds[0],
+                        }),
+                        success: function () {
+                            grid.trigger('reloadGrid');
+                            //$('#btnStop').hide();
+                            //$("#btnDelete").hide();
+                        },
+                        error: function () {
+                            $.pnotify({
+                                title: '提示',
+                                text: '终止合同失败！',
+                                type: 'Error'
+                            });
+                        }
+                    });
+                });
+
+            });
+
+        </script>
+    }

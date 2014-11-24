@@ -1,0 +1,146 @@
+﻿@{
+    Style.Include("Voucher.css");
+    Script.Require("handlebars");
+    Script.Require("chineseAmountConvert");
+}
+<hr />
+<h2>
+    维修费用结算单<label>(成都润茂物业管理)</label>@*{{#if VoucherNo}}<span>维修单号：{{VoucherNo}}</span>{{/if}}*@
+</h2>
+<div id="oder-date">制单日期：<span>{{CurrentDate}}</span></div>
+<table border="1">
+    <tbody>
+        <tr>
+            <td>维修单号</td>
+            <td class="td-text-left">{{VoucherNo}}</td>
+            <td>预约时间</td>
+            <td class="td-text-left">{{ReceivedDate}}</td>
+            <td>维修人员</td>
+            <td class="td-text-left">{{ServicePersonName}}</td>
+        </tr>
+        <tr>
+
+            <td>维修地址</td>
+            <td class="td-text-left">{{Address}}</td>
+            <td>业主</td>
+            <td class="td-text-left">{{OwnerName}}</td>
+            <td>电话</td>
+            <td class="td-text-left">{{Mobile}}</td>
+
+        </tr>
+        <tr>
+            <td>故障描述</td>
+            <td class="td-text-left" colspan="6">{{FaultDescription}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<table border="1">
+    <tbody>
+        <tr>
+            <td colspan="10" style="letter-spacing: 40px;"><h4>维修费用明细</h4></td>
+        </tr>
+        {{#if List}}
+        <tr>
+            <td>序号</td>
+            <td>货品名称</td>
+            <td>品牌</td>
+            <td>规格型号</td>
+            <td>单位</td>>
+            <td>实用数量</td>
+            <td>退货数量</td>
+            <td>单价</td>
+            <td>合计</td>
+            <td>备注</td>
+        </tr>
+        {{/if}}
+        {{#each List}}
+        <tr>
+            <td>{{Id}}</td>
+            <td>{{Material_Name}}</td>
+            <td>{{Material_Brand}}</td>
+            <td>{{Material_Model}}</td>
+            <td>{{Material_Unit}}</td>
+            <td>{{toFixed Number 1}}</td>
+            <td>{{toFixed ReturnNumber 1}}</td>
+            <td>{{toFixed CostPrice 2}}</td>
+            <td>{{toFixed Total 2}}</td>
+            {{#compare @Html.Raw("@index") 0}}
+            <td rowspan="{{../../List.length}}"></td>
+            {{/compare}}
+        </tr>
+        {{/each}}
+        <tr class="money-disp">
+            <td colspan="2">维修人工费用</td>
+            <td colspan="8">{{toFixed ServiceCharge 2}}</td>
+        </tr>
+        <tr class="money-disp">
+            <td>金额大写</td>
+            <td colspan="5">{{toChineseCaptial TotalMoney}}</td>
+            <td>总价合计</td>
+            <td colspan="5">{{toFixed TotalMoney 2}}</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="sign">
+    <div class="sign-left"><label>维修人签字：</label><span> </span></div>
+    <div class="sign-right"><label>负责人签字：</label><span> </span></div>
+</div>
+<div class="sign-date"><label>日期：</label><span> </span></div>
+<hr />
+
+@using (Script.Foot())
+{
+    <script>
+        $(function () {
+            Handlebars.registerHelper('toChineseCaptial', function (number) {
+                return convertToChinese(number);
+            });
+            
+            Handlebars.registerHelper('toFixed', function (value, options) {
+                return new Handlebars.SafeString((value != null) ? (+value).toFixed(options) : "");
+            });
+
+            Handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options) {
+
+                var operators, result;
+
+                if (arguments.length < 3) {
+                    throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+                }
+
+                if (options === undefined) {
+                    options = rvalue;
+                    rvalue = operator;
+                    operator = "===";
+                }
+
+                operators = {
+                    '==': function (l, r) { return l == r; },
+                    '===': function (l, r) { return l === r; },
+                    '!=': function (l, r) { return l != r; },
+                    '!==': function (l, r) { return l !== r; },
+                    '<': function (l, r) { return l < r; },
+                    '>': function (l, r) { return l > r; },
+                    '<=': function (l, r) { return l <= r; },
+                    '>=': function (l, r) { return l >= r; },
+                    'typeof': function (l, r) { return typeof l == r; }
+                };
+
+                if (!operators[operator]) {
+                    throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
+                }
+
+                result = operators[operator](lvalue, rvalue);
+
+                if (result) {
+                    return options.fn(this);
+                } else {
+                    return options.inverse(this);
+                }
+
+            });
+        });
+    </script>
+}

@@ -1,0 +1,302 @@
+﻿@using Coevery.PropertyManagement.Security
+@using Coevery.PropertyManagement.ViewModels
+@using Coevery.Utility.Extensions
+@model Coevery.PropertyManagement.ViewModels.BillListViewModel
+@{
+    Layout.Title = "未出账单";
+    Style.Require("jqGrid");
+    Style.Require("jqGridCustom");
+    Script.Require("jqGrid");
+    Script.Require("jqGrid_i18n");
+    Script.Require("moment");
+    var gridId = "BillGridId";
+    var gridPagerId = gridId + "Pager";
+
+    var apartmentViewModel = new EntitySelectorViewModel
+    {
+        ClientId = "Filter_ApartmentId",
+        ClientName = "Filter.ApartmentId",
+        DisplayFieldName = "Name",
+        DropdownUrl = Url.Action("ApartmentDropdown", "Bill"),
+        Label = "楼盘",
+        PopupWindowCaption = "请选择楼盘",
+        RelatedEntityName = "Apartment",
+        RequiredMsg = "请选择楼盘!",
+        Required = true,
+        GridId = "apartment"
+    };
+    var buildingViewModel = new EntitySelectorViewModel
+    {
+        ClientId = "Filter_BuildingId",
+        ClientName = "Filter.BuildingId",
+        DisplayFieldName = "Name",
+        DropdownUrl = Url.Action("BuildingDropdown", "Bill"),
+        Label = "楼宇",
+        PopupWindowCaption = "请选择楼宇",
+        RelatedEntityName = "Building",
+        RequiredMsg = "请选择楼宇!",
+        Required = true,
+        GridId = "building"
+    };
+    var houseNumberViewModel = new EntitySelectorViewModel
+    {
+        ClientId = "Filter_HouseNumber",
+        ClientName = "Filter.HouseNumber",
+        DisplayFieldName = "Name",
+        DropdownUrl = Url.Action("HouseDropdown", "Bill"),
+        Label = "房号",
+        PopupWindowCaption = "请选择房号",
+        RelatedEntityName = "House",
+        RequiredMsg = "请选择房号!",
+        Required = true,
+        GridId = "house"
+    };
+    var renterViewModel = new EntitySelectorViewModel
+    {
+        ClientId = "Filter_RenterIds",
+        ClientName = "Filter.RenterIds",
+        DisplayFieldName = "Name",
+        DropdownUrl = Url.Action("OwnerDropdown", "House"),
+        Label = "租户",
+        PopupWindowCaption = "请选择租户",
+        RelatedEntityName = "Customer",
+        RequiredMsg = "请选择租户!",
+        Required = true
+    };
+    var ownerViewModel = new EntitySelectorViewModel
+    {
+        ClientId = "Filter_OwnerIds",
+        ClientName = "Filter.OwnerIds",
+        DisplayFieldName = "Name",
+        DropdownUrl = Url.Action("OwnerDropdown", "House"),
+        Label = "业主",
+        PopupWindowCaption = "请选择业主",
+        RelatedEntityName = "Customer",
+        RequiredMsg = "请选择业主!",
+        Required = true
+    };
+}
+<div id="filters" class="form-inline row-fluid">
+    <div class="row-fluid">
+        <div class="searchbox span4">
+            @Display.Partial(TemplateName: "EntityMultipleSelector", Model: apartmentViewModel)
+        </div>
+        <div class="searchbox  span4">
+            @Display.Partial(TemplateName: "EntityMultipleSelector", Model: buildingViewModel)
+        </div>
+        <div class="searchbox  span4">
+            @Display.Partial(TemplateName: "EntityMultipleSelector", Model: houseNumberViewModel)
+        </div>
+    </div>
+    
+    <div class="row-fluid">
+        <div class="searchbox  span4">
+            @Display.Partial(TemplateName: "EntitySelector", Model: renterViewModel)
+        </div>
+        <div class="searchbox span4">
+            @Display.Partial(TemplateName: "EntitySelector", Model: ownerViewModel)
+        </div>
+        <div class="searchbox span4">
+            <label class="span3" for="Filter_ContractNumber">@T("合同号:")</label>
+            @Html.TextBox("Filter.ContractNumber", null, new { @class = "text" })
+        </div>
+    </div>
+
+    <div class="searchbox">
+        <button id="btnFilter" class="btn btn-small"><i class="icos-looking-glass"></i>&nbsp;查找</button>
+        <button id="btnReset" class="btn btn-small btnReset" name="reset">重置</button>
+        @if (Authorizer.Authorize(Permissions.BillManage))
+        {
+            <button id="btnGenerateBill" class="btn btn-small btn-primary">@T("生成账单")</button>
+        }
+
+    </div>
+</div>
+
+<div class="row-fluid">
+    <table id="@gridId"></table>
+    <section id="@gridPagerId"></section>
+</div>
+
+@Html.AntiForgeryToken()
+
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(function () {
+            //楼盘楼宇房间联动
+            var apartmentItemId = $('#Filter_ApartmentId');
+            var buildingItemId = $('#Filter_BuildingId');
+            var houseNumberItemId = $('#Filter_HouseNumber');
+            houseNumberItemId.prop("disabled", true);
+            buildingItemId.prop("disabled", true);
+            apartmentItemId.change(function () {
+                buildingItemId.prop("disabled", apartmentItemId.val() == '');
+                if (apartmentItemId.val() == '') {
+                    //全部删除情况
+                    buildingItemId.select2("val", "");
+                    houseNumberItemId.select2("val", "");
+                    houseNumberItemId.prop("disabled", true);
+                    $('#Filter_BuildingId').val('');
+                    $('#Filter_HouseNumber').val('');
+                }
+                buildingItemId.select2("val", "");
+                houseNumberItemId.select2("val", "");
+                $('#Filter_BuildingId').val('');
+                $('#Filter_HouseNumber').val('');
+                $('#Filter_BuildingId').referenceEditor({
+                    dropdownUrl: '/Coevery.PropertyManagement/Bill/BuildingDropdownById/' + apartmentItemId.val(),
+                    gridId: 'buildingGrid',
+                    windowTitle: '请选择楼宇',
+                    displayFieldName: 'Name'
+                });
+            });
+            buildingItemId.change(function () {
+                houseNumberItemId.prop("disabled", buildingItemId.val() == '');
+                houseNumberItemId.select2("val", "");
+                $('#Filter_HouseNumber').val('');
+                $('#Filter_HouseNumber').referenceEditor({
+                    dropdownUrl: '/Coevery.PropertyManagement/Bill/HouseDropdownById/' + buildingItemId.val(),
+                    gridId: 'houseGrid',
+                    windowTitle: '请选择房间号',
+                    displayFieldName: 'HouseNumber'
+                });
+
+            });
+
+
+            //grid
+            var grid = $('#@gridId');
+
+            moment.lang('@WorkContext.CurrentCulture.ToLower()');
+
+            function utcDateFormatter(cellvalue, options, rowObject) {
+                if (cellvalue) {
+                    return moment(cellvalue).format('l');
+                } else {
+                    return '';
+                }
+            }
+
+            function utcDateTimeFormatter(cellvalue, options, rowObject) {
+                if (cellvalue) {
+                    return moment(cellvalue).format('l LT');
+                } else {
+                    return '';
+                }
+            }
+
+            $.extend(jQuery.jgrid.defaults, {
+                prmNames: {
+                    page: 'page',
+                    rows: 'pageSize',
+                    sort: 'sortBy',
+                    order: 'sortOrder'
+                },
+                datatype: 'json',
+                mtype: 'POST',
+                postData: {
+                    __RequestVerificationToken: function () {
+                        var magicToken = $("input[name=__RequestVerificationToken]").first();
+                        if (magicToken.length == 0) {
+                            return null;
+                        } // no sense in continuing if form POSTS will fail
+                        return magicToken.val();
+                    }
+                },
+                viewrecords: true,
+                height: '100%',
+                pagerpos: 'right',
+                recordpos: 'left',
+                sortable: true,
+                headertitles: true,
+                multiselect: false,
+                autowidth: true,
+                jsonReader: {
+                    page: 'page',
+                    total: 'totalPages',
+                    records: 'totalRecords',
+                    repeatitems: false
+                }
+            });
+
+            var gridOptions = {
+                url: '@Url.Action("List","Bill",  new { area = "Coevery.PropertyManagement" })',
+                colModel: [
+                    { name: 'ContractId', hidden: true },
+                    { name: 'ChargeItemSettingId', hidden: true },
+                    { name: 'HouseId', hidden: true },
+                    { name: 'CustomerId', hidden: true },
+                    { "name": "ContractNumber", "label": "合同号", "sortable": true },
+                    { "name": "ApartmentName", "label": "楼盘", "sortable": true },
+                    { "name": "BuildingName", "label": "楼宇", "sortable": true },
+                    { "name": "HouseNumber", "label": "房间号", "sortable": true },
+                    { "name": "ChargeItemName", "label": "收费项目", "sortable": true },
+                    { "name": "ChargeItemSettingName", "label": "收费标准", "sortable": true, hidden: true },
+                    { "name": "BeginDate", "label": "开始时间", "sortable": true, formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' } },
+                    { "name": "EndDate", "label": "结束时间", "sortable": true, formatter: "date", formatoptions: { srcformat: 'Y-m-d', newformat: 'Y-m-d' } },
+                    { "name": "UnitPrice", "label": "单价", "sortable": true, formatter: "currency", formatoptions: { decimalPlaces: 2, defaultValue: '' } },
+                    { "name": "LastReading", "label": "上期读数", "sortable": true, formatter: "currency", formatoptions: { decimalPlaces: 2, defaultValue: '' } },
+                    { "name": "CurrentReading", "label": "本期读数", "sortable": true, formatter: "currency", formatoptions: { decimalPlaces: 2, defaultValue: '' } },
+                    { "name": "Quantity", "label": "数量", "sortable": true, formatter: "currency", formatoptions: { decimalPlaces: 2, defaultValue: '' } },
+                    { "name": "Amount", "label": "金额", "sortable": true, formatter: "currency", formatoptions: { decimalPlaces: 2, defaultValue: '' } },
+                    { "name": "OfficerName", "label": "专管员", "sortable": true }
+                ],
+                pager: '#@gridPagerId',
+                rowNum: 50,
+                rowList: [50, 100, 150],
+                sortname: '',
+                sortorder: ''
+            };
+
+            $('#@gridId').jqGrid(gridOptions);
+
+
+            //过滤器
+            $('#btnFilter').click(function () {
+                var postData = grid.jqGrid('getGridParam', 'postData');
+                $('#filters :input').serializeArray().map(function (x) { postData[x.name] = x.value; });
+                grid.trigger("reloadGrid");
+            });
+
+            $('#btnReset').click(function () {
+                $('#filters :input').each(function (index, value) {
+                    $(value).val('');
+                });
+                $('#btnFilter').trigger('click');
+            });
+
+            $('#btnRefresh').click(function () {
+                grid.trigger('reloadGrid');
+            });
+
+            $('#btnGenerateBill').click(function () {
+                if (grid.getRowData().length == 0) {
+                    $.pnotify({ title: '提示', text: '没有账单条目！', type: 'Info' });
+                    return;
+                }
+                var postData = {};
+                $('#filters :input').serializeArray().map(function (x) { postData[x.name] = x.value; });
+                $.ajax({
+                    type: 'Post',
+                    url: "@Url.Action("GenerateBill", "Bill")",
+                    dataType: 'json',
+                    contentType: 'application/json: charset=utf-8',
+                    data: JSON.stringify(postData),
+                    success: function(data, textStatus) {
+                        grid.trigger('reloadGrid');
+                    },
+                    error: function(xhr, data, errorThrown) {
+                        $.pnotify({
+                            title: '保存失败',
+                            text: '请检查输入数据是否符合要求！',
+                            type: 'Error'
+                        });
+                    }
+                });
+            });
+
+        });
+
+    </script>
+}

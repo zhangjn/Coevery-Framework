@@ -1,0 +1,9 @@
+﻿@{
+	string displayName = Model.ContentItem.TypeDefinition.DisplayName;
+    Layout.Title = displayName;
+    Layout.TitleDescription = string.Format(T("edit the {0}").Text, displayName);
+}
+@if (Model.Actions != null) {
+    @Display(Model.Actions)
+}
+@Display(Model.Content)

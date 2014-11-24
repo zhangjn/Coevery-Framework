@@ -1,0 +1,15 @@
+﻿@using Coevery.DisplayManagement.Shapes
+@{
+    var gridId = "materialGrid";
+    var listViewModel = new {
+        GridId = gridId
+    };
+    Shape actionShape = New.Parts_ListViewActions(GridId: gridId);
+    actionShape.Metadata.Alternates.Add("Parts_ListViewActions__Material");
+
+    Shape viewShape = New.Parts_ListViewGrid(listViewModel);
+    viewShape.Metadata.Alternates.Add("Parts_ListViewGrid__Material");
+}
+
+@Display(actionShape)
+@Display(viewShape)

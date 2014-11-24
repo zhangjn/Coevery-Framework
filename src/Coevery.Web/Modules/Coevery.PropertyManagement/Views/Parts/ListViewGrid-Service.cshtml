@@ -1,0 +1,119 @@
+﻿@{
+    Style.Require("jqGrid");
+    Style.Require("jqGridCustom");
+    Script.Require("jqGrid");
+    Script.Require("jqGrid_i18n");
+    Script.Require("moment");
+
+    var gridPagerId = Model.GridId + "Pager";
+}
+
+<div class="row-fluid">
+    <table id="@Model.GridId"></table>
+    <section id="@gridPagerId"></section>
+</div>
+@Html.AntiForgeryToken()
+
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        (function() {
+            moment.lang('@WorkContext.CurrentCulture.ToLower()');
+
+            function utcDateFormatter(cellvalue, options, rowObject) {
+                if (cellvalue) {
+                    return moment(cellvalue).format('l');
+                } else {
+                    return '';
+                }
+            }
+
+            function utcDateTimeFormatter(cellvalue, options, rowObject) {
+                if (cellvalue) {
+                    return moment(cellvalue).format('l LT');
+                } else {
+                    return '';
+                }
+            }
+
+            $.extend(jQuery.jgrid.defaults, {
+                prmNames: {
+                    page: 'page',
+                    rows: 'pageSize',
+                    sort: 'sortBy',
+                    order: 'sortOrder'
+                },
+                datatype: 'json',
+                mtype: 'POST',
+                postData: {
+                    __RequestVerificationToken: function() {
+                        var magicToken = $("input[name=__RequestVerificationToken]").first();
+                        if (magicToken.length == 0) {
+                            return null;
+                        } // no sense in continuing if form POSTS will fail
+                        return magicToken.val();
+                    }
+                },
+                viewrecords: true,
+                height: '100%',
+                pagerpos: 'right',
+                recordpos: 'left',
+                sortable: true,
+                headertitles: true,
+                multiselect: true,
+                multiboxonly: true,
+                autowidth: true,
+                jsonReader: {
+                    page: 'page',
+                    total: 'totalPages',
+                    records: 'totalRecords',
+                    repeatitems: false
+                }
+            });
+
+            var gridOptions = {
+                url: '@Url.Action("List", "Service", new {area = "Coevery.PropertyManagement"})',
+                colModel: [
+                    { "name": "HouseNumber", "label": "房号", "sortable": true },
+                    { "name": "OwnerName", "label": "业主", "sortable": true },
+                    { "name": "Mobile",  "label": "电话", "sortable": true },
+                    { "name": "FaultDescription", "label": "故障描述", "sortable": true },
+                    { "name": "ReceivedDate", "label": "接收时间", "sortable": true },
+                    { "name": "ServicePersonName", "label": "维修人", "sortable": true },
+                    { "name": "ServiceCharge", "label": "人工费", "sortable": true },
+                    { "name": "ServiceVoucherNo", "label": "维修单号", "sortable": true, "hidden": true },
+                    { "name": "StockOutVoucher", "label": "维修领料单", "sortable": true, "hidden": true },
+                    { "name": "StockReturnVoucher",  "label": "维修反库单", "sortable": true,"hidden": true },
+                    { "name": "Id", "hidden": true, "key": true }
+                ],
+                pager: '#@gridPagerId',
+                rowNum: 50,
+                rowList: [50, 100, 150],
+                sortname: '',
+                sortorder: ''
+            };
+
+            @if (Model.GridOptions != null)
+            {
+                var json = Html.Raw(Json.Encode(Model.GridOptions));
+                WriteLiteral("		$.extend(gridOptions, " + json + ");");
+            }
+
+            var grid = $('#@Model.GridId');
+
+            grid.jqGrid(gridOptions);
+
+            $('#btnFilter').click(function() {
+                var postData = grid.jqGrid('getGridParam', 'postData');
+                $('#filters :input').serializeArray().map(function(x) { postData[x.name] = x.value; });
+                grid.trigger("reloadGrid");
+            });
+
+            $('#btnReset').click(function() {
+                $('#FilterOptions_Search').val('');
+                $('#FilterOptions_Contactor').val('');
+                $('#btnFilter').trigger('click');
+            });
+        })();
+    </script>
+}

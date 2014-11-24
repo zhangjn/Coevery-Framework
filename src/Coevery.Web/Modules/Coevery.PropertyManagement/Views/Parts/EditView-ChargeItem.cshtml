@@ -1,0 +1,76 @@
+﻿@using Coevery.Utility.Extensions
+@using Coevery.ContentManagement
+@{
+    var id = Guid.NewGuid().ToString();
+    ContentPart part = Model.ContentPart;
+    part.SetFieldParameter("MeterType", new {DropdownUrl = Url.Action("MeterTypeDropdown", "ChargeItem")});
+}
+<div class="row-fluid edit-mode">
+    @using (Html.BeginFormAntiForgeryPost(Url.Action("Edit", "ChargeItem", new {id = Model.ContentItem.Id, returnUrl = Request.QueryString["ReturnUrl"]}),
+        FormMethod.Post, new {@class = "form-horizontal", id = id}))
+    {
+        <fieldset>
+            <legend>@T("General Information")</legend>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Name")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "ItemCategory")
+                </div>
+            </div>
+           
+            <div class="data-row clearfix" id="divMeterType">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "MeterType")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Remarks")
+                </div>
+            </div>
+        </fieldset>
+        <div class="data-row clearfix">
+            <div class="control controls">
+                <button type="submit" class="btn btn-small btn-primary">@T("保存")</button>
+                @{
+                    var returnUrl = Request.QueryString["returnUrl"];
+                }
+                @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+                {
+                    <a class="btn btn-small" href="@returnUrl">@T("取消")</a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@using (Script.Foot())
+{
+    <script>
+        $('#@id').validate();
+        $(function() {
+            CheckItemCategory();
+            var itemCategory = $("#ChargeItemPart_ItemCategory_Value");
+            itemCategory.change(function() {
+                CheckItemCategory();
+            });
+        });
+
+        function CheckItemCategory() {
+            $('#ChargeItemPart_MeterType_ContentId').removeAttr('required');
+            var itemCategory = $("#ChargeItemPart_ItemCategory_Value");
+            var checkText = itemCategory.find("option:selected").text();
+            if (checkText.trim() == "抄表类收费项目") {
+                $('#ChargeItemPart_MeterType_ContentId').attr('required', '');
+                $("#divMeterType").show();
+            } else {
+                $('#ChargeItemPart_MeterType_ContentId').removeAttr('required');
+                $("#divMeterType").hide();
+            }
+        }
+    </script>
+}

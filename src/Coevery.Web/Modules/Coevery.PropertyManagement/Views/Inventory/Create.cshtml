@@ -1,0 +1,395 @@
+﻿@model VoucherCreateViewModel
+@using Coevery.PropertyManagement.ViewModels
+@using Coevery.Utility.Extensions
+@{
+    var id = Guid.NewGuid().ToString();
+    Layout.Title = "入库";
+    Style.Require("jqGrid");
+    Style.Require("jqGridCustom");
+    Script.Require("jqGrid");
+    Script.Require("jqGrid_i18n");
+    var supplierViewModel = new EntitySelectorViewModel
+    {
+        ClientId = "SupplierId",
+        DisplayFieldName = "Name",
+        DropdownUrl = Url.Action("SupplierDropdown", "Inventory"),
+        Label = "供应商",
+        PopupWindowCaption = "请选择供应商",
+        RelatedEntityName = "Supplier",
+        RequiredMsg = "请选择供应商!",
+        Required = true
+    };
+}
+
+<div class="row-fluid edit-mode">
+ 
+        <fieldset>
+            <legend>@T("基本信息")</legend>
+            <div class="data-row clearfix">
+                <div class="span6 control-group">
+                    <label class="title control-label">入库单号</label>
+                    <div class="controls">
+                        @Html.TextBox("VoucherNo", @Model.VoucherNo, new
+                        {
+                            @readonly=true,
+                            @class = "span12"
+                        })
+                    </div>
+                </div>
+                <div class="span6 control-group">
+                    <label class="title control-label">单据日期</label>
+                    <div class="controls">
+                        <div class="input-prepend date-text span12" data-co-datetime-picker="date">
+                            <span class="add-on">
+                                <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                            </span>
+                            @Html.TextBox("BeginDate", DateTime.Now.ToString("MM/dd/yyyy"), new Dictionary<string, object>
+                        {
+                            {"required", ""},
+                            {"class", "date"},
+                            {"data-msg-required", "开始时间！"}
+                        })
+                        </div>
+                        </div>
+                </div>
+            </div>
+
+            <div class="data-row clearfix">
+                <div class="span6 control-group">
+                    <label class="title control-label">制单人</label>
+                    <div class="controls">
+                        @Html.TextBox("OperatorName", @Model.OperatorName, new
+                        {
+                            @readonly = true,
+                            @class = "span12"
+                        })
+                    </div>
+                </div>
+                <div class="span6 control-group">
+                    @Display.Partial(TemplateName: "EntitySelector", Model: supplierViewModel)
+                </div>
+            </div>
+            <div class="data-row clearfix">
+
+                <div class="span12 control-group">
+                    <label class="title control-label">备注</label>
+                    <div class="controls">
+                        @Html.TextBox("Remark", "", new
+                        {
+                            @class = "span12"
+                        })
+                    </div>
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="title control-label">详细入库列表</label>
+                    <div class="control controls">
+                        <div class="btn-toolbar">
+                            <button id="btnAddMaterial" class="btn btn-small"><i class="icon-plus"></i>&nbsp;添加</button>
+                            @*<button id="btnEditMaterial" class="btn btn-small"><i class="icon-edit"></i>&nbsp;修改</button>*@
+                            <button id="btnDeleteMaterial" class="btn btn-small"><i class="icon-trash"></i>&nbsp;删除</button>
+                        </div>
+                        <table id="itemGrid"></table>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+
+        <div class="data-row clearfix">
+            <div class="control controls">
+                <button id="btnSubmit" class="btn btn-small btn-primary">@T("保存")</button>
+                @{
+        var returnUrl = Request.QueryString["returnUrl"];
+                }
+                @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+                {
+                    <a class="btn btn-small" href="@returnUrl">@T("取消")</a>
+                }
+            </div>
+        </div>
+   
+  </div>
+<div id="material-modal" class="modal large" style="visibility: hidden;" tabindex="-1">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>选择材料</h3>
+    </div>
+    <div class="modal-body">
+        <table id="material-grid"></table>
+        <section id="material-pager"></section>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-ok">@T("OK")</button>
+        <button type="button" data-dismiss="modal" class="btn">@T("Cancel")</button>
+    </div>
+</div>
+<div id="preview-modal" class="modal hide large" tabindex="-1">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>预览</h3>
+    </div>
+    <div class="modal-body" id="print-content">
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-ok">@T("OK")</button>
+        <button type="button" data-dismiss="modal" class="btn">@T("Cancel")</button>
+    </div>
+</div>
+<script id="preview-template" type="text/x-handlebars-template">
+    @Display.Partial(TemplateName: "Inventory/VoucherPreviewTemplate")
+</script>
+@Html.AntiForgeryToken()
+
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(function() {
+            
+            var grid = $('#itemGrid'),
+                material = $('#material'),
+                materialGridModal = $('#material-modal'),
+                materialGrid = $('#material-grid'),
+                btnAddMaterial = $('#btnAddMaterial'),
+                previewModal = $('#preview-modal'),
+                btnEdit = $('#btnEditMaterial'),
+                btnDelete = $('#btnDeleteMaterial'),
+                btnSubmit = $('#btnSubmit'),
+                index = 0,
+                gridOptions = {
+                    colModel: [
+                        { name: 'MaterialId', hidden: true },
+                        { name: 'SerialNo', label: '材料编号', sortable: false, resizable: false },
+                        { name: 'Name', label: '材料名称', sortable: false, resizable: false },
+                        { name: 'Brand', label: '品牌', sortable: false, resizable: false },
+                        { name: 'Model', label: '规格型号', sortable: false, resizable: false },
+                        { name: 'Unit', label: '单位', sortable: false, resizable: false },
+                        { name: 'CostPrice', label: '成本价', sortable: false,editable: true, formatter: "currency", formatoptions: { decimalPlaces: 2, defaultValue: '' } },
+                        { name: 'Number', label: '数量', sortable: false, editable: true, resizable: false }
+                    ],
+                    datatype: 'local',
+                    height: '100%',
+                    multiselect: true,
+                    multiboxonly: true,
+                    autowidth: true,
+                    rowNum: 10000,
+                    'cellEdit': true,
+                    'cellsubmit': 'clientArray',
+                    editurl: 'clientArray',
+                    loadComplete: function () {
+                        var $this = $(this), ids = $this.jqGrid('getDataIDs'), i, l = ids.length;
+                        for (i = 0; i < l; i++) {
+                            $this.jqGrid('editRow', ids[i], true);
+                        }
+                    }
+                };
+
+            grid.jqGrid(gridOptions);
+            grid.setGridParam({ onSelectRow: updateButtonStatus, onSelectAll: updateButtonStatus });
+            updateButtonStatus();
+
+            btnDelete.click(function () {
+                var selectedIds = grid.getGridParam('selarrrow');
+                if (selectedIds.length <= 0) {
+                    return;
+                }
+                while (selectedIds.length) {
+                    grid.delRowData(selectedIds[0]);
+                }
+                updateButtonStatus();
+            });
+
+            btnSubmit.click(function (e) {
+                e.preventDefault();
+                var ids = grid.jqGrid('getDataIDs');
+                for (var id = 0; id < ids.length; id++) {
+                    grid.saveRow(ids[id], true, 'clientArray');
+                }
+                var data = grid.getRowData();
+                for (var i in data) {
+                    if (isNaN(data[i].CostPrice)) {
+                        $.pnotify({ title: '提示', text: '单价只能输入数字！', type: 'Error' });
+                        grid.trigger("reloadGrid");
+                        return;
+                    }
+                    if (parseFloat(data[i].CostPrice) <= 0 || data[i].CostPrice == '') {
+                        $.pnotify({ title: '提示', text: '请添加：' + data[i].Name + '的单价！', type: 'Error' });
+                        grid.trigger("reloadGrid");
+                        return;
+                    }
+                    if (isNaN(data[i].Number)) {
+                        $.pnotify({ title: '提示', text: '出库数量只能输入数字！', type: 'Error' });
+                        grid.trigger("reloadGrid");
+                        return;
+                    }
+                    if (parseFloat(data[i].Number) <= 0 || data[i].Number == '') {
+                        $.pnotify({ title: '提示', text: '请添加：' + data[i].Name + '的出库数量！', type: 'Error' });
+                        grid.trigger("reloadGrid");
+                        return;
+                    }
+                }
+                if (!data.length) {
+                    return;
+                }
+
+                var source = $("#preview-template").html();
+                var template = Handlebars.compile(source);
+                var model = {
+                    List: $.map(data, function (item, i) {
+                        return {
+                            Id: i + 1,
+                            Material_SerialNo: item.SerialNo,
+                            Material_Name: item.Name,
+                            Material_Brand: item.Brand,
+                            Material_Model: item.Model,
+                            Material_Unit: item.Unit,
+                            Number: item.Number,
+                            CostPrice: item.CostPrice,
+                            Total: item.CostPrice * item.Number
+                        };
+                    })
+                };
+                var totalMoney = 0;
+                for (var i in model.List) {
+                    totalMoney = model.List[i].Total + totalMoney;
+                }
+
+                $.extend(model, { TotalMoney: parseFloat(totalMoney) });
+
+                $('#preview-modal>.modal-body').html(template(model));
+
+                previewModal.modal('show');
+            });
+
+            previewModal.find('.btn-ok').click(function () {
+                var data = grid.getRowData(),
+                    magicToken = $("input[name=__RequestVerificationToken]:first");
+
+                    $.ajax({
+                        type: 'POST',
+                        dataType: "json",
+                        contentType: 'application/json; charset=utf-8',
+                        url: '@Url.Action("InventoryCreate", "Inventory")',
+                        data: JSON.stringify({
+                            model: {
+                                Remark: $('#Remark').val(),
+                            SupplierId: $('#SupplierId').val(),
+                            InventoryDetailEntities: data
+                        },
+                        __RequestVerificationToken: magicToken.val()
+                    }),
+                    success: function (response) {
+                        window.location.href = response;
+                    },
+                    error: function () {
+                        $.pnotify({ title: '提示', text: '提交失败，请重试！', type: 'Error' });
+                    }
+                });
+                previewModal.modal('hide');
+            });
+
+            function updateButtonStatus() {
+                var selectedRowIds = grid.getGridParam('selarrrow');
+                btnEdit.toggleClass('disabled', selectedRowIds.length != 1);
+                btnDelete.toggleClass('disabled', selectedRowIds.length <= 0);
+                btnSubmit.toggleClass('disabled', !grid.getRowData().length);
+            }
+
+
+            var materialGridOptions = {
+                url: '@Url.Action("List", "Material", new { area = "Coevery.PropertyManagement" })',
+                colModel: [{ "name": "SerialNo", "index": "SerialNo", "label": "材料编号", "sortable": true },
+                       { "name": "Name", "index": "Name", "label": "材料名称", "sortable": true },
+                       { "name": "Brand", "index": "Brand", "label": "品牌", "sortable": true },
+                       { "name": "Model", "index": "Model", "label": "规格型号", "sortable": true },
+                        { "name": "Unit", "index": "Unit", "label": "单位", "sortable": true },
+                        { "name": "Remark", "index": "Remark", "label": "备注", "sortable": true },
+                        { "name": "Id", "hidden": true, "key": true }],
+                pager: '#material-pager',
+                rowNum: 50,
+                sortname: '',
+                sortorder: '',
+                multiselect: false,
+                scroll: 1,
+                height: 300,
+                autowidth: true,
+                prmNames: {
+                    page: 'page',
+                    rows: 'pageSize',
+                    sort: 'sortBy',
+                    order: 'sortOrder'
+                },
+                datatype: 'json',
+                mtype: 'POST',
+                postData: {
+                    __RequestVerificationToken: function () {
+                        var magicToken = $("input[name=__RequestVerificationToken]").first();
+                        if (magicToken.length == 0) {
+                            return null;
+                        } // no sense in continuing if form POSTS will fail
+                        return magicToken.val();
+                    }
+                },
+                viewrecords: true,
+                recordpos: 'left',
+                sortable: true,
+                headertitles: true,
+                jsonReader: {
+                    page: 'page',
+                    total: 'totalPages',
+                    records: 'totalRecords',
+                    repeatitems: false
+                }
+            };
+
+            materialGrid.jqGrid(materialGridOptions);
+            materialGridModal.addClass('hide');
+            materialGridModal.css('visibility', 'visible');
+
+            btnAddMaterial.click(function (e) {
+                e.preventDefault();
+                materialGridModal.modal('show');
+                materialGrid.trigger("reloadGrid");
+            });
+
+            materialGridModal.find('.btn-ok').click(function () {
+                var rowId = materialGrid.jqGrid('getGridParam', 'selrow');
+                if (rowId) {
+                    var result = materialGrid.getRowData(rowId);
+                    material.data('result', result);
+                    var data = grid.getRowData(),
+                    isExist = false;
+                    for (var i = 0; i < data.length; i++) {
+                        var row = data[i];
+                        if (row.Name == result.Name && row.Brand == result.Brand
+                            && row.Model == result.Model && row.Unit == result.Unit) {
+                            isExist = true;
+                            break;
+                        }
+                    }
+
+                    if (!isExist) {
+                        index++;
+                        var newMaterial = {
+                            MaterialId: result.Id,
+                            SerialNo: result.SerialNo,
+                            Name: result.Name,
+                            Brand: result.Brand,
+                            Model: result.Model,
+                            Unit: result.Unit
+                        };
+                        grid.addRowData(index, newMaterial);
+                        grid.trigger("reloadGrid");
+                    }
+
+                    updateButtonStatus();
+                }
+                materialGridModal.modal('hide');
+            });
+        });
+    </script>
+}
+
+
+

@@ -1,0 +1,233 @@
+﻿@using Coevery.ContentManagement
+@using Coevery.PropertyManagement.Models
+@using Coevery.Security
+@using Coevery.Utility.Extensions
+<div id="page-actions" class="clearfix">
+    <div class="btn-toolbar pull-left">
+        @if (Authorizer.Authorize(StandardPermissions.Create, Model.ContentItem))
+        {
+            <a class="btn btn-small btn-success" href="@Url.Action("Create", new {returnUrl = ViewContext.RequestContext.HttpContext.Request.ToUrlString()})"><i class="icon-plus"></i>&nbsp;@T("添加")</a>
+        }
+        @if (Authorizer.Authorize(StandardPermissions.Edit, Model.ContentItem))
+        {
+            <button id="btnEdit" class="btn btn-small btn-primary hide" type="button"><i class="icon-edit"></i>&nbsp;@T("编辑")</button>
+        }
+        @if (Authorizer.Authorize(StandardPermissions.Delete, Model.ContentItem))
+        {
+            <button id="btnDelete" data-toggle="modal" data-target="#deleteModal" class="btn btn-small btn-warning hide" type="button"><i class="icon-trash"></i>&nbsp;@T("删除")</button>
+        }
+        <button id="btnRefresh" class="btn btn-small" type="button"><i class="icon-refresh"></i>&nbsp;@T("刷新")</button>
+    </div>
+</div>
+
+<div id="filters" class="form-inline">
+    <div class="searchbox">
+        <label class="lb-40" for="Filter_ApartmentId">@T("楼盘:")</label>
+        @Html.DropDownList("Filter.ApartmentId", (List<SelectListItem>)ViewData["Apartments"], new Dictionary<string, object> { { "class", "text" } })
+    </div>
+    <div class="searchbox">
+        <label class="lb-40" for="Filter_BuildingId">@T("楼宇:")</label>
+        @Html.DropDownList("Filter.BuildingId", (List<SelectListItem>)ViewData["Buildings"], new Dictionary<string, object>
+        {
+            { "class", "text" },
+            {"disabled","true"}
+        })
+    </div>
+    <div class="searchbox">
+        <label class="lb-40" for="Filter_HouseNumber">@T("房号:")</label>
+        @Html.DropDownList("Filter.HouseNumber", (List<SelectListItem>)ViewData["HouseNumbers"], new Dictionary<string, object>
+        {
+            { "class", "text" },
+            {"disabled","true"}
+        })
+    </div>
+    <div class="searchbox">
+        <label class="lb-60" for="Filter_HouseStatusId">@T("入住状态:")</label>
+        <select id="Filter_HouseStatusId" name="Filter.HouseStatusId" class="text">
+            <option></option>
+            <option value="@Convert.ToInt32(HouseStatusOption.空置)">@HouseStatusOption.空置.ToString()</option>
+            <option value="@Convert.ToInt32(HouseStatusOption.自营)">@HouseStatusOption.自营.ToString()</option>
+            <option value="@Convert.ToInt32(HouseStatusOption.出租)">@HouseStatusOption.出租.ToString()</option>
+        </select>
+    </div>
+    <div class="searchbox">
+        <label class="lb-60" for="Filter_CustomerName">@T("客户姓名:")</label>
+        @Html.TextBox("Filter.CustomerName", null, new { @class = "text" })
+    </div>
+    <div class="searchbox">
+        <label class="lb-80" for="Filter_BuildingArea">@T("建筑面积;")</label>
+        @Html.TextBox("Filter.BuildingArea", null, new { @class = "text" })
+    </div>
+    <div class="searchbox">
+        <label class="lb-60" for="Filter_ChargeItemId">@T("收费项目:")</label>
+        @Html.DropDownList("Filter.ChargeItemId", (List<SelectListItem>)ViewData["ChargeItems"], new Dictionary<string, object> { { "class", "text" } })
+    </div>
+    <button id="btnFilter" class="btn btn-small"><i class="icos-looking-glass"></i>&nbsp;查找</button>
+    <button id="btnReset" class="btn btn-small btnReset" name="reset">重置</button>
+</div>
+
+<div class="modal-backdrop hide"></div>
+<div id="deleteModal" class="modal hide fade in">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">×</button>
+        <h3><span>删除确认</span></h3>
+    </div>
+    <div class="modal-body">
+        <p>真的要删除吗？</p>
+    </div>
+    <div class="modal-footer">
+        <button type="submit" id="deleteRowData" class="btn btn-primary"><span>是</span></button>
+        <button type="reset" class="btn" data-dismiss="modal"><span>否</span></button>
+    </div>
+</div>
+@{
+    var gridId = Model.GridId;
+}
+
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(function () {
+            var grid = $('#@gridId');
+
+            function updateButtonStatus() {
+                var selectedRowIds = grid.jqGrid('getGridParam', 'selarrrow');
+                $("#btnEdit").toggle(selectedRowIds.length == 1);
+                $("#btnDelete").toggle(selectedRowIds.length > 0);
+            }
+            grid.jqGrid('setGridParam', { onSelectRow: updateButtonStatus, onSelectAll: updateButtonStatus, gridComplete: updateButtonStatus });
+        
+            $('#btnEdit').click(function () {
+                var selectedRowIds = grid.jqGrid('getGridParam', 'selarrrow');
+                if (selectedRowIds.length == 0) return;
+                window.location.href = '@Url.Action("Edit")/' + selectedRowIds[0] + '?returnUrl=@ViewContext.RequestContext.HttpContext.Request.ToUrlString()';
+            });
+            $('#deleteRowData').click(function () {
+                var selectedIds = grid.jqGrid('getGridParam', 'selarrrow');
+                if (selectedIds.length == 0) return;
+                var magicToken = $("input[name=__RequestVerificationToken]").first();
+                if (magicToken.length == 0) {
+                    return;
+                } // no sense in continuing if form POSTS will fail
+                $('#deleteModal').modal('hide');
+                $.ajax({
+                    url: '@Url.Action("Delete")',
+                    data: { selectedIds: selectedIds, __RequestVerificationToken: magicToken.val() },
+                    type: "POST",
+                    traditional: true
+                })
+                    .done(function (response) {
+                        grid.trigger('reloadGrid');
+                    })
+                    .fail(function (jqXHR, textStatus, errorThrown) {
+                        alert(textStatus);
+                    });
+            });
+
+
+            //楼盘楼宇房间联动
+            var ApartmentItemId = $('#Filter_ApartmentId');
+            var BuildingItemId = $('#Filter_BuildingId');
+            var HouseNumberItemId = $('#Filter_HouseNumber');
+            ApartmentItemId.change(function () {
+                BuildingItemId.prop("disabled", ApartmentItemId.val() == '');
+                if (ApartmentItemId.val() == '') {
+                    BuildingItemId.empty();
+                    HouseNumberItemId.empty();
+                    HouseNumberItemId.prop("disabled", true);
+                    return;
+                }
+                getBuildingItems();
+            });
+            BuildingItemId.change(function () {
+                HouseNumberItemId.prop("disabled", BuildingItemId.val() == '');
+                if (BuildingItemId.val() == '') {
+                    HouseNumberItemId.empty();
+                    return;
+                }
+                getHouseNumberItems();
+            });
+
+
+            function getBuildingItems() {
+                BuildingItemId.empty();
+                HouseNumberItemId.empty();
+                $.ajax({
+                    url: "@Url.Action("GetBuildingItems", "HouseMeterReading")",
+                    type: "post",
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        apartmentItemId: ApartmentItemId.val()
+                    }),
+                    success: function (res) {
+                        var data = eval(res);
+                        BuildingItemId.append('<option></option>');
+                        for (var i = 0; i < data.length; i++) {
+                            BuildingItemId.append('<option value="' + data[i].Value + '">' + data[i].text + '</option>');
+                        }
+
+                    },
+                    error: function () {
+                        $.pnotify({
+                            title: '错误',
+                            type: 'Error',
+                            text: '提交请求失败！'
+                        });
+                    }
+                });
+            }
+
+            function getHouseNumberItems() {
+                HouseNumberItemId.empty();
+                $.ajax({
+                    url: "@Url.Action("GetHouseItems", "HouseMeterReading")",
+                    type: "post",
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        apartmentItemId: ApartmentItemId.val(),
+                        buildingItemId: BuildingItemId.val()
+                    }),
+                    success: function (res) {
+                        var data = eval(res);
+                        HouseNumberItemId.append('<option></option>');
+                        for (var i = 0; i < data.length; i++) {
+                            HouseNumberItemId.append('<option value="' + data[i].Value + '">' + data[i].text + '</option>');
+                        }
+                    },
+                    error: function () {
+                        $.pnotify({
+                            title: '错误',
+                            type: 'Error',
+                            text: '提交请求失败！'
+                        });
+                    }
+                });
+            }
+
+
+
+
+
+
+            $('#btnFilter').click(function () {
+                var postData = grid.jqGrid('getGridParam', 'postData');
+                $('#filters :input').serializeArray().map(function (x) { postData[x.name] = x.value; });
+                grid.trigger("reloadGrid");
+            });
+
+            $('#btnReset').click(function () {
+                $('#filters :input').each(function (index, value) {
+                    $(value).val('');
+                });
+                $('#btnFilter').trigger('click');
+            });
+
+            $('#btnRefresh').click(function () {
+                grid.trigger('reloadGrid');
+            });
+        });
+
+    </script>
+}

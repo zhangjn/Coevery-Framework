@@ -1,0 +1,308 @@
+﻿@using Coevery.PropertyManagement.ViewModels
+@using Coevery.Utility.Extensions
+
+@{
+    Layout.Title = "维修服务";
+    Layout.TitleDescription = string.Format("新建一个维修服务");
+    var id = Guid.NewGuid().ToString();
+    Style.Require("jqGrid");
+    Style.Require("jqGridCustom");
+    Script.Require("jqGrid");
+    Script.Require("jqGrid_i18n");
+    var apartmentViewModel = new EntitySelectorViewModel
+    {
+        ClientId = "ApartmentId",
+        ClientName = "ApartmentId",
+        DisplayFieldName = "Name",
+        DropdownUrl = Url.Action("ApartmentDropdown", "Bill"),
+        Label = "楼盘",
+        PopupWindowCaption = "请选择楼盘",
+        RelatedEntityName = "Apartment",
+        RequiredMsg = "请选择楼盘!",
+        Required = true,
+        GridId = "apartment"
+    };
+    var buildingViewModel = new EntitySelectorViewModel
+    {
+        ClientId = "BuildingId",
+        ClientName = "BuildingId",
+        DisplayFieldName = "Name",
+        DropdownUrl = Url.Action("BuildingDropdown", "Bill"),
+        Label = "楼宇",
+        PopupWindowCaption = "请选择楼宇",
+        RelatedEntityName = "Building",
+        RequiredMsg = "请选择楼宇!",
+        Required = true,
+        GridId = "building"
+    };
+    var houseNumberViewModel = new EntitySelectorViewModel
+    {
+        ClientId = "HouseNumber",
+        ClientName = "HouseNumber",
+        DisplayFieldName = "Name",
+        DropdownUrl = Url.Action("HouseDropdown", "Bill"),
+        Label = "房号",
+        PopupWindowCaption = "请选择房号",
+        RelatedEntityName = "House",
+        RequiredMsg = "请选择房号!",
+        Required = true,
+        GridId = "house"
+    };
+}
+<div class="row-fluid edit-mode">
+    @using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "Service", new {returnUrl = Request.QueryString["ReturnUrl"]}),
+        FormMethod.Post, new {@class = "form-horizontal", id = id}))
+    {
+        <fieldset>
+            <legend>@T("基本信息")</legend>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.Partial(TemplateName: "EntitySelector", Model: apartmentViewModel)
+                </div>
+            </div>
+
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.Partial(TemplateName: "EntitySelector", Model: buildingViewModel)
+                </div>
+            </div>
+            
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.Partial(TemplateName: "EntitySelector", Model: houseNumberViewModel)
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="title control-label">业主</label>
+                    <div class="controls errortips">
+                        @Html.TextBox("OwnerName", "", new
+                        {
+                            @class = "span12",
+                            disabled = true
+                        })
+                        <input type="hidden" id="OwnerId" name="OwnerId" value="" />
+                    </div>
+                    </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="title control-label">电话</label>
+                    <div class="controls">
+
+                        @Html.TextBox("Mobile", "", new
+                        {
+                            @class = "span12"
+                        })
+                    </div>
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <label class="title control-label" for="ReceivedDate">接收时间</label>
+                <div class="control controls">
+                    <div class="input-prepend date-text" data-co-datetime-picker="date">
+                        <span class="add-on">
+                            <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                        </span>
+                        @Html.TextBox("ReceivedDate", DateTime.Now.ToString("MM/dd/yyyy"), new Dictionary<string, object>
+                                            {
+                                                {"required", ""},
+                                                {"class", "date"},
+                                                {"data-msg-required", "接收时间！"}
+                                                 
+                                            })
+                    </div>
+                </div>
+
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="title control-label">故障描述</label>
+                    <div class="controls">
+                        <textarea class="span12" id="FaultDescription" name="FaultDescription" rows="3" maxlength="5000" placeholder=""></textarea>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+
+        <div class="data-row clearfix">
+            <div class="control controls">
+                <button id="btnSubmit" type="submit" class="btn btn-small btn-primary">@T("保存")</button>
+                @{
+                    var returnUrl = Request.QueryString["returnUrl"];
+                }
+                @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+                {
+                    <a class="btn btn-small" href="@returnUrl">@T("取消")</a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+
+
+@using (Script.Foot())
+{
+    <script>
+
+        $(function() {
+            var apartmentItemId = $('#ApartmentId');
+            var buildingItemId = $('#BuildingId');
+            var houseNumberItemId = $('#HouseNumber');
+            houseNumberItemId.prop("disabled", true);
+            buildingItemId.prop("disabled", true);
+            apartmentItemId.change(function() {
+                buildingItemId.prop("disabled", false);
+                houseNumberItemId.prop("disabled", true);
+                houseNumberItemId.select2("val", "");
+                buildingItemId.referenceEditor({
+                    dropdownUrl: '/Coevery.PropertyManagement/Bill/BuildingDropdownById/' + apartmentItemId.val(),
+                    gridId: 'buildingGrid',
+                    windowTitle: '请选择楼宇',
+                    displayFieldName: 'Name'
+                });
+            });
+            buildingItemId.change(function() {
+                houseNumberItemId.prop("disabled", buildingItemId.val() == '');
+                if (buildingItemId.val() == '') {
+                    houseNumberItemId.empty();
+                    return;
+                }
+                houseNumberItemId.referenceEditor({
+                    dropdownUrl: '/Coevery.PropertyManagement/Bill/HouseDropdownById/' + buildingItemId.val(),
+                    gridId: 'houseGrid',
+                    windowTitle: '请选择房间号',
+                    displayFieldName: 'HouseNumber'
+                });
+            });
+            houseNumberItemId.change(function() {
+                getOwnerItems();
+            });
+            function getOwnerItems() {
+                $.ajax({
+                    url: "@Url.Action("GetOwnerItems", "Service")",
+                    type: "post",
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    houseId: houseNumberItemId.val(),
+                    apartmentItemId: apartmentItemId.val(),
+                    buildingItemId: buildingItemId.val()
+                }),
+                success: function(res) {
+                    var data = eval(res);
+                    for (var i = 0; i < data.length; i++) {
+                        $('#Mobile').val(data[i].Mobile);
+                        $('#OwnerId').val(data[i].OwnerId);
+                        $('#OwnerName').val(data[i].OwnerName);
+                      
+                    }
+
+                },
+                error: function() {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '提交请求失败！'
+                    });
+                }
+            });
+            }
+
+            $('#btnSubmit').click(function(e) {
+                e.preventDefault();
+                if (!$('#@id').validate().form()) {
+                    return;
+                }
+                $.ajax({
+                    type: 'Post',
+                    url: "@Url.Action("Create", "Service")",
+                    dataType: 'json',
+                contentType: 'application/json: charset=utf-8',
+                data: JSON.stringify({
+                    model: {
+                        ApartmentId: apartmentItemId.val(),
+                        BuildingId: buildingItemId.val(),
+                        HouseId: houseNumberItemId.val(),
+                        OwnerId: $('#OwnerId').val(),
+                        Mobile: $('#Mobile').val(),
+                        FaultDescription: $('#FaultDescription').val(),
+                        ReceivedDate: $('#ReceivedDate').val()
+                    }
+                }),
+                success: function (data) {
+                    if (data.redirectUrl) {
+                        window.location.href = data.redirectUrl;
+                        $.pnotify({ title: '提示', text: '维修服务创建成功！', type: 'Info' });
+                    }
+                  
+                }
+            });
+            });
+
+            function getBuildingItems() {
+                buildingItemId.empty();
+                houseNumberItemId.empty();
+                $.ajax({
+                    url: "@Url.Action("GetBuildingItems", "HouseMeterReading")",
+                    type: "post",
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        apartmentItemId: apartmentItemId.val()
+                    }),
+                    success: function(res) {
+                        var data = eval(res);
+                        buildingItemId.append('<option></option>');
+                        for (var i = 0; i < data.length; i++) {
+                            buildingItemId.append('<option value="' + data[i].Value + '">' + data[i].text + '</option>');
+                        }
+
+                    },
+                    error: function() {
+                        $.pnotify({
+                            title: '错误',
+                            type: 'Error',
+                            text: '提交请求失败！'
+                        });
+                    }
+                });
+            }
+
+            function getHouseNumberItems() {
+                houseNumberItemId.empty();
+                $.ajax({
+                    url: "@Url.Action("GetHouseItems", "HouseMeterReading")",
+                    type: "post",
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({
+                        apartmentItemId: apartmentItemId.val(),
+                        buildingItemId: buildingItemId.val()
+                    }),
+                    success: function(res) {
+                        var data = eval(res);
+                        houseNumberItemId.append('<option></option>');
+                        for (var i = 0; i < data.length; i++) {
+                            houseNumberItemId.append('<option value="' + data[i].Value + '">' + data[i].text + '</option>');
+                        }
+                    },
+                    error: function() {
+                        $.pnotify({
+                            title: '错误',
+                            type: 'Error',
+                            text: '提交请求失败！'
+                        });
+                    }
+                });
+            }
+
+        });
+    </script>
+}

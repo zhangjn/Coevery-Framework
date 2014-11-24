@@ -1,0 +1,16 @@
+﻿@using Coevery.ContentManagement
+@using Coevery.DisplayManagement.Shapes
+@{
+    var gridId = "buildingGrid";
+    var listViewModel = new {
+        GridId = gridId
+    };
+    Shape actionShape = New.Parts_ListViewActions(GridId: gridId, ContentItem: Model.ContentItem);
+    actionShape.Metadata.Alternates.Add("Parts_ListViewActions__Building");
+
+    Shape viewShape = New.Parts_ListViewGrid(listViewModel);
+    viewShape.Metadata.Alternates.Add("Parts_ListViewGrid__Building");
+}
+
+@Display(actionShape)
+@Display(viewShape)

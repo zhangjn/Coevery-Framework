@@ -1,0 +1,32 @@
+﻿@{
+    Layout.Title = "维修结算单";
+}
+@Html.AntiForgeryToken()
+<div id="page-actions" class="clearfix">
+    <div class="btn-toolbar pull-left">
+        <button id="btnPrint" class="btn btn-small">打印</button>
+    </div>
+</div>
+<div id="print-content">
+    <script id="preview-template" type="text/x-handlebars-template">
+        @Display.Partial(TemplateName: "Service/ServiceChargePreviewTemplate")
+    </script>
+</div>
+<div class="data-row clearfix">
+    <div class="control controls">
+        <a class="btn btn-small" href='@Url.Action("List", "Service" )'>返回</a>
+    </div>
+</div>
+@using (Script.Foot())
+{
+    <script>
+        $(function () {
+            $('#btnPrint').click(function () {
+                $('#print-content').printThis();
+            });
+            var source = $("#preview-template").html();
+            var template = Handlebars.compile(source);
+            $('#print-content').html(template(@Html.Raw(Json.Encode(Model))));
+        });
+    </script>
+}

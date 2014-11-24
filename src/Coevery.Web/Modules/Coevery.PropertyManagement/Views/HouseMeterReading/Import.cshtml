@@ -1,0 +1,66 @@
+﻿@using Coevery.Utility.Extensions
+@model Coevery.PropertyManagement.ViewModels.ImportViewModel
+@{
+    Layout.Title = "抄表数据导入错误报告";
+}
+<table border="1">
+    <thead>
+        <tr>
+            <th>行号</th>
+            <th>字段</th>
+            <th>状态</th>
+            <th>错误信息</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.List)
+        {
+            <tr>
+                <td>@item.RowId</td>
+                <td>@item.FieldName</td>
+                <td>导入失败</td>
+                <td>@item.ErrorMessage</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (@Model.List[0].RowId == 0)
+{
+    <div>您的表格内容格式有误,请参照下面格式填写</div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>年份</th>
+                <th>月份</th>
+                <th>楼盘</th>
+                <th>楼宇</th>
+                <th>房间号</th>
+                <th>业主姓名</th>
+                <th>租户姓名</th>
+                <th>专管业务员</th>
+                <th>合同号</th>
+                <th>仪表种类</th>
+                <th>仪表读数</th>
+            </tr>
+        </thead>
+        <tbody>
+          
+            <tr>
+                <td>2014</td>
+                <td>10</td>
+                <td>万科国际</td>
+                <td>A幢</td>
+                <td>1-101</td>
+                <td>张三</td>
+                <td>李四</td>
+                <td>Admin</td>
+                <td>H0001</td>
+                <td>电表</td>
+                <td>888</td>
+            </tr>
+         
+        </tbody>
+    </table>
+}
+ <a class="btn btn-small" href='@Url.Action("List", "HouseMeterReading", new { area = "Coevery.PropertyManagement" })'>@T("返回")</a>
+

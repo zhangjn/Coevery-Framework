@@ -1,0 +1,12 @@
+﻿@{
+    Layout.Title = "楼盘列表";
+}
+
+@using Coevery.DisplayManagement.Shapes
+@{
+    var gridId = "apartmentGrid";
+    var listViewModel = new {GridId = gridId };
+}
+
+@Display.Parts_ListViewActions(GridId: gridId)
+@Display.Parts_ListViewGrid__Apartment(listViewModel)

@@ -1,0 +1,15 @@
+﻿@using Coevery.DisplayManagement.Shapes
+@{
+    var gridId = "chargeitemsettingGrid";
+    var listViewModel = new {
+        GridId = gridId
+    };
+    Shape actionShape = New.Parts_ListViewActions(GridId: gridId, ContentItem: Model.ContentItem);
+    actionShape.Metadata.Alternates.Add("Parts_ListViewActions__ChargeItemSetting");
+
+    Shape viewShape = New.Parts_ListViewGrid(listViewModel);
+    viewShape.Metadata.Alternates.Add("Parts_ListViewGrid__ChargeItemSetting");
+}
+
+@Display(actionShape)
+@Display(viewShape)

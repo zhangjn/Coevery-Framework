@@ -1,0 +1,114 @@
+﻿@{
+    Style.Include("Voucher.css");
+    Script.Require("handlebars");
+    Script.Require("chineseAmountConvert");
+}
+<h2>收款收据</h2>
+<hr />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>合同号</th>
+            <th>楼盘</th>
+            <th>楼宇</th>
+            <th>房间号</th>
+            <th>收费描述</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>年</th>
+            <th>月</th>
+            <th>金额</th>
+            <th>优惠</th>
+            <th>滞纳金</th>
+            <th>小计</th>
+            <th>备注</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each List}}
+        <tr>
+            <td>{{ContractNumber}}</td>
+            <td>{{ApartmentName}}</td>
+            <td>{{BuildingName}}</td>
+            <td>{{HouseNumber}}</td>
+            <td>{{ChargeItemSettingDescription}}</td>
+            <td>{{BeginDate}}</td>
+            <td>{{EndDate}}</td>
+            <td>{{Year}}</td>
+            <td>{{Month}}</td>
+            <td>{{toFixed Amount 2}}</td>
+            <td>{{toFixed Exempt 2}}</td>
+            <td>{{toFixed DelayCharge 2}}</td>
+            <td>{{toFixed Total 2}}</td>
+            <td>{{Notes}}</td>
+        </tr>
+        {{/each}}
+        {{#if TotalMoney}}
+        <tr>
+            <td>合计大写</td>
+            <td colspan="6">{{toChineseCaptial TotalMoney}}</td>
+            <td>小写</td>
+            <td colspan="6">{{toFixed TotalMoney 2}}</td>
+        </tr>
+        {{/if}}
+    </tbody>
+</table>
+<div id="tg-date">缴费日期：{{#if ChargeDate}}<span>{{ChargeDate}}</span>{{/if}}</div>
+<div class="sign">
+    <p>收款人：{{#if ChargeUser}}<span>{{ChargeUser}}</span>{{/if}}</p>
+</div>
+<hr />
+@using (Script.Foot())
+{
+    <script>
+        $(function () {
+            Handlebars.registerHelper('toChineseCaptial', function (number) {
+                return convertToChinese(number);
+            });
+
+            Handlebars.registerHelper('toFixed', function (value, options) {
+                return new Handlebars.SafeString((value != null) ? (+value).toFixed(options) : "");
+            });
+
+            Handlebars.registerHelper('compare', function (lvalue, operator, rvalue, options) {
+
+                var operators, result;
+
+                if (arguments.length < 3) {
+                    throw new Error("Handlerbars Helper 'compare' needs 2 parameters");
+                }
+
+                if (options === undefined) {
+                    options = rvalue;
+                    rvalue = operator;
+                    operator = "===";
+                }
+
+                operators = {
+                    '==': function (l, r) { return l == r; },
+                    '===': function (l, r) { return l === r; },
+                    '!=': function (l, r) { return l != r; },
+                    '!==': function (l, r) { return l !== r; },
+                    '<': function (l, r) { return l < r; },
+                    '>': function (l, r) { return l > r; },
+                    '<=': function (l, r) { return l <= r; },
+                    '>=': function (l, r) { return l >= r; },
+                    'typeof': function (l, r) { return typeof l == r; }
+                };
+
+                if (!operators[operator]) {
+                    throw new Error("Handlerbars Helper 'compare' doesn't know the operator " + operator);
+                }
+
+                result = operators[operator](lvalue, rvalue);
+
+                if (result) {
+                    return options.fn(this);
+                } else {
+                    return options.inverse(this);
+                }
+
+            });
+        });
+    </script>
+}

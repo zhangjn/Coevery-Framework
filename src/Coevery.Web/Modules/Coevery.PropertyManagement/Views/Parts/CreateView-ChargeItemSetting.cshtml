@@ -1,0 +1,210 @@
+﻿@using Coevery.PropertyManagement.Models
+@using Coevery.Utility.Extensions
+@using Coevery.ContentManagement
+@{
+    var id = Guid.NewGuid().ToString();
+    ContentPart part = Model.ContentPart;
+    part.SetFieldParameter("MeterType", new { DropdownUrl = Url.Action("MeterTypeDropdown", "ChargeItemSetting") });
+}
+<div class="row-fluid edit-mode">
+    @using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "ChargeItemSetting", new {returnUrl = Request.QueryString["ReturnUrl"]}),
+        FormMethod.Post, new {@class = "form-horizontal", id = id}))
+    {
+        <fieldset>
+            <legend>@T("General Information")</legend>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "ItemCategory")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Name")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="control-label title required">金额计算方式</label>
+                    <div class="control controls groupValidationHelper errortips">
+                        <label class="radio">
+                            @Html.RadioButton("ChargeItemSettingPart.CalculationMethod.Value", CalculationMethodOption.单价数量, true,
+                                new {id = "radioUnitPrice"})
+                            单价X数量
+                        </label>
+                        <label class="radio">
+                            @Html.RadioButton("ChargeItemSettingPart.CalculationMethod.Value", CalculationMethodOption.指定金额,
+                                new {id = "radioMoney"})
+                            指定金额
+                            <input class="span12 number" type="text" id="ChargeItemSettingPart_Money_Value" name="ChargeItemSettingPart.Money.Value" decimalformat="18,2" />
+                        </label>
+                        <label class="radio" id="lblCustomFormula">
+                            @Html.RadioButton("ChargeItemSettingPart.CalculationMethod.Value", CalculationMethodOption.自定义公式,
+                                new {id = "radioCustomFormula"})
+                            自定义公式
+                            <textarea class="span12" id="ChargeItemSettingPart_CustomFormula_Value" name="ChargeItemSettingPart.CustomFormula.Value" rows="3" maxlength="255" placeholder=""></textarea>
+                        </label>
+                        <input id="groupValidationPart" name="ChargeItemSettingPart.CalculationMethod.void" required="" type="hidden" value="true">
+                        <input id="ChargeItemSettingPart_CalculationMethod_OptionSetId"name="ChargeItemSettingPart.CalculationMethod.OptionSetId" type="hidden" value="33">
+                    </div>
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "UnitPrice")
+                </div>
+            </div>
+            @*MeterType----仪表种类*@
+            <div class="data-row clearfix" id="divMeterType">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "MeterType")
+                </div>
+            </div>
+            @*MeteringMode----计量方式*@
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "MeteringMode")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Remark")
+                </div>
+            </div>
+          
+        </fieldset>
+        <div class="data-row clearfix">
+            <div class="control controls">
+                <button type="submit" id="btnAdd" class="btn btn-small btn-primary">@T("保存")</button>
+                @{
+                    var returnUrl = Request.QueryString["returnUrl"];
+                }
+                @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+                {
+                    <a class="btn btn-small"  href="@returnUrl">@T("取消")</a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@using (Script.Foot())
+{
+    <script>
+        $('#@id').validate();
+        $(function () {
+            var itemCategory = $("#ChargeItemSettingPart_ItemCategory_Value");
+            $('#ChargeItemSettingPart_MeterType_ContentId').removeAttr('required');
+            $("#divMeterType").toggle(false);
+            itemCategory.data("category", " ");
+            function isRecurrentChargeItem() {
+                var category = itemCategory.data("category");
+                return category == "周期性收费项目";
+            }
+
+            function onChargeItemCategoryChanged() {
+                var isRecurrent = isRecurrentChargeItem();
+                $("#lblCustomFormula").toggle(isRecurrent);
+            }
+         
+            itemCategory.change(function () {
+                var checkText = itemCategory.find("option:selected").text();
+                itemCategory.data("category", checkText);
+                onChargeItemCategoryChanged();
+                $("#divMeterType").toggle(checkText.trim() == "抄表类收费项目");
+                if (checkText.trim() == "抄表类收费项目")
+                    $('#ChargeItemSettingPart_MeterType_ContentId').attr('required', '');
+                else {
+                    $('#ChargeItemSettingPart_MeterType_ContentId').removeAttr('required');
+                }
+            });
+            
+
+            function onCalculationMethondChanged() {
+                var calculationMethod = $('input[name="ChargeItemSettingPart.CalculationMethod.Value"]:checked').val();
+                $('#ChargeItemSettingPart_Money_Value').prop("disabled", calculationMethod != '指定金额');
+                $('#ChargeItemSettingPart_CustomFormula_Value').prop("disabled", calculationMethod != '自定义公式');
+                if (calculationMethod == '单价数量' || calculationMethod == '自定义公式') {
+                    $("#ChargeItemSettingPart_MeteringMode_Value").prop("disabled", false);
+                    $("#ChargeItemSettingPart_UnitPrice_Value").prop("disabled", false);
+                } else {
+                    $("#ChargeItemSettingPart_MeteringMode_Value").prop("disabled", true);
+                    $("#ChargeItemSettingPart_UnitPrice_Value").prop("disabled", true);
+                }
+                $("#ChargeItemSettingPart_Money_Value").val('');
+                $("#ChargeItemSettingPart_CustomFormula_Value").val('');
+            }
+
+            onCalculationMethondChanged();
+            $('input[name="ChargeItemSettingPart.CalculationMethod.Value"]').change(onCalculationMethondChanged);
+            $("#btnAdd").click(function(e) {
+                var valCalculationMethod = $('input:radio[name="ChargeItemSettingPart.CalculationMethod.Value"]:checked').val();
+                if (itemCategory.val() == '') {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '请选择项目类别！'
+                    });
+                    return false;
+                }
+                if (valCalculationMethod == null) {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '请选择金额计算方式！'
+                    });
+                    return false;
+                } else {
+                    var unitPriceValue = $("#ChargeItemSettingPart_UnitPrice_Value").val();
+                    var meteringModeValue = $("#ChargeItemSettingPart_MeteringMode_Value").val();
+                    var moneyValue = $("#ChargeItemSettingPart_Money_Value").val();
+                    var customFormulaValue = $("#ChargeItemSettingPart_CustomFormula_Value").val();
+                    var chargingPeriodValue = $("#ChargeItemSettingPart_ChargingPeriod_Value").val();
+                    if ((valCalculationMethod == "单价数量" || valCalculationMethod == "自定义公式") && unitPriceValue == "") {
+                        $.pnotify({
+                            title: '错误',
+                            type: 'Error',
+                            text: '单价不能为空！'
+                        });
+                        return false;
+                    }
+                    if ((valCalculationMethod == "单价数量" || valCalculationMethod == "自定义公式") && meteringModeValue == "") {
+                        $.pnotify({
+                            title: '错误',
+                            type: 'Error',
+                            text: '计量方式不能为空！'
+                        });
+                        return false;
+                    }
+                    if (valCalculationMethod == "指定金额" && moneyValue == "") {
+                        $.pnotify({
+                            title: '错误',
+                            type: 'Error',
+                            text: '指定金额不能为空！'
+                        });
+                        return false;
+                    }
+                    if (valCalculationMethod == "自定义公式" && customFormulaValue == "") {
+                        $.pnotify({
+                            title: '错误',
+                            type: 'Error',
+                            text: '自定义公式不能为空！'
+                        });
+                        return false;
+                    }
+                    var isRecurrent = isRecurrentChargeItem();
+                    if (isRecurrent == true && chargingPeriodValue == "") {
+                        $.pnotify({
+                            title: '错误',
+                            type: 'Error',
+                            text: '收费周期不能为空！'
+                        });
+                        return false;
+                    }
+
+                }
+
+            });
+
+        });
+    </script>
+}

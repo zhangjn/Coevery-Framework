@@ -1,0 +1,48 @@
+﻿
+@using Coevery.Utility.Extensions
+@using Coevery.ContentManagement
+@{
+    var id = Guid.NewGuid().ToString();
+	ContentPart part = Model.ContentPart;
+}
+<div class="row-fluid edit-mode">
+	@using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "Apartment", new { returnUrl = Request.QueryString["ReturnUrl"] }),
+		FormMethod.Post, new {@class = "form-horizontal", id = id})) {
+		<fieldset>
+			<legend>@T("General Information")</legend>
+			<div class="data-row clearfix">
+				<div class="span12 control-group">
+					@Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Name")
+				</div>
+			</div>
+			<div class="data-row clearfix">
+				<div class="span12 control-group">
+					@Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Address")
+				</div>
+			</div>
+			<div class="data-row clearfix">
+				<div class="span12 control-group">
+					@Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Description")
+				</div>
+			</div>
+		</fieldset>
+		<div class="data-row clearfix">
+            <div class="control controls">
+                <button type="submit" class="btn btn-small btn-primary">@T("保存")</button>
+                @{
+                    var returnUrl = Request.QueryString["returnUrl"];
+                }
+                @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+                {
+                    <a class="btn btn-small"  href="@returnUrl">@T("取消")</a>
+                }
+            </div>
+        </div>
+	}
+</div>
+
+@using (Script.Foot()) {
+    <script>
+        $('#@id').validate();
+    </script>
+}

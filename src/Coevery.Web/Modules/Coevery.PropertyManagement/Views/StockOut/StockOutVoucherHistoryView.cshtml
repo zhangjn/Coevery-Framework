@@ -1,0 +1,40 @@
+﻿@using Coevery.Utility.Extensions
+@model Coevery.PropertyManagement.ViewModels.InventoryCreateListViewModel
+@{
+    Layout.Title = "出库单";
+}
+@Html.AntiForgeryToken()
+<div id="page-actions" class="clearfix">
+    <div class="btn-toolbar pull-left">
+        <button id="btnPrint" class="btn btn-small">打印</button>
+    </div>
+</div>
+<div id="print-content">
+    <script id="preview-template" type="text/x-handlebars-template">
+        @Display.Partial(TemplateName: "StockOut/VoucherPreviewTemplate")
+    </script>
+</div>
+<div class="data-row clearfix">
+    <div class="control controls">
+        @{
+            var returnUrl = Request.QueryString["returnUrl"];
+        }
+        @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+        {
+            <a class="btn btn-small" href="@returnUrl">返回</a>
+        }
+    </div>
+</div>
+@using (Script.Foot())
+{
+    <script>
+        $(function() {
+            $('#btnPrint').click(function() {
+                $('#print-content').printThis();
+            });
+            var source = $("#preview-template").html();
+            var template = Handlebars.compile(source);
+            $('#print-content').html(template(@Html.Raw(Json.Encode(Model))));
+        });
+    </script>
+}

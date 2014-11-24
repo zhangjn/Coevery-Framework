@@ -1,0 +1,244 @@
+﻿@using Coevery.PropertyManagement.Models
+@using Coevery.PropertyManagement.ViewModels
+@{
+    var meterTypeViewModel = new EntitySelectorViewModel
+    {
+        ClientId = "ChargeItemSettingPart_MeterType_ContentId",
+        DisplayFieldName = "Name",
+        DropdownUrl = Url.Action("MeterTypeDropdown", "ChargeItemSetting"),
+        Label = "仪表",
+        PopupWindowCaption = "请选择仪表",
+        RelatedEntityName = "MeterType",
+        RequiredMsg = "请选择仪表!",
+        Required = false
+    };
+}
+
+<div class="row-fluid edit-mode">
+    <div class="form-horizontal">
+        <fieldset>
+            <legend>基础信息</legend>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="control-label title required">项目类别</label>
+                    <div class="control controls errortips">
+                        <select class="span12" id="ChargeItemSettingPart_ItemCategory_Value" name="ChargeItemSettingPart.ItemCategory.Value" required="">
+                            <option value=""></option>
+                            <option value="@ItemCategoryOption.周期性收费项目">周期性收费项目</option>
+                            <option value="@ItemCategoryOption.抄表类收费项目">抄表类收费项目</option>
+                            <option value="@ItemCategoryOption.临时性收费项目">临时性收费项目</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="title control-label required" for="ChargeItemSettingPart_Name_Value">名称</label>
+                    <div class="control controls errortips">
+                        <input class="span12" type="text" id="ChargeItemSettingPart_Name_Value" name="ChargeItemSettingPart.Name.Value" value="普通物业费" required data-msg-required="必须填写!" maxlength="255" placeholder="" />
+                    </div>
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="control-label title required">金额计算方式</label>
+                    <div class="control controls groupValidationHelper errortips">
+                        <label class="radio">
+                            <input checked="checked" id="radioUnitPrice" name="ChargeItemSettingPart.CalculationMethod.Value" type="radio" value="单价数量" />
+                            单价X数量
+                        </label>
+                        <label class="radio">
+                            <input id="radioMoney" name="ChargeItemSettingPart.CalculationMethod.Value" type="radio" value="指定金额" />
+                            指定金额
+                            <input class="number" type="text" id="ChargeItemSettingPart_Money_Value" name="ChargeItemSettingPart.Money.Value" decimalformat="18,2" />
+                        </label>
+                        <label class="radio" id="lblCustomFormula">
+                            <input id="radioCustomFormula" name="ChargeItemSettingPart.CalculationMethod.Value" type="radio" value="自定义公式" />
+                            自定义公式
+                            <textarea class="span12" id="ChargeItemSettingPart_CustomFormula_Value" name="ChargeItemSettingPart.CustomFormula.Value" rows="3" maxlength="255" placeholder=""></textarea>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="control-label title" for="ChargeItemSettingPart_UnitPrice_Value">单价</label>
+                    <div class="control controls errortips">
+                        <input class="span12 number" type="text"
+                               id="ChargeItemSettingPart_UnitPrice_Value"
+                               name="ChargeItemSettingPart.UnitPrice.Value"
+                               value="1.20"
+                               decimalformat="18,2" />
+                    </div>
+                </div>
+            </div>
+            <div class="data-row clearfix" id="divMeterType">
+                <div class="span12 control-group">
+                    <label class="span3 control-label" for="ChargeItemSettingPart_MeterType_ContentId">仪表种类</label>
+                    <div class="control controls errortips">
+                        <div class="input-group">
+                            <input class="span12" data-msg-required="必须选择此字段!" data-text="" 
+                                   id="ChargeItemSettingPart_MeterType_ContentId" 
+                                   name="ChargeItemSettingPart.MeterType.ContentId" 
+                                   required="" type="hidden" value="" />
+                            <div class="hide" tabindex="-1">
+                                <div class="row-fluid">
+                                    <table id="metertypeMeterTypeGrid"></table>
+                                    <section id="metertypeMeterTypeGridPager"></section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*<div class="span12 control-group">
+                    @Display.Partial(TemplateName: "EntitySelector", Model: meterTypeViewModel)
+                </div>*@
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="control-label title">计量方式</label>
+                    <div class="control controls errortips">
+                        <select class="span12" id="ChargeItemSettingPart_MeteringMode_Value" name="ChargeItemSettingPart.MeteringMode.Value">
+                            <option value=""></option>
+                            <option selected="selected" value="@MeteringModeOption.建筑面积">建筑面积</option>
+                            <option value="@MeteringModeOption.套内面积">套内面积</option>
+                            <option value="@MeteringModeOption.用量">用量</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="data-row clearfix" id="divChargingPeriod">
+                <div class="span12 control-group">
+                    <label class="control-label title">收费周期</label>
+                    <div class="control controls errortips">
+                        <select class="span12" id="ChargeItemSettingPart_ChargingPeriod_Value" name="ChargeItemSettingPart.ChargingPeriod.Value">
+                            <option value=""></option>
+                            <option selected="selected" value="@ChargingPeriodOption.每1个月收一次">每1个月收一次</option>
+                            <option value="@ChargingPeriodOption.每2个月收一次">每2个月收一次</option>
+                            <option value="@ChargingPeriodOption.每3个月收一次">每3个月收一次</option>
+                            <option value="@ChargingPeriodOption.每4个月收一次">每4个月收一次</option>
+                            <option value="@ChargingPeriodOption.每5个月收一次">每5个月收一次</option>
+                            <option value="@ChargingPeriodOption.每6个月收一次">每6个月收一次</option>
+                            <option value="@ChargingPeriodOption.每7个月收一次">每7个月收一次</option>
+                            <option value="@ChargingPeriodOption.每8个月收一次">每8个月收一次</option>
+                            <option value="@ChargingPeriodOption.每9个月收一次">每9个月收一次</option>
+                            <option value="@ChargingPeriodOption.每10个月收一次">每10个月收一次</option>
+                            <option value="@ChargingPeriodOption.每11个月收一次">每11个月收一次</option>
+                            <option value="@ChargingPeriodOption.每12个月收一次">每12个月收一次</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="title control-label" for="ChargeItemSettingPart_Remark_Value">备注</label>
+                    <div class="control controls errortips">
+                        <textarea class="span12" id="ChargeItemSettingPart_Remark_Value" name="ChargeItemSettingPart.Remark.Value"
+                                  rows="3"
+                                  maxlength="255" placeholder=""></textarea>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+
+
+<script>
+    $(function () {
+        var itemCategory = $("#ChargeItemSettingPart_ItemCategory_Value");
+        $('#ChargeItemSettingPart_MeterType_ContentId').removeAttr('required');
+        itemCategory.data("category", "");
+        function isRecurrentChargeItem() {
+            var category = itemCategory.data("category");
+            return category == "周期性收费项目";
+        }
+        function onChargeItemCategoryChanged() {
+            var isRecurrent = isRecurrentChargeItem();
+            $("#divChargingPeriod").toggle(isRecurrent);
+            $("#lblCustomFormula").toggle(isRecurrent);
+            $("#divMeterType").toggle(itemCategory.data("category") == "抄表类收费项目");
+        }
+        itemCategory.change(function () {
+            var checkText = itemCategory.find("option:selected").text();
+            itemCategory.data("category", checkText);
+            onChargeItemCategoryChanged();
+            $("#divMeterType").toggle(checkText.trim() == "抄表类收费项目");
+            if (checkText.trim() == "抄表类收费项目")
+                $('#ChargeItemSettingPart_MeterType_ContentId').attr('required', '');
+            else {
+                $('#ChargeItemSettingPart_MeterType_ContentId').removeAttr('required');
+            }
+        });
+        onChargeItemCategoryChanged();
+        function onCalculationMethondChanged() {
+            var calculationMethod = $('input[name="ChargeItemSettingPart.CalculationMethod.Value"]:checked').val();
+            $('#ChargeItemSettingPart_Money_Value').prop("disabled", calculationMethod != '指定金额');
+            $('#ChargeItemSettingPart_CustomFormula_Value').prop("disabled", calculationMethod != '自定义公式');
+            $("#ChargeItemSettingPart_UnitPrice_Value").prop("disabled", calculationMethod != '单价数量');
+            $("#ChargeItemSettingPart_MeteringMode_Value").prop("disabled", calculationMethod != '单价数量');
+        }
+        onCalculationMethondChanged();
+        $('input[name="ChargeItemSettingPart.CalculationMethod.Value"]').change(onCalculationMethondChanged);
+        $("#btnEdit").click(function (e) {
+            var valCalculationMethod = $('input:radio[name="ChargeItemSettingPart.CalculationMethod.Value"]:checked').val();
+            if (valCalculationMethod == null) {
+                $.pnotify({
+                    title: '错误',
+                    type: 'Error',
+                    text: '请选择金额计算方式！'
+                });
+                return false;
+            } else {
+                var unitPriceValue = $("#ChargeItemSettingPart_UnitPrice_Value").val();
+                var meteringModeValue = $("#ChargeItemSettingPart_MeteringMode_Value").val();
+                var moneyValue = $("#ChargeItemSettingPart_Money_Value").val();
+                var customFormulaValue = $("#ChargeItemSettingPart_CustomFormula_Value").val();
+                var chargingPeriodValue = $("#ChargeItemSettingPart_ChargingPeriod_Value").val();
+                if (valCalculationMethod == "单价数量" && unitPriceValue == "") {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '单价不能为空！'
+                    });
+                    return false;
+                }
+                if (valCalculationMethod == "单价数量" && meteringModeValue == "") {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '计量方式不能为空！'
+                    });
+                    return false;
+                }
+                if (valCalculationMethod == "指定金额" && moneyValue == "") {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '指定金额不能为空！'
+                    });
+                    return false;
+                }
+                if (valCalculationMethod == "自定义公式" && customFormulaValue == "") {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '自定义公式不能为空！'
+                    });
+                    return false;
+                }
+                var isRecurrent = isRecurrentChargeItem();
+                if (isRecurrent == true && chargingPeriodValue == "") {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '收费周期不能为空！'
+                    });
+                    return false;
+                }
+            }
+            return true;
+        });
+    });
+</script>

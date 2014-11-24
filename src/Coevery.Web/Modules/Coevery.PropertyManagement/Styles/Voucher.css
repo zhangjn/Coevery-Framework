@@ -1,0 +1,194 @@
+﻿
+#main {
+    margin: 0 auto;
+}
+
+.money-disp {
+    line-height: 50px;
+    vertical-align: central;
+}
+
+#oder-date {
+    float: right;
+    margin: 0 50px 0 auto;
+}
+
+#print-content p {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+
+#print-content label {
+    display: inline-block;
+    font-size: 14px;
+}
+
+#print-content h2 {
+    font-weight: normal;
+    text-align: center;
+    position: relative;
+}
+
+    #print-content h2 span {
+        font-size: 12px;
+        position: absolute;
+        right: 0;
+    }
+
+#print-content hr {
+    border: 1px solid #000;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+#print-content .pull-right {
+    margin-right: 50px;
+    font-size: 10px;
+}
+
+.sign {
+    margin-top: 20px;
+}
+.sign-second
+{
+    margin-top:60px;
+}
+.sign-third
+{
+    margin-top:100px;
+}
+.sign > p {
+    display: inline-block;
+    min-width: 230px;
+}
+
+.sign-left {
+    float: left;
+}
+
+.sign-right {
+    float: right;
+    padding-right: 200px;
+}
+.sign-center
+{
+    text-align:center;
+}
+.sign-center-right
+{
+    text-align:center;
+    padding-left:240px; 
+    padding-top:10px;
+}
+.sign-date-space
+{
+    padding-right:40px;
+}
+.sign-date {
+    clear: both;
+    margin: 60px 0 20px 0;
+}
+.sign-date-left {
+    float:left;
+    padding-left:150px;
+}
+.sign-date-right {
+    float:right;
+}
+table {
+    border-collapse: collapse;
+    text-align: center;
+    width: 100%;
+}
+
+#tg-date {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.left-65 {
+    position: absolute;
+    left: 65%;
+}
+.left-70 {
+    position: absolute;
+    left: 70%;
+}
+.left-40 {
+    position: absolute;
+    left: 40%;
+}
+
+.td-row-text-left
+{
+    text-align:left;
+    padding-left:5px;
+}
+.td-text-left
+{
+    text-align:left;
+    padding-left:10px;
+}
+.td-main-width
+{
+    width:240px;
+}
+.td-no-width
+{
+    width:50px;
+}
+.table--border-sub
+{
+    border-top:hidden;
+}
+td
+{
+    height:30px;
+}
+.summary-right
+{
+    float:right;
+    padding-right:50px;
+}
+.left
+{
+    float:left;
+}
+
+.row-height
+{
+    height:30px;
+}
+.row-fullwidth
+{
+    width: 100%;
+}
+
+.relative {
+    position: relative;
+}
+.td-width
+{
+    width:70px;
+}
+.shop-font {
+    font-size: 12px;
+}
+
+@media print {
+
+    h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+        font-family: "SimSun" !important;
+        font-weight: 500;
+    }
+
+    * {
+        font-family: "SimSun" !important;
+        color: #000 !important;
+        font-size: 9pt;
+    }
+}

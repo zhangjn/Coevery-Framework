@@ -1,0 +1,1062 @@
+﻿@using Coevery.PropertyManagement.Models
+@using Coevery.PropertyManagement.ViewModels
+@using Coevery.Utility.Extensions
+@using Coevery.ContentManagement
+
+@{
+    Layout.Title = "房间";
+    Layout.TitleDescription = string.Format("新建一个房间");
+    var id = Guid.NewGuid().ToString();
+    Style.Require("jqGrid");
+    Style.Require("jqGridCustom");
+    Script.Require("jqGrid");
+    Script.Require("jqGrid_i18n");
+
+    var ownerViewModel = new EntitySelectorViewModel {
+        ClientId = "OwnerId",
+        DisplayFieldName = "Name",
+        DropdownUrl = Url.Action("OwnerDropdown", "House"),
+        Label = "业主",
+        PopupWindowCaption = "请选择业主",
+        RelatedEntityName = "Customer",
+        RequiredMsg="请选择业主!",
+        Required = true
+    };
+}
+<div class="row-fluid edit-mode">
+    @using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "House", new {returnUrl = Request.QueryString["ReturnUrl"]}),
+        FormMethod.Post, new {@class = "form-horizontal", id = id}))
+    {
+        <fieldset>
+            <legend>@T("基本信息")</legend>
+            <div class="data-row clearfix">
+                <div class="span6 control-group">
+                    <label class="title control-label required">楼盘</label>
+                    <div class="controls errortips">
+                        @Html.DropDownList("ApartmentId", (List<SelectListItem>) Model.ApartmentListItems, new Dictionary<string, object>
+                        {
+                            {"required", ""},
+                            {"class", "span12"},
+                            {"data-msg-required", "请选择楼盘！"}
+                        })
+                    </div>
+                </div>
+                <div class="span6 control-group">
+                    <label class="title control-label">建筑面积</label>
+                    <div class="controls">
+                        @Html.TextBox("BuildingArea", "", new
+                        {
+                            @class = "span12"
+                        })
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-row clearfix">
+                <div class="span6 control-group">
+                    <label class="title control-label required">楼宇</label>
+                    <div class="controls errortips">
+                        @Html.DropDownList("BuildingId", new List<SelectListItem>(), new Dictionary<string, object>
+                        {
+                            {"required", ""},
+                            {"class", "span12"},
+                            {"disabled", "true"},
+                            {"data-msg-required", "请选择楼宇！"}
+                        })
+                    </div>
+                </div>
+                <div class="span6 control-group">
+                    <label class="title control-label">套内面积</label>
+                    <div class="controls">
+                        @Html.TextBox("InsideArea", "", new
+                        {
+                            @class = "span12"
+                        })
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-row clearfix">
+                <div class="span6 control-group">
+                    @Display.Partial(TemplateName: "EntitySelector", Model: ownerViewModel)
+                </div>
+                <div class="span6 control-group">
+                    <label class="title control-label">公摊面积</label>
+                    <div class="controls control">
+                        @Html.TextBox("PoolArea", "", new { @class = "span12" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-row clearfix">
+                <div class="span6 control-group">
+                    <label class="title control-label required">房号</label>
+                    <div class="controls errortips">
+                        @Html.TextBox("HouseNumber", "", new Dictionary<string, object>
+                        {
+                            {"required", ""},
+                            {"class", "span12"},
+                            {"data-msg-required", "请输入房号！"}
+                        })
+                    </div>
+                </div>
+                <div class="span6 control-group">
+                    <label class="title control-label">专管员</label>
+                    <div class="controls">
+                        @Html.DropDownList("OfficerId", (List<SelectListItem>) Model.OfficerListItems, new Dictionary<string, object>
+                        {
+                            {"class", "span12"},
+                        })
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <div id="ItemsList">
+                <div class="data-row clearfix">
+                    <div class="span12 control-group">
+                        <label class="title control-label">收费项目</label>
+                        <div class="control controls">
+                            <div class="btn-toolbar">
+                                <button id="btnAddChargeItem" class="btn btn-small"><i class="icon-plus"></i>&nbsp;添加</button>
+                                <button id="btnEditChargeItem" class="btn btn-small"><i class="icon-edit"></i>&nbsp;修改</button>
+                                <button id="btnDeleteChargeItem" class="btn btn-small"><i class="icon-trash"></i>&nbsp;删除</button>
+                            </div>
+                            <table id="chargeItemSettingGrid" style="display: none;"></table>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="data-row clearfix">
+                    <div class="span12 control-group">
+                        <label class="control-label">房间仪表</label>
+                        <div class="control controls">
+                            <div class="btn-toolbar">
+                                <button id="btnAddMeterTypeItem" class="btn btn-small"><i class="icon-plus"></i>&nbsp;添加</button>
+                                <button id="btnEditMeterTypeItem" class="btn btn-small"><i class="icon-edit"></i>&nbsp;修改</button>
+                                <button id="btnDeleteMeterTypeItem" class="btn btn-small"><i class="icon-trash"></i>&nbsp;删除</button>
+                            </div>
+                            <table id="meterTypeItemsGrid"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+
+        <div class="data-row clearfix">
+            <div class="control controls">
+                <button id="btnSubmit" class="btn btn-small btn-primary">@T("保存")</button>
+                @{
+                    var returnUrl = Request.QueryString["returnUrl"];
+                }
+                @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+                {
+                    <a class="btn btn-small" href="@returnUrl">@T("取消")</a>
+                }
+            </div>
+        </div>
+    }
+</div>
+@*添加房间收费项目*@
+<div id="chargeWindow" class="form-horizontal">
+    <div class="data-row clearfix ">
+        <div class="control-group">
+            <label class="title control-label">名称</label>
+            <div class="controls">
+                @Html.DropDownList("ChargeItemSettingId", (List<SelectListItem>)Model.ChargeListItems, new { @class = "list-text" })
+            </div>
+        </div>
+    </div>
+    <div class="data-row clearfix ">
+        <div class="control-group">
+            <label class="title control-label required" for="ItemCategory">费用类别</label>
+            <div class="controls">
+                <select id="ItemCategory" class="list-text">
+                    <option value="@ItemCategoryOption.周期性收费项目">@ItemCategoryOption.周期性收费项目.ToString()</option>
+                    <option value="@ItemCategoryOption.抄表类收费项目">@ItemCategoryOption.抄表类收费项目.ToString()</option>
+                    <option value="@ItemCategoryOption.临时性收费项目">@ItemCategoryOption.临时性收费项目.ToString()</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="data-row clearfix" id="divChargingPeriod">
+        <div class="control-group">
+            <label class="title control-label" for="ChargingPeriod">收费周期</label>
+            <div class="controls">
+                <select id="ChargingPeriod" class="list-text">
+                    <option value="@ChargingPeriodOption.每1个月收一次">@ChargingPeriodOption.每1个月收一次.ToString()</option>
+                    <option value="@ChargingPeriodOption.每2个月收一次">@ChargingPeriodOption.每2个月收一次.ToString()</option>
+                    <option value="@ChargingPeriodOption.每3个月收一次">@ChargingPeriodOption.每3个月收一次.ToString()</option>
+                    <option value="@ChargingPeriodOption.每4个月收一次">@ChargingPeriodOption.每4个月收一次.ToString()</option>
+                    <option value="@ChargingPeriodOption.每5个月收一次">@ChargingPeriodOption.每5个月收一次.ToString()</option>
+                    <option value="@ChargingPeriodOption.每6个月收一次">@ChargingPeriodOption.每6个月收一次.ToString()</option>
+                    <option value="@ChargingPeriodOption.每7个月收一次">@ChargingPeriodOption.每7个月收一次.ToString()</option>
+                    <option value="@ChargingPeriodOption.每8个月收一次">@ChargingPeriodOption.每8个月收一次.ToString()</option>
+                    <option value="@ChargingPeriodOption.每9个月收一次">@ChargingPeriodOption.每9个月收一次.ToString()</option>
+                    <option value="@ChargingPeriodOption.每10个月收一次">@ChargingPeriodOption.每10个月收一次.ToString()</option>
+                    <option value="@ChargingPeriodOption.每11个月收一次">@ChargingPeriodOption.每11个月收一次.ToString()</option>
+                    <option value="@ChargingPeriodOption.每12个月收一次">@ChargingPeriodOption.每12个月收一次.ToString()</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="data-row clearfix" id="divMeterType">
+        <div class="control-group">
+            <label class="title control-label" for="MeterType">仪表种类</label>
+            <div class="controls">
+                @Html.DropDownList("MeterType", (List<SelectListItem>)Model.MeterListItems, new
+                                            {
+                                                @class = "list-text"
+                                            })
+            </div>
+        </div>
+    </div>
+    <div class="data-row clearfix">
+        <div class="control-group">
+            <label class="title control-label" for="ExpenserId">费用承担者</label>
+            <div class="controls">
+                <select id="ExpenserId" class="list-text">
+                    <option value="@Convert.ToInt32(ExpenserOption.租户)">@ExpenserOption.租户.ToString()</option>
+                    <option value="@Convert.ToInt32(ExpenserOption.业主)">@ExpenserOption.业主.ToString()</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <div class="data-row clearfix">
+        <div class="control-group">
+            <label class="control-label title">金额计算方式</label>
+            <div class="control controls groupValidationHelper errortips">
+                <label class="radio">
+                    @Html.RadioButton("CalculationMethod", CalculationMethodOption.单价数量, true,
+                                                    new { id = "radioUnitPrice" })
+                    单价X数量
+                </label>
+                <label class="radio">
+                    @Html.RadioButton("CalculationMethod", CalculationMethodOption.指定金额,
+                                                    new { id = "radioMoney" })
+                    指定金额
+                    <input class=" number" type="text" id="Money" name="Money" decimalformat="18,2" />
+                </label>
+                <label class="radio" id="lblCustomFormula">
+                    @Html.RadioButton("CalculationMethod", CalculationMethodOption.自定义公式,
+                                                    new { id = "radioCustomFormula" })
+                    自定义公式
+                    <textarea id="CustomFormula" name="CustomFormula" rows="3" maxlength="255" placeholder=""></textarea>
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="data-row clearfix">
+        <div class="control-group">
+            <label class="control-label title" for="UnitPrice">单价</label>
+            <div class="control controls errortips">
+                <input class=" number" type="text" id="UnitPrice" name="UnitPrice" decimalformat="18,2">
+            </div>
+        </div>
+    </div>
+
+    <div class="data-row clearfix">
+        <div class="control-group">
+            <label class="title control-label" for="MeteringMode">计量方式</label>
+            <div class="controls">
+                <select id="MeteringMode" class="list-text">
+                    <option value="@MeteringModeOption.套内面积">@MeteringModeOption.套内面积.ToString()</option>
+                    <option value="@MeteringModeOption.建筑面积">@MeteringModeOption.建筑面积.ToString()</option>
+                    <option value="@MeteringModeOption.用量">@MeteringModeOption.用量.ToString()</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="data-row clearfix">
+        <label class="title control-label" for="BeginDate">开始时间</label>
+        <div class="control controls">
+            <div class="input-prepend date-text" data-co-datetime-picker="date">
+                <span class="add-on">
+                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                </span>
+                @Html.TextBox("BeginDate", DateTime.Now.ToString("MM/dd/yyyy"), new Dictionary<string, object>
+                                            {
+                                                {"required", ""},
+                                                {"class", "date"},
+                                                {"data-msg-required", "开始时间！"}
+                                            })
+            </div>
+        </div>
+
+    </div>
+
+    <div class="data-row clearfix">
+        <label class="title control-label" for="EndDate">结束时间</label>
+        <div class="control controls">
+            <div class="input-prepend date-text" data-co-datetime-picker="date">
+                <span class="add-on">
+                    <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                </span>
+                @Html.TextBox("EndDate", "", new Dictionary<string, object> { { "class", "date" } })
+            </div>
+        </div>
+    </div>
+
+    <div class="data-row clearfix">
+        <div class="control-group">
+            <label class="title control-label">备注</label>
+            <div class="controls">
+                @Html.TextBox("Description", "", new { @class = "text" })
+            </div>
+        </div>
+    </div>
+
+    <div class="data-row clearfix">
+        <div class="control-group">
+            <div class="controls">
+                <button id="btnOkCharge" class="btn btn-small btn-primary">确定</button>
+                <button id="btnCancelCharge" class="btn btn-small">取消</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div id="meterWindow" class="form-horizontal">
+    <div class="data-row clearfix">
+        <div class="control-group">
+            <label class="title control-label required">房间仪表</label>
+            <div class="controls">
+                @Html.DropDownList("MeterTypeItemId", (List<SelectListItem>) Model.MeterListItems, new
+                {
+                    @class = "list-text"
+                })
+            </div>
+        </div>
+    </div>
+
+    <div class="data-row clearfix">
+        <div class="control-group">
+            <label class="title control-label required">编号</label>
+            <div class="controls">
+                @Html.TextBox("MeterNumber", "", new
+                {
+                    @class = "text"
+                })
+            </div>
+        </div>
+    </div>
+
+    <div class="data-row clearfix">
+        <div class="control-group">
+            <label class="title control-label required">倍率</label>
+            <div class="controls">
+                @Html.TextBox("Ratio", "", new
+                {
+                    @class = "text"
+                })
+            </div>
+        </div>
+    </div>
+
+    <div class="data-row clearfix">
+        <div class="control-group">
+            <div class="controls">
+                <button id="btnOKMeter" class="btn btn-small btn-primary">确定</button>
+                <button id="btnCancelMeter" class="btn btn-small">取消</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+@using (Script.Foot())
+{
+    <script>
+
+    $(function () {
+
+        //Meter全局变量
+        var meterWindow = $('#meterWindow');
+
+        var btnAddMeterTypeItem = $('#btnAddMeterTypeItem');
+        var btnEditMeterTypeItem = $('#btnEditMeterTypeItem');
+        var btnDeleteMeterTypeItem = $('#btnDeleteMeterTypeItem');
+
+        var btnOKMeter = $('#btnOKMeter');
+        var btnCancelMeter = $('#btnCancelMeter');
+
+        var meterTypeItemId = $('#MeterTypeItemId');
+        var meterNumber = $('#MeterNumber');
+        var ratio = $('#Ratio');
+
+
+        //Charge全局变量
+        var btnAddChargeItem = $('#btnAddChargeItem');
+        var btnEditChargeItem = $('#btnEditChargeItem');
+        var btnDeleteChargeItem = $('#btnDeleteChargeItem');
+
+        var btnOkCharge = $('#btnOkCharge'); //收费项目弹出框确定按钮
+        var btnCancelCharge = $('#btnCancelCharge'); //收费项目弹出框取消按钮
+
+        //添加房间收费项目弹出框中formid
+        var chargeItemSettingId = $('#ChargeItemSettingId'); //收费标准
+     
+        var beginDate = $('#BeginDate'); //开始日期
+        var endDate = $('#EndDate'); //结束日期
+        var description = $('#Description'); //备注
+        var chargeWindow = $('#chargeWindow'); //弹出框
+        var expenserId = $('#ExpenserId'); //费用承担者
+
+        var onClose = function () {
+            //关闭前清除数据
+            endDate.val('');
+            description.val('');
+        };
+
+        if (!chargeWindow.data("kendoWindow")) {
+            chargeWindow.kendoWindow({
+                width: "550px",
+                title: "添加收费项目",
+                actions: ["Close"],
+                close: onClose,
+                visible: false
+            });
+        }
+
+        var onClosem = function () {
+            //关闭前清除数据
+            meterNumber.val('');
+            ratio.val('');
+        };
+
+        if (!meterWindow.data("kendoWindow")) {
+            meterWindow.kendoWindow({
+                width: "550px",
+                title: "添加房间仪表",
+                actions: ["Close"],
+                close: onClosem,
+                visible: false
+            });
+        }
+
+        //房间收费项目代码
+        //编辑删除按钮默认不可用
+        btnEditChargeItem.prop('disabled', true);
+        btnDeleteChargeItem.prop('disabled', true);
+
+        function updateChargeButtonStatus() {
+            var selectedRowIds = gridCharge.getGridParam('selarrrow');
+            if (selectedRowIds.length >= 1) {
+                btnDeleteChargeItem.prop('disabled', false);
+            } else {
+                btnDeleteChargeItem.prop('disabled', true);
+            }
+
+            if (selectedRowIds.length == 1) {
+                btnEditChargeItem.prop('disabled', false);
+            } else {
+                btnEditChargeItem.prop('disabled', true);
+            }
+        }
+
+        //房间收费项目grid
+        var gridCharge = $('#chargeItemSettingGrid');
+        var gridOptions = {
+            colModel: [
+                { name: 'Id', hidden: true },
+                { name: 'ChargeItemSettingId', hidden: true },
+                { name: 'HouseId', hidden: true },
+                { name: 'ExpenserOptionId', hidden: true },
+                { name: 'ChargeItemSettingName', label: '收费名称', sortable: false, resizable: false },
+                { "name": "ItemCategory", "label": "项目类别", "sortable": false },
+		        { "name": "CalculationMethod", "index": "CalculationMethod", "label": "金额计算方式", "sortable": false },
+                { name: 'MeterType', hidden: true },
+		        { "name": "UnitPrice",  hidden: true },
+		        { "name": "MeteringMode",  hidden: true },
+		        { "name": "Money", hidden: true },
+		        { "name": "CustomFormula", hidden: true },
+		        { "name": "ChargingPeriod", "index": "ChargingPeriod", "label": "收费周期", "sortable": false },
+                { name: 'ExpenserName', label: '费用承担者', sortable: false, resizable: false },
+                { name: 'BeginDate', label: '开始时间', sortable: false, resizable: false },
+                { name: 'EndDate', label: '结束时间', sortable: false, resizable: false }
+            ],
+            datatype: 'local',
+            height: '100%',
+            multiselect: true,
+            multiboxonly: true,
+            onSelectRow: updateChargeButtonStatus,
+            onSelectAll: updateChargeButtonStatus
+        };
+        gridCharge.jqGrid(gridOptions); //初始化grid
+        gridCharge.show();
+
+        var index = 1;
+        var currentId = null;
+        //添加房间收费项目
+        btnAddChargeItem.click(function (e) {
+            e.preventDefault();
+            //打开window
+            chargeWindow.data("kendoWindow").center().open();
+            chargeItemSettingId.change();
+        });
+
+        //编辑房间收费项目
+        btnEditChargeItem.click(function (e) {
+            e.preventDefault();
+            currentId = gridCharge.getGridParam('selrow');
+            if (currentId) {
+                chargeWindow.data('kendoWindow').title('修改收费项目').center().open();
+                var currentRow = gridCharge.getRowData(currentId);
+                chargeItemSettingId.find('option[value="' + currentRow.ChargeItemSettingId + '"]').attr('selected', 'selected');
+                itemCategory.val(currentRow.ItemCategory);
+                $("#UnitPrice").val(currentRow.UnitPrice);
+                $("#MeteringMode").val(currentRow.MeteringMode);
+                $("#Money").val(currentRow.Money);
+                $("#CustomFormula").val(currentRow.CustomFormula);
+                $("#ChargingPeriod").val(currentRow.ChargingPeriod);
+                expenserId.find('option[value="' + currentRow.ExpenserOptionId + '"]').attr('selected', 'selected');
+                beginDate.val(currentRow.BeginDate);
+                endDate.val(currentRow.EndDate);
+                description.val(currentRow.Description);
+            };
+        });
+        
+        //删除房间收费项目
+        btnDeleteChargeItem.click(function (e) {
+            e.preventDefault();
+            var selectedIds = gridCharge.getGridParam('selarrrow');
+            if (selectedIds.length == 0) {
+                return;
+            }
+            while (selectedIds.length) {
+                gridCharge.delRowData(selectedIds[0]);
+            }
+            //删除完了，也默认修改和删除不能用
+            btnEditChargeItem.prop('disabled', true);
+            btnDeleteChargeItem.prop('disabled', true);
+        });
+
+        //房间仪表种类代码
+        //gridMeter
+        btnEditMeterTypeItem.prop('disabled', true);
+        btnDeleteMeterTypeItem.prop('disabled', true);
+
+        function updateMeterButtonStatus() {
+            var selectedRowIds = gridMeter.getGridParam('selarrrow');
+            if (selectedRowIds.length >= 1) {
+                btnDeleteMeterTypeItem.prop('disabled', false);
+            } else {
+                btnDeleteMeterTypeItem.prop('disabled', true);
+            }
+
+            if (selectedRowIds.length == 1) {
+                btnEditMeterTypeItem.prop('disabled', false);
+            } else {
+                btnEditMeterTypeItem.prop('disabled', true);
+            }
+        }
+
+        //房间仪表grid
+        var gridMeter = $('#meterTypeItemsGrid');
+        var gridOptionsm = {
+            colModel: [
+                { name: 'Id', hidden: true },
+                { name: 'HouseId', hidden: true },
+                { name: 'MeterTypeItemId', hidden: true },
+                { name: 'MeterName', label: '仪表名称', sortable: false, resizable: false },
+                { name: 'MeterNumber', label: '编号', sortable: false, resizable: false },
+                { name: 'Ratio', label: '倍率', sortable: false, resizable: false, formatter: "currency", formatoptions: { decimalPlaces: 3 } }
+            ],
+            datatype: 'local',
+            height: '100%',
+            multiselect: true,
+            multiboxonly: true,
+            autowidth: true,
+            onSelectRow: updateMeterButtonStatus,
+            onSelectAll: updateMeterButtonStatus
+        };
+        gridMeter.jqGrid(gridOptionsm); //初始化grid
+
+
+        var indexm = 1;
+        var currentIdm = null;
+        //添加房间仪表
+        btnAddMeterTypeItem.click(function (e) {
+            e.preventDefault();
+            //打开window
+            meterWindow.data("kendoWindow").center().open();
+        });
+
+        //编辑房间仪表
+        btnEditMeterTypeItem.click(function (e) {
+            e.preventDefault();
+            currentIdm = gridMeter.getGridParam('selrow');
+            if (currentIdm) {
+                meterWindow.data('kendoWindow').title('修改房间仪表').center().open();
+                var currentRow = gridMeter.getRowData(currentIdm);
+                meterTypeItemId.find('option[value="' + currentRow.MeterTypeItemId + '"]').attr('selected', 'selected');
+                meterNumber.val(currentRow.MeterNumber);
+                ratio.val(currentRow.Ratio);
+            };
+        });
+        
+        //删除房间仪表
+        btnDeleteMeterTypeItem.click(function (e) {
+            e.preventDefault();
+            var selectedIds = gridMeter.getGridParam('selarrrow');
+            if (selectedIds.length == 0) {
+                return;
+            }
+            while (selectedIds.length) {
+                gridMeter.delRowData(selectedIds[0]);
+            }
+            //删除完了，也默认修改和删除不能用
+            btnEditMeterTypeItem.prop('disabled', true);
+            btnDeleteMeterTypeItem.prop('disabled', true);
+        });
+
+        //房间仪表弹出框kendoWindow确认按钮事件代码
+        btnOKMeter.click(function (e) {
+            e.preventDefault();
+            if (!meterTypeItemId.val()) {
+                $.pnotify({ title: '提示', text: '请选择仪表项目！', type: 'Error' });
+                return;
+            }
+            if (!meterNumber.val()) {
+                $.pnotify({ title: '提示', text: '请填写仪表编号！', type: 'Error' });
+                return;
+            }
+            if (ratio.val()) {
+                if (isNaN(ratio.val())) {
+                    $.pnotify({ title: '提示', text: '仪表倍率必須是数字！', type: 'Error' });
+                    return;
+                }
+            } else {
+                $.pnotify({ title: '提示', text: '请填写仪表倍率！', type: 'notice' });
+                return;
+            }
+            if (currentIdm) {
+                gridMeter.setRowData(currentIdm, {
+                    MeterTypeItemId: meterTypeItemId.val(),
+                    MeterName: meterTypeItemId.find('option:selected').text(),
+                    MeterNumber: meterNumber.val(),
+                    Ratio: ratio.val()
+                });
+                currentIdm = null;
+            } else {
+                var meterRows = gridMeter.getRowData();
+                for (var meterIndex in meterRows) {
+                    var meterRow = meterRows[meterIndex];
+                    if (meterRow.MeterTypeItemId == meterTypeItemId.val()) {
+                        $.pnotify({ title: '提示', text: '不能添加重复的房间仪表！', type: 'notice' });
+                        return;
+                    }
+                }
+                gridMeter.addRowData(indexm++, {
+                    MeterTypeItemId: meterTypeItemId.val(),
+                    MeterName: meterTypeItemId.find('option:selected').text(),
+                    MeterNumber: meterNumber.val(),
+                    Ratio: ratio.val()
+                });
+            }
+            meterWindow.data("kendoWindow").close();
+        });
+
+        //房间仪表弹出框kendoWindow取消按钮事件代码
+        btnCancelMeter.click(function (e) {
+            e.preventDefault();
+            meterWindow.data('kendoWindow').close();
+        });
+
+
+        //最后一步：btnSubmit异步提交保存创建房间信息
+        $('#btnSubmit').click(function (e) {
+            e.preventDefault();
+            if (!$('#@id').validate().form()) {
+                return;
+            }
+
+            var bArea = $('#BuildingArea').val();
+            var iArea = $('#InsideArea').val();
+            var pArea = $('#PoolArea').val();
+            if (bArea) {
+                if (isNaN(bArea)) {
+                    $.pnotify({ title: '提示', text: '建筑面积只能为数字！', type: 'notice' });
+                    return;
+                } else {
+                    if (iArea) {
+                        if (isNaN(iArea)) {
+                            $.pnotify({ title: '提示', text: '套内面积只能为数字！', type: 'notice' });
+                            return;
+                        } else {
+                            if (pArea) {
+                                if (isNaN(pArea)) {
+                                    $.pnotify({ title: '提示', text: '公摊面积只能为数字！', type: 'notice' });
+                                    return;
+                                }
+                                if (parseFloat(pArea) > parseFloat(iArea)) {
+                                    $.pnotify({ title: '提示', text: '公摊面积不能大于套内面积！', type: 'notice' });
+                                    return;
+                                }
+                            }
+                        }
+                        if (parseFloat(iArea) > parseFloat(bArea)) {
+                            $.pnotify({ title: '提示', text: '套内面积不能大于建筑面积！', type: 'notice' });
+                            return;
+                        }
+                    } else {
+                        if (pArea) {
+                            $.pnotify({ title: '提示', text: '请输入套内面积！', type: 'notice' });
+                            return;
+                        }
+                    }
+                }
+            } else {
+                if (iArea) {
+                    $.pnotify({ title: '提示', text: '请输入建筑面积！', type: 'notice' });
+                    return;
+                } else {
+                    if (pArea) {
+                        $.pnotify({ title: '提示', text: '请输入套内面积！', type: 'notice' });
+                        return;
+                    }
+                }
+            }
+            //获取房间收费项目和房间仪表信息
+            var houseChargeItems = gridCharge.getRowData();
+            var houseMeterItems = gridMeter.getRowData();
+            $.ajax({
+                type: 'Post',
+                url: "@Url.Action("Create", "House")",
+                    dataType: 'json',
+                    contentType: 'application/json: charset=utf-8',
+                    data: JSON.stringify({
+                        model: {
+                            BuildingId: $('#BuildingId').val(),
+                            ApartmentId: $('#ApartmentId').val(),
+                            OwnerId: $('#OwnerId').val(),
+                            HouseNumber: $('#HouseNumber').val(),
+                            OfficerId: $('#OfficerId').val(),
+                            BuildingArea: bArea,
+                            InsideArea: iArea,
+                            PoolArea: pArea,
+                            //HouseStatusId: $('#HouseStatusId:checked').val(),
+                            ChargeItemEntities: houseChargeItems,
+                            MeterTypeItemEntities: houseMeterItems
+                        }
+                    }),
+                    success: function (data, textStatus) {
+                        if (data.redirectUrl) {
+                            window.location.href = data.redirectUrl; //后台返回的url地址
+                        } else {
+                            $.pnotify({
+                                title: '提示',
+                                text: '不能添加相同的房间！',
+                                type: 'Error'
+                            });
+                        }
+                    },
+                    error: function(xhr, data, errorThrown) {
+                        $.pnotify({
+                            title: '保存失败',
+                            text: '请检查输入数据是否符合要求！',
+                            type: 'Error'
+                        });
+                    }
+                });
+
+
+            });
+
+
+            //楼盘楼宇联动
+            var ApartmentItemId = $('#ApartmentId');
+            var BuildingItemId = $('#BuildingId');
+            ApartmentItemId.change(function() {
+                BuildingItemId.prop("disabled", ApartmentItemId.val() == '');
+                if (ApartmentItemId.val() == '') {
+                    BuildingItemId.empty();
+                    return;
+                }
+                getBuildingItems();
+            });
+
+
+            function getBuildingItems() {
+                BuildingItemId.empty();
+                $.ajax({
+                    url: "@Url.Action("GetBuildingItems", "HouseMeterReading")",
+                type: "post",
+                dataType: "json",
+                contentType: 'application/json; charset=utf-8',
+                data: JSON.stringify({
+                    apartmentItemId: ApartmentItemId.val()
+                }),
+                success: function (res) {
+                    var data = eval(res);
+                    BuildingItemId.append('<option></option>');
+                    for (var i = 0; i < data.length; i++) {
+                        BuildingItemId.append('<option value="' + data[i].Value + '">' + data[i].text + '</option>');
+                    }
+                },
+                error: function () {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '提交请求失败！'
+                    });
+                }
+            });
+        }
+
+        if (ApartmentItemId.val()) {
+            ApartmentItemId.change(); //进入页面先触发一下
+        }
+
+        //添加房间收费项目弹出框相关代码
+        var itemCategory = $("#ItemCategory");
+        $("#divMeterType").toggle(false);
+        itemCategory.data("category", " ");
+
+        function isRecurrentChargeItem() {
+            var category = itemCategory.data("category");
+            return category == "周期性收费项目";
+        }
+
+        function onChargeItemCategoryChanged() {
+            var isRecurrent = isRecurrentChargeItem();
+            $("#divChargingPeriod").toggle(isRecurrent);
+            $("#lblCustomFormula").toggle(isRecurrent);
+        }
+
+        itemCategory.change(function () {
+            var checkText = itemCategory.find("option:selected").text();
+            itemCategory.data("category", checkText);
+            onChargeItemCategoryChanged();
+            $("#divMeterType").toggle(checkText.trim() == "抄表类收费项目");
+        });
+
+
+        function onCalculationMethondChanged() {
+            var calculationMethod = $('input[name="CalculationMethod"]:checked').val();
+            $('#Money').prop("disabled", calculationMethod != '指定金额');
+            $('#CustomFormula').prop("disabled", calculationMethod != '自定义公式');
+            if (calculationMethod == '单价数量' || calculationMethod == '自定义公式') {
+                $("#MeteringMode").prop("disabled", false);
+                $("#UnitPrice").prop("disabled", false);
+            } else {
+                $("#MeteringMode").prop("disabled", true);
+                $("#UnitPrice").prop("disabled", true);
+            }
+            $("#Money").val('');
+            $("#CustomFormula").val('');
+        }
+
+        onCalculationMethondChanged();
+        $('input[name="CalculationMethod"]').change(onCalculationMethondChanged);
+        //添加房间收费项目弹出框kendoWindow中确认按钮事件代码
+        btnOkCharge.click(function (e) {
+            e.preventDefault();
+            var valCalculationMethod = $('input:radio[name="CalculationMethod"]:checked').val();
+            if (itemCategory.val() == '') {
+                $.pnotify({
+                    title: '错误',
+                    type: 'Error',
+                    text: '请选择项目类别！'
+                });
+                return false;
+            }
+            if (valCalculationMethod == null) {
+                $.pnotify({
+                    title: '错误',
+                    type: 'Error',
+                    text: '请选择金额计算方式！'
+                });
+                return false;
+            } else {
+                var unitPriceValue = $("#UnitPrice").val();
+                var meteringModeValue = $("#MeteringMode").val();
+                var moneyValue = $("#Money").val();
+                var customFormulaValue = $("#CustomFormula").val();
+                var chargingPeriodValue = $("#ChargingPeriod").val();
+                var meterType = $('#MeterType');
+                if ((valCalculationMethod == "单价数量" || valCalculationMethod == "自定义公式") && unitPriceValue == "") {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '单价不能为空！'
+                    });
+                    return false;
+                }
+                if ((valCalculationMethod == "单价数量" || valCalculationMethod == "自定义公式") && meteringModeValue == "") {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '计量方式不能为空！'
+                    });
+                    return false;
+                }
+                if (valCalculationMethod == "指定金额" && moneyValue == "") {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '指定金额不能为空！'
+                    });
+                    return false;
+                }
+                if (valCalculationMethod == "自定义公式" && customFormulaValue == "") {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '自定义公式不能为空！'
+                    });
+                    return false;
+                }
+                var isRecurrent = isRecurrentChargeItem();
+                if (isRecurrent == true && chargingPeriodValue == "") {
+                    $.pnotify({
+                        title: '错误',
+                        type: 'Error',
+                        text: '收费周期不能为空！'
+                    });
+                    return false;
+                }
+
+            }
+            if (!beginDate.val()) {
+                $.pnotify({ title: '提示', text: '请选择开始日期！', type: 'Error' });
+                return false;
+            }
+            if (endDate.val()) {
+                if (Date.parse(beginDate.val()) > Date.parse(endDate.val())) {
+                    $.pnotify({ title: '提示', text: '结束日期不能早于开始日期！', type: 'Error' });
+                    return false;
+                }
+            }
+            if (currentId) {
+                gridCharge.setRowData(currentId, {
+                    ChargeItemSettingId: chargeItemSettingId.val(),
+                    ChargeItemSettingName: chargeItemSettingId.find('option:selected').text(),
+                    ItemCategory: itemCategory.val(),
+                    CalculationMethod: valCalculationMethod,
+                    UnitPrice: unitPriceValue,
+                    MeteringMode: meteringModeValue,
+                    Money: moneyValue,
+                    CustomFormula: customFormulaValue,
+                    ChargingPeriod: chargingPeriodValue,
+                    ExpenserOptionId: expenserId.val(),
+                    ExpenserName: expenserId.find('option:selected').text(),
+                    BeginDate: beginDate.val(),
+                    EndDate: endDate.val(),
+                    Description: description.val()
+                });
+                currentId = null;
+            } else {
+                var chargeRows = gridCharge.getRowData();
+                for (var meterIndex in chargeRows) {
+                    var chargeRow = chargeRows[meterIndex];
+                    if (chargeRow.ChargeItemSettingId == chargeItemSettingId.val()) {
+                        // $.pnotify({ title: '提示', text: '不能添加重复的收费项目！', type: 'Error' });
+                        alert('不能添加重复的收费项目！');
+                        return false;
+                    }
+                }
+                gridCharge.addRowData(index++, {
+                    ChargeItemSettingId: chargeItemSettingId.val(),
+                    ChargeItemSettingName: chargeItemSettingId.find('option:selected').text(),
+                    ItemCategory: itemCategory.val(),
+                    CalculationMethod: valCalculationMethod,
+                    MeterType: meterType.val(),
+                    UnitPrice:unitPriceValue,
+                    MeteringMode:meteringModeValue,
+                    Money:moneyValue,
+                    CustomFormula:customFormulaValue,
+                    ChargingPeriod:chargingPeriodValue,
+                    ExpenserOptionId: expenserId.val(),
+                    ExpenserName: expenserId.find('option:selected').text(),
+                    BeginDate: beginDate.val(),
+                    EndDate: endDate.val(),
+                    Description: description.val()
+                });
+            }
+            chargeWindow.data("kendoWindow").close();
+        });
+
+        //添加房间收费项目弹出框kendoWindow中取消按钮事件代码
+        btnCancelCharge.click(function (e) {
+            e.preventDefault();
+            chargeWindow.data('kendoWindow').close();
+        });
+
+        //弹出框kendoWindow中收费项目改变的change事件，ajax到后台取数据
+        chargeItemSettingId.change(function () {
+            debugger;
+            if (!chargeItemSettingId.val()) return;
+            ajaxDeffer();
+        });
+        function ajaxDeffer() {
+            return $.ajax({
+                url: "@Url.Action("GetChargeItemDetailById", "House")",
+                type: "post",
+                dataType: "json",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({
+                id: chargeItemSettingId.val()
+            }),
+            success: function (res) {
+                debugger;
+                var data = eval(res);
+                for (var i = 0; i < data.length; i++) 
+                    {
+                        itemCategory.val(data[i].itemCategory);
+                        $("#UnitPrice").val(data[i].unitPrice);
+                        $("#MeteringMode").val(data[i].meteringMode);
+                        $("#Money").val(data[i].money);
+                        $("#CustomFormula").val(data[i].customFormula);
+                        $("#ChargingPeriod").val(data[i].chargingPeriod);
+                        $("#divMeterType").toggle(data[i].itemCategory.trim() == "抄表类收费项目");
+                        var calculationMethod = data[i].calculationMethod;
+                        if (calculationMethod == '单价数量') {
+                            $("#MeteringMode").prop("disabled", false);
+                            $("#UnitPrice").prop("disabled", false);
+                            $('#radioUnitPrice').prop('checked', true);
+                        } else {
+                            $("#MeteringMode").prop("disabled", true);
+                            $("#UnitPrice").prop("disabled", true);
+                        }
+                        if (calculationMethod == '指定金额') {
+                            $('#Money').prop("disabled",false);
+                            $('#radioMoney').prop('checked', true);
+                        } else {
+                            $('#Money').prop("disabled", true);
+                        }
+                        if (calculationMethod == '自定义公式') {
+                            $('#radioCustomFormula').prop('checked', true);
+                            $('#CustomFormula').prop("disabled",false);
+                            $("#MeteringMode").prop("disabled", false);
+                            $("#UnitPrice").prop("disabled", false);
+                        }
+                      
+                }
+            },
+            error: function () {
+                $.pnotify({
+                    title: '错误',
+                    type: 'Error',
+                    text: '提交请求失败！'
+                });
+            }
+        });
+    }
+
+    });
+    </script>
+}

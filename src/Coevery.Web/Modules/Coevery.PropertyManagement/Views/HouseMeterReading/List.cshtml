@@ -1,0 +1,15 @@
+﻿@{
+    Layout.Title = "抄表数据录入";
+    Script.Require("DatepickerLanguagePack");
+}
+
+@Display(Model.Content)
+
+@if (Model.Footer != null)
+{
+    <footer>
+        @Display(Model.Footer)
+    </footer>
+}
+
+

@@ -1,0 +1,11 @@
+﻿@{
+    Layout.Title = "收费项目标准列表";
+}
+
+@Display(Model.Content)
+
+@if (Model.Footer != null) {
+    <footer>
+        @Display(Model.Footer)
+    </footer>
+}

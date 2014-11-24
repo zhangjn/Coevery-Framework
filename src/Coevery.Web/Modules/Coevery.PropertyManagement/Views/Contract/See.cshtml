@@ -1,0 +1,239 @@
+﻿@using Coevery.PropertyManagement.Models
+@using Coevery.Security
+@using Coevery.Utility.Extensions
+@model Coevery.PropertyManagement.ViewModels.ContractEditViewModel
+@{
+    Layout.Title = "合同";
+    Layout.TitleDescription = "查看合同";
+    var fid = Guid.NewGuid().ToString();
+    Style.Require("jqGrid");
+    Style.Require("jqGridCustom");
+    Script.Require("jqGrid");
+    Script.Require("jqGrid_i18n");
+}
+<div class="row-fluid edit-mode">
+    <fieldset>
+        <legend>@T("基本信息")</legend>
+        <div class="data-row clearfix">
+            <div class="control controls">
+                @if (Model.ContractStatusId == (int)ContractStatusOption.签订)
+                {
+                    <button id="btnEdit" class="btn btn-small btn-primary">编辑</button>
+                }
+                @if ( Model.ContractStatusId == (int) ContractStatusOption.正在执行)
+                {
+                    <button id="btnChange" class="btn btn-small btn-warning" type="button">&nbsp;变更</button>
+                    <button id="btnStop" class="btn btn-small btn-warning" type="button">&nbsp;终止</button>
+                }
+                @{
+                    var returnUrl = Request.QueryString["returnUrl"];
+                }
+                @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+                {
+                    <a class="btn btn-small" href="@returnUrl">返回</a>
+                }
+            </div>
+        </div>
+        <div class="data-row clearfix">
+            <div class="span6 control-group">
+                <label class="title control-label">合同编号</label>
+                <div class="controls errortips">
+                    @Html.Label(Model.Number, new { @class = "label-fit" })
+                </div>
+            </div>
+            <div class="span6 control-group">
+                <label class="title control-label" for="BeginDate">起始日期</label>
+                <div class="controls errortips">
+                    <div class="input-prepend date-text" data-co-datetime-picker="date">
+                        @Html.Label(Model.BeginDate, new { @class = "label-fit" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="data-row clearfix">
+            <div class="span6 control-group">
+                <label class="title control-label">合同名称</label>
+                <div class="controls errortips">
+                    @Html.Label(Model.Name, new { @class = "label-fit" })
+                </div>
+            </div>
+            <div class="span6 control-group">
+                <label class="title control-label" for="EndDate">结束日期</label>
+                <div class="controls errortips">
+                    <div class="input-prepend date-text" data-co-datetime-picker="date">
+                        @Html.Label(Model.EndDate, new { @class = "label-fit" })
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="data-row clearfix">
+            <div class="span6 control-group">
+                <label class="title control-label">客户</label>
+                <div class="controls errortips">
+                    @Html.Label(Model.RenterName, new { @class = "label-fit" })
+                </div>
+            </div>
+            <div class="span6 control-group">
+                <label class="title control-label">合同状态</label>
+                <div class="controls errortips">
+                    @Html.Label(((ContractStatusOption)Model.ContractStatusId).ToString(), new { @class="label-fit",id = "Status" })
+                </div>
+            </div>
+        </div>
+        <div class="data-row clearfix">
+            <div class="span6 control-group">
+                <label class="title control-label">房间状态</label>
+                <div class="controls errortips">
+                    @Html.Label(Model.HouseStatus.ToString(), new { @class = "label-fit"})
+                </div>
+            </div>
+        </div>
+        <div class="data-row clearfix">
+            <div class="span12 control-group">
+                <label class="title control-label">租用房间</label>
+                <div class="controls">
+                    <table id="gridHouse"></table>
+                </div>
+            </div>
+        </div>
+        <div class="data-row clearfix">
+            <div class="span12 control-group">
+                <label class="title control-label">收费项目</label>
+                <div class="controls errortips">
+                    <table id="gridCharge"></table>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-row clearfix">
+            <div class="span12 control-group">
+                <label class="title control-label"></label>
+                <div class="controls">
+                </div>
+            </div>
+        </div>
+
+        <div class="data-row clearfix">
+            <div class="span12 control-group">
+                <label class="title control-label">描述</label>
+                <div class="controls">
+                    @Html.TextAreaFor(m => m.Description, new Dictionary<string, object>
+                        {
+                            {"style","height: 150px; width: 700px;"},
+                            {"disabled" , "disabled"}
+                        })
+                </div>
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+
+
+
+@using (Script.Foot())
+{
+    <script>
+
+        $(function () {
+            
+            //Chargegrid
+            var gridCharge = $('#gridCharge');
+            var gridOptions = {
+                colModel: [
+                    { name: 'ChargeItemSettingName', label: '收费项目名称' },
+                    { name: 'ChargingPeriod', label: '收费周期' },
+                    { name: 'CalculationMethod', label: '金额计算方式' },
+                    { name: 'UnitPrice', label: '单价', formatter: "currency", formatoptions: { decimalPlaces: 3, defaultValue: '' } },
+                    { name: 'MeteringMode', label: '计量方式' },
+                    { name: 'CustomFormula', label: '自定义公式' },
+                    { name: 'Money', label: '金额', formatter: "currency", formatoptions: { decimalPlaces: 3, defaultValue: '' } },
+                    { name: 'ItemCategory', label: '收费种类' },
+                    { name: 'MeterTypeName', label: '仪表类型' },
+                    //{ name: 'DelayChargeDays', label: '违约时间' },
+                    //{ name: 'DelayChargeRatio', label: '滞纳金比率', formatter: "currency", formatoptions: { decimalPlaces: 3, defaultValue: '' } },
+                    //{ name: 'DelayChargeCalculationMethod', label: '滞纳金计算方式' },
+                    //{ name: 'StartCalculationDatetime', label: '开始计算时间' },
+                    //{ name: 'ChargingPeriodPrecision', label: '结束计算时间' },
+                    //{ name: 'DefaultChargingPeriod', label: '默认收费周期' },
+                    { name: 'ExpenserName', label: '费用承担者' },
+                    { name: 'ChargeBeginDate', label: '开始时间' },
+                    { name: 'ChargeEndDate', label: '结束时间' },
+                    { name: 'ChargeDescription', label: '备注' }
+                ],
+                datatype: 'local',
+                height: '100%',
+                autowidth: true,
+            };
+
+            @{
+            WriteLiteral("$.extend(gridOptions, {data:" + Html.Raw(Json.Encode(Model.ChargeItemEntities)) + "})");
+         }
+
+            gridCharge.jqGrid(gridOptions);//初始化grid
+
+
+
+            //gridHouse
+            var gridHouse = $('#gridHouse');
+            var gridOptionsm = {
+                colModel: [
+                    { name: 'Id', hidden: true },
+                    { name: 'ContractId', hidden: true },
+                    { name: 'HouseId', hidden: true },
+                    { name: 'ApartmentId', hidden: true },
+                    { name: 'BuildingId', hidden: true },
+                    { name: 'OwnerId', hidden: true },
+                    { name: 'HouseNumber', label: '房号', sortable: false, resizable: false },
+                    { name: 'ApartmentName', label: '楼盘', sortable: false, resizable: false },
+                    { name: 'BuildingName', label: '楼宇', sortable: false, resizable: false },
+                    { name: 'OwnerName', label: '业主', sortable: false, resizable: false },
+                    { name: 'BuildingArea', label: '建筑面积', sortable: false, resizable: false, formatter: "currency", formatoptions: { decimalPlaces: 3 } },
+                    { name: 'InsideArea', label: '套内面积', sortable: false, resizable: false, formatter: "currency", formatoptions: { decimalPlaces: 3 } },
+                    { name: 'PoolArea', label: '公摊面积', sortable: false, resizable: false, formatter: "currency", formatoptions: { decimalPlaces: 3 } }
+                ],
+                datatype: 'local',
+                height: '100%',
+                autowidth: true
+            };
+
+            @{
+            WriteLiteral("$.extend(gridOptionsm, {data:" + Html.Raw(Json.Encode(Model.HouseEntities)) + "})");
+         }
+            gridHouse.jqGrid(gridOptionsm); //初始化grid
+
+            $('#btnEdit').click(function (e) {
+                window.location.href = '@Url.Action("Edit")/' + '@Model.Id' + '?returnUrl=@returnUrl';
+            });
+
+
+            $('#btnChange').click(function () {
+                window.location.href = '@Url.Action("Change")/' + @Model.Id + '?returnUrl=@returnUrl';
+            });
+
+
+            $('#btnStop').click(function (e) {
+                $.ajax({
+                    type: 'Post',
+                    url: "@Url.Action("StopContract", "Contract")",
+                    contentType: 'application/json: charset=utf-8',
+                    data: JSON.stringify({
+                        Id: '@Model.Id'
+                    }),
+                    success: function () {
+                        $("#Status").text('终止');
+                        $('#btnStop').hide();
+                        $("#btnEdit").hide();
+                    },
+                    error: function () {
+                        $.pnotify({
+                            title: '保存失败',
+                            text: '请检查输入数据是否符合要求！',
+                            type: 'Error'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

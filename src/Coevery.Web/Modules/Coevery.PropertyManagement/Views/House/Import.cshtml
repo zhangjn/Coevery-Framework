@@ -1,0 +1,62 @@
+﻿@using Coevery.Utility.Extensions
+@model Coevery.PropertyManagement.ViewModels.ImportViewModel
+@{
+    Layout.Title = "房间数据导入错误报告";
+}
+<table border="1">
+    <thead>
+        <tr>
+            <th>行号</th>
+            <th>字段</th>
+            <th>状态</th>
+            <th>错误信息</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.List)
+        {
+            <tr>
+                <td>@item.RowId</td>
+                <td>@item.FieldName</td>
+                <td>导入失败</td>
+                <td>@item.ErrorMessage</td>
+            </tr>
+        }
+    </tbody>
+</table>
+@if (@Model.List[0].RowId == 0)
+{
+    <div>您的表格内容格式有误,请参照下面格式填写</div>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>楼盘</th>
+                <th>楼宇</th>
+                <th>房间号</th>
+                <th>业主姓名</th>
+                <th>专管业务员</th>
+                <th>建筑面积</th>
+                <th>套内面积</th>
+                <th>公摊面积</th>
+                <th>房间状态</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>万科国际</td>
+                <td>A幢</td>
+                <td>1-101</td>
+                <td>李四</td>
+                <td>Admin</td>
+                <td>100</td>
+                <td>96</td>
+                <td>10</td>
+                <td>空置</td>
+            </tr>
+
+        </tbody>
+    </table>
+}
+<a class="btn btn-small" href='@Url.Action("List", "House", new { area = "Coevery.PropertyManagement" })'>@T("返回")</a>
+

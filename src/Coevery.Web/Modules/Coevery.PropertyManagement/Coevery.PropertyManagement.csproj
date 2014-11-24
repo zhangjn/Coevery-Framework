@@ -1,0 +1,642 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <RootNamespace>Coevery.PropertyManagement</RootNamespace>
+    <AssemblyName>Coevery.PropertyManagement</AssemblyName>
+    <ProjectGuid>{4482E918-2190-499F-9713-AAC0D7F0B184}</ProjectGuid>
+    <UseIISExpress>false</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="FluentNHibernate, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\nhibernate\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\newtonsoft.json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=4.0.0.4000, Culture=neutral, PublicKeyToken=aa95f207798dfdb4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\lib\nhibernate\NHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI">
+      <HintPath>Lib\NPOI.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OOXML">
+      <HintPath>Lib\NPOI.OOXML.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXml4Net">
+      <HintPath>Lib\NPOI.OpenXml4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="NPOI.OpenXmlFormats">
+      <HintPath>Lib\NPOI.OpenXmlFormats.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Coevery.Framework.0.2.3\lib\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target> -->
+  <Target Name="AfterBuild" DependsOnTargets="AfterBuildCompiler">
+    <PropertyGroup>
+      <AreasManifestDir>$(ProjectDir)\..\Manifests</AreasManifestDir>
+    </PropertyGroup>
+    <!-- If this is an area child project, uncomment the following line:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Child" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    -->
+    <!-- If this is an area parent project, uncomment the following lines:
+    <CreateAreaManifest AreaName="$(AssemblyName)" AreaType="Parent" AreaPath="$(ProjectDir)" ManifestPath="$(AreasManifestDir)" ContentFiles="@(Content)" />
+    <CopyAreaManifests ManifestPath="$(AreasManifestDir)" CrossCopy="false" RenameViews="true" />
+    -->
+  </Target>
+  <Target Name="AfterBuildCompiler" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(ProjectDir)\..\$(ProjectName)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>45979</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://coevery.codeplex.com</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <ItemGroup>
+    <Content Include="Module.txt" />
+    <Content Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\Web.config" />
+    <Content Include="Styles\Web.config" />
+    <Content Include="Views\Apartment\Create.cshtml" />
+    <Content Include="Views\Apartment\Detail.cshtml" />
+    <Content Include="Views\Apartment\Edit.cshtml" />
+    <Content Include="Views\Apartment\List.cshtml" />
+    <Content Include="Views\Building\Create.cshtml" />
+    <Content Include="Views\Building\Detail.cshtml" />
+    <Content Include="Views\Building\Edit.cshtml" />
+    <Content Include="Views\Building\List.cshtml" />
+    <Content Include="Views\ChargeItemSetting\Create.cshtml" />
+    <Content Include="Views\ChargeItemSetting\Detail.cshtml" />
+    <Content Include="Views\ChargeItemSetting\Edit.cshtml" />
+    <Content Include="Views\ChargeItemSetting\List.cshtml" />
+    <Content Include="Views\Customer\Create.cshtml" />
+    <Content Include="Views\Customer\Detail.cshtml" />
+    <Content Include="Views\Customer\Edit.cshtml" />
+    <Content Include="Views\Customer\List.cshtml" />
+    <Content Include="Views\Parts\CreateView-Apartment.cshtml" />
+    <Content Include="Views\Parts\CreateView-Building.cshtml" />
+    <Content Include="Views\Parts\CreateView-ChargeItem.cshtml" />
+    <Content Include="Views\Parts\CreateView-ChargeItemSetting.cshtml" />
+    <Content Include="Views\Parts\CreateView-Customer.cshtml" />
+    <Content Include="Views\Parts\DetailView-Apartment.cshtml" />
+    <Content Include="Views\Parts\DetailView-Building.cshtml" />
+    <Content Include="Views\Parts\DetailView-ChargeItem.cshtml" />
+    <Content Include="Views\Parts\DetailView-ChargeItemSetting.cshtml" />
+    <Content Include="Views\Parts\DetailView-Customer.cshtml" />
+    <Content Include="Views\Parts\EditView-Apartment.cshtml" />
+    <Content Include="Views\Parts\EditView-Building.cshtml" />
+    <Content Include="Views\Parts\EditView-ChargeItem.cshtml" />
+    <Content Include="Views\Parts\EditView-ChargeItemSetting.cshtml" />
+    <Content Include="Views\Parts\EditView-Customer.cshtml" />
+    <Content Include="Views\Parts\ListViewActions.cshtml" />
+    <Content Include="Views\Parts\ListViewActions-Building.cshtml" />
+    <Content Include="Views\Parts\ListViewActions-ChargeItem.cshtml" />
+    <Content Include="Views\Parts\ListViewActions-ChargeItemSetting.cshtml" />
+    <Content Include="Views\Parts\ListViewActions-Customer.cshtml" />
+    <Content Include="Views\Parts\ListView-Apartment.cshtml" />
+    <Content Include="Views\Parts\ListView-Building.cshtml" />
+    <Content Include="Views\Parts\ListView-ChargeItem.cshtml" />
+    <Content Include="Views\Parts\ListView-ChargeItemSetting.cshtml" />
+    <Content Include="Views\Parts\ListView-Customer.cshtml" />
+    <Content Include="Views\Parts\ListViewGrid-Apartment.cshtml" />
+    <Content Include="Views\Parts\ListViewGrid-Building.cshtml" />
+    <Content Include="Views\Parts\ListViewGrid-ChargeItem.cshtml" />
+    <Content Include="Views\Parts\ListViewGrid-ChargeItemSetting.cshtml" />
+    <Content Include="Views\Parts\ListViewGrid-Customer.cshtml" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Coevery\Coevery.Framework.csproj">
+      <Project>{2d1d92bb-4555-4cbe-8d0e-63563d6ce4c6}</Project>
+      <Name>Coevery.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Core\Coevery.Core.csproj">
+      <Project>{9916839c-39fc-4ceb-a5af-89ca7e87119f}</Project>
+      <Name>Coevery.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Coevery.Roles\Coevery.Roles.csproj">
+      <Project>{d10ad48f-407d-4db5-a328-173ec7cb010f}</Project>
+      <Name>Coevery.Roles</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Coevery.Users\Coevery.Users.csproj">
+      <Project>{79aed36e-abd0-4747-93d3-8722b042454b}</Project>
+      <Name>Coevery.Users</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Controllers\AdvancePaymentController.cs" />
+    <Compile Include="Controllers\ApartmentController.cs" />
+    <Compile Include="Controllers\BillAllocationReportController.cs" />
+    <Compile Include="Controllers\ServiceController.cs" />
+    <Compile Include="Controllers\StatementReportController.cs" />
+    <Compile Include="Controllers\InventoryController.cs" />
+    <Compile Include="Controllers\MaterialController.cs" />
+    <Compile Include="Controllers\BillReportController.cs" />
+    <Compile Include="Controllers\HouseStatusReportController.cs" />
+    <Compile Include="Controllers\OwingReportController.cs" />
+    <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\BuildingController.cs" />
+    <Compile Include="Controllers\ChargeItemSettingController.cs" />
+    <Compile Include="Controllers\ContractController.cs" />
+    <Compile Include="Controllers\CustomerController.cs" />
+    <Compile Include="Controllers\HouseController.cs" />
+    <Compile Include="Controllers\HouseMeterReadingController.cs" />
+    <Compile Include="Controllers\MeterTypeController.cs" />
+    <Compile Include="Controllers\BillController.cs" />
+    <Compile Include="Controllers\StockOutController.cs" />
+    <Compile Include="Controllers\ReceiptController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\StockReportController.cs" />
+    <Compile Include="Controllers\SupplierController.cs" />
+    <Compile Include="Drivers\BuildingPartDriver.cs" />
+    <Compile Include="Drivers\ChargeItemSettingPartDriver.cs" />
+    <Compile Include="Drivers\ContractPartDriver.cs" />
+    <Compile Include="Drivers\CustomerPartDriver.cs" />
+    <Compile Include="Drivers\HouseMeterReadingPartDriver.cs" />
+    <Compile Include="Drivers\HousePartDriver.cs" />
+    <Compile Include="Drivers\MaterialPartDriver.cs" />
+    <Compile Include="Drivers\MeterTypePartDriver.cs" />
+    <Compile Include="Drivers\AdvancePaymentPartDriver.cs" />
+    <Compile Include="Drivers\ServicePartDriver.cs" />
+    <Compile Include="Drivers\VoucherPartDriver.cs" />
+    <Compile Include="Drivers\PaymentPartDriver.cs" />
+    <Compile Include="Drivers\DepartmentPartDriver.cs" />
+    <Compile Include="Extensions\CellExtensions.cs" />
+    <Compile Include="Drivers\SupplierPartDriver.cs" />
+    <Compile Include="Extensions\ChineseAmountExtension.cs" />
+    <Compile Include="Extensions\IEnumerableExtention.cs" />
+    <Compile Include="Extensions\ObjectExtensions.cs" />
+    <Compile Include="FrontMenu.cs" />
+    <Compile Include="Handlers\BuildingPartHandler.cs" />
+    <Compile Include="Handlers\ChargeItemSettingPartHandler.cs" />
+    <Compile Include="Handlers\ContentDeletingHandler.cs" />
+    <Compile Include="Handlers\ContractPartHandler.cs" />
+    <Compile Include="Handlers\CustomerPartHandler.cs" />
+    <Compile Include="Handlers\DeleteRecordFilter.cs" />
+    <Compile Include="Handlers\HouseMeterReadingPartHandler.cs" />
+    <Compile Include="Handlers\HousePartHandler.cs" />
+    <Compile Include="Handlers\MaterialPartHandler.cs" />
+    <Compile Include="Handlers\MeterTypePartHandler.cs" />
+    <Compile Include="Handlers\AdvancePaymentPartHandler.cs" />
+    <Compile Include="Handlers\ServicePartHandler.cs" />
+    <Compile Include="Handlers\VoucherPartHandler.cs" />
+    <Compile Include="Handlers\PaymentPartHandler.cs" />
+    <Compile Include="Handlers\DepartmentPartHandler.cs" />
+    <Compile Include="Handlers\SupplierPartHandler.cs" />
+    <Compile Include="Migrations.cs" />
+    <Compile Include="Models\ApartmentPartRecord.cs" />
+    <Compile Include="Models\BillRecord.cs" />
+    <Compile Include="Models\BuildingPart.cs" />
+    <Compile Include="Models\BuildingPartRecord.cs" />
+    <Compile Include="Models\ChargeItemSettingCommonRecord.cs" />
+    <Compile Include="Models\ChargeItemSettingPart.cs" />
+    <Compile Include="Models\ChargeItemSettingPartRecord.cs" />
+    <Compile Include="Models\ContractChargeItemRecord.cs" />
+    <Compile Include="Models\ContractHouseRecord.cs" />
+    <Compile Include="Models\ContractPart.cs" />
+    <Compile Include="Models\ContractPartRecord.cs" />
+    <Compile Include="Models\CustomerPart.cs" />
+    <Compile Include="Models\CustomerPartRecord.cs" />
+    <Compile Include="Models\HouseChargeItemRecord.cs" />
+    <Compile Include="Models\HouseMeterReadingPart.cs" />
+    <Compile Include="Models\HouseMeterReadingPartRecord.cs" />
+    <Compile Include="Models\HouseMeterRecord.cs" />
+    <Compile Include="Models\HousePart.cs" />
+    <Compile Include="Models\HousePartRecord.cs" />
+    <Compile Include="Models\InventoryChangeRecord.cs" />
+    <Compile Include="Models\InventoryRecord.cs" />
+    <Compile Include="Models\Mappings\ChargeItemSettingCommonAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\ContractAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\ContractChargeItemAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\ContractHouseAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\AdvancePaymentItemAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\AdvancePaymentAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\PaymentMethodItemAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\HouseAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\HouseChargeItemAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\HouseMeterReadingAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\HouseMeterTypeItemAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\BillAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\InventoryAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\PaymentAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\PaymentLineItemAutoMappingOverride.cs" />
+    <Compile Include="Models\Mappings\ServiceAutoMappingOverride.cs" />
+    <Compile Include="Models\MaterialPart.cs" />
+    <Compile Include="Models\MaterialPartRecord.cs" />
+    <Compile Include="Models\MeterTypePart.cs" />
+    <Compile Include="Models\MeterTypePartRecord.cs" />
+    <Compile Include="Models\PaymentLineItemPartRecord.cs" />
+    <Compile Include="Models\PaymentLineItemsEntity.cs" />
+    <Compile Include="Models\AdvancePaymentPart.cs" />
+    <Compile Include="Models\AdvancePaymentPartRecord.cs" />
+    <Compile Include="Models\AdvancePaymentItemRecord.cs" />
+    <Compile Include="Models\ServicePart .cs" />
+    <Compile Include="Models\ServicePartRecord.cs" />
+    <Compile Include="Models\VoucherPart.cs" />
+    <Compile Include="Models\PaymentMethodItemRecord.cs" />
+    <Compile Include="Models\PaymentPart.cs" />
+    <Compile Include="Models\VoucherPartRecord.cs" />
+    <Compile Include="Models\PaymentPartRecord.cs" />
+    <Compile Include="Models\DepartmentPart.cs" />
+    <Compile Include="Models\SupplierPart.cs" />
+    <Compile Include="Models\DepartmentPartRecord.cs" />
+    <Compile Include="Models\SupplierPartRecord.cs" />
+    <Compile Include="ResourceManifest.cs" />
+    <Compile Include="Security\Permissions.cs" />
+    <Compile Include="Services\CustomerNumberServices.cs" />
+    <Compile Include="Services\IBillServices.cs" />
+    <Compile Include="Services\BillServices.cs" />
+    <Compile Include="Services\IInventoryService.cs" />
+    <Compile Include="Services\IReportServices.cs" />
+    <Compile Include="Services\NotifyFilter.cs" />
+    <Compile Include="Services\RecordStatusUpdator.cs" />
+    <Compile Include="Services\ReportServices.cs" />
+    <Compile Include="Services\ScheduledTaskExecutor.cs" />
+    <Compile Include="Services\StockReportService.cs" />
+    <Compile Include="Services\VoucherNumberService.cs" />
+    <Compile Include="Utility\Evaluator.cs" />
+    <Compile Include="ViewModels\AdvancePaymentCreateViewModel.cs" />
+    <Compile Include="ViewModels\AdvancePaymentItemsEntity.cs" />
+    <Compile Include="ViewModels\AdvancePaymentListViewModel.cs" />
+    <Compile Include="ViewModels\AdvancePaymentVoucherViewModel.cs" />
+    <Compile Include="ViewModels\ApartmentListViewModel.cs" />
+    <Compile Include="ViewModels\BillAllocationReportListViewModel.cs" />
+    <Compile Include="ViewModels\CheckOutViewModel.cs" />
+    <Compile Include="ViewModels\ChargeHistoryListViewModel.cs" />
+    <Compile Include="ViewModels\BillReportListViewModel.cs" />
+    <Compile Include="ViewModels\BillReportSummaryViewModel.cs" />
+    <Compile Include="ViewModels\ContractFilterOptions.cs" />
+    <Compile Include="ViewModels\InventoryReturnDetail.cs" />
+    <Compile Include="ViewModels\ServiceChargeCreateViewModel.cs" />
+    <Compile Include="ViewModels\ServiceCreateViewModel.cs" />
+    <Compile Include="ViewModels\ServiceListViewModel.cs" />
+    <Compile Include="ViewModels\ServiceVoucherCreateViewModel.cs" />
+    <Compile Include="ViewModels\StatementReportListViewModel.cs" />
+    <Compile Include="ViewModels\HouseSummaryReportViewModel.cs" />
+    <Compile Include="ViewModels\HouseStatusReportViewModel.cs" />
+    <Compile Include="ViewModels\EntitySelectorViewModel.cs" />
+    <Compile Include="ViewModels\ImportViewModel.cs" />
+    <Compile Include="ViewModels\InventoryCreateListViewModel.cs" />
+    <Compile Include="ViewModels\InventoryDetail.cs" />
+    <Compile Include="ViewModels\InventoryFilterOptions.cs" />
+    <Compile Include="ViewModels\MaterialListViewModel.cs" />
+    <Compile Include="ViewModels\PaymentFilterOptions.cs" />
+    <Compile Include="ViewModels\PaymentListViewModel.cs" />
+    <Compile Include="ViewModels\BuildingListViewModel.cs" />
+    <Compile Include="ViewModels\ChargeItemDelayChargeEditViewModel.cs" />
+    <Compile Include="ViewModels\ChargeItemSettingListViewModel.cs" />
+    <Compile Include="ViewModels\ContractChargeItemEntity.cs" />
+    <Compile Include="ViewModels\ContractCreateViewModel.cs" />
+    <Compile Include="ViewModels\ContractEditViewModel.cs" />
+    <Compile Include="ViewModels\ContractHouseEntity.cs" />
+    <Compile Include="ViewModels\ContractListViewModel.cs" />
+    <Compile Include="ViewModels\CustomerListViewModel.cs" />
+    <Compile Include="ViewModels\HouseFilterOptions.cs" />
+    <Compile Include="ViewModels\HoseMeterDataCreateViewModel.cs" />
+    <Compile Include="ViewModels\HoseMeterReadingItemsEntity.cs" />
+    <Compile Include="ViewModels\HouseChargeItemEntity.cs" />
+    <Compile Include="ViewModels\HouseCreateViewModel.cs" />
+    <Compile Include="ViewModels\HouseEditViewModel.cs" />
+    <Compile Include="ViewModels\HouseListViewModel.cs" />
+    <Compile Include="ViewModels\HouseMeterReadingFilterOptions.cs" />
+    <Compile Include="ViewModels\HouseMeterReadingListViewModel.cs" />
+    <Compile Include="ViewModels\HouseMeterEntity.cs" />
+    <Compile Include="ViewModels\MeterTypeListViewModel.cs" />
+    <Compile Include="ViewModels\BillFilterOptions.cs" />
+    <Compile Include="ViewModels\BillListViewModel.cs" />
+    <Compile Include="ViewModels\PaymentMethodViewModel.cs" />
+    <Compile Include="ViewModels\ReceiptListViewModel.cs" />
+    <Compile Include="ViewModels\DepartmentListViewModel.cs" />
+    <Compile Include="ViewModels\StockSummaryEntity.cs" />
+    <Compile Include="ViewModels\StockSummaryListViewModel.cs" />
+    <Compile Include="ViewModels\StockFilterOptions.cs" />
+    <Compile Include="ViewModels\SupplierListViewModel.cs" />
+    <Compile Include="ViewModels\StockDetailListViewModel.cs" />
+    <Compile Include="ViewModels\VoucherListViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\MeterType\Create.cshtml" />
+    <Content Include="Views\MeterType\Detail.cshtml" />
+    <Content Include="Views\MeterType\Edit.cshtml" />
+    <Content Include="Views\MeterType\List.cshtml" />
+    <Content Include="Views\Parts\CreateView-MeterType.cshtml" />
+    <Content Include="Views\Parts\DetailView-MeterType.cshtml" />
+    <Content Include="Views\Parts\EditView-MeterType.cshtml" />
+    <Content Include="Views\Parts\ListView-MeterType.cshtml" />
+    <Content Include="Views\Parts\ListViewActions-MeterType.cshtml" />
+    <Content Include="Views\Parts\ListViewGrid-MeterType.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\House\Create.cshtml" />
+    <Content Include="Views\House\Detail.cshtml" />
+    <Content Include="Views\House\Edit.cshtml" />
+    <Content Include="Views\House\List.cshtml" />
+    <Content Include="Views\Parts\DetailView-House.cshtml" />
+    <Content Include="Views\Parts\EditView-House.cshtml" />
+    <Content Include="Views\Parts\ListView-House.cshtml" />
+    <Content Include="Views\Parts\ListViewActions-House.cshtml" />
+    <Content Include="Views\Parts\ListViewGrid-House.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\CreateView-House.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListView-HouseMeterReading.cshtml" />
+    <Content Include="Views\Parts\ListViewGrid-HouseMeterReading.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\HouseMeterReading\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListViewActions-HouseMeterReading.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Contract\Create.cshtml" />
+    <Content Include="Views\Contract\Detail.cshtml" />
+    <Content Include="Views\Contract\Edit.cshtml" />
+    <Content Include="Views\Contract\List.cshtml" />
+    <Content Include="Views\Parts\CreateView-Contract.cshtml" />
+    <Content Include="Views\Parts\DetailView-Contract.cshtml" />
+    <Content Include="Views\Parts\EditView-Contract.cshtml" />
+    <Content Include="Views\Parts\ListView-Contract.cshtml" />
+    <Content Include="Views\Parts\ListViewActions-Contract.cshtml" />
+    <Content Include="Views\Parts\ListViewGrid-Contract.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Bill\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Payment\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\HouseMeterReading\Import.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EntitySelector.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Payment\PaymentPreviewTemplate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Contract\See.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\ChargeItemSetting\EditDelayCharge.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Contract\ChargeItemSettingTemplate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Contract\Change.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\EntityMultipleSelector.cshtml" />
+    <Content Include="Views\Receipt\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\CreateView-Material.cshtml" />
+    <Content Include="Views\Parts\EditView-Material.cshtml" />
+    <Content Include="Views\Parts\ListView-Material.cshtml" />
+    <Content Include="Views\Parts\ListViewActions-Material.cshtml" />
+    <Content Include="Views\Parts\ListViewGrid-Material.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\BillReport\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\OwingReport\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\HouseStatusReport\List.cshtml" />
+    <Content Include="Views\Material\Create.cshtml" />
+    <Content Include="Views\Material\Edit.cshtml" />
+    <Content Include="Views\Material\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Inventory\Create.cshtml" />
+    <Content Include="Views\Inventory\InventoryCreateVoucherPreview.cshtml" />
+    <Content Include="Views\Inventory\VoucherPreviewTemplate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StockOut\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StockOut\StockOutVoucherPreview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StockOut\VoucherPreviewTemplate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Payment\CheckOut.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Supplier\Create.cshtml" />
+    <Content Include="Views\Payment\PaymentMethod.cshtml" />
+    <Content Include="Views\Supplier\Edit.cshtml" />
+    <Content Include="Views\Supplier\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\CreateView-Supplier.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\EditView-Supplier.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListView-Supplier.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListViewActions-Supplier.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListViewGrid-Supplier.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Department\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Department\Edit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Department\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\CreateView-Department.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\EditView-Department.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListView-Department.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListViewActions-Department.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListViewGrid-Department.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Inventory\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Inventory\InventoryVoucherHistoryView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StockOut\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StockOut\StockOutVoucherHistoryView.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StockReport\StockInDetailList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StockReport\StockOutDetailList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StockReport\StockSumarryList.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\StatementReport\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\House\Import.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Service\Create.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Service\PickUpMaterial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Service\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListView-Service.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListViewActions-Service.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Parts\ListViewGrid-Service.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Service\VoucherPreviewTemplate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Service\ServiceVoucherPreview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Service\ServiceVoucherHistoryPreview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Service\ServiceCharge.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Service\ServiceChargePreviewTemplate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Service\ServiceChargePreview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdvancePayment\CustomerAdvancePayment.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdvancePayment\CustomerAdvancePaymentPreview.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdvancePayment\CustomerAdvancePreviewTemplate.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\AdvancePayment\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\BillAllocationReport\List.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\EditorTemplates\" />
+  </ItemGroup>
+</Project>

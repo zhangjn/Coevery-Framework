@@ -1,0 +1,235 @@
+﻿@using Coevery.Utility.Extensions
+@using Coevery.ContentManagement
+@{
+    var id = Guid.NewGuid().ToString();
+    ContentPart part = Model.ContentPart;
+    part.SetFieldParameter("Building", new { DropdownUrl = Url.Action("BuildingDropdown", "House") });
+    part.SetFieldParameter("Apartment", new { DropdownUrl = Url.Action("ApartmentDropdown", "House") });
+    part.SetFieldParameter("Owner", new { DropdownUrl = Url.Action("OwnerDropdown", "House") });
+}
+<div class="row-fluid edit-mode">
+    @using (Html.BeginFormAntiForgeryPost(Url.Action("Create", "House", new { returnUrl = Request.QueryString["ReturnUrl"] }),
+        FormMethod.Post, new { @class = "form-horizontal", id = id }))
+    {
+        <fieldset>
+            <legend>@T("基本信息")</legend>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Building")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Apartment")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Owner")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "HouseNumber")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "Officer")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "BuildingArea")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "InsideArea")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "PoolArea")
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    @Display.DisplayFieldEditor(part: Model.ContentPart, fieldName: "HouseStatus")
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset id="ChargeItemsList">
+            <legend>收费项目</legend>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="title control-label">收费项目</label>
+                    <div class="control controls">
+                        <div class="btn-toolbar">
+                            <button id="btnAddChargeItem" class="btn btn-small"><i class="icon-plus"></i>&nbsp;添加</button>
+                            <button id="btnEditChargeItem" class="btn btn-small"><i class="icon-edit"></i>&nbsp;修改</button>
+                            <button id="btnDeleteChargeItem" class="btn btn-small"><i class="icon-trash"></i>&nbsp;删除</button>
+                        </div>
+                        <table id="chargeItemsGrid"></table>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="chargeItem-add-modal" class="modal hide">
+                <div class="modal-header">
+                    <button class="close" type="button" data-dismiss="modal">×</button>
+                    添加收费项目
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal">
+
+                        <div class="data-row clearfix">
+                            <div class="control-group">
+                                <label class="title control-label">收费项目</label>
+                                <div class="controls">
+                                    @Html.DropDownList("ChargeItemId", (List<SelectListItem>)ViewData["ChargeItems"])
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="data-row clearfix">
+                            <div class="control-group">
+                                <label class="title control-label">收费标准</label>
+                                <div class="controls">
+                                    <select id="ChargeItemSettingId">
+                                        <option value="">请选择收费标准</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="data-row clearfix">
+                            <label class="title control-label" for="BeginDate">开始时间</label>
+                            <div class="control controls">
+                                <div class="input-prepend" data-co-datetime-picker="date">
+                                    <span class="add-on">
+                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                    </span>
+                                    @Html.TextBox("BeginDate", DateTime.Now.ToString("MM/dd/yyyy"), new Dictionary<string, object>{
+                                  {"required",""},
+                                  {"class","date text"},
+                                  {"data-msg-required","开始时间！"}})
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        <div class="data-row clearfix">
+                            <label class="title control-label" for="EndDate">结束时间</label>
+                            <div class="control controls">
+                                <div class="input-prepend" data-co-datetime-picker="date">
+                                    <span class="add-on">
+                                        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
+                                    </span>
+                                    @Html.TextBox("EndDate", "", new Dictionary<string, object>{
+                                  {"class","date text"},
+                                  {"data-msg-required","结束时间！"}})
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="data-row clearfix">
+                            <div class="control-group">
+                                <label class="title control-label">备注</label>
+                                <div class="controls">
+                                    <input id="description" name="description"  class="text"/>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btnOK" class="btn btn-small btn-ok btn-primary">确定</button>
+                    <a href="#" class="btn btn-small" data-dismiss="modal">取消</a>
+                </div>
+            </div>
+            
+
+        </fieldset>
+        
+        
+        <fieldset id="MeterTypeItemsList">
+            <legend>房间仪表</legend>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="control-label">MeterTypeItemsList</label>
+                    <div class="control controls">
+                        <div class="btn-toolbar">
+                            <button id="btnAddMeterTypeItem" class="btn btn-small"><i class="icon-plus"></i>&nbsp;添加</button>
+                            <button id="btnEditMeterTypeItem" class="btn btn-small"><i class="icon-edit"></i>&nbsp;修改</button>
+                            <button id="btnDeleteMeterTypeItem" class="btn btn-small"><i class="icon-trash"></i>&nbsp;删除</button>
+                        </div>
+                        <table id="meterTypeItemsGrid"></table>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+
+        <div class="data-row clearfix">
+            <div class="control controls">
+                <button type="submit" class="btn btn-small btn-primary">@T("保存")</button>
+                @{
+        var returnUrl = Request.QueryString["returnUrl"];
+                }
+                @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+                {
+                    <a class="btn btn-small" href="@returnUrl">@T("取消")</a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@using (Script.Foot())
+{
+    <script>
+        $('#@id').validate();
+
+
+        $(function() {
+
+            $('#btnAddChargeItem').click(function() {
+                $('#chargeItem-add-modal').show();
+            });
+
+            if ($('#ChargeItemId').val() != null) {
+                $('#ChargeItemId').change();
+            }
+            //收费项目改变的change事件，ajax到后台取收费标准的数据
+            $('#ChargeItemId').change(function() {
+                //alert('执行了change事件！');//已经执行了
+                //ajax到后台绑定收费标准列表
+                var $this = $(this);
+                if ($this.val() == null) return;
+                $.ajax({
+                    url: "@Url.Action("GetChargeSettingItems", "House")",
+                    type: "post",
+                    dataType: "json",
+                    contentType: 'application/json; charset=utf-8',
+                    data: JSON.stringify({ ChargeItemId: $this.val() }),
+                    success: function(res) {
+                        $("#ChargeItemSettingId").empty();
+                        var data = eval(res);
+                        for (var i = 0; i < data.length; i++) {
+                            $("#ChargeItemSettingId").append('<option value="' + data[i].Id + '">' + data[i].Name + '</option>');
+                        }
+                    },
+                    error: function() {
+                        $.pnotify({
+                            title: '错误',
+                            type: 'Error',
+                            text: '提交请求失败！'
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+}

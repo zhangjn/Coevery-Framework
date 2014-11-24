@@ -1,0 +1,11 @@
+﻿Name: Coevery.PropertyManagement
+AntiForgery: disabled
+Author: The Coevery Team
+Website: http://www.coevery.com
+Version: 1.0
+CoeveryVersion: 1.0
+Description: Description for the module
+Features:
+    Coevery.PropertyManagement:
+        Description: Description for feature Coevery.PropertyManagement
+		Dependencies: OptionSet, ListViewDesigner

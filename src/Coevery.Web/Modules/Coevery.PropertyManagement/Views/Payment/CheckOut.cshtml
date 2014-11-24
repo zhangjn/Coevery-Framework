@@ -1,0 +1,128 @@
+﻿@using Coevery.PropertyManagement.ViewModels
+@using Coevery.Utility.Extensions
+@model CheckOutViewModel
+
+@{
+    Layout.Title = "客户缴费";
+    Layout.TitleDescription = "欠费明细";
+    Style.Include("Voucher.css");
+}
+<div class="data-row clearfix">
+    <div class="span12 control-group">
+        <label class="title control-label"></label>
+        <div class="control controls errortips">
+        </div>
+    </div>
+</div>
+<div>
+    <button id="btnSubmit" class="btn btn-small btn-primary">@T("缴费")</button>
+    @{
+        var returnUrl = Request.QueryString["returnUrl"];
+    }
+    @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+    {
+        <a class="btn btn-small" href="@returnUrl">@T("取消")</a>
+    }
+</div>
+<h2 class="text-center">欠费明细</h2>
+<hr />
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>合同号</th>
+            <th>楼盘</th>
+            <th>楼宇</th>
+            <th>房间号</th>
+            <th>收费描述</th>
+            <th>开始时间</th>
+            <th>结束时间</th>
+            <th>年</th>
+            <th>月</th>
+            <th>用量</th>
+            <th>金额</th>
+            <th>优惠</th>
+            <th>滞纳金</th>
+            <th>小计</th>
+            <th>备注</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var bill in Model.List)
+        {
+            <tr>
+                <td>@bill.ContractNumber</td>
+                <td>@bill.ApartmentName</td>
+                <td>@bill.BuildingName</td>
+                <td>@bill.HouseNumber</td>
+                <td>@bill.ChargeItemSettingDescription</td>
+                <td>@bill.BeginDate</td>
+                <td>@bill.EndDate</td>
+                <td>@bill.Year</td>
+                <td>@bill.Month</td>
+                <td>@bill.Quantity</td>
+                @if (bill.Amount.HasValue)
+                {
+                    <td>@Math.Round(bill.Amount.Value, 2)</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (bill.Exempt.HasValue)
+                {
+                    <td>@Math.Round(bill.Exempt.Value, 2)</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (bill.DelayCharge.HasValue)
+                {
+                    <td>@Math.Round(bill.DelayCharge.Value, 2)</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (bill.Total.HasValue)
+                {
+                    <td>@Math.Round(bill.Total.Value, 2)</td>
+                }
+                else
+                {
+                    <td></td>
+                }
+
+                <td>@bill.Notes</td>
+            </tr>
+        }
+        @if (Model.TotalMoney > 0)
+        {
+            <tr>
+                <td>合计大写</td>
+                <td colspan="6">@Model.ToTalBigMoney</td>
+                <td>小写</td>
+                <td colspan="6">@Math.Round(Model.TotalMoney, 2)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="sign-left">
+    <p>欠款人：<span>@Model.Expenser.Name</span></p>
+</div>
+<div class="sign-right">
+    <p>收款人：<span>@Model.ChargeUser</span></p>
+</div>
+<div class="sign-date">日期：<span>@Model.ChargeDate</span></div>
+<hr />
+@using (Script.Foot())
+{
+    <script>
+        $(function () {
+            $('#btnSubmit').click(function (e) {
+                //get方式:
+                window.location.href = '@Url.Action("PaymentMethod")@Html.Raw(@Request.Url.Query)';
+            });
+        });
+    </script>
+}

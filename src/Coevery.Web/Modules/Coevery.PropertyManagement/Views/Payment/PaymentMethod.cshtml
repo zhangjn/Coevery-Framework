@@ -1,0 +1,282 @@
+﻿@using Coevery.PropertyManagement.Models
+@using Coevery.PropertyManagement.ViewModels
+@using Coevery.Utility.Extensions
+@model CheckOutViewModel
+
+@{
+    Layout.Title = "客户缴费";
+    Layout.TitleDescription = "收费方式";
+    Style.Require("jqGrid");
+    Style.Require("jqGridCustom");
+    Script.Require("jqGrid");
+    Script.Require("jqGrid_i18n");
+}
+<div class="row-fluid edit-mode">
+    <fieldset>
+
+        <div class="data-row clearfix">
+            <div class="span12 control-group">
+                <label class="title control-label"></label>
+                <div class="control controls errortips">
+                </div>
+            </div>
+        </div>
+        <div class="data-row clearfix">
+            <div class="span12 control-group">
+                <label class="title control-label">欠费金额</label>
+                <div class="controls errortips">
+                    <label id="remainMoney" class="label-fit">@Math.Round(Model.TotalMoney, 2)</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="data-row clearfix">
+            <div class="span12 control-group">
+                <label class="title control-label label-fit">收费列表</label>
+                <div class="control controls">
+                    <div class="btn-toolbar">
+                        <a class="btn btn-small" onclick=" $('#add-payment').toggle(); "><i class="icon-plus"></i>&nbsp;添加</a>
+                        <button id="btnDelete" class="btn btn-small" disabled="disabled"><i class="icon-trash"></i>&nbsp;删除</button>
+                    </div>
+                    <div class="widget hide" id="add-payment">
+                        <div class="widget-content">
+                            <div>
+                                <div class="data-row clearfix">
+                                    <div class="span12 control-group">
+                                        <label class="title control-label required">付款方式</label>
+                                        <div class="control controls errortips">
+                                            <select id="PaymentMethodId" class="text">
+                                                <option value="@Convert.ToInt32(PaymentMethodOption.现金)" selected="selected">@PaymentMethodOption.现金.ToString()</option>
+                                                <option value="@Convert.ToInt32(PaymentMethodOption.刷卡)">@PaymentMethodOption.刷卡.ToString()</option>
+                                                <option value="@Convert.ToInt32(PaymentMethodOption.转账)">@PaymentMethodOption.转账.ToString()</option>
+                                                <option value="@Convert.ToInt32(PaymentMethodOption.其它)">@PaymentMethodOption.其它.ToString()</option>
+                                                <option value="@Convert.ToInt32(PaymentMethodOption.预付款)">@PaymentMethodOption.预付款.ToString()</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="data-row clearfix" id="divAdvancePayment" >
+                                    <div class="span12 control-group">
+                                        <label class="title control-label">可用预付款</label>
+                                        <div class="control controls errortips">
+                                            <input type="text" class="text" readonly="true" id="txtAdvancePayAmount">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="data-row clearfix">
+                                    <div class="span12 control-group">
+                                        <label class="title control-label">付款金额</label>
+                                        <div class="control controls errortips">
+                                            <input type="text" class="text" id="txtPayAmount">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="data-row clearfix">
+                                    <div class="span12 control-group">
+                                        <label class="title control-label">备注</label>
+                                        <div class="control controls errortips">
+                                            <input type="text" class="text" id="txtDescription">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="data-row clearfix">
+                                    <div class="span12 control-group">
+                                        <label class="title control-label"></label>
+                                        <div class="control controls errortips">
+                                            <a id="btnAdd" class="btn btn-small">添加</a>
+                                            <a id="cancleAdd" class="btn btn-small">取消</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="widget">
+                        <div class="widget-content">
+                            <div id="grid_container">
+                                <table id="paymentMethodGrid" style="display: none;"></table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </fieldset>
+    <div class="data-row clearfix">
+        <div class="control controls">
+            <button type="submit" id="btnSubmit" class="btn btn-small btn-primary">缴费</button>
+            @{
+                var returnUrl = Request.QueryString["returnUrl"];
+            }
+            @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+            {
+                <a class="btn btn-small" href="@returnUrl">返回</a>
+            }
+        </div>
+    </div>
+</div>
+
+
+@using (Script.Foot())
+{
+    <script>
+        $(function() {
+            var btnAdd = $('#btnAdd'),
+                btnDelete = $('#btnDelete'),
+                payMethodId = $('#PaymentMethodId'),
+                payAmount = $('#txtPayAmount'),
+                description = $('#txtDescription'),
+                remainMoney = $('#remainMoney'),
+                advancePayAmount = $('#txtAdvancePayAmount'),
+             proRemainMoney = parseFloat(remainMoney.text());
+            $("#divAdvancePayment").toggle(false);
+            var index = 1;
+
+            function updateButtonStatus() {
+                var selectedRowIds = grid.getGridParam('selarrrow');
+                if (selectedRowIds.length >= 1) {
+                    btnDelete.prop('disabled', false);
+                } else {
+                    btnDelete.prop('disabled', true);
+                }
+            }
+
+            //grid
+            var grid = $('#paymentMethodGrid');
+            var gridOptions = {
+                colModel: [
+                    { name: 'PaymentMethodId', hidden: true },
+                    { name: 'Amount', label: '金额', formatter: "currency", formatoptions: { decimalPlaces: 2, defaultValue: '' } },
+                    { name: 'PaymentMethod', label: '收费方式' },
+                    { name: 'Description', label: '备注' }
+                ],
+                datatype: 'local',
+                height: '100%',
+                multiselect: true,
+                multiboxonly: true,
+                autowidth: true,
+                onSelectRow: updateButtonStatus,
+                onSelectAll: updateButtonStatus
+            };
+
+            grid.jqGrid(gridOptions); //初始化grid
+            grid.show();
+            $('#cancleAdd').click(function() {
+                payAmount.val('');
+                description.val('');
+                $('#add-payment').toggle(false);
+            });
+            //点击添加，给grid添加缴费条目
+            btnAdd.click(function(e) {
+                e.preventDefault();
+                if (isNaN(payAmount.val())) {
+                    $.pnotify({ title: '提示', text: '付款金额必须是数字！', type: 'Error' });
+                    return;
+                } else {
+                    if (parseFloat(payAmount.val()) < 0) {
+                        $.pnotify({ title: '提示', text: '费用不能为负数！', type: 'Error' });
+                        return;
+                    }
+                }
+                if (!payMethodId.val()) {
+                    $.pnotify({ title: '提示', text: '请选择付款方式！', type: 'Error' });
+                    return;
+                }
+
+                if (payMethodId.val() == 5 && (parseFloat(payAmount.val()) > parseFloat(remainMoney.text())||
+                    parseFloat(payAmount.val()) > parseFloat(advancePayAmount.val()))) {
+                    $.pnotify({ title: '提示', text: '预付款缴费金额不能大于应收金额或可用余额！', type: 'Error' });
+                    return;
+                }
+                var leftMoney = (parseFloat(remainMoney.text()) - parseFloat(payAmount.val())).toFixed(2);
+                remainMoney.text(leftMoney);
+                grid.addRowData(index++, {
+                    PaymentMethodId: payMethodId.val(),
+                    PaymentMethod: payMethodId.find('option:selected').text(),
+                    Amount: payAmount.val(),
+                    Description: description.val()
+                });
+
+                $('#cancleAdd').click();
+            });
+
+            //删除
+            btnDelete.click(function(e) {
+                e.preventDefault();
+                var selectedIds = grid.getGridParam('selarrrow');
+                if (selectedIds.length == 0) {
+                    return;
+                }
+                while (selectedIds.length) {
+                    var rowData = grid.getRowData(selectedIds[0]);
+
+                    var leftMoney = (parseFloat(remainMoney.text()) + parseFloat(rowData.Amount)).toFixed(2);
+                    if (leftMoney <= proRemainMoney) {
+                        remainMoney.text(leftMoney);
+                    } else {
+                        $.pnotify({ title: '提示', text: '数据异常！', type: 'Error' });
+                        return;
+                    }
+                    grid.delRowData(selectedIds[0]);
+                }
+            });
+
+
+            //submit,构造checkViewModel 保存数据
+            $('#btnSubmit').click(function(e) {
+                //e.preventDefault();
+                if (parseFloat(remainMoney.text()) > 0) {
+                    $.pnotify({
+                        title: '错误',
+                        text: '还有欠费，请继续付款！',
+                        type: 'Error'
+                    });
+                    return;
+                }
+                $.ajax({
+                    type: 'Post',
+                    url: "@Html.Raw(Request.RawUrl)",
+                    dataType: 'json',
+                    contentType: 'application/json: charset=utf-8',
+                    data: JSON.stringify({
+                        paymentMethodList: grid.getRowData()
+                    }),
+                    success: function(data) {
+                        if (data.redirectUrl) {
+                            $.pnotify({ title: '提示', text: '收费成功！', type: 'Info' });
+                            window.location.href = data.redirectUrl;
+                        }
+                    }
+                });
+
+            });
+
+            $("#PaymentMethodId").on("change", function() {
+                if (payMethodId.val() == 5) {
+                    $.ajax({
+                        type: 'Post',
+                        url: "@Url.Action("GetCustomerBalance", "AdvancePayment")",
+                        dataType: 'json',
+                        contentType: 'application/json: charset=utf-8',
+                        data: JSON.stringify({
+                            customerId: '@Model.Expenser.Id'
+                        }),
+                        success: function(data) {
+                            $("#divAdvancePayment").toggle(true);
+                            $('#txtAdvancePayAmount').val(data);
+
+                        }
+                    });
+                } else {
+                    $("#divAdvancePayment").toggle(false);
+                    $('#txtAdvancePayAmount').val('');
+                }
+            });
+
+        });
+    </script>
+}

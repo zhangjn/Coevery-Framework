@@ -1,0 +1,155 @@
+﻿@using Coevery.PropertyManagement.Models
+@using Coevery.Utility.Extensions
+@model Coevery.PropertyManagement.ViewModels.ChargeItemDelayChargeEditViewModel
+@{
+    Layout.Title = "滞纳金";
+    Layout.TitleDescription = string.Format("修改一个滞纳金");
+    var id = Guid.NewGuid().ToString();
+}
+<div class="row-fluid edit-mode">
+    @using (Html.BeginFormAntiForgeryPost(Url.Action("EditDelayCharge", "ChargeItemSetting", new { id = Model.Id, returnUrl = Request.QueryString["ReturnUrl"] }),
+        FormMethod.Post, new { @class = "form-horizontal", id = id }))
+    {
+        <fieldset>
+            <legend>@T("General Information")</legend>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="control-label title">收费项目</label>
+                    <div class="control controls">
+                        @Html.TextBox("Name", @Model.ChargeItemName, new
+                        {
+                            @class = "text",
+                            @readonly = true
+                        })
+                    </div>
+
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="control-label title">滞纳金设置</label>
+                    <div class="control controls">
+                        从欠费
+                        @Html.TextBox("DelayChargeDays", @Model.DelayChargeDays, new
+                        {
+                            @class = "text"
+                        })
+                        天开始收取滞纳金,
+                    </div>
+                    <div class="control controls">
+                        收取比例为每天
+                        @Html.TextBox("DelayChargeRatio", @Model.DelayChargeRatio, new
+                        {
+                            @class = "text"
+                        })
+                    </div>
+                </div>
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="control-label title">计算方式</label>
+                    <div class="control controls">
+                        @Html.RadioButton("DelayChargeCalculationMethod", DelayChargeCalculationMethodOption.手动计算滞纳金, @Model.DelayChargeCalculationMethod == DelayChargeCalculationMethodOption.手动计算滞纳金,
+                            new { id = "radioManul" })
+                        手动计算滞纳金
+
+                        @Html.RadioButton("DelayChargeCalculationMethod", DelayChargeCalculationMethodOption.自动计算滞纳金, @Model.DelayChargeCalculationMethod == DelayChargeCalculationMethodOption.自动计算滞纳金,
+                            new { id = "radioAuto" })
+                        自动计算滞纳金
+                    </div>
+                </div>
+
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="control-label title ">开始计算时间</label>
+                    <div class="control controls">
+                        @Html.RadioButton("StartCalculationDatetime", StartCalculationDatetimeOption.欠费开始时间, @Model.StartCalculationDatetime == StartCalculationDatetimeOption.欠费开始时间,
+                            new { id = "radioCalculationDateStart" })
+                        欠费开始时间
+
+
+                        @Html.RadioButton("StartCalculationDatetime", StartCalculationDatetimeOption.欠费结束时间, @Model.StartCalculationDatetime == StartCalculationDatetimeOption.欠费结束时间,
+                            new { id = "radioCalculationDateE" })
+                        欠费结束时间
+                    </div>
+                </div>
+
+            </div>
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="control-label title ">不足一个收费周期</label>
+                    <div class="control controls">
+                        @Html.RadioButton("ChargingPeriodPrecision", ChargingPeriodPrecisionOption.按周期计算, @Model.ChargingPeriodPrecision == ChargingPeriodPrecisionOption.按周期计算,
+                            new { id = "radioPeriod" })
+                        按周期计算
+
+
+                        @Html.RadioButton("ChargingPeriodPrecision", ChargingPeriodPrecisionOption.按实际天数计算, @Model.ChargingPeriodPrecision == ChargingPeriodPrecisionOption.按实际天数计算,
+                            new { id = "radioDays" })
+                        按实际天数计算
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="data-row clearfix">
+                <div class="span12 control-group">
+                    <label class="control-label title ">默认收费周期</label>
+                    <div class="control controls">
+                        @Html.RadioButton("DefaultChargingPeriod", DefaultChargingPeriodOption.当期收当期, @Model.DefaultChargingPeriod == DefaultChargingPeriodOption.当期收当期,
+                            new { id = "radioCurrent" })
+                        当期收当期
+                        @Html.RadioButton("DefaultChargingPeriod", DefaultChargingPeriodOption.当期收上期, @Model.DefaultChargingPeriod == DefaultChargingPeriodOption.当期收上期,
+                            new { id = "radioPre" })
+                        当期收上期
+                        @Html.RadioButton("DefaultChargingPeriod", DefaultChargingPeriodOption.当期收下期, @Model.DefaultChargingPeriod == DefaultChargingPeriodOption.当期收下期,
+                            new { id = "radioNext" })
+                        当期收下期
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+        <div class="data-row clearfix">
+            <div class="control controls">
+                <button id="btnSubmit" type="submit" class="btn btn-small btn-primary">@T("保存")</button>
+                @{
+        var returnUrl = Request.QueryString["returnUrl"];
+                }
+                @if (!String.IsNullOrWhiteSpace(returnUrl) && Request.IsLocalUrl(returnUrl))
+                {
+                    <a class="btn btn-small" href="@returnUrl">@T("取消")</a>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+@using (Script.Foot())
+{
+    <script>
+        $('#@id').validate();
+        $('#btnSubmit').click(function () {
+            var chargeDays = $('#DelayChargeDays').val();
+            var delayChargeRatio = $('#DelayChargeRatio').val();
+            if (isNaN(chargeDays)) {
+                $.pnotify({
+                    title: '提示',
+                    text: '欠费天数必须为数字！',
+                    type: 'Error'
+                });
+                return false;
+            }
+            if (isNaN(delayChargeRatio)) {
+                $.pnotify({
+                    title: '提示',
+                    text: '收取比例必须为数字！',
+                    type: 'Error'
+                });
+                return false;
+            }
+            return true;
+        });
+    </script>
+}
